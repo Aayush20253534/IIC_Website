@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RenaissanceIntro from "./components/RenaissanceIntro";
 import PirateCursor from "./components/PirateCursor";
 import Navbar from "./components/Navbar";
+import ThreeBackground from "./pages/background";
 
 // Pages
 import Home from "./pages/Home";
@@ -23,6 +24,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      {/* Persistent visual layer shared by every route. */}
+      <ThreeBackground />
+
       {/* 1. NetraAI-style Cinematic Splash Screen */}
       {showIntro && (
         <RenaissanceIntro
@@ -39,7 +43,7 @@ export default function App() {
 
 
       {/* 5. Main Route Views */}
-      <div className="min-h-screen bg-[#050B14] text-[#F4EBD9]">
+      <div className="relative z-10 min-h-screen bg-[#050B14]/80 text-[#F4EBD9]">
         <Routes>
           {/* Main Summit Portal */}
           <Route path="/" element={<Home />} />

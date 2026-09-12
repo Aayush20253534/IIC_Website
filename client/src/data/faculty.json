@@ -1,0 +1,58 @@
+{
+  "faculty": [
+    {
+      "name": "Faculty Advisor 1",
+      "position": "President (Placeholder)",
+      "phone": "+91-532-2270001",
+      "email": "faculty1@mnnit.ac.in",
+      "image_url": "/placeholder-speaker.svg",
+      "profile_link": "#",
+      "linkedin": "#"
+    },
+    {
+      "name": "Faculty Advisor 2",
+      "position": "Vice-President (Placeholder)",
+      "phone": "+91-532-2270002",
+      "email": "faculty2@mnnit.ac.in",
+      "image_url": "/placeholder-speaker.svg",
+      "profile_link": "#",
+      "linkedin": "#"
+    },
+    {
+      "name": "Faculty Coordinator 1",
+      "position": "Faculty Coordinator (Placeholder)",
+      "phone": "+91-532-2270003",
+      "email": "faculty3@mnnit.ac.in",
+      "image_url": "/placeholder-speaker.svg",
+      "profile_link": "#",
+      "linkedin": "#"
+    },
+    {
+      "name": "Faculty Coordinator 2",
+      "position": "Faculty Coordinator (Placeholder)",
+      "phone": "+91-532-2270004",
+      "email": "faculty4@mnnit.ac.in",
+      "image_url": "/placeholder-speaker.svg",
+      "profile_link": "#",
+      "linkedin": "#"
+    },
+    {
+      "name": "Faculty Coordinator 3",
+      "position": "Faculty Coordinator (Placeholder)",
+      "phone": "+91-532-2270005",
+      "email": "faculty5@mnnit.ac.in",
+      "image_url": "/placeholder-speaker.svg",
+      "profile_link": "#",
+      "linkedin": "#"
+    },
+    {
+      "name": "Faculty Coordinator 4",
+      "position": "Faculty Coordinator (Placeholder)",
+      "phone": "+91-532-2270006",
+      "email": "faculty6@mnnit.ac.in",
+      "image_url": "/placeholder-speaker.svg",
+      "profile_link": "#",
+      "linkedin": "#"
+    }
+  ]
+}

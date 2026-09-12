@@ -32,19 +32,26 @@ export default function Sponsors({ embedded = false }) {
                 {tier.sponsors.map((sponsor, sIdx) => (
                   <div
                     key={sIdx}
-                    className="p-6 rounded-xl bg-[#0A192F]/60 border border-[#C5A25F]/25 flex flex-col items-center justify-center text-center hover:border-[#C5A25F]/50 transition-colors"
+                    className="group relative p-7 rounded-2xl bg-[#0A192F]/30 backdrop-blur-xl border border-[#C5A25F]/20 hover:border-[#C5A25F]/60 shadow-[0_8px_32px_0_rgba(5,11,20,0.37)] hover:shadow-[0_0_25px_rgba(197,162,95,0.2)] transition-all duration-300 flex flex-col items-center justify-center text-center overflow-hidden"
                   >
-                    <div className="w-72 h-40 bg-[#050B14] p-2 rounded-lg flex items-center justify-center mb-3.5 border border-[#C5A25F]/20">
+                    {/* Subtle Gold Gradient Glow on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#C5A25F]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                    {/* Inner Logo Box with Frosted Glass Layer */}
+                    <div className="relative w-72 h-40 bg-[#050B14]/70 backdrop-blur-md p-4 rounded-xl flex items-center justify-center mb-5 border border-[#C5A25F]/25 shadow-inner group-hover:border-[#C5A25F]/40 transition-colors">
                       <img
                         src={sponsor.image}
                         alt={sponsor.name}
-                        className="max-h-full max-w-full object-contain"
+                        className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
                       />
                     </div>
-                    <h3 className="font-montserrat font-bold text-sm text-[#F4EBD9]">
+
+                    {/* Sponsor Title & Badge */}
+                    <h3 className="font-montserrat font-bold text-base text-[#F4EBD9] tracking-wide group-hover:text-[#C5A25F] transition-colors">
                       {sponsor.name}
                     </h3>
-                    <span className="text-[11px] text-[#0EA5E9] font-mono mt-1 uppercase tracking-wide flex justify-center">
+
+                    <span className="text-[11px] text-[#0EA5E9] font-mono mt-2 uppercase tracking-widest px-3 py-1 rounded-full bg-[#0EA5E9]/10 border border-[#0EA5E9]/20 shadow-sm">
                       {sponsor.category}
                     </span>
                   </div>

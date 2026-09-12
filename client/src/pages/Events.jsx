@@ -204,7 +204,7 @@ export default function Events({ embedded = false }) {
         {day1Events.map((event) => (
           <div
             key={event.id}
-            onClick={() => navigate(`/events/${event.id}`)}
+            onClick={() => navigate(`/events/${event.id}/register`)}
             className={`absolute transform -translate-x-1/2 -translate-y-1/2 flex items-center space-x-4 cursor-pointer group z-40 transition-all duration-500 ${
               selectedDay === 1 ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
             }`}
@@ -233,7 +233,7 @@ export default function Events({ embedded = false }) {
         {day2Events.map((event) => (
           <div
             key={event.id}
-            onClick={() => navigate(`/events/${event.id}`)}
+            onClick={() => navigate(`/events/${event.id}/register`)}
             className={`absolute transform -translate-x-1/2 -translate-y-1/2 flex items-center space-x-4 cursor-pointer group z-40 transition-all duration-500 ${
               selectedDay === 2 ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
             }`}

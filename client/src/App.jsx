@@ -1,10 +1,18 @@
-import  { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 // Components
 import RenaissanceIntro from "./components/RenaissanceIntro";
 import Navbar from "./components/Navbar";
 import ThreeBackground from "./pages/background";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 // Pages
 import Home from "./pages/Home";
@@ -25,6 +33,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       {/* Persistent visual layer shared by every route. */}
       <ThreeBackground />
 

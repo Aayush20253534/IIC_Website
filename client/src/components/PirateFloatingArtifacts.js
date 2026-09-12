@@ -210,26 +210,6 @@ export class PirateFloatingArtifacts {
         metalness: 0.9,
         roughness: 0.25,
       }),
-      // Authentic Pure Crystal Diamond Material
-      diamond: new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        emissive: 0x38bdf8,
-        emissiveIntensity: 0.18,
-        roughness: 0.0,
-        metalness: 0.05,
-        transmission: 0.95,
-        ior: 2.417,
-        thickness: 0.9,
-        transparent: true,
-        opacity: 0.96,
-        flatShading: true,
-      }),
-      innerCoreGlint: new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.35,
-      }),
     };
 
     // Shared Geometries Pool
@@ -242,20 +222,10 @@ export class PirateFloatingArtifacts {
       hookShank: new THREE.CylinderGeometry(0.065, 0.07, 0.28, 16),
       hookCurve: new THREE.TorusGeometry(0.28, 0.06, 16, 36, Math.PI * 1.35),
       hookTip: new THREE.ConeGeometry(0.06, 0.18, 16),
-      // Real Brilliant Diamond Cut (Crown + Pavilion + Table)
-      diamondCrownRound: new THREE.CylinderGeometry(0.26, 0.46, 0.18, 12, 1),
-      diamondPavilionRound: new THREE.ConeGeometry(0.46, 0.55, 12, 1),
-      diamondTableRound: new THREE.CircleGeometry(0.26, 12),
-      // Princess Cut Diamond (Square Solitaire)
-      diamondCrownSquare: new THREE.CylinderGeometry(0.28, 0.46, 0.18, 4, 1),
-      diamondPavilionSquare: new THREE.ConeGeometry(0.46, 0.55, 4, 1),
-      diamondTableSquare: new THREE.CircleGeometry(0.28, 4),
-      // Internal Refraction Sparkle Core
-      diamondInnerSparkle: new THREE.IcosahedronGeometry(0.18, 0),
     };
 
-    // Balanced, ambient artifact count (~13 items)
-    this.initItems(options.count || 13);
+    // Ambient artifact count (~18 items with high coin density)
+    this.initItems(options.count || 18);
   }
 
   createDetailedCoinMesh() {
@@ -358,68 +328,13 @@ export class PirateFloatingArtifacts {
     return patchGroup;
   }
 
-  createDetailedGemMesh(type = 0) {
-    const gemGroup = new THREE.Group();
-    const mat = this.materials.diamond;
-
-    if (type % 2 === 0) {
-      // 1. Brilliant-Cut Round Diamond (Crown + Inverted Pavilion + Table Top)
-      const crown = new THREE.Mesh(this.geometries.diamondCrownRound, mat);
-      crown.position.y = 0.09;
-      gemGroup.add(crown);
-
-      const table = new THREE.Mesh(this.geometries.diamondTableRound, mat);
-      table.rotation.x = -Math.PI / 2;
-      table.position.y = 0.18;
-      gemGroup.add(table);
-
-      const pavilion = new THREE.Mesh(this.geometries.diamondPavilionRound, mat);
-      pavilion.rotation.x = Math.PI;
-      pavilion.position.y = -0.275;
-      gemGroup.add(pavilion);
-
-      // Inner refraction glint sparkle
-      const sparkle = new THREE.Mesh(this.geometries.diamondInnerSparkle, this.materials.innerCoreGlint);
-      sparkle.position.y = -0.05;
-      gemGroup.add(sparkle);
-    } else {
-      // 2. Princess-Cut Square Solitaire Diamond
-      const crown = new THREE.Mesh(this.geometries.diamondCrownSquare, mat);
-      crown.position.y = 0.09;
-      crown.rotation.y = Math.PI / 4;
-      gemGroup.add(crown);
-
-      const table = new THREE.Mesh(this.geometries.diamondTableSquare, mat);
-      table.rotation.x = -Math.PI / 2;
-      table.rotation.z = Math.PI / 4;
-      table.position.y = 0.18;
-      gemGroup.add(table);
-
-      const pavilion = new THREE.Mesh(this.geometries.diamondPavilionSquare, mat);
-      pavilion.rotation.x = Math.PI;
-      pavilion.rotation.y = Math.PI / 4;
-      pavilion.position.y = -0.275;
-      gemGroup.add(pavilion);
-
-      // Inner refraction glint sparkle
-      const sparkle = new THREE.Mesh(this.geometries.diamondInnerSparkle, this.materials.innerCoreGlint);
-      sparkle.position.y = -0.05;
-      gemGroup.add(sparkle);
-    }
-
-    gemGroup.scale.set(0.9, 0.9, 0.9);
-    return gemGroup;
-  }
-
   initItems(count) {
     for (let i = 0; i < count; i++) {
       let mesh;
-      // Spawn distribution: Gold Coins (~55%), Hooks (~25%), Eyepatches (~10%), Rare Pure Diamonds (~10%)
-      if (i % 6 === 0) {
-        mesh = this.createDetailedGemMesh(i);
-      } else if (i % 3 === 0) {
+      // Spawn distribution: Gold Coins (~80%), Steel Hooks (~12%), Eyepatches (~8%) — zero diamonds
+      if (i % 7 === 0) {
         mesh = this.createDetailedHookMesh();
-      } else if (i % 4 === 0) {
+      } else if (i % 11 === 0) {
         mesh = this.createDetailedEyepatchMesh();
       } else {
         mesh = this.createDetailedCoinMesh();

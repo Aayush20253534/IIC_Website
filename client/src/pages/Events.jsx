@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Events({ embedded = false }) {
-  const [activeDay, setActiveDay] = useState(3);
+  const [activeDay, setActiveDay] = useState(1);
   const [selectedEventModal, setSelectedEventModal] = useState(null);
   const navigate = useNavigate();
 
-  // Structured event dataset with clean placeholder copy
+  // Structured 2-Day event dataset with clean placeholder copy
   const timelineData = {
     1: {
       dayNumber: 1,
       bannerTitle: "DAY 1",
-      subtitle: "NEW SHORES • NEW CHALLENGES",
-      nodePos: { x: 190, y: 240 },
+      subtitle: "NEW SHORES • INAUGURAL & SPRINTS",
+      nodePos: { x: 220, y: 220 },
       events: [
         {
           id: "event-1-keynote",
@@ -53,8 +53,8 @@ export default function Events({ embedded = false }) {
     2: {
       dayNumber: 2,
       bannerTitle: "DAY 2",
-      subtitle: "BIGGER WAVES • BRIGHTER MINDS",
-      nodePos: { x: 450, y: 310 },
+      subtitle: "BIGGER WAVES • GRAND FINALS",
+      nodePos: { x: 460, y: 220 },
       events: [
         {
           id: "event-2-finals",
@@ -90,37 +90,12 @@ export default function Events({ embedded = false }) {
             "Placeholder rule: Investment term sheets subject to due diligence.",
           ],
         },
-      ],
-    },
-    3: {
-      dayNumber: 3,
-      bannerTitle: "DAY 3",
-      subtitle: "FINAL GLORY • VALEDICTORY",
-      nodePos: { x: 710, y: 220 },
-      events: [
         {
-          id: "event-3-finals",
-          title: "Event 3 Finals",
-          category: "Championship Round",
-          time: "10:30 AM",
-          location: "Campus Venue",
-          icon: "swords",
-          prize: "₹1,00,000 Bounty",
-          tag: "Championship",
-          description:
-            "Placeholder description: The crowning championship challenge of Renaissance 2026. Top qualifying contenders compete in strategic simulations.",
-          teamSize: "2 - 4 Members",
-          rules: [
-            "Placeholder rule: Real-time challenge briefs unsealed at 10:00 AM.",
-            "Placeholder rule: Judged on strategy, execution, and presentation.",
-          ],
-        },
-        {
-          id: "valedictory-awards",
-          title: "Valedictory & Awards",
+          id: "event-2-valedictory",
+          title: "Valedictory & Awards Gala",
           category: "Grand Ceremony",
-          time: "04:00 PM",
-          location: "Auditorium",
+          time: "05:00 PM",
+          location: "Main Auditorium",
           icon: "trophy",
           prize: "Trophies & Honors",
           tag: "Grand Finale",
@@ -136,7 +111,7 @@ export default function Events({ embedded = false }) {
     },
   };
 
-  const activeDayData = timelineData[activeDay] || timelineData[3];
+  const activeDayData = timelineData[activeDay] || timelineData[1];
 
   const renderBadgeIcon = (iconType) => {
     switch (iconType) {
@@ -220,9 +195,9 @@ export default function Events({ embedded = false }) {
 
   return (
     <div
-      className={`relative w-full h-screen max-h-screen text-slate-100 select-none ${
-        embedded ? "pt-2 pb-2" : "pt-16 sm:pt-20 pb-3"
-      } px-4 sm:px-8 flex flex-col justify-between overflow-hidden`}
+      className={`relative w-full min-h-screen text-slate-100 select-none ${
+        embedded ? "pt-2 pb-2" : "pt-24 sm:pt-28 pb-16"
+      } px-4 sm:px-6 flex flex-col justify-start items-center overflow-x-hidden`}
       style={{
         background:
           "radial-gradient(ellipse 95% 75% at 50% 18%, #030b17 0%, #020710 45%, #000205 100%)",
@@ -238,27 +213,27 @@ export default function Events({ embedded = false }) {
       />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-[#00040a]/20 to-black/90 z-0" />
 
-      {/* 2. Top Header & Floating Inscriptions */}
-      <div className="relative z-10 flex items-center justify-between w-full max-w-7xl mx-auto shrink-0 mb-1">
-        {/* Left Maritime Inscription */}
-        <div className="hidden md:flex flex-col text-[10px] font-mono tracking-[0.25em] text-slate-400 uppercase">
-          <span className="text-[#fbbf24] flex items-center gap-1.5 font-bold">
-            <span>✦</span> RENAISSANCE MMXXVI
-          </span>
-          <span className="text-slate-500 mt-0.5">
-            MORE THAN AN EVENT • A JOURNEY
-          </span>
+      {/* 2. Top Header & Day Switcher */}
+      <div className="relative z-10 flex items-center justify-between w-full max-w-5xl mx-auto shrink-0 mb-1">
+        {/* Left Simple Text Regarding Page */}
+        <div className="flex flex-col text-left">
+          <h1 className="font-cinzel text-sm sm:text-base md:text-lg font-bold tracking-widest text-[#fbbf24] flex items-center gap-1.5 uppercase">
+            <span className="text-xs">✦</span> EVENTS
+          </h1>
+          <p className="text-[9px] sm:text-[10px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
+            SUMMIT SCHEDULE & TIMELINE
+          </p>
         </div>
 
-        {/* Center Day Switcher Tabs */}
-        <div className="flex items-center gap-2 sm:gap-3 mx-auto md:mx-0 bg-slate-950/70 p-1.5 rounded-2xl border border-[#fbbf24]/20 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
-          {[1, 2, 3].map((d) => (
+        {/* Center Day Switcher Tabs (Strictly 2 Days) */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5 mx-auto md:mx-0 bg-slate-950/80 p-1 sm:p-1.5 rounded-2xl border border-[#fbbf24]/25 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+          {[1, 2].map((d) => (
             <button
               key={d}
               onClick={() => setActiveDay(d)}
-              className={`px-4 sm:px-5 py-1.5 rounded-xl font-cinzel text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+              className={`px-4 sm:px-6 py-1 sm:py-1.5 rounded-xl font-cinzel text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer flex items-center gap-1.5 sm:gap-2 ${
                 activeDay === d
-                  ? "bg-gradient-to-r from-[#fbbf24]/20 to-[#fbbf24]/10 text-[#fbbf24] border border-[#fbbf24]/60 shadow-[0_0_15px_rgba(251,191,36,0.35)] scale-105"
+                  ? "bg-gradient-to-r from-[#fbbf24]/25 to-[#fbbf24]/10 text-[#fbbf24] border border-[#fbbf24]/60 shadow-[0_0_15px_rgba(251,191,36,0.35)] scale-105"
                   : "text-slate-400 hover:text-slate-200 hover:border-white/20 border border-transparent"
               }`}
             >
@@ -274,23 +249,20 @@ export default function Events({ embedded = false }) {
           ))}
         </div>
 
-        {/* Right Inscription / Coordinates */}
-        <div className="hidden md:flex flex-col items-end text-[10px] font-mono tracking-[0.25em] text-slate-400 uppercase">
-          <span className="text-slate-500">DISCOVER • COMPETE • BELONG</span>
-          <span className="text-slate-500/80 mt-0.5">LAT 25° 29' N • LONG 81° 51' E</span>
-        </div>
+        {/* Right Balancing Spacer (Empty, balances center alignment) */}
+        <div className="hidden md:block w-28" />
       </div>
 
-      {/* 3. Central Interactive Marine Void Canvas */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 min-h-0 my-1 rounded-3xl overflow-hidden border border-[#fbbf24]/20 shadow-[0_20px_70px_rgba(0,0,0,0.95)] bg-[#030914]/40 backdrop-blur-md">
+      {/* 3. Central Interactive Marine Stage (Spacious 2-Day Layout with Zero Overlap) */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto h-[400px] sm:h-[440px] md:h-[470px] my-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#fbbf24]/20 shadow-[0_20px_70px_rgba(0,0,0,0.95)] bg-[#030914]/50 backdrop-blur-md shrink-0">
         {/* Subtle Marine Backlight Orbs */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[320px] bg-blue-900/15 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute top-1/4 left-1/4 w-[380px] h-[220px] bg-[#fbbf24]/5 rounded-full blur-[90px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[280px] bg-blue-900/15 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/4 w-[320px] h-[180px] bg-[#fbbf24]/5 rounded-full blur-[90px] pointer-events-none" />
 
-        {/* Background Astrolabe, Rhumb Lines, and Compass Rose (Pure Fine SVG) */}
+        {/* Background Astrolabe & Rhumb Lines (Pure Fine SVG, No Compass Rose) */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
-          viewBox="0 0 1000 500"
+          viewBox="0 0 1000 450"
           fill="none"
           preserveAspectRatio="none"
         >
@@ -303,78 +275,56 @@ export default function Events({ embedded = false }) {
 
           {/* Nautical Grid Arcs & Astrolabe Markings */}
           <g stroke="#fbbf24" strokeWidth="0.6" opacity="0.12" fill="none">
-            <circle cx="500" cy="250" r="160" strokeDasharray="3 6" />
-            <circle cx="500" cy="250" r="280" strokeDasharray="4 8" />
-            <circle cx="500" cy="250" r="390" strokeDasharray="2 5" />
-            <line x1="0" y1="250" x2="1000" y2="250" strokeDasharray="3 6" />
-            <line x1="500" y1="0" x2="500" y2="500" strokeDasharray="3 6" />
-            <line x1="100" y1="0" x2="900" y2="500" strokeDasharray="2 7" />
-            <line x1="900" y1="0" x2="100" y2="500" strokeDasharray="2 7" />
+            <circle cx="350" cy="225" r="140" strokeDasharray="3 6" />
+            <circle cx="350" cy="225" r="260" strokeDasharray="4 8" />
+            <circle cx="350" cy="225" r="380" strokeDasharray="2 5" />
+            <line x1="0" y1="225" x2="1000" y2="225" strokeDasharray="3 6" />
+            <line x1="350" y1="0" x2="350" y2="450" strokeDasharray="3 6" />
+            <line x1="50" y1="0" x2="650" y2="450" strokeDasharray="2 7" />
+            <line x1="650" y1="0" x2="50" y2="450" strokeDasharray="2 7" />
           </g>
 
-          {/* Top-Right Antique Mariner's Compass Rose */}
-          <g transform="translate(900, 90) scale(0.65)">
-            <circle cx="0" cy="0" r="60" stroke="#fbbf24" strokeWidth="1" opacity="0.4" />
-            <circle cx="0" cy="0" r="42" stroke="#fbbf24" strokeWidth="0.75" opacity="0.25" strokeDasharray="2 4" />
-            <polygon points="0,-56 8,-12 0,0 -8,-12" fill="#fbbf24" opacity="0.8" />
-            <polygon points="0,56 8,12 0,0 -8,12" fill="#b45309" opacity="0.8" />
-            <polygon points="56,0 12,8 0,0 12,-8" fill="#fbbf24" opacity="0.8" />
-            <polygon points="-56,0 -12,8 0,0 -12,-8" fill="#b45309" opacity="0.8" />
-            <text x="0" y="-64" textAnchor="middle" fontFamily="Cinzel, serif" fontSize="13" fontWeight="bold" fill="#fbbf24" opacity="0.8">N</text>
-            <text x="0" y="76" textAnchor="middle" fontFamily="Cinzel, serif" fontSize="12" fontWeight="bold" fill="#fbbf24" opacity="0.6">S</text>
-            <text x="70" y="4" textAnchor="middle" fontFamily="Cinzel, serif" fontSize="12" fontWeight="bold" fill="#fbbf24" opacity="0.6">E</text>
-            <text x="-70" y="4" textAnchor="middle" fontFamily="Cinzel, serif" fontSize="12" fontWeight="bold" fill="#fbbf24" opacity="0.6">W</text>
-          </g>
-
-          {/* Primary Clean Golden Dashed Trajectory Line connecting Day 1 -> 2 -> 3 */}
+          {/* Primary Clean Golden Dashed Trajectory Line connecting Day 1 -> Day 2 */}
           <path
-            d="M 190 240 C 290 210, 360 310, 450 310 C 540 310, 620 220, 710 220"
+            d="M 200 225 C 270 175, 390 275, 460 225"
             stroke="#fbbf24"
-            strokeWidth="2.2"
+            strokeWidth="2.4"
             strokeDasharray="6 6"
             fill="none"
             filter="url(#goldBeam)"
             opacity="0.85"
           />
 
-          {/* Clean Branch Route from Active Node directly to Event Cards on the Right */}
+          {/* Active Glowing Trajectory Connector to Right-Side Event Dossier */}
           {activeDay === 1 && (
             <path
-              d="M 190 240 C 240 180, 560 210, 680 250 L 680 340"
+              d="M 200 225 C 280 130, 480 150, 640 225"
               stroke="#fbbf24"
-              strokeWidth="1.8"
+              strokeWidth="2"
               strokeDasharray="4 4"
               fill="none"
-              opacity="0.6"
+              filter="url(#goldBeam)"
+              opacity="0.8"
             />
           )}
           {activeDay === 2 && (
             <path
-              d="M 450 310 C 530 330, 620 270, 680 260 L 680 340"
+              d="M 460 225 C 520 180, 580 260, 640 225"
               stroke="#fbbf24"
-              strokeWidth="1.8"
+              strokeWidth="2"
               strokeDasharray="4 4"
               fill="none"
-              opacity="0.6"
-            />
-          )}
-          {activeDay === 3 && (
-            <path
-              d="M 710 220 C 710 250, 680 270, 680 290 L 680 375"
-              stroke="#fbbf24"
-              strokeWidth="1.8"
-              strokeDasharray="4 4"
-              fill="none"
-              opacity="0.75"
+              filter="url(#goldBeam)"
+              opacity="0.85"
             />
           )}
         </svg>
 
-        {/* 3 Interactive Waypoint Nodes (Floating in Dark Marine Void) */}
+        {/* Interactive Waypoint Nodes (Day 1 & Day 2 Only - Zero Overlap with Cards) */}
         {/* DAY 1 Node */}
         <div
           onClick={() => setActiveDay(1)}
-          style={{ left: "19%", top: "48%" }}
+          style={{ left: "20%", top: "50%" }}
           className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group flex flex-col items-center"
         >
           {activeDay === 1 && (
@@ -395,11 +345,11 @@ export default function Events({ embedded = false }) {
               01
             </span>
           </div>
-          <div className="mt-2.5 text-center pointer-events-none">
+          <div className="mt-2 text-center pointer-events-none">
             <h3 className="font-cinzel text-xs font-bold text-white tracking-wider group-hover:text-[#fbbf24] transition-colors">
               DAY 1
             </h3>
-            <p className="text-[9px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
+            <p className="text-[8px] sm:text-[9px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
               NEW SHORES
             </p>
           </div>
@@ -408,7 +358,7 @@ export default function Events({ embedded = false }) {
         {/* DAY 2 Node */}
         <div
           onClick={() => setActiveDay(2)}
-          style={{ left: "45%", top: "62%" }}
+          style={{ left: "46%", top: "50%" }}
           className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group flex flex-col items-center"
         >
           {activeDay === 2 && (
@@ -428,83 +378,50 @@ export default function Events({ embedded = false }) {
               02
             </span>
           </div>
-          <div className="mt-2.5 text-center pointer-events-none">
+          <div className="mt-2 text-center pointer-events-none">
             <h3 className="font-cinzel text-xs font-bold text-white tracking-wider group-hover:text-[#fbbf24] transition-colors">
               DAY 2
             </h3>
-            <p className="text-[9px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
-              BIGGER WAVES
+            <p className="text-[8px] sm:text-[9px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
+              GRAND FINALE
             </p>
           </div>
         </div>
 
-        {/* DAY 3 Node */}
-        <div
-          onClick={() => setActiveDay(3)}
-          style={{ left: "71%", top: "44%" }}
-          className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group flex flex-col items-center"
-        >
-          {activeDay === 3 && (
-            <div className="absolute -inset-4 rounded-full border border-[#fbbf24] animate-ping opacity-75 pointer-events-none" />
-          )}
-          {activeDay === 3 && (
-            <div className="absolute -inset-3 rounded-full border border-[#fbbf24]/50 border-dashed animate-spin-slow pointer-events-none" />
-          )}
-          <div
-            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 backdrop-blur-md ${
-              activeDay === 3
-                ? "bg-[#040e1f] border-[#fbbf24] shadow-[0_0_25px_rgba(251,191,36,0.7)] scale-110"
-                : "bg-[#020612]/90 border-[#fbbf24]/40 group-hover:border-[#fbbf24] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(251,191,36,0.3)]"
-            }`}
-          >
-            <span className="font-cinzel text-xs font-black text-[#fbbf24]">
-              03
-            </span>
-          </div>
-          <div className="mt-2.5 text-center pointer-events-none">
-            <h3 className="font-cinzel text-xs font-bold text-white tracking-wider group-hover:text-[#fbbf24] transition-colors">
-              DAY 3
-            </h3>
-            <p className="text-[9px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
-              FINAL GLORY
-            </p>
-          </div>
-        </div>
-
-        {/* 4. Event Cards (Clean Right Alignment with Zero Path Clutter) */}
-        <div className="absolute right-[4%] sm:right-[6%] top-[50%] sm:top-[52%] w-[33%] sm:w-[30%] lg:w-[28%] max-w-[370px] flex flex-col gap-3 z-30">
-          {activeDayData.events.slice(0, 2).map((event) => (
+        {/* 4. Event Cards (Dedicated Right Column - Zero Overlap with Waypoints) */}
+        <div className="absolute right-[3%] sm:right-[4%] top-1/2 -translate-y-1/2 w-[38%] sm:w-[35%] lg:w-[33%] max-w-[370px] flex flex-col gap-2.5 z-30">
+          {activeDayData.events.map((event) => (
             <div
               key={event.id}
               onClick={() => setSelectedEventModal(event)}
-              className="relative p-3.5 sm:p-4 rounded-2xl bg-[#040e1f]/75 backdrop-blur-xl border border-[#fbbf24]/30 shadow-[0_12px_36px_rgba(0,0,0,0.9),inset_0_1px_2px_rgba(251,191,36,0.15)] hover:border-[#fbbf24]/70 hover:shadow-[0_16px_40px_rgba(251,191,36,0.25)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group flex items-center gap-3.5"
+              className="relative p-3 sm:p-3.5 rounded-2xl bg-[#040e1f]/85 backdrop-blur-xl border border-[#fbbf24]/30 shadow-[0_12px_36px_rgba(0,0,0,0.9),inset_0_1px_2px_rgba(251,191,36,0.15)] hover:border-[#fbbf24]/70 hover:shadow-[0_16px_40px_rgba(251,191,36,0.25)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group flex items-center gap-3"
             >
               {/* Gold Anchor Connector Point */}
-              <div className="hidden md:flex absolute -left-3.5 top-1/2 -translate-y-1/2 items-center pointer-events-none">
+              <div className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 items-center pointer-events-none">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#020612] border border-[#fbbf24] flex items-center justify-center shadow-[0_0_8px_#fbbf24]">
                   <div className="w-1 h-1 rounded-full bg-[#fbbf24]" />
                 </div>
               </div>
 
               {/* Metallic Coin Emblem Badge */}
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#020712] border border-[#fbbf24]/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(251,191,36,0.25)] group-hover:scale-105 group-hover:border-[#fbbf24] transition-all">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#020712] border border-[#fbbf24]/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(251,191,36,0.25)] group-hover:scale-105 group-hover:border-[#fbbf24] transition-all">
                 {renderBadgeIcon(event.icon)}
               </div>
 
               {/* Text Meta Content */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between gap-1 mb-1">
-                  <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#fbbf24] bg-[#fbbf24]/10 px-2 py-0.5 rounded border border-[#fbbf24]/25">
+                <div className="flex items-center justify-between gap-1 mb-0.5">
+                  <span className="text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-[#fbbf24] bg-[#fbbf24]/10 px-1.5 py-0.5 rounded border border-[#fbbf24]/25">
                     {event.tag}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-400">
+                  <span className="text-[9px] sm:text-[10px] font-mono text-slate-400">
                     🕒 {event.time}
                   </span>
                 </div>
-                <h3 className="font-cinzel text-xs sm:text-sm font-bold text-white tracking-wide truncate group-hover:text-[#fbbf24] transition-colors">
+                <h3 className="font-cinzel text-xs sm:text-[13px] font-bold text-white tracking-wide truncate group-hover:text-[#fbbf24] transition-colors">
                   {event.title}
                 </h3>
-                <p className="text-[10px] sm:text-[11px] font-montserrat text-slate-300 mt-0.5 truncate flex items-center gap-1">
+                <p className="text-[9px] sm:text-[10px] font-montserrat text-slate-300 mt-0.5 truncate flex items-center gap-1">
                   <span>📍</span>
                   <span className="text-slate-200">{event.location}</span>
                 </p>
@@ -514,13 +431,13 @@ export default function Events({ embedded = false }) {
         </div>
       </div>
 
-      {/* 4. Bottom Horizon Inscription (Full Single-Screen Baseline) */}
-      <div className="relative z-10 flex items-center justify-center gap-4 text-center shrink-0 pointer-events-none select-none py-1">
-        <div className="w-20 sm:w-36 h-[1px] bg-gradient-to-r from-transparent to-[#fbbf24]/40" />
-        <span className="font-cinzel text-[10px] sm:text-xs font-bold tracking-[0.3em] text-[#fbbf24] uppercase">
+      {/* 4. Bottom Horizon Inscription */}
+      <div className="relative z-10 flex items-center justify-center gap-3 text-center shrink-0 pointer-events-none select-none py-0.5 mb-1">
+        <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-r from-transparent to-[#fbbf24]/40" />
+        <span className="font-cinzel text-[9px] sm:text-[10px] font-bold tracking-[0.25em] text-[#fbbf24] uppercase">
           DIFFERENT CREWS ✦ SAME HORIZON
         </span>
-        <div className="w-20 sm:w-36 h-[1px] bg-gradient-to-l from-transparent to-[#fbbf24]/40" />
+        <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-l from-transparent to-[#fbbf24]/40" />
       </div>
 
       {/* 5. Dark Glassmorphic Event Dossier Modal */}

@@ -147,8 +147,8 @@ function ThreeBackground() {
         fillLight.layers.enable(LAYERS.BLOOM_SCENE);
         scene.add(fillLight);
 
-        // ---------- 3D Floating Pirate Artifacts (Gold Coins, Hooks, Eyepatches, Pure Diamonds) ----------
-        const pirateArtifacts = new PirateFloatingArtifacts(scene, { count: 13 });
+        // ---------- 3D Floating Pirate Artifacts (Gold Coins, Hooks, Eyepatches) ----------
+        const pirateArtifacts = new PirateFloatingArtifacts(scene, { count: 18 });
         pirateArtifacts.group.traverse((child) => {
             if (child.isMesh || child.isGroup) {
                 child.layers.enable(LAYERS.ENTIRE_SCENE);

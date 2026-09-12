@@ -4,7 +4,7 @@ import WaterButton from "../components/WaterButton";
 
 export default function Gallery({ embedded = false }) {
   return (
-    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-[#050B14] text-[#F4EBD9] flex flex-col justify-between`}>
+    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#F4EBD9] flex flex-col justify-between`}>
       <div className="max-w-4xl mx-auto px-6 w-full mb-16 text-center">
         <div className="mb-12">
           <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#0A192F] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">

@@ -24,7 +24,7 @@ export default function Dashboard({ embedded = false }) {
   };
 
   return (
-    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-[#050B14] text-[#F4EBD9] flex flex-col justify-between`}>
+    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#F4EBD9] flex flex-col justify-between`}>
       <div className="max-w-5xl mx-auto px-6 w-full mb-16">
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#C5A25F]/20">
           <div>

@@ -16,7 +16,7 @@ import ScrollIndicatorRail from "../components/ScrollIndicatorRail";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#050B14] text-[#F4EBD9] relative selection:bg-[#C5A25F] selection:text-[#050B14]">
+    <main className="relative min-h-screen bg-transparent text-[#F4EBD9] selection:bg-[#C5A25F] selection:text-[#050B14]">
       {/* IIT Kanpur Reference Side Rails */}
       <SocialSideRail />
       <ScrollIndicatorRail />

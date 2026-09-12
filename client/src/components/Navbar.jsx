@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiArrowUpRight } from "react-icons/fi";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,18 +65,15 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050B14]/90 border-b border-[#C5A25F]/20 backdrop-blur-md px-6 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50  border-[#C5A25F]/20 px-6 py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link to="/" onClick={(e) => handleNavClick({ id: "home", path: "/" }, e)} className="flex items-center gap-3">
           <img src="/renaissance-logo.png" alt="Renaissance Logo" className="h-9 w-auto" />
-          <span className="font-cinzel text-sm font-bold tracking-widest text-[#F4EBD9]">
-            RENAISSANCE
-          </span>
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-7 font-montserrat text-xs uppercase tracking-wider">
+        <div className="hidden md:flex items-center gap-6 px-6 py-2.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg font-light text-xs tracking-widest">
           {navLinks.map((link) => {
             const isCurrent =
               location.pathname === "/" ? activeSection === link.id : location.pathname.startsWith(link.path);
@@ -86,16 +83,27 @@ export default function Navbar() {
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleNavClick(link, e)}
-                className={`transition-colors cursor-pointer py-1 ${
-                  isCurrent
-                    ? "text-[#C5A25F] font-bold border-b-2 border-[#C5A25F]"
-                    : "text-[#94A3B8] hover:text-[#F4EBD9]"
-                }`}
+                className={`transition-colors cursor-pointer font-bold ${isCurrent
+                  ? "text-[#F4EBD9]"
+                  : "text-[#94A3B8] hover:text-[#F4EBD9]"
+                  }`}
               >
                 {link.name}
               </a>
             );
           })}
+        </div>
+
+        <div className="hidden md:flex items-center">
+          <Link
+            to="/register"
+            className="flex items-center gap-2 px-5 py-2 rounded-full border border-white/20 hover:bg-[#0A192F] text-xs font-montserrat font-bold tracking-wider text-[#F4EBD9] transition-all duration-200 hover:border-[#C5A25F]/50"
+          >
+            <span>SIGN IN</span>
+            <span className="bg-white text-black rounded-full p-1 flex items-center justify-center w-5 h-5">
+              <FiArrowUpRight size={12} className="stroke-[3]" />
+            </span>
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -115,9 +123,8 @@ export default function Navbar() {
               key={link.id}
               href={`#${link.id}`}
               onClick={(e) => handleNavClick(link, e)}
-              className={`px-4 py-2 font-montserrat text-xs uppercase tracking-wider cursor-pointer ${
-                activeSection === link.id ? "text-[#C5A25F] font-bold" : "text-[#94A3B8]"
-              }`}
+              className={`px-4 py-2 font-montserrat text-xs uppercase tracking-wider cursor-pointer ${activeSection === link.id ? "text-[#C5A25F] font-bold" : "text-[#94A3B8]"
+                }`}
             >
               {link.name}
             </a>

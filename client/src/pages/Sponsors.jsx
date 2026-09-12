@@ -25,10 +25,25 @@ export default function Sponsors({ embedded = false }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [activeSponsor]);
 
-  const handleMouseEnter = (sponsor, index) => {
+  // Replace your handleMouseEnter with these handlers:
+  const handleCardInteraction = (sponsor, index) => {
+    // Toggle off if tapping the same active sponsor on mobile
+    if (activeSponsor?.name === sponsor.name) {
+      setActiveSponsor(null);
+      return;
+    }
+
+    // Open modal on bottom/top for mobile, or right/left for desktop
     const isLeftHalf = index % 2 === 0;
     setSide(isLeftHalf ? "right" : "left");
     setActiveSponsor(sponsor);
+  };
+
+  const handleMouseLeave = () => {
+    // Only auto-close on desktop mouse leave (screens larger than 768px)
+    if (window.innerWidth >= 768) {
+      setActiveSponsor(null);
+    }
   };
   return (
     <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-[#050B14] text-[#F4EBD9] flex flex-col justify-between relative`}>
@@ -58,8 +73,9 @@ export default function Sponsors({ embedded = false }) {
                 {tier.sponsors.map((sponsor, sIdx) => (
                   <div
                     key={sIdx}
-                    onMouseEnter={() => handleMouseEnter(sponsor, sIdx)}
-                    onMouseLeave={() => setActiveSponsor(null)}
+                    onClick={() => handleCardInteraction(sponsor, sIdx)}
+                    onMouseEnter={() => handleCardInteraction(sponsor, sIdx)}
+                    onMouseLeave={handleMouseLeave}
                     className="group relative p-7 rounded-2xl bg-[#0A192F]/30 backdrop-blur-xl border border-[#C5A25F]/20 hover:border-[#C5A25F]/60 shadow-[0_8px_32px_0_rgba(5,11,20,0.37)] hover:shadow-[0_0_25px_rgba(197,162,95,0.2)] transition-all duration-300 flex flex-col items-center justify-center text-center overflow-hidden"
                   >
                     {/* Subtle Gold Gradient Glow on Hover */}
@@ -90,37 +106,50 @@ export default function Sponsors({ embedded = false }) {
         </div>
       </div>
 
+
+
       <div
-        className={`fixed top-1/2 -translate-y-1/2 z-50 w-80 sm:w-96 p-8 rounded-3xl bg-[#0A192F]/90 backdrop-blur-2xl border-2 border-[#C5A25F]/60 shadow-[0_10px_40px_rgba(0,0,0,0.8)] transition-all duration-500 ease-out pointer-events-none ${
-          side === "left" ? "left-8" : "right-8"
-        } ${
-          activeSponsor
-            ? "opacity-100 scale-100 translate-x-0"
-            : side === "left"
-            ? "opacity-0 scale-90 -translate-x-12"
-            : "opacity-0 scale-90 translate-x-12"
-        }`}
+        className={`fixed z-50 w-[90%] sm:w-96 p-6 sm:p-8 rounded-3xl bg-[#0A192F]/95 backdrop-blur-2xl border-2 border-[#C5A25F]/60 shadow-[0_10px_40px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out ${
+          // Position: Bottom center on mobile, middle sides on desktop
+          "bottom-6 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2"
+          } ${
+          // Desktop offset
+          side === "left" ? "md:left-8 md:right-auto" : "md:right-8 md:left-auto"
+          } ${activeSponsor
+            ? "opacity-100 scale-100 pointer-events-auto"
+            : "opacity-0 scale-95 pointer-events-none"
+          }`}
       >
+        {/* Close button specifically for mobile users */}
         {activeSponsor && (
-          <div className="flex flex-col items-center text-center space-y-4">
-            <span className="text-xs font-mono tracking-widest text-[#C5A25F] uppercase border-b border-[#C5A25F]/30 pb-1">
+          <button
+            onClick={() => setActiveSponsor(null)}
+            className="md:hidden absolute top-4 right-4 text-[#94A3B8] hover:text-[#F4EBD9] text-sm font-mono p-1"
+          >
+            ✕
+          </button>
+        )}
+
+        {activeSponsor && (
+          <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4">
+            <span className="text-[10px] sm:text-xs font-mono tracking-widest text-[#C5A25F] uppercase border-b border-[#C5A25F]/30 pb-1">
               Featured Partner
             </span>
-            <div className="w-full h-48 bg-[#050B14] p-6 rounded-2xl border border-[#C5A25F]/30 flex items-center justify-center shadow-inner">
+            <div className="w-full h-36 sm:h-48 bg-[#050B14] p-4 rounded-2xl border border-[#C5A25F]/30 flex items-center justify-center shadow-inner">
               <img
                 src={activeSponsor.image}
                 alt={activeSponsor.name}
                 className="max-h-full max-w-full object-contain drop-shadow-[0_4px_12px_rgba(197,162,95,0.3)]"
               />
             </div>
-            <h2 className="font-cinzel text-2xl font-bold text-[#F4EBD9]">
+            <h2 className="font-cinzel text-xl sm:text-2xl font-bold text-[#F4EBD9]">
               {activeSponsor.name}
             </h2>
-            <span className="text-xs text-[#0EA5E9] font-mono uppercase tracking-widest px-4 py-1.5 rounded-full bg-[#0EA5E9]/15 border border-[#0EA5E9]/30">
+            <span className="text-[10px] sm:text-xs text-[#0EA5E9] font-mono uppercase tracking-widest px-3 py-1 rounded-full bg-[#0EA5E9]/15 border border-[#0EA5E9]/30">
               {activeSponsor.category}
             </span>
-            <p className="font-montserrat text-xs text-[#94A3B8] leading-relaxed pt-2">
-              Official partner for Renaissance 2026. Empowering innovation and leadership across fleets.
+            <p className="font-montserrat text-xs text-[#94A3B8] leading-relaxed">
+              Official partner for Renaissance 2026. Empowering innovation across fleets.
             </p>
           </div>
         )}

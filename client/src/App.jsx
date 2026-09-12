@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// Components
 import RenaissanceIntro from "./components/RenaissanceIntro";
 import Navbar from "./components/Navbar";
 
@@ -30,40 +32,38 @@ export default function App() {
         />
       )}
 
-
-      {/* 3. Global Navigation */}
+      {/* 2. Global Navigation */}
       <Navbar />
 
-
-      {/* 5. Main Route Views */}
+      {/* 3. Main Route Views */}
       <div className="min-h-screen bg-[#050B14] text-[#F4EBD9]">
         <Routes>
-          {/* Main Summit Portal */}
+          {/* Home / Main Summit Portal */}
           <Route path="/" element={<Home />} />
           <Route path="/udbhav" element={<Navigate to="/" replace />} />
 
-          {/* Events Docket */}
-          <Route path="/events" element={<Events />} />
-          <Route path="/udbhav/events" element={<Events />} />
+          {/* Sponsors Section */}
+          <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/udbhav/sponsors" element={<Sponsors />} />
 
           {/* Registration */}
           <Route path="/register" element={<Registration />} />
           <Route path="/events/:eventId/register" element={<Registration />} />
           <Route path="/udbhav/events/:eventId/register" element={<Registration />} />
 
-          {/* Captain's Dashboard */}
+          {/* Events Docket */}
+          <Route path="/events" element={<Events />} />
+          <Route path="/udbhav/events" element={<Events />} />
+
+          {/* Dashboard */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/udbhav/dashboard" element={<Dashboard />} />
 
-          {/* The Crew / Teams */}
+          {/* Teams / Crew */}
           <Route path="/teams" element={<Teams />} />
           <Route path="/udbhav/teams" element={<Teams />} />
 
-          {/* Alliances / Sponsors */}
-          <Route path="/sponsors" element={<Sponsors />} />
-          <Route path="/udbhav/sponsors" element={<Sponsors />} />
-
-          {/* Chronicles / Gallery */}
+          {/* Gallery / Chronicles */}
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/udbhav/gallery" element={<Gallery />} />
 
@@ -71,7 +71,7 @@ export default function App() {
           <Route path="/login/success" element={<LoginSuccess />} />
           <Route path="/udbhav/login/success" element={<LoginSuccess />} />
 
-          {/* Fallback */}
+          {/* Fallback to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

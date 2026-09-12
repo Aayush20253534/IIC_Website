@@ -1,11 +1,37 @@
-import React from "react";
-import { SPONSOR_TIERS } from "../data/sponsorsData";
+import React, { useState, useEffect, useRef } from "react"; import { SPONSOR_TIERS } from "../data/sponsorsData";
 import SponsorStream from "../components/SponsorStream";
 import ContactFooter from "../components/ContactFooter";
 
 export default function Sponsors({ embedded = false }) {
+
+  const [activeSponsor, setActiveSponsor] = useState(null);
+  const [side, setSide] = useState("left");
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!gridRef.current || !activeSponsor) return;
+      const rect = gridRef.current.getBoundingClientRect();
+      const gridHeight = rect.height;
+      const scrolledAmount = -rect.top;
+
+      // Closes preview panel when scrolled past 30% of sponsor grid
+      if (scrolledAmount > gridHeight * 0.3 || rect.top > window.innerHeight * 0.7) {
+        setActiveSponsor(null);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeSponsor]);
+
+  const handleMouseEnter = (sponsor, index) => {
+    const isLeftHalf = index % 2 === 0;
+    setSide(isLeftHalf ? "right" : "left");
+    setActiveSponsor(sponsor);
+  };
   return (
-    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-[#050B14] text-[#F4EBD9] flex flex-col justify-between`}>
+    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-[#050B14] text-[#F4EBD9] flex flex-col justify-between relative`}>
       <div className="max-w-6xl mx-auto px-6 w-full mb-16">
         <div className="text-center mb-10">
           <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#0A192F] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">
@@ -22,7 +48,7 @@ export default function Sponsors({ embedded = false }) {
         </div>
 
         {/* Tiered Partner Grid */}
-        <div className="space-y-14">
+        <div className="space-y-14" ref={gridRef}>
           {SPONSOR_TIERS.map((tier) => (
             <div key={tier.id} className="text-center">
               <h2 className="font-cinzel text-xl font-bold text-[#C5A25F] mb-6">
@@ -32,6 +58,8 @@ export default function Sponsors({ embedded = false }) {
                 {tier.sponsors.map((sponsor, sIdx) => (
                   <div
                     key={sIdx}
+                    onMouseEnter={() => handleMouseEnter(sponsor, sIdx)}
+                    onMouseLeave={() => setActiveSponsor(null)}
                     className="group relative p-7 rounded-2xl bg-[#0A192F]/30 backdrop-blur-xl border border-[#C5A25F]/20 hover:border-[#C5A25F]/60 shadow-[0_8px_32px_0_rgba(5,11,20,0.37)] hover:shadow-[0_0_25px_rgba(197,162,95,0.2)] transition-all duration-300 flex flex-col items-center justify-center text-center overflow-hidden"
                   >
                     {/* Subtle Gold Gradient Glow on Hover */}
@@ -60,6 +88,42 @@ export default function Sponsors({ embedded = false }) {
             </div>
           ))}
         </div>
+      </div>
+
+      <div
+        className={`fixed top-1/2 -translate-y-1/2 z-50 w-80 sm:w-96 p-8 rounded-3xl bg-[#0A192F]/90 backdrop-blur-2xl border-2 border-[#C5A25F]/60 shadow-[0_10px_40px_rgba(0,0,0,0.8)] transition-all duration-500 ease-out pointer-events-none ${
+          side === "left" ? "left-8" : "right-8"
+        } ${
+          activeSponsor
+            ? "opacity-100 scale-100 translate-x-0"
+            : side === "left"
+            ? "opacity-0 scale-90 -translate-x-12"
+            : "opacity-0 scale-90 translate-x-12"
+        }`}
+      >
+        {activeSponsor && (
+          <div className="flex flex-col items-center text-center space-y-4">
+            <span className="text-xs font-mono tracking-widest text-[#C5A25F] uppercase border-b border-[#C5A25F]/30 pb-1">
+              Featured Partner
+            </span>
+            <div className="w-full h-48 bg-[#050B14] p-6 rounded-2xl border border-[#C5A25F]/30 flex items-center justify-center shadow-inner">
+              <img
+                src={activeSponsor.image}
+                alt={activeSponsor.name}
+                className="max-h-full max-w-full object-contain drop-shadow-[0_4px_12px_rgba(197,162,95,0.3)]"
+              />
+            </div>
+            <h2 className="font-cinzel text-2xl font-bold text-[#F4EBD9]">
+              {activeSponsor.name}
+            </h2>
+            <span className="text-xs text-[#0EA5E9] font-mono uppercase tracking-widest px-4 py-1.5 rounded-full bg-[#0EA5E9]/15 border border-[#0EA5E9]/30">
+              {activeSponsor.category}
+            </span>
+            <p className="font-montserrat text-xs text-[#94A3B8] leading-relaxed pt-2">
+              Official partner for Renaissance 2026. Empowering innovation and leadership across fleets.
+            </p>
+          </div>
+        )}
       </div>
 
       {!embedded && <ContactFooter />}

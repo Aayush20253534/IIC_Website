@@ -15,8 +15,8 @@ export default function Sponsors({ embedded = false }) {
       const gridHeight = rect.height;
       const scrolledAmount = -rect.top;
 
-      // Closes preview panel when scrolled past 30% of sponsor grid
-      if (scrolledAmount > gridHeight * 0.3 || rect.top > window.innerHeight * 0.7) {
+      // Disable forced close on mobile window heights; check only desktop scroll depth
+      if (window.innerWidth >= 768 && (scrolledAmount > gridHeight * 0.3 || rect.top > window.innerHeight * 0.7)) {
         setActiveSponsor(null);
       }
     };
@@ -25,22 +25,22 @@ export default function Sponsors({ embedded = false }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [activeSponsor]);
 
-  // Replace your handleMouseEnter with these handlers:
-  const handleCardInteraction = (sponsor, index) => {
-    // Toggle off if tapping the same active sponsor on mobile
-    if (activeSponsor?.name === sponsor.name) {
-      setActiveSponsor(null);
-      return;
-    }
-
-    // Open modal on bottom/top for mobile, or right/left for desktop
+  const handleCardClick = (e, sponsor, index) => {
+    e.stopPropagation();
     const isLeftHalf = index % 2 === 0;
     setSide(isLeftHalf ? "right" : "left");
-    setActiveSponsor(sponsor);
+    setActiveSponsor((prev) => (prev?.name === sponsor.name ? null : sponsor));
+  };
+
+  const handleMouseEnter = (sponsor, index) => {
+    if (window.innerWidth >= 768) {
+      const isLeftHalf = index % 2 === 0;
+      setSide(isLeftHalf ? "right" : "left");
+      setActiveSponsor(sponsor);
+    }
   };
 
   const handleMouseLeave = () => {
-    // Only auto-close on desktop mouse leave (screens larger than 768px)
     if (window.innerWidth >= 768) {
       setActiveSponsor(null);
     }
@@ -73,8 +73,8 @@ export default function Sponsors({ embedded = false }) {
                 {tier.sponsors.map((sponsor, sIdx) => (
                   <div
                     key={sIdx}
-                    onClick={() => handleCardInteraction(sponsor, sIdx)}
-                    onMouseEnter={() => handleCardInteraction(sponsor, sIdx)}
+                    onClick={(e) => handleCardClick(e, sponsor, sIdx)}
+                    onMouseEnter={() => handleMouseEnter(sponsor, sIdx)}
                     onMouseLeave={handleMouseLeave}
                     className="group relative p-7 rounded-2xl bg-[#0A192F]/30 backdrop-blur-xl border border-[#C5A25F]/20 hover:border-[#C5A25F]/60 shadow-[0_8px_32px_0_rgba(5,11,20,0.37)] hover:shadow-[0_0_25px_rgba(197,162,95,0.2)] transition-all duration-300 flex flex-col items-center justify-center text-center overflow-hidden"
                   >

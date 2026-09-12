@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RenaissanceIntro from "./components/RenaissanceIntro";
-import PirateCursor from "./components/PirateCursor";
 import Navbar from "./components/Navbar";
 
 // Pages
@@ -31,8 +30,6 @@ export default function App() {
         />
       )}
 
-      {/* 2. Realistic Pirate Sword Cursor */}
-      <PirateCursor />
 
       {/* 3. Global Navigation */}
       <Navbar />

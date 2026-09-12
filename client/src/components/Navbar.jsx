@@ -70,9 +70,6 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" onClick={(e) => handleNavClick({ id: "home", path: "/" }, e)} className="flex items-center gap-3">
           <img src="/renaissance-logo.png" alt="Renaissance Logo" className="h-9 w-auto" />
-          <span className="font-cinzel text-sm font-light tracking-widest text-[#F4EBD9]">
-            RENAISSANCE
-          </span>
         </Link>
 
         {/* Desktop Links */}

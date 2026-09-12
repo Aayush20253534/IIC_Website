@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import{ useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EVENTS_DATA } from "../data/eventsData";
 import ContactFooter from "../components/ContactFooter";
@@ -26,7 +26,7 @@ export default function Events({ embedded = false }) {
             Summit Events
           </h1>
           <div className="w-16 h-[2px] bg-[#C5A25F] mx-auto mb-4" />
-          <p className="font-montserrat text-xs text-[#94A3B8]">
+          <p className="font-montserrat text-sm font-semibold text-[#94A3B8]">
             Browse all competitions, hackathons, and case study challenges.
           </p>
         </div>
@@ -37,7 +37,7 @@ export default function Events({ embedded = false }) {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`px-4 py-1.5 rounded-lg text-xs font-montserrat uppercase transition-all cursor-pointer ${
+              className={`px-4 py-1.5 rounded-lg text-xs font-montserrat uppercase transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-[0_10px_24px_rgba(197,162,95,0.28)] ${
                 category === cat
                   ? "bg-[#C5A25F] text-[#050B14] font-bold"
                   : "bg-[#0A192F] text-[#94A3B8] border border-[#C5A25F]/20 hover:border-[#C5A25F]/50"
@@ -49,11 +49,11 @@ export default function Events({ embedded = false }) {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="events-glass-grid grid grid-cols-1 sm:grid-cols-2 gap-8">
           {filtered.map((event) => (
             <div
               key={event.id}
-              className="p-6 rounded-2xl bg-[#0A192F]/60 border border-[#C5A25F]/20 flex flex-col justify-between hover:border-[#C5A25F]/40 transition-colors"
+              className="event-glass-card p-6 flex flex-col justify-between transition-colors"
             >
               <div>
                 <span className="text-[10px] font-mono text-[#0EA5E9] font-bold uppercase block mb-1">
@@ -70,7 +70,7 @@ export default function Events({ embedded = false }) {
               <WaterButton
                 onClick={() => navigate(`/events/${event.id}/register`)}
                 variant="primary"
-                className="w-full !px-4 !py-2.5 text-xs"
+                className="w-full !px-4 !py-2 text-xs"
               >
                 Register
               </WaterButton>

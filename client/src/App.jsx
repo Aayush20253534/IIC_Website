@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 // Components
 import RenaissanceIntro from "./components/RenaissanceIntro";
 import Navbar from "./components/Navbar";
+import PirateCursor from "./components/PirateCursor";
 import ThreeBackground from "./pages/background";
 
 function ScrollToTop() {
@@ -34,6 +35,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      {/* Interactive Custom Pirate Hook Cursor */}
+      <PirateCursor />
+
       {/* Persistent visual layer shared by every route. */}
       <ThreeBackground />
 
@@ -49,7 +53,7 @@ export default function App() {
       <Navbar />
 
       {/* 3. Main Route Views */}
-      <div className="relative z-10 min-h-screen bg-[#050B14]/80 text-[#F4EBD9]">
+      <div className="relative z-10 min-h-screen bg-transparent text-[#F4EBD9]">
         <Routes>
           {/* Home / Main Summit Portal */}
           <Route path="/" element={<Home />} />

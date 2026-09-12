@@ -48,17 +48,17 @@ export default function Sponsors({ embedded = false }) {
   return (
     <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#F4EBD9] flex flex-col justify-between relative`}>
       <div className="max-w-6xl mx-auto px-6 w-full mb-16">
-        <div className="text-center mb-10">
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#0A192F] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">
+        <div className="text-center mb-10 p-6 sm:p-8 rounded-3xl bg-[#020610]/80 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl max-w-3xl mx-auto">
+          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#041021] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">
             Alliances & Fleet
           </span>
-          <h1 className="font-cinzel text-3xl sm:text-5xl font-bold mb-2">Our Sponsors</h1>
+          <h1 className="font-cinzel text-3xl sm:text-5xl font-bold mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Our Sponsors</h1>
           <div className="w-16 h-0.5 bg-[#C5A25F] mx-auto mb-4" />
-          <p className="font-montserrat text-xs text-[#94A3B8]">Sponsors and partners supporting Renaissance 2026 (Placeholders).</p>
+          <p className="font-montserrat text-xs text-[#E2E8F0] drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">Sponsors and partners supporting Renaissance 2026 (Placeholders).</p>
         </div>
 
         {/* Dynamic Water Wave Stream with Sailing Ships */}
-        <div className="mb-16 rounded-2xl overflow-hidden border border-[#C5A25F]/20 shadow-2xl">
+        <div className="mb-16 rounded-2xl overflow-hidden border border-[#C5A25F]/20 shadow-2xl bg-[#020610]/70 backdrop-blur-md">
           <SponsorStream />
         </div>
 
@@ -66,7 +66,7 @@ export default function Sponsors({ embedded = false }) {
         <div className="space-y-14" ref={gridRef}>
           {SPONSOR_TIERS.map((tier) => (
             <div key={tier.id} className="text-center">
-              <h2 className="font-cinzel text-xl font-bold text-[#C5A25F] mb-6">
+              <h2 className="font-cinzel text-xl font-bold text-[#C5A25F] mb-6 drop-shadow-[0_0_10px_rgba(197,162,95,0.3)]">
                 {tier.title}
               </h2>
               <div className="flex flex-wrap justify-center gap-6 max-w-4xl mx-auto">
@@ -76,7 +76,7 @@ export default function Sponsors({ embedded = false }) {
                     onClick={(e) => handleCardClick(e, sponsor, sIdx)}
                     onMouseEnter={() => handleMouseEnter(sponsor, sIdx)}
                     onMouseLeave={handleMouseLeave}
-                    className="group relative p-7 rounded-2xl bg-[#0A192F]/30 backdrop-blur-xl border border-[#C5A25F]/20 hover:border-[#C5A25F]/60 shadow-[0_8px_32px_0_rgba(5,11,20,0.37)] hover:shadow-[0_0_25px_rgba(197,162,95,0.2)] transition-all duration-300 flex flex-col items-center justify-center text-center overflow-hidden"
+                    className="group relative p-7 rounded-2xl bg-[#041021]/80 backdrop-blur-xl border border-[#C5A25F]/25 hover:border-[#C5A25F]/60 shadow-[0_8px_32px_0_rgba(2,6,16,0.6)] hover:shadow-[0_0_25px_rgba(197,162,95,0.25)] transition-all duration-300 flex flex-col items-center justify-center text-center overflow-hidden"
                   >
                     {/* Subtle Gold Gradient Glow on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-b from-[#C5A25F]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

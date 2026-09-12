@@ -3,268 +3,296 @@ import { useNavigate } from "react-router-dom";
 import ContactFooter from "../components/ContactFooter";
 
 export default function Events({ embedded = false }) {
-  const [selectedDay, setSelectedDay] = useState(1);
+  const [activeDay, setActiveDay] = useState(1);
   const navigate = useNavigate();
 
-  // 2-Day Timeline Configuration - Coordinates are in percentages
-  const timelineDays = [
-    {
-      day: 1,
-      title: "DAY 1",
-      subtitle: "NEW SHORES\nNEW CHALLENGES",
-      x: "28", // Used for both CSS left% and SVG path
-      y: "38", // Used for CSS top%
+  const eventsSchedule = {
+    1: {
+      dayTitle: "DAY 1",
+      daySubtitle: "NEW SHORES • NEW CHALLENGES",
+      iconType: "compass",
+      events: [
+        {
+          id: "event-1",
+          title: "Keynote & Summit Orientation",
+          category: "Inaugural Session",
+          time: "09:30 AM - 11:00 AM",
+          location: "Main Auditorium",
+          tag: "Flagship",
+          description:
+            "Grand opening ceremony and inaugural address by distinguished industry pioneers setting the voyage course.",
+        },
+        {
+          id: "event-2",
+          title: "Hackathon Sprint: Round 1",
+          category: "Technical",
+          time: "11:30 AM - 04:30 PM",
+          location: "Innovation Hub",
+          tag: "Team (2-4)",
+          description:
+            "Problem statement unveil and high-intensity prototype development marathon across deep tech & AI domains.",
+        },
+        {
+          id: "event-3",
+          title: "Founder's Fireside Masterclass",
+          category: "Leadership",
+          time: "05:00 PM - 07:00 PM",
+          location: "Seminar Hall A",
+          tag: "Open Entry",
+          description:
+            "Intimate dialogue with veteran startup founders on product-market fit, fundraising, and resilient scaling.",
+        },
+      ],
     },
-    {
-      day: 2,
-      title: "DAY 2",
-      subtitle: "BIGGER WAVES\nBRIGHTER MINDS",
-      x: "65", 
-      y: "48", 
+    2: {
+      dayTitle: "DAY 2",
+      daySubtitle: "BIGGER WAVES • BRIGHTER MINDS",
+      iconType: "anchor",
+      events: [
+        {
+          id: "event-2-finals",
+          title: "Grand Hackathon Finals & Jury Pitch",
+          category: "Technical",
+          time: "10:00 AM - 01:00 PM",
+          location: "Main Auditorium",
+          tag: "Jury Round",
+          description:
+            "Shortlisted finalists demonstrate working functional prototypes before VC judges and enterprise technical heads.",
+        },
+        {
+          id: "event-4",
+          title: "Startup Arena & Live Angel Pitch",
+          category: "Venture Capital",
+          time: "01:30 PM - 04:00 PM",
+          location: "Exhibition Concourse",
+          tag: "Pitching",
+          description:
+            "High-stakes pitch battle where emerging college and student startups present for investment and grant funding.",
+        },
+        {
+          id: "valedictory",
+          title: "Valedictory & Awards Gala",
+          category: "Awards Ceremony",
+          time: "04:30 PM - 06:30 PM",
+          location: "Main Auditorium",
+          tag: "₹5,00,000+ Prizes",
+          description:
+            "Grand summit conclusion, championship trophy presentations, fellowship felicitations, and valediction.",
+        },
+      ],
     },
-  ];
-
-  const day1Events = [
-    {
-      id: "event-1",
-      title: "Keynote & Orientation",
-      location: "Main Auditorium",
-      time: "09:30 AM",
-      icon: "🧭",
-      x: "28%",
-      y: "58%",
-    },
-  ];
-
-  const day2Events = [
-    {
-      id: "event-2-finals",
-      title: "Grand Hackathon Finals",
-      location: "Campus Venue",
-      time: "10:30 AM",
-      icon: "⚔️",
-      x: "65%",
-      y: "65%",
-    },
-    {
-      id: "valedictory",
-      title: "Valedictory & Awards",
-      location: "Auditorium",
-      time: "04:00 PM",
-      icon: "🏆",
-      x: "65%",
-      y: "80%",
-    },
-  ];
+  };
 
   return (
     <div
-      className={`relative w-full min-h-screen bg-[#030914]/80 text-[#EAD8B1] font-serif overflow-hidden select-none ${
-        embedded ? "py-8" : "pt-24 pb-12"
+      className={`relative w-full min-h-screen text-[#F4EBD9] select-none ${
+        embedded ? "py-6" : "pt-24 pb-12"
       }`}
+      style={{
+        background:
+          "radial-gradient(ellipse 90% 70% at 50% 20%, #0f172a 0%, #020617 75%, #01040a 100%)",
+      }}
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#030914]/90 via-[#07172B]/80 to-[#02060E]/90 pointer-events-none z-0" />
-      <div 
-        className="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none animate-pulse z-0"
+      {/* Stylized Dark Sea Wave / Maritime Noise Texture Overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-25 mix-blend-overlay z-0"
         style={{
-          backgroundImage: `radial-gradient(circle at 50% 50%, #003B6D 0%, transparent 60%), radial-gradient(circle at 20% 80%, #001F3F 0%, transparent 50%)`,
-          animationDuration: "8s"
+          backgroundImage: `radial-gradient(circle at 50% 30%, #0369a1 0%, transparent 60%), radial-gradient(circle at 80% 80%, #0f766e 0%, transparent 50%)`,
         }}
       />
-      <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#C5A25F_1px,transparent_1px)] [background-size:32px_32px] z-0" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#030914]/40 to-[#030914]/90 pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(#fbbf24_1px,transparent_1px)] [background-size:40px_40px] opacity-10 pointer-events-none z-0" />
 
-      {/* Header Section */}
-      <header className="relative z-20 text-center mt-4 mb-8">
-        <h1 className="text-5xl sm:text-7xl tracking-[0.2em] font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-[#FFF5D6] via-[#D4AF37] to-[#8B5A2B] drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
-          EVENTS
-        </h1>
-        <div className="flex items-center justify-center space-x-4 my-3">
-          <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
-          <span className="text-[#D4AF37] text-sm filter drop-shadow-[0_0_5px_#D4AF37]">✦</span>
-          <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+      {/* Side Decorative Maritime Typography (Left Rail - Desktop) */}
+      <div className="hidden lg:flex flex-col justify-between fixed left-8 top-36 bottom-24 z-20 pointer-events-none select-none">
+        <div className="text-[11px] font-mono tracking-[0.35em] text-[#94A3B8] opacity-60 uppercase [writing-mode:vertical-rl] rotate-180 flex items-center gap-3">
+          <span className="w-8 h-[1px] bg-[#fbbf24]/40 inline-block" />
+          MORE THAN AN EVENT • A JOURNEY
         </div>
-        <p className="text-[11px] tracking-[0.4em] text-[#C5A880] uppercase font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-          TWO DAYS • A THOUSAND STORIES
-        </p>
-      </header>
-
-      {/* Side Typography Decor */}
-      <div className="hidden lg:block absolute left-12 top-1/3 text-[10px] tracking-[0.3em] text-[#9A8262] uppercase leading-loose font-mono z-20 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-        <p>MORE</p>
-        <p>THAN AN EVENT</p>
-        <p>A JOURNEY</p>
-      </div>
-      <div className="hidden lg:block absolute left-16 bottom-24 text-[10px] tracking-[0.3em] text-[#9A8262] uppercase leading-loose font-mono z-20 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-        <p>SET SAIL</p>
-        <p>FOR GREATNESS</p>
+        <div className="text-[10px] font-mono tracking-[0.3em] text-[#C5A25F] opacity-50 uppercase [writing-mode:vertical-rl] rotate-180">
+          RENAISSANCE MMXXVI
+        </div>
       </div>
 
-      {/* Main Map Viewport */}
-      <main className="relative z-20 max-w-6xl mx-auto h-[650px] w-full">
-        
-        {/* Animated Pirate Galleon Ship */}
-        <div className="absolute left-4 bottom-8 w-64 h-64 pointer-events-none z-10 opacity-90 transition-transform duration-1000 hover:scale-105">
-          <svg viewBox="0 0 200 200" className="w-full h-full filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
-            <ellipse cx="100" cy="170" rx="70" ry="15" fill="#000" opacity="0.6" />
-            <path d="M 30 140 Q 100 185 170 140 Q 180 125 150 125 Q 100 135 45 125 Z" fill="#1C1008" stroke="#5C3A21" strokeWidth="2" />
-            <path d="M 40 132 Q 100 145 160 132" stroke="#8B5A2B" strokeWidth="1.5" fill="none" />
-            <line x1="70" y1="130" x2="70" y2="40" stroke="#100A05" strokeWidth="3" />
-            <line x1="115" y1="130" x2="115" y2="30" stroke="#100A05" strokeWidth="3.5" />
-            <line x1="150" y1="130" x2="150" y2="55" stroke="#100A05" strokeWidth="2.5" />
-            <path d="M 70 50 Q 95 65 70 95 Q 50 65 70 50 Z" fill="#D5C29D" opacity="0.85" />
-            <path d="M 115 40 Q 145 60 115 100 Q 90 60 115 40 Z" fill="#E8D7B5" opacity="0.9" />
-            <path d="M 150 65 Q 170 80 150 110 Q 135 80 150 65 Z" fill="#D5C29D" opacity="0.8" />
-            <path d="M 115 30 L 135 35 L 115 40 Z" fill="#000" />
-            <circle cx="123" cy="35" r="1.5" fill="#FFF" />
-          </svg>
-        </div>
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <header className="text-center mb-12 sm:mb-16">
+          <span className="inline-block px-4 py-1 rounded-full text-[11px] font-mono tracking-[0.3em] text-[#fbbf24] bg-[#020617]/90 border border-[#fbbf24]/30 uppercase mb-4 shadow-[0_0_15px_rgba(251,191,36,0.2)]">
+            VOYAGE TIMELINE
+          </span>
+          <h1 className="font-cinzel text-5xl sm:text-7xl font-black text-[#F4EBD9] tracking-[0.2em] drop-shadow-[0_4px_24px_rgba(251,191,36,0.35)]">
+            EVENTS
+          </h1>
+          <div className="flex items-center justify-center space-x-4 my-4">
+            <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-r from-transparent via-[#fbbf24] to-transparent" />
+            <span className="text-[#fbbf24] text-xs filter drop-shadow-[0_0_8px_#fbbf24]">✦</span>
+            <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-r from-transparent via-[#fbbf24] to-transparent" />
+          </div>
+          <p className="text-xs sm:text-sm font-montserrat tracking-[0.4em] text-[#C5A25F] uppercase font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+            TWO DAYS • A THOUSAND STORIES
+          </p>
+        </header>
 
-        {/* Mountain Island 1 (Day 1 Peak) */}
-        <div className="absolute left-[18%] top-[18%] w-56 h-40 pointer-events-none z-10">
-          <svg viewBox="0 0 200 150" className="w-full h-full filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)]">
-            <path d="M 10 130 Q 100 145 190 130 Q 160 80 120 40 Q 90 20 70 60 Q 40 90 10 130 Z" fill="#0E1A14" stroke="#2D4A3E" strokeWidth="1" />
-            <path d="M 70 60 L 90 135 M 120 40 L 110 135 M 40 90 L 60 135" stroke="#070D0A" strokeWidth="1.5" />
-            <ellipse cx="100" cy="132" rx="85" ry="8" fill="#C5A25F" opacity="0.2" />
-          </svg>
-        </div>
-
-        {/* Mountain Island 2 (Day 2 Peak) */}
-        <div className="absolute left-[55%] top-[28%] w-64 h-48 pointer-events-none z-10">
-          <svg viewBox="0 0 200 150" className="w-full h-full filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)]">
-            <path d="M 15 135 Q 100 150 185 135 Q 155 70 115 30 Q 85 10 65 50 Q 35 85 15 135 Z" fill="#141E18" stroke="#375747" strokeWidth="1" />
-            <path d="M 115 30 L 130 140 M 65 50 L 80 140" stroke="#0A100C" strokeWidth="1.5" />
-            <ellipse cx="100" cy="137" rx="80" ry="9" fill="#C5A25F" opacity="0.25" />
-          </svg>
-        </div>
-
-        {/* Treasure Chest (Bottom Right) */}
-        <div className="absolute right-8 bottom-8 w-36 h-28 pointer-events-none z-10 opacity-90">
-          <svg viewBox="0 0 120 100" className="w-full h-full filter drop-shadow-[0_6px_12px_rgba(0,0,0,0.9)]">
-            <rect x="20" y="45" width="80" height="40" rx="3" fill="#2A1810" stroke="#8B5A2B" strokeWidth="2" />
-            <path d="M 18 45 Q 60 20 102 45 Z" fill="#3D2317" stroke="#8B5A2B" strokeWidth="2" />
-            <ellipse cx="60" cy="45" rx="30" ry="5" fill="#FFD700" className="animate-pulse" />
-            <rect x="35" y="45" width="6" height="40" fill="#D4AF37" />
-            <rect x="79" y="45" width="6" height="40" fill="#D4AF37" />
-          </svg>
-        </div>
-
-        {/* PERFECTLY CONNECTED DOTTED GOLDEN ROUTE */}
-        <svg 
-          className="absolute inset-0 w-full h-full pointer-events-none z-20"
-          viewBox="0 0 100 100" 
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M 28 44 C 40 44, 50 54, 65 54"
-            fill="none"
-            stroke="#D4AF37"
-            strokeWidth="3"
-            strokeDasharray="6 6"
-            vectorEffect="non-scaling-stroke"
-            className="opacity-90 filter drop-shadow-[0_0_8px_#D4AF37]"
-          />
-        </svg>
-
-        {/* Interactive UI Nodes */}
-        {timelineDays.map((node) => (
-          <div
-            key={node.day}
-            onClick={() => setSelectedDay(node.day)}
-            className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group z-30 flex flex-col items-center"
-            style={{ left: `${node.x}%`, top: `${node.y}%` }}
-          >
-            {/* Day Label - Rich Parchment Effect */}
-            <div className={`relative px-6 py-2 transition-all duration-300 group-hover:scale-105 shadow-[0_15px_30px_rgba(0,0,0,0.9)] 
-              ${selectedDay === node.day 
-                ? "bg-gradient-to-br from-[#F5E6C8] via-[#E8D7B5] to-[#C2A878] border-[#8B5A2B] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-transparent shadow-[inset_0_0_15px_rgba(139,90,43,0.3)]" 
-                : "bg-gradient-to-br from-[#D4C3A3] to-[#B0986B] border-[#5C3A21] shadow-[inset_0_0_20px_rgba(0,0,0,0.4)] opacity-90"}
-              border-2 rounded-sm`}
+        {/* Day Selector Buttons for Mobile & Quick Filter */}
+        <div className="flex justify-center items-center gap-4 mb-12">
+          {[1, 2].map((d) => (
+            <button
+              key={d}
+              onClick={() => setActiveDay(d)}
+              className={`px-7 py-2.5 rounded-xl font-cinzel text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer shadow-lg flex items-center gap-2 ${
+                activeDay === d
+                  ? "bg-gradient-to-r from-[#fbbf24] to-[#d97706] text-[#020617] border border-[#fef08a] shadow-[0_0_20px_rgba(251,191,36,0.4)] scale-105"
+                  : "bg-[#0f172a]/80 text-[#94A3B8] border border-[#fbbf24]/20 hover:border-[#fbbf24]/50 hover:text-[#F4EBD9]"
+              }`}
             >
-              <span className={`font-black text-sm tracking-widest block text-center ${selectedDay === node.day ? "text-[#2A1810]" : "text-[#1A0F0A]"}`}>
-                {node.title}
-              </span>
-            </div>
+              <span>{d === 1 ? "🧭" : "⚓"}</span>
+              <span>Day {d}</span>
+            </button>
+          ))}
+        </div>
 
-            {/* Glowing Target Node (This sits right where the line connects) */}
-            <div className="flex justify-center mt-3 z-10 bg-[#030914] rounded-full">
-              <div className="w-6 h-6 rounded-full border-[3px] border-[#D4AF37] bg-[#0A0503] flex items-center justify-center shadow-[0_0_15px_#D4AF37,inset_0_0_5px_#D4AF37] transition-all group-hover:bg-[#D4AF37]/20">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#FFF5D6] shadow-[0_0_8px_#FFF]" />
-              </div>
-            </div>
-
-            <div className="mt-2 text-center text-[10px] tracking-widest text-[#D4C3A3] font-bold uppercase leading-tight whitespace-pre-line drop-shadow-[0_4px_6px_rgba(0,0,0,1)]">
-              {node.subtitle}
-            </div>
+        {/* Desktop Dual-Day Voyage Grid with Connecting Curved Golden Route */}
+        <div className="relative">
+          {/* Curved Golden Treasure Map Route SVG (Desktop Connected Line) */}
+          <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
+            <svg
+              className="w-full h-full"
+              viewBox="0 0 1000 700"
+              fill="none"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M 260 90 C 380 90, 420 180, 500 180 C 580 180, 620 90, 740 90"
+                stroke="#fbbf24"
+                strokeWidth="2.5"
+                strokeDasharray="8 8"
+                className="opacity-75 filter drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+              />
+            </svg>
           </div>
-        ))}
 
-        {/* Day 1 Event Cards */}
-        {day1Events.map((event) => (
-          <div
-            key={event.id}
-            onClick={() => navigate(`/events/${event.id}/register`)}
-            className={`absolute transform -translate-x-1/2 -translate-y-1/2 flex items-center space-x-4 cursor-pointer group z-40 transition-all duration-500 ${
-              selectedDay === 1 ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-            }`}
-            style={{ left: event.x, top: event.y }}
-          >
-            <div className="w-64 bg-gradient-to-br from-[#F4E3C5] via-[#E6CDA3] to-[#C9A977] text-[#2C1A0E] p-3 border-2 border-[#8B5A2B] shadow-[inset_0_0_20px_rgba(139,90,43,0.2),0_15px_35px_rgba(0,0,0,0.8)] rounded-sm group-hover:brightness-110 group-hover:-translate-y-1 transition-all">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-full bg-[#3D2314] border-2 border-[#D4AF37] flex items-center justify-center text-lg shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]">
-                  {event.icon}
-                </div>
-                <div>
-                  <h4 className="font-extrabold text-[13px] tracking-wide text-[#1A0F0A]">
-                    {event.title}
-                  </h4>
-                  <div className="text-[10px] text-[#4A2F1D] mt-1 space-y-0.5 font-sans font-bold">
-                    <p className="flex items-center gap-1">📍 {event.location}</p>
-                    <p className="flex items-center gap-1">🕒 {event.time}</p>
+          {/* Main 2-Day Voyage Timeline Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 relative z-10">
+            {[1, 2].map((dayNum) => {
+              const dayData = eventsSchedule[dayNum];
+              const isCurrent = activeDay === dayNum;
+
+              return (
+                <div
+                  key={dayNum}
+                  onClick={() => setActiveDay(dayNum)}
+                  className={`flex flex-col transition-all duration-300 rounded-3xl p-6 sm:p-8 ${
+                    isCurrent
+                      ? "bg-[#041021]/80 border border-[#fbbf24]/40 shadow-[0_20px_50px_rgba(0,0,0,0.85)] ring-1 ring-[#fbbf24]/20"
+                      : "bg-[#020617]/50 border border-[#1e293b] opacity-85 hover:opacity-100 hover:border-[#fbbf24]/30"
+                  }`}
+                >
+                  {/* Pirate Voyage Node Header */}
+                  <div className="flex flex-col items-center text-center mb-8">
+                    {/* Glowing Circular Pirate Node */}
+                    <div className="relative mb-3 group cursor-pointer">
+                      <div className="w-16 h-16 rounded-full bg-[#020617] border-2 border-[#fbbf24] flex items-center justify-center shadow-[0_0_20px_rgba(251,191,36,0.4),inset_0_0_12px_rgba(251,191,36,0.2)] transition-transform duration-300 group-hover:scale-110">
+                        {dayData.iconType === "compass" ? (
+                          /* Glowing Compass Icon */
+                          <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#fbbf24"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="filter drop-shadow-[0_0_6px_#fbbf24]"
+                          >
+                            <circle cx="12" cy="12" r="10" />
+                            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#fbbf24" />
+                          </svg>
+                        ) : (
+                          /* Glowing Anchor Icon */
+                          <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#fbbf24"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="filter drop-shadow-[0_0_6px_#fbbf24]"
+                          >
+                            <circle cx="12" cy="5" r="3" />
+                            <line x1="12" y1="22" x2="12" y2="8" />
+                            <path d="M5 12H2a10 10 0 0 0 20 0h-3" />
+                          </svg>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Day Title & Subtitle */}
+                    <h2 className="font-cinzel text-2xl sm:text-3xl font-black tracking-widest text-[#F4EBD9]">
+                      {dayData.dayTitle}
+                    </h2>
+                    <p className="text-[11px] font-mono tracking-[0.25em] text-[#fbbf24] uppercase mt-1 font-semibold">
+                      {dayData.daySubtitle}
+                    </p>
+                  </div>
+
+                  {/* Strict Vertical Stack of Event Detail Cards (No Overlap) */}
+                  <div className="flex flex-col gap-6 mt-2">
+                    {dayData.events.map((item) => (
+                      <div
+                        key={item.id}
+                        className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-[#fbbf24]/30 shadow-[0_10px_30px_rgba(0,0,0,0.85)] hover:border-[#fbbf24]/75 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                      >
+                        <div>
+                          {/* Top Tag & Time */}
+                          <div className="flex items-center justify-between gap-2 mb-3">
+                            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider text-[#020617] bg-[#fbbf24]">
+                              {item.tag}
+                            </span>
+                            <span className="text-[11px] font-mono text-[#fbbf24] font-semibold flex items-center gap-1.5">
+                              🕒 {item.time}
+                            </span>
+                          </div>
+
+                          {/* Event Title */}
+                          <h3 className="font-cinzel text-lg sm:text-xl font-bold text-[#F4EBD9] tracking-wide mb-2 group-hover:text-[#fbbf24] transition-colors">
+                            {item.title}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="font-montserrat text-xs text-[#94A3B8] leading-relaxed mb-4 font-light">
+                            {item.description}
+                          </p>
+                        </div>
+
+                        {/* Card Bottom Meta (Location & Register Action) */}
+                        <div className="pt-3 border-t border-[#334155]/60 flex items-center justify-between gap-3">
+                          <span className="text-xs font-montserrat text-[#E2E8F0] font-medium flex items-center gap-1.5">
+                            📍 <span className="text-[#38bdf8] font-semibold">{item.location}</span>
+                          </span>
+
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/events/${item.id}/register`);
+                            }}
+                            className="px-4 py-1.5 rounded-lg bg-[#fbbf24]/10 hover:bg-[#fbbf24] text-[#fbbf24] hover:text-[#020617] border border-[#fbbf24]/40 font-montserrat text-[11px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer"
+                          >
+                            Register ➔
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
-        ))}
+        </div>
+      </div>
 
-        {/* Day 2 Event Cards */}
-        {day2Events.map((event) => (
-          <div
-            key={event.id}
-            onClick={() => navigate(`/events/${event.id}/register`)}
-            className={`absolute transform -translate-x-1/2 -translate-y-1/2 flex items-center space-x-4 cursor-pointer group z-40 transition-all duration-500 ${
-              selectedDay === 2 ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-            }`}
-            style={{ left: event.x, top: event.y }}
-          >
-            <div className="w-64 bg-gradient-to-br from-[#F4E3C5] via-[#E6CDA3] to-[#C9A977] text-[#2C1A0E] p-3 border-2 border-[#8B5A2B] shadow-[inset_0_0_20px_rgba(139,90,43,0.2),0_15px_35px_rgba(0,0,0,0.8)] rounded-sm group-hover:brightness-110 group-hover:-translate-y-1 transition-all">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-full bg-[#3D2314] border-2 border-[#D4AF37] flex items-center justify-center text-lg shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]">
-                  {event.icon}
-                </div>
-                <div>
-                  <h4 className="font-extrabold text-[13px] tracking-wide text-[#1A0F0A]">
-                    {event.title}
-                  </h4>
-                  <div className="text-[10px] text-[#4A2F1D] mt-1 space-y-0.5 font-sans font-bold">
-                    <p className="flex items-center gap-1">📍 {event.location}</p>
-                    <p className="flex items-center gap-1">🕒 {event.time}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </main>
-
-      <footer className="relative z-20 text-center mt-4 text-[10px] tracking-[0.4em] text-[#9A8262] uppercase flex items-center justify-center space-x-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-        <span>DIFFERENT CREWS</span>
-        <span className="text-[#D4AF37] filter drop-shadow-[0_0_4px_#D4AF37]">✦</span>
-        <span>SAME HORIZON</span>
-      </footer>
-
+      {/* Summit Footer */}
       {!embedded && <ContactFooter />}
     </div>
   );

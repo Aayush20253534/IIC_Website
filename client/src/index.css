@@ -2,11 +2,11 @@
 
 @layer base {
   :root {
-    --bg-marine: #050B14;
-    --bg-marine-surface: #0A192F;
-    --bg-marine-card: #0D203D;
+    --bg-marine: #020610;
+    --bg-marine-surface: #041021;
+    --bg-marine-card: #061936;
     --gold-pirate: #C5A25F;
-    --marine-blue: #0EA5E9;
+    --marine-blue: #0284C7;
     --marine-foam: #38BDF8;
     --text-parchment: #F4EBD9;
     --text-muted: #94A3B8;
@@ -16,6 +16,7 @@
     --font-mono: 'JetBrains Mono', monospace;
   }
 
+  html,
   body {
     background-color: var(--bg-marine);
     color: var(--text-parchment);
@@ -23,6 +24,12 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+  }
+
+  @media (pointer: fine) {
+    *, body, a, button, input, select, textarea, [role="button"] {
+      cursor: none !important;
+    }
   }
 
   #root {

@@ -34,7 +34,7 @@ export default function Home() {
       </section>
 
       {/* 3. REGISTER SECTION (3rd) */}
-      <section id="register" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-[#030912]">
+      <section id="register" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-transparent">
         <Registration embedded={true} />
       </section>
 

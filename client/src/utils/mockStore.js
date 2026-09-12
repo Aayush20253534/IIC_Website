@@ -35,7 +35,9 @@ export const getStoredTeams = () => {
   if (saved) {
     try {
       return JSON.parse(saved);
-    } catch {}
+    } catch(err) {
+      console.error("Error parsing stored teams:", err);
+    }
   }
   return [
     {
@@ -63,7 +65,9 @@ export const getStoredRegistrations = () => {
   if (saved) {
     try {
       return JSON.parse(saved);
-    } catch {}
+    } catch(err) {
+      console.error("Error parsing stored teams:", err);
+    }
   }
   return [
     {

@@ -1,0 +1,28 @@
+{
+  "second_year": {
+    "marketing_team": [
+      { "name": "Marketing Executive 1", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Marketing Executive 2", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Marketing Executive 3", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Marketing Executive 4", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" }
+    ],
+    "design_team": [
+      { "name": "Design Executive 1", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Design Executive 2", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Design Executive 3", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Design Executive 4", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" }
+    ],
+    "web_team": [
+      { "name": "Web Executive 1", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Web Executive 2", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Web Executive 3", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Web Executive 4", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" }
+    ],
+    "events_team": [
+      { "name": "Events Executive 1", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Events Executive 2", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Events Executive 3", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" },
+      { "name": "Events Executive 4", "registration_no": "2024XXXX", "linkedin": "#", "image_url": "/placeholder-speaker.svg" }
+    ]
+  }
+}

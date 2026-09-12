@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="240" height="120">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D203D"/>
+      <stop offset="100%" stop-color="#050B14"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="120" rx="10" fill="url(#cardGrad)" stroke="#C5A25F" stroke-width="1.5" stroke-opacity="0.35"/>
+  <circle cx="120" cy="46" r="20" fill="#0A192F" stroke="#C5A25F" stroke-width="1.2" stroke-opacity="0.6"/>
+  <path d="M120 34 L127 48 L120 44 L113 48 Z" fill="#C5A25F"/>
+  <circle cx="120" cy="54" r="2.5" fill="#0EA5E9"/>
+  <text x="120" y="86" font-family="'Montserrat', -apple-system, sans-serif" font-size="11" font-weight="700" fill="#F4EBD9" text-anchor="middle" letter-spacing="2.5">SPONSOR LOGO</text>
+  <text x="120" y="102" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="500" fill="#94A3B8" text-anchor="middle" letter-spacing="1.5">PLACEHOLDER</text>
+</svg>

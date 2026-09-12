@@ -1,0 +1,74 @@
+{
+  "third_year": {
+    "marketing_team": [
+      {
+        "name": "Marketing Lead 1",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      },
+      {
+        "name": "Marketing Lead 2",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      }
+    ],
+    "sponsorship_team": [
+      {
+        "name": "Sponsorship Lead 1",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      },
+      {
+        "name": "Sponsorship Lead 2",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      }
+    ],
+    "events_team": [
+      {
+        "name": "Events Lead 1",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      },
+      {
+        "name": "Events Lead 2",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      }
+    ],
+    "web_team": [
+      {
+        "name": "Web Lead 1",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      },
+      {
+        "name": "Web Lead 2",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      }
+    ],
+    "design_team": [
+      {
+        "name": "Design Lead 1",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      },
+      {
+        "name": "Design Lead 2",
+        "registration_no": "2023XXXX",
+        "linkedin": "#",
+        "image_url": "/placeholder-speaker.svg"
+      }
+    ]
+  }
+}

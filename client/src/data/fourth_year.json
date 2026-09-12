@@ -1,0 +1,46 @@
+{
+  "fourth_year": [
+    {
+      "name": "Senior Member 1",
+      "registration_no": "2022XXXX",
+      "team": "Leadership (Placeholder)",
+      "linkedin": "#",
+      "image_url": "/placeholder-speaker.svg"
+    },
+    {
+      "name": "Senior Member 2",
+      "registration_no": "2022XXXX",
+      "team": "Operations (Placeholder)",
+      "linkedin": "#",
+      "image_url": "/placeholder-speaker.svg"
+    },
+    {
+      "name": "Senior Member 3",
+      "registration_no": "2022XXXX",
+      "team": "Marketing (Placeholder)",
+      "linkedin": "#",
+      "image_url": "/placeholder-speaker.svg"
+    },
+    {
+      "name": "Senior Member 4",
+      "registration_no": "2022XXXX",
+      "team": "Sponsorship (Placeholder)",
+      "linkedin": "#",
+      "image_url": "/placeholder-speaker.svg"
+    },
+    {
+      "name": "Senior Member 5",
+      "registration_no": "2022XXXX",
+      "team": "Events (Placeholder)",
+      "linkedin": "#",
+      "image_url": "/placeholder-speaker.svg"
+    },
+    {
+      "name": "Senior Member 6",
+      "registration_no": "2022XXXX",
+      "team": "Technology (Placeholder)",
+      "linkedin": "#",
+      "image_url": "/placeholder-speaker.svg"
+    }
+  ]
+}

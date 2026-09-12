@@ -1,0 +1,62 @@
+export const EVENTS_DATA = [
+  {
+    id: "event-1",
+    name: "Event 1 (Placeholder)",
+    category: "Technical",
+    eventType: "Team",
+    minTeamSize: 2,
+    maxTeamSize: 4,
+    prizePool: "₹50,000",
+    date: "TBD",
+    venue: "MNNIT Campus",
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+    description: "Event 1 placeholder description. Details will be updated by the organizing team.",
+    tagline: "Placeholder tagline for Event 1",
+    rulebookUrl: "#"
+  },
+  {
+    id: "event-2",
+    name: "Event 2 (Placeholder)",
+    category: "Flagship",
+    eventType: "Team",
+    minTeamSize: 1,
+    maxTeamSize: 4,
+    prizePool: "₹50,000",
+    date: "TBD",
+    venue: "MNNIT Campus",
+    image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80",
+    description: "Event 2 placeholder description. Details will be updated by the organizing team.",
+    tagline: "Placeholder tagline for Event 2",
+    rulebookUrl: "#"
+  },
+  {
+    id: "event-3",
+    name: "Event 3 (Placeholder)",
+    category: "Management",
+    eventType: "Solo",
+    minTeamSize: 1,
+    maxTeamSize: 1,
+    prizePool: "₹25,000",
+    date: "TBD",
+    venue: "MNNIT Campus",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+    description: "Event 3 placeholder description. Details will be updated by the organizing team.",
+    tagline: "Placeholder tagline for Event 3",
+    rulebookUrl: "#"
+  },
+  {
+    id: "event-4",
+    name: "Event 4 (Placeholder)",
+    category: "Design",
+    eventType: "Solo",
+    minTeamSize: 1,
+    maxTeamSize: 2,
+    prizePool: "₹20,000",
+    date: "TBD",
+    venue: "MNNIT Campus",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80",
+    description: "Event 4 placeholder description. Details will be updated by the organizing team.",
+    tagline: "Placeholder tagline for Event 4",
+    rulebookUrl: "#"
+  }
+];

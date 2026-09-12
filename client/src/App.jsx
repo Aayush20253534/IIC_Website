@@ -1,122 +1,83 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import RenaissanceIntro from "./components/RenaissanceIntro";
+import PirateCursor from "./components/PirateCursor";
+import Navbar from "./components/Navbar";
 
-function App() {
-  const [count, setCount] = useState(0)
+// Pages
+import Home from "./pages/Home";
+import Events from "./pages/Events";
+import Registration from "./pages/Registration";
+import Dashboard from "./pages/Dashboard";
+import Teams from "./pages/Teams";
+import Sponsors from "./pages/Sponsors";
+import Gallery from "./pages/Gallery";
+import LoginSuccess from "./pages/LoginSuccess";
+
+export default function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <BrowserRouter>
+      {/* 1. NetraAI-style Cinematic Splash Screen */}
+      {showIntro && (
+        <RenaissanceIntro
+          onComplete={handleIntroComplete}
+          onSkip={handleIntroComplete}
+        />
+      )}
 
-      <div className="ticks"></div>
+      {/* 2. Realistic Pirate Sword Cursor */}
+      <PirateCursor />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {/* 3. Global Navigation */}
+      <Navbar />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+
+      {/* 5. Main Route Views */}
+      <div className="min-h-screen bg-[#050B14] text-[#F4EBD9]">
+        <Routes>
+          {/* Main Summit Portal */}
+          <Route path="/" element={<Home />} />
+          <Route path="/udbhav" element={<Navigate to="/" replace />} />
+
+          {/* Events Docket */}
+          <Route path="/events" element={<Events />} />
+          <Route path="/udbhav/events" element={<Events />} />
+
+          {/* Registration */}
+          <Route path="/register" element={<Registration />} />
+          <Route path="/events/:eventId/register" element={<Registration />} />
+          <Route path="/udbhav/events/:eventId/register" element={<Registration />} />
+
+          {/* Captain's Dashboard */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/udbhav/dashboard" element={<Dashboard />} />
+
+          {/* The Crew / Teams */}
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/udbhav/teams" element={<Teams />} />
+
+          {/* Alliances / Sponsors */}
+          <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/udbhav/sponsors" element={<Sponsors />} />
+
+          {/* Chronicles / Gallery */}
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/udbhav/gallery" element={<Gallery />} />
+
+          {/* Auth Callback */}
+          <Route path="/login/success" element={<LoginSuccess />} />
+          <Route path="/udbhav/login/success" element={<LoginSuccess />} />
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 }
-
-export default App

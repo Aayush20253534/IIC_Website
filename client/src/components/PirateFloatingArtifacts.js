@@ -1,57 +1,57 @@
 import * as THREE from "three";
 
-// Helper: Create an ultra-detailed 1024x1024 embossed gold pirate coin texture
+// Helper: Create an optimized 512x512 embossed gold pirate coin texture
 function createCoinTextures() {
   const canvas = document.createElement("canvas");
-  canvas.width = 1024;
-  canvas.height = 1024;
+  canvas.width = 512;
+  canvas.height = 512;
   const ctx = canvas.getContext("2d");
 
   // Rich Metallic Gold Radial Gradient
-  const grad = ctx.createRadialGradient(512, 512, 80, 512, 512, 500);
+  const grad = ctx.createRadialGradient(256, 256, 40, 256, 256, 250);
   grad.addColorStop(0, "#FFF3B0");
   grad.addColorStop(0.25, "#FFD700");
   grad.addColorStop(0.6, "#C59B27");
   grad.addColorStop(0.85, "#8B6508");
   grad.addColorStop(1, "#422802");
   ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 1024, 1024);
+  ctx.fillRect(0, 0, 512, 512);
 
   // Outer Raised Milled Coin Rim
   ctx.strokeStyle = "#422802";
-  ctx.lineWidth = 28;
+  ctx.lineWidth = 14;
   ctx.beginPath();
-  ctx.arc(512, 512, 480, 0, Math.PI * 2);
+  ctx.arc(256, 256, 240, 0, Math.PI * 2);
   ctx.stroke();
 
   ctx.strokeStyle = "#FFEFA6";
-  ctx.lineWidth = 12;
+  ctx.lineWidth = 6;
   ctx.beginPath();
-  ctx.arc(512, 512, 460, 0, Math.PI * 2);
+  ctx.arc(256, 256, 230, 0, Math.PI * 2);
   ctx.stroke();
 
-  // Beaded Rim Dots (72 individual rivets around the circumference)
+  // Beaded Rim Dots (48 individual rivets)
   ctx.fillStyle = "#FFF3B0";
   ctx.shadowColor = "#3D2505";
-  ctx.shadowBlur = 8;
-  for (let i = 0; i < 72; i++) {
-    const angle = (i / 72) * Math.PI * 2;
-    const dx = 512 + Math.cos(angle) * 468;
-    const dy = 512 + Math.sin(angle) * 468;
+  ctx.shadowBlur = 4;
+  for (let i = 0; i < 48; i++) {
+    const angle = (i / 48) * Math.PI * 2;
+    const dx = 256 + Math.cos(angle) * 234;
+    const dy = 256 + Math.sin(angle) * 234;
     ctx.beginPath();
-    ctx.arc(dx, dy, 7, 0, Math.PI * 2);
+    ctx.arc(dx, dy, 3.5, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  // Inner Inscription Ring Text: "RENAISSANCE • MMXXVI • ECELL"
+  // Inner Inscription Ring Text
   ctx.save();
-  ctx.translate(512, 512);
-  ctx.font = "bold 32px 'Cinzel', serif, monospace";
+  ctx.translate(256, 256);
+  ctx.font = "bold 16px 'Cinzel', serif, monospace";
   ctx.fillStyle = "#FFE79A";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   const inscription = "• RENAISSANCE • MMXXVI • ECELL MNNIT • ALLAHABAD •";
-  const radius = 395;
+  const radius = 198;
   for (let i = 0; i < inscription.length; i++) {
     const charAngle = (i / inscription.length) * Math.PI * 2 - Math.PI / 2;
     ctx.save();
@@ -64,86 +64,86 @@ function createCoinTextures() {
 
   // Inner Beaded Line
   ctx.strokeStyle = "#6B4A10";
-  ctx.lineWidth = 8;
+  ctx.lineWidth = 4;
   ctx.beginPath();
-  ctx.arc(512, 512, 350, 0, Math.PI * 2);
+  ctx.arc(256, 256, 175, 0, Math.PI * 2);
   ctx.stroke();
 
   // Embossed Central Skull & Crossed Cutlasses
   ctx.shadowColor = "#2E1803";
-  ctx.shadowBlur = 16;
-  ctx.shadowOffsetX = 6;
-  ctx.shadowOffsetY = 8;
+  ctx.shadowBlur = 8;
+  ctx.shadowOffsetX = 3;
+  ctx.shadowOffsetY = 4;
 
   // Crossed Pirate Cutlass Blades
-  ctx.lineWidth = 32;
+  ctx.lineWidth = 16;
   ctx.strokeStyle = "#FFEFA6";
   ctx.beginPath();
-  ctx.moveTo(260, 300);
-  ctx.lineTo(764, 724);
-  ctx.moveTo(764, 300);
-  ctx.lineTo(260, 724);
+  ctx.moveTo(130, 150);
+  ctx.lineTo(382, 362);
+  ctx.moveTo(382, 150);
+  ctx.lineTo(130, 362);
   ctx.stroke();
 
   // Cutlass Handguards
   ctx.fillStyle = "#FFDF73";
   ctx.beginPath();
-  ctx.arc(280, 320, 36, 0, Math.PI * 2);
-  ctx.arc(744, 320, 36, 0, Math.PI * 2);
-  ctx.arc(280, 704, 36, 0, Math.PI * 2);
-  ctx.arc(744, 704, 36, 0, Math.PI * 2);
+  ctx.arc(140, 160, 18, 0, Math.PI * 2);
+  ctx.arc(372, 160, 18, 0, Math.PI * 2);
+  ctx.arc(140, 352, 18, 0, Math.PI * 2);
+  ctx.arc(372, 352, 18, 0, Math.PI * 2);
   ctx.fill();
 
   // Skull Head
   ctx.fillStyle = "#FFF3B0";
   ctx.beginPath();
-  ctx.arc(512, 440, 135, 0, Math.PI * 2);
+  ctx.arc(256, 220, 68, 0, Math.PI * 2);
   ctx.fill();
 
   // Skull Bandana / Brow
   ctx.fillStyle = "#D4AF37";
   ctx.beginPath();
-  ctx.arc(512, 400, 137, Math.PI * 0.85, Math.PI * 0.15, true);
-  ctx.lineTo(645, 380);
-  ctx.lineTo(379, 380);
+  ctx.arc(256, 200, 69, Math.PI * 0.85, Math.PI * 0.15, true);
+  ctx.lineTo(322, 190);
+  ctx.lineTo(190, 190);
   ctx.closePath();
   ctx.fill();
 
   // Skull Jaw Structure
   ctx.fillStyle = "#FFF3B0";
-  ctx.fillRect(455, 530, 114, 85);
+  ctx.fillRect(228, 265, 57, 42);
 
   // Deep Shadowed Eye Sockets
   ctx.fillStyle = "#2E1803";
   ctx.beginPath();
-  ctx.ellipse(465, 435, 30, 42, -0.22, 0, Math.PI * 2);
-  ctx.ellipse(559, 435, 30, 42, 0.22, 0, Math.PI * 2);
+  ctx.ellipse(232, 218, 15, 21, -0.22, 0, Math.PI * 2);
+  ctx.ellipse(280, 218, 15, 21, 0.22, 0, Math.PI * 2);
   ctx.fill();
 
   // Triangular Nose Cavity
   ctx.beginPath();
-  ctx.moveTo(512, 475);
-  ctx.lineTo(496, 508);
-  ctx.lineTo(528, 508);
+  ctx.moveTo(256, 238);
+  ctx.lineTo(248, 254);
+  ctx.lineTo(264, 254);
   ctx.closePath();
   ctx.fill();
 
   // Teeth Grid
   ctx.strokeStyle = "#2E1803";
-  ctx.lineWidth = 6;
+  ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.moveTo(480, 560); ctx.lineTo(480, 605);
-  ctx.moveTo(512, 560); ctx.lineTo(512, 605);
-  ctx.moveTo(544, 560); ctx.lineTo(544, 605);
+  ctx.moveTo(240, 280); ctx.lineTo(240, 302);
+  ctx.moveTo(256, 280); ctx.lineTo(256, 302);
+  ctx.moveTo(272, 280); ctx.lineTo(272, 302);
   ctx.stroke();
 
   // Generate High-Contrast Grayscale Bump Map
   const bumpCanvas = document.createElement("canvas");
-  bumpCanvas.width = 1024;
-  bumpCanvas.height = 1024;
+  bumpCanvas.width = 512;
+  bumpCanvas.height = 512;
   const bCtx = bumpCanvas.getContext("2d");
   bCtx.fillStyle = "#808080";
-  bCtx.fillRect(0, 0, 1024, 1024);
+  bCtx.fillRect(0, 0, 512, 512);
   bCtx.drawImage(canvas, 0, 0);
 
   const texture = new THREE.CanvasTexture(canvas);
@@ -212,16 +212,19 @@ export class PirateFloatingArtifacts {
       }),
     };
 
-    // Shared Geometries Pool
+    // Shared Geometries Pool with Optimized Segment Counts
     this.geometries = {
-      coinFace: new THREE.CylinderGeometry(0.52, 0.52, 0.06, 48),
-      coinRimRing: new THREE.TorusGeometry(0.52, 0.035, 16, 48),
-      hookCuff: new THREE.CylinderGeometry(0.2, 0.24, 0.42, 24),
-      hookCuffRing: new THREE.TorusGeometry(0.24, 0.025, 12, 24),
-      hookRivet: new THREE.SphereGeometry(0.028, 8, 8),
-      hookShank: new THREE.CylinderGeometry(0.065, 0.07, 0.28, 16),
-      hookCurve: new THREE.TorusGeometry(0.28, 0.06, 16, 36, Math.PI * 1.35),
-      hookTip: new THREE.ConeGeometry(0.06, 0.18, 16),
+      coinFace: new THREE.CylinderGeometry(0.52, 0.52, 0.06, 28),
+      coinRimRing: new THREE.TorusGeometry(0.52, 0.035, 10, 24),
+      hookCuff: new THREE.CylinderGeometry(0.2, 0.24, 0.42, 16),
+      hookCuffRing: new THREE.TorusGeometry(0.24, 0.025, 8, 16),
+      hookRivet: new THREE.SphereGeometry(0.028, 6, 6),
+      hookShank: new THREE.CylinderGeometry(0.065, 0.07, 0.28, 12),
+      hookCurve: new THREE.TorusGeometry(0.28, 0.06, 12, 24, Math.PI * 1.35),
+      hookTip: new THREE.ConeGeometry(0.06, 0.18, 12),
+      eyepatchLeather: new THREE.SphereGeometry(0.4, 14, 14, 0, Math.PI * 0.85, 0, Math.PI * 0.7),
+      eyepatchEmblem: new THREE.SphereGeometry(0.06, 8, 8),
+      eyepatchStrap: new THREE.BoxGeometry(1.3, 0.04, 0.02),
     };
 
     // Ambient artifact count (~18 items with high coin density)
@@ -300,27 +303,25 @@ export class PirateFloatingArtifacts {
     const patchGroup = new THREE.Group();
 
     // Curved Leather Patch Shell
-    const patchGeo = new THREE.SphereGeometry(0.4, 20, 20, 0, Math.PI * 0.85, 0, Math.PI * 0.7);
-    const patch = new THREE.Mesh(patchGeo, this.materials.eyepatchLeather);
+    const patch = new THREE.Mesh(this.geometries.eyepatchLeather, this.materials.eyepatchLeather);
     patch.rotation.x = Math.PI * 0.15;
     patchGroup.add(patch);
 
     // Brass Skull Stud on Patch Center
     const emblem = new THREE.Mesh(
-      new THREE.SphereGeometry(0.06, 12, 12),
+      this.geometries.eyepatchEmblem,
       this.materials.eyepatchGoldEmblem
     );
     emblem.position.set(0, 0.05, 0.38);
     patchGroup.add(emblem);
 
     // Stitched Diagonal Straps
-    const strapGeo = new THREE.BoxGeometry(1.3, 0.04, 0.02);
-    const strap1 = new THREE.Mesh(strapGeo, this.materials.eyepatchLeather);
+    const strap1 = new THREE.Mesh(this.geometries.eyepatchStrap, this.materials.eyepatchLeather);
     strap1.rotation.z = 0.38;
     strap1.position.z = -0.04;
     patchGroup.add(strap1);
 
-    const strap2 = new THREE.Mesh(strapGeo, this.materials.eyepatchLeather);
+    const strap2 = new THREE.Mesh(this.geometries.eyepatchStrap, this.materials.eyepatchLeather);
     strap2.rotation.z = -0.38;
     strap2.position.z = -0.04;
     patchGroup.add(strap2);

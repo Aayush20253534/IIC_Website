@@ -191,6 +191,9 @@ html.lenis.lenis-stopped {
 .animate-ocean-stream {
   display: flex;
   width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   animation: oceanStream 36s linear infinite;
 }
 
@@ -207,6 +210,9 @@ html.lenis.lenis-stopped {
 .animate-marquee {
   display: flex;
   width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   animation: marquee 25s linear infinite;
 }
 
@@ -1515,4 +1521,20 @@ html.lenis.lenis-stopped {
   .sponsor-voyage__cards--sailing-prev .voyage-sponsor-card {
     animation: none !important;
   }
+}
+/* GPU Compositor Layer Isolation & High-Performance Rendering */
+.backdrop-blur-sm,
+.backdrop-blur-md,
+.backdrop-blur-xl,
+.backdrop-blur-2xl,
+.backdrop-blur-3xl {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  contain: paint;
+}
+
+/* Off-screen Content Visibility Optimization for Low-End Devices */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
 }

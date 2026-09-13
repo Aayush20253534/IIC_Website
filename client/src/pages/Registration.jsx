@@ -1,21 +1,22 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { EVENTS_DATA } from "../data/eventsData";
 import {
-  getStoredProfile,
-  getStoredTeams,
-  saveStoredTeams,
-  getStoredRegistrations,
-  saveStoredRegistrations,
   generateTeamCode,
+  getStoredProfile,
+  getStoredRegistrations,
+  getStoredTeams,
+  saveStoredRegistrations,
+  saveStoredTeams,
 } from "../utils/mockStore";
-import ContactFooter from "../components/ContactFooter";
 
 export default function Registration({ embedded = false }) {
   const { eventId } = useParams();
   const navigate = useNavigate();
 
-  const [selectedEventId, setSelectedEventId] = useState(eventId || "event-1");
+  const [selectedEventId, setSelectedEventId] = useState(
+    eventId || "event-1"
+  );
   const [profile] = useState(getStoredProfile());
   const [teams, setTeams] = useState(getStoredTeams());
   const [teamName, setTeamName] = useState("");
@@ -23,7 +24,8 @@ export default function Registration({ embedded = false }) {
   const [generatedCode, setGeneratedCode] = useState(null);
 
   const activeEvent =
-    EVENTS_DATA.find((event) => event.id === selectedEventId) || EVENTS_DATA[0];
+    EVENTS_DATA.find((event) => event.id === selectedEventId) ||
+    EVENTS_DATA[0];
 
   const handleSoloRegister = () => {
     const registrations = getStoredRegistrations();
@@ -87,154 +89,224 @@ export default function Registration({ embedded = false }) {
     }
   };
 
+  const handleEventChange = (event) => {
+    setSelectedEventId(event.target.value);
+    setGeneratedCode(null);
+  };
+
   return (
     <div
       className={`${
-        embedded ? "py-16" : "min-h-screen pt-28 pb-12"
-      } bg-transparent text-[#F4EBD9] flex flex-col justify-between`}
+        embedded
+          ? "py-4"
+          : "min-h-[calc(100vh-4rem)] pt-18 pb-4"
+      } bg-transparent text-[#1B120C] flex flex-col justify-center items-center overflow-hidden`}
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 w-full mb-16">
-        <div className="text-center mb-8 p-6 sm:p-8 rounded-3xl bg-[#020610]/80 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl">
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#041021] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">
-            Registration Desk
-          </span>
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 w-full relative flex flex-col justify-center my-auto">
+        {/* Authentic Aged Wrinkled Pirate Scroll Frame */}
+        <div className="relative flex flex-col items-center select-none">
+          {/* Top Wooden Roller Dowel with Brass Finials */}
+          <div className="w-[98%] sm:w-[99%] h-6 sm:h-7 bg-gradient-to-r from-[#201007] via-[#4a2814] to-[#201007] rounded-full shadow-[0_6px_14px_rgba(0,0,0,0.9)] border-y border-[#D4AF37]/70 flex items-center justify-between px-3 z-30 relative">
+            <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-gradient-to-br from-[#FFE79A] via-[#D4AF37] to-[#78350F] shadow-sm border border-[#FDE68A]" />
 
-          <h1 className="font-cinzel text-3xl sm:text-4xl font-bold mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            Summit Registration
-          </h1>
+            <div className="h-[2px] flex-1 mx-3 bg-[#D4AF37]/50" />
 
-          <div className="w-16 h-[2px] bg-[#C5A25F] mx-auto mb-4" />
-
-          <p className="font-montserrat text-xs text-[#E2E8F0] drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-            Selected Challenge:{" "}
-            <span className="text-[#C5A25F] font-semibold">
-              {activeEvent.name}
-            </span>
-          </p>
-        </div>
-
-        <div className="p-4 rounded-2xl bg-[#041021]/85 backdrop-blur-xl border border-[#D4AF37]/30 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-xl">
-          <span className="text-xs font-montserrat text-[#E2E8F0] font-medium">
-            Select Event:
-          </span>
-
-          <select
-            value={selectedEventId}
-            onChange={(event) => {
-              setSelectedEventId(event.target.value);
-              setGeneratedCode(null);
-            }}
-            className="w-full sm:w-auto bg-[#020610] border border-[#D4AF37]/40 rounded-lg px-3 py-2 text-xs text-[#F4EBD9] outline-none focus:border-[#D4AF37]/80"
-          >
-            {EVENTS_DATA.map((event) => (
-              <option key={event.id} value={event.id}>
-                {event.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="p-6 rounded-2xl bg-[#041021]/85 backdrop-blur-xl border border-[#D4AF37]/30 shadow-xl flex flex-col justify-between min-h-[250px] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/55 hover:shadow-[0_18px_45px_rgba(0,0,0,0.45)]">
-            <div>
-              <h3 className="font-cinzel text-lg font-bold text-[#F4EBD9] mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                Solo Entry
-              </h3>
-
-              <p className="font-montserrat text-xs text-[#94A3B8] leading-relaxed">
-                Register as{" "}
-                <span className="font-semibold text-[#F4EBD9]">
-                  {profile.name}
-                </span>{" "}
-                for {activeEvent.name}.
-              </p>
-            </div>
-
-            <button
-              onClick={handleSoloRegister}
-              className="w-full py-2.5 rounded-lg bg-[#0284C7] hover:bg-[#0369A1] text-white font-montserrat text-xs font-bold uppercase cursor-pointer transition-colors shadow-lg"
-            >
-              Register Solo
-            </button>
+            <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-gradient-to-br from-[#FFE79A] via-[#D4AF37] to-[#78350F] shadow-sm border border-[#FDE68A]" />
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#041021]/85 backdrop-blur-xl border border-[#D4AF37]/30 shadow-xl flex flex-col justify-between min-h-[250px] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/55 hover:shadow-[0_18px_45px_rgba(0,0,0,0.45)]">
-            <div>
-              <h3 className="font-cinzel text-lg font-bold text-[#D4AF37] mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                Create Team
-              </h3>
+          {/* Main Aged Wrinkled Parchment Body */}
+          <div className="w-full bg-gradient-to-b from-[#F9EED9] via-[#EED4A2] to-[#DFBC86] text-[#1B120C] shadow-[0_20px_50px_rgba(0,0,0,0.95),inset_0_0_60px_rgba(120,53,15,0.25)] border-x-[5px] border-[#78350F]/70 -my-1 py-5 sm:py-6 px-4 sm:px-8 z-20 relative rounded-sm overflow-hidden">
+            {/* Antique parchment texture */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.06] bg-[radial-gradient(#2E1A0A_1px,transparent_1px)] [background-size:16px_16px]" />
 
-              <p className="font-montserrat text-xs text-[#94A3B8] leading-relaxed mb-5">
-                Create a new crew and share the generated code with your
-                teammates.
-              </p>
-            </div>
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/5 via-transparent to-black/5" />
 
-            {!generatedCode ? (
-              <form onSubmit={handleCreateCrew} className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="Team Name..."
-                  value={teamName}
-                  onChange={(event) => setTeamName(event.target.value)}
-                  required
-                  className="w-full bg-[#020610] border border-[#D4AF37]/40 rounded-lg px-3 py-2.5 text-xs text-white outline-none placeholder:text-slate-500 focus:border-[#D4AF37]/80"
-                />
+            <div className="absolute top-1/3 inset-x-0 h-12 pointer-events-none bg-gradient-to-b from-black/[0.04] via-transparent to-black/[0.04]" />
 
-                <button
-                  type="submit"
-                  className="w-full py-2.5 rounded-lg bg-[#D4AF37] hover:bg-[#B8952B] text-[#020610] font-montserrat text-xs font-bold uppercase cursor-pointer transition-colors shadow-lg"
-                >
-                  Generate Code
-                </button>
-              </form>
-            ) : (
-              <div className="rounded-xl border border-[#D4AF37]/55 bg-[#020610]/80 p-4 text-center shadow-inner shadow-black/20">
-                <span className="text-[10px] text-[#94A3B8] block mb-1">
-                  Team Code:
-                </span>
+            {/* Decree Content */}
+            <div className="relative z-10">
+              {/* Header */}
+              <div className="text-center mb-4 pb-3 border-b-2 border-[#8C6239]/35">
+                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-mono tracking-[0.2em] text-[#78350F] bg-[#8C6239]/15 border border-[#8C6239]/40 uppercase mb-1 font-bold">
+                  <span>⚓</span>
+                  <span>Grand Voyage Manifest</span>
+                  <span>⚓</span>
+                </div>
 
-                <span className="font-mono text-xl text-[#D4AF37] font-bold tracking-widest">
-                  {generatedCode}
-                </span>
+                <h1 className="font-cinzel text-2xl sm:text-3xl font-black text-[#241408] tracking-wide drop-shadow-sm">
+                  Official Summit Enlistment
+                </h1>
+
+                <p className="font-montserrat text-[11px] sm:text-xs text-[#52341A] font-medium max-w-md mx-auto line-clamp-1">
+                  Enter your name into the voyage ledger and chart your course
+                  for Renaissance 2026.
+                </p>
               </div>
-            )}
-          </div>
 
-          <div className="p-6 rounded-2xl bg-[#041021]/85 backdrop-blur-xl border border-[#D4AF37]/30 shadow-xl flex flex-col justify-between min-h-[250px] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/55 hover:shadow-[0_18px_45px_rgba(0,0,0,0.45)]">
-            <div>
-              <h3 className="font-cinzel text-lg font-bold text-[#F4EBD9] mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                Join Team
-              </h3>
+              {/* Event Selector */}
+              <div className="p-2.5 sm:p-3 rounded-lg bg-[#FAF1DF]/90 border border-[#8C6239]/45 mb-4 flex flex-row items-center justify-between gap-2 shadow-sm">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="text-xs font-cinzel font-bold text-[#241408] whitespace-nowrap">
+                    Expedition Track:
+                  </span>
 
-              <p className="font-montserrat text-xs text-[#94A3B8] leading-relaxed mb-5">
-                Enter a valid crew code to join an existing team for this
-                challenge.
-              </p>
+                  <span className="text-xs text-[#0284C7] font-semibold hidden sm:inline truncate">
+                    {activeEvent.name}
+                  </span>
+                </div>
+
+                <select
+                  value={selectedEventId}
+                  onChange={handleEventChange}
+                  className="min-w-0 max-w-[55%] sm:max-w-[45%] bg-[#FFF9EE] border border-[#8C6239]/70 rounded-md px-2.5 py-1 text-xs text-[#241408] font-montserrat font-bold shadow-inner focus:outline-none focus:border-[#0284C7]"
+                >
+                  {EVENTS_DATA.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Registration Options */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+                {/* Solo Entry */}
+                <div className="p-4 rounded-xl bg-[#FFF9EE]/90 border border-[#8C6239]/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="w-6 h-6 shrink-0 rounded-full bg-[#0284C7]/20 border border-[#0284C7]/40 flex items-center justify-center text-[#0284C7] font-cinzel font-black text-xs">
+                        Ⅰ
+                      </span>
+
+                      <h3 className="font-cinzel text-sm sm:text-base font-bold text-[#241408]">
+                        Solo Navigator
+                      </h3>
+                    </div>
+
+                    <p className="font-montserrat text-[11px] text-[#5C3A21] mb-3 leading-tight">
+                      Enlist individually as{" "}
+                      <span className="font-bold text-[#1B120C]">
+                        {profile.name}
+                      </span>
+                      .
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleSoloRegister}
+                    className="w-full py-2 rounded-lg bg-gradient-to-r from-[#0284C7] to-[#0369A1] hover:from-[#0369A1] hover:to-[#075985] text-white font-montserrat text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all shadow-sm active:scale-95"
+                  >
+                    Register Solo
+                  </button>
+                </div>
+
+                {/* Create Crew */}
+                <div className="p-4 rounded-xl bg-[#FFF9EE]/90 border border-[#C5A25F]/70 shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="w-6 h-6 shrink-0 rounded-full bg-[#D4AF37]/25 border border-[#D4AF37]/60 flex items-center justify-center text-[#78350F] font-cinzel font-black text-xs">
+                        Ⅱ
+                      </span>
+
+                      <h3 className="font-cinzel text-sm sm:text-base font-bold text-[#78350F]">
+                        Found a Crew
+                      </h3>
+                    </div>
+
+                    {!generatedCode ? (
+                      <form
+                        onSubmit={handleCreateCrew}
+                        className="space-y-2"
+                      >
+                        <input
+                          type="text"
+                          placeholder="Enter Crew Name..."
+                          value={teamName}
+                          onChange={(event) =>
+                            setTeamName(event.target.value)
+                          }
+                          required
+                          className="w-full bg-[#FAF3E3] border border-[#8C6239]/50 rounded-md px-2.5 py-1.5 text-xs text-[#241408] placeholder-[#8C6239]/60 font-montserrat font-medium focus:outline-none focus:border-[#8C6239]"
+                        />
+
+                        <button
+                          type="submit"
+                          className="w-full py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#C5A25F] hover:from-[#C5A25F] hover:to-[#B38F4D] text-[#1B120C] font-montserrat text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all shadow-sm active:scale-95"
+                        >
+                          Generate Code
+                        </button>
+                      </form>
+                    ) : (
+                      <div className="text-center p-2 bg-[#FAF1DF] rounded-md border-2 border-dashed border-[#8C6239]">
+                        <span className="text-[9px] text-[#5C3A21] font-mono uppercase block font-semibold">
+                          Your Crew Code:
+                        </span>
+
+                        <span className="font-mono text-base text-[#8C6239] font-extrabold tracking-wider">
+                          {generatedCode}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Join Crew */}
+                <div className="p-4 rounded-xl bg-[#FFF9EE]/90 border border-[#8C6239]/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="w-6 h-6 shrink-0 rounded-full bg-[#8C6239]/20 border border-[#8C6239]/40 flex items-center justify-center text-[#78350F] font-cinzel font-black text-xs">
+                        Ⅲ
+                      </span>
+
+                      <h3 className="font-cinzel text-sm sm:text-base font-bold text-[#241408]">
+                        Join a Crew
+                      </h3>
+                    </div>
+
+                    <form
+                      onSubmit={handleJoinCrew}
+                      className="space-y-2"
+                    >
+                      <input
+                        type="text"
+                        placeholder="Enter Code (e.g. VOYAGE-89)..."
+                        value={joinCode}
+                        onChange={(event) =>
+                          setJoinCode(event.target.value)
+                        }
+                        required
+                        className="w-full bg-[#FAF3E3] border border-[#8C6239]/50 rounded-md px-2.5 py-1.5 text-xs text-[#241408] placeholder-[#8C6239]/60 font-mono uppercase tracking-wider font-semibold focus:outline-none focus:border-[#8C6239]"
+                      />
+
+                      <button
+                        type="submit"
+                        className="w-full py-2 rounded-lg border-2 border-[#8C6239] text-[#78350F] hover:bg-[#8C6239] hover:text-white font-montserrat text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all shadow-sm active:scale-95"
+                      >
+                        Join Crew
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <form onSubmit={handleJoinCrew} className="space-y-3">
-              <input
-                type="text"
-                placeholder="Enter Code..."
-                value={joinCode}
-                onChange={(event) => setJoinCode(event.target.value)}
-                required
-                className="w-full bg-[#020610] border border-[#D4AF37]/40 rounded-lg px-3 py-2.5 text-xs font-mono uppercase text-white outline-none placeholder:text-slate-500 focus:border-[#D4AF37]/80"
-              />
-
-              <button
-                type="submit"
-                className="w-full py-2.5 rounded-lg border border-[#C5A25F]/75 bg-[#0A192F]/50 text-[#C5A25F] hover:bg-[#C5A25F] hover:text-[#050B14] font-montserrat text-xs font-bold uppercase cursor-pointer transition-colors"
-              >
-                Join Team
-              </button>
-            </form>
           </div>
+
+          {/* Bottom Wooden Roller */}
+          <div className="w-[98%] sm:w-[99%] h-6 sm:h-7 bg-gradient-to-r from-[#201007] via-[#4a2814] to-[#201007] rounded-full shadow-[0_8px_18px_rgba(0,0,0,0.9)] border-y border-[#D4AF37]/70 flex items-center justify-between px-3 z-30 relative">
+            <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-gradient-to-br from-[#FFE79A] via-[#D4AF37] to-[#78350F] shadow-sm border border-[#FDE68A]" />
+
+            <div className="h-[2px] flex-1 mx-3 bg-[#D4AF37]/50" />
+
+            <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-gradient-to-br from-[#FFE79A] via-[#D4AF37] to-[#78350F] shadow-sm border border-[#FDE68A]" />
+          </div>
+        </div>
+
+        {/* Footer Note */}
+        <div className="text-center mt-3 text-[10px] font-mono text-[#C5A25F]/60 tracking-wider">
+          ✦ RENAISSANCE SUMMIT • EXPEDITION DESK ✦
         </div>
       </div>
-
-      {!embedded && <ContactFooter />}
     </div>
   );
 }

@@ -1,5 +1,11 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useEffect, useState, lazy, Suspense } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 
 // Components
 import RenaissanceIntro from "./components/RenaissanceIntro";
@@ -7,28 +13,35 @@ import Navbar from "./components/Navbar";
 import PirateCursor from "./components/PirateCursor";
 import ThreeBackground from "./pages/background";
 import SmoothScroll from "./components/SmoothScroll";
+import PageTransitionShimmer from "./components/PageTransitionShimmer";
+
 import { useSmoothScroll } from "./lib/smoothScroll";
+
+// Home page is eagerly loaded for instant interactive entry
+import Home from "./pages/Home";
+
+// Code-split secondary routes on demand
+const Events = lazy(() => import("./pages/Events"));
+const Registration = lazy(() => import("./pages/Registration"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Teams = lazy(() => import("./pages/Teams"));
+const Sponsors = lazy(() => import("./pages/Sponsors"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const LoginSuccess = lazy(() => import("./pages/LoginSuccess"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
   const { scrollTo } = useSmoothScroll();
 
   useEffect(() => {
-    scrollTo(0, { immediate: true, force: true });
+    scrollTo(0, {
+      immediate: true,
+      force: true,
+    });
   }, [pathname, scrollTo]);
 
   return null;
 }
-
-// Pages
-import Home from "./pages/Home";
-import Events from "./pages/Events";
-import Registration from "./pages/Registration";
-import Dashboard from "./pages/Dashboard";
-import Teams from "./pages/Teams";
-import Sponsors from "./pages/Sponsors";
-import Gallery from "./pages/Gallery";
-import LoginSuccess from "./pages/LoginSuccess";
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -40,14 +53,19 @@ export default function App() {
   return (
     <BrowserRouter>
       <SmoothScroll>
+        {/* Reset smooth scroll position whenever route changes */}
         <ScrollToTop />
+
+        {/* Route transition shimmer */}
+        <PageTransitionShimmer />
+
         {/* Interactive Custom Pirate Hook Cursor */}
         <PirateCursor />
 
-        {/* Persistent visual layer shared by every route. */}
+        {/* Persistent visual layer shared by every route */}
         <ThreeBackground />
 
-        {/* 1. NetraAI-style Cinematic Splash Screen */}
+        {/* Cinematic Splash Screen */}
         {showIntro && (
           <RenaissanceIntro
             onComplete={handleIntroComplete}
@@ -55,48 +73,93 @@ export default function App() {
           />
         )}
 
-        {/* 2. Global Navigation */}
+        {/* Global Navigation */}
         <Navbar />
 
-        {/* 3. Main Route Views */}
+        {/* Main Route Views */}
         <div className="relative z-10 min-h-screen bg-transparent text-[#F4EBD9]">
-          <Routes>
-          {/* Home / Main Summit Portal */}
-          <Route path="/" element={<Home />} />
-          <Route path="/udbhav" element={<Navigate to="/" replace />} />
+          <Suspense
+            fallback={
+              <div className="min-h-screen bg-transparent" />
+            }
+          >
+            <Routes>
+              {/* Home / Main Summit Portal */}
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/udbhav"
+                element={<Navigate to="/" replace />}
+              />
 
-          {/* Sponsors Section */}
-          <Route path="/sponsors" element={<Sponsors />} />
-          <Route path="/udbhav/sponsors" element={<Sponsors />} />
+              {/* Sponsors */}
+              <Route path="/sponsors" element={<Sponsors />} />
+              <Route
+                path="/udbhav/sponsors"
+                element={<Sponsors />}
+              />
 
-          {/* Registration */}
-          <Route path="/register" element={<Registration />} />
-          <Route path="/events/:eventId/register" element={<Registration />} />
-          <Route path="/udbhav/events/:eventId/register" element={<Registration />} />
+              {/* Registration */}
+              <Route
+                path="/register"
+                element={<Registration />}
+              />
+              <Route
+                path="/events/:eventId/register"
+                element={<Registration />}
+              />
+              <Route
+                path="/udbhav/events/:eventId/register"
+                element={<Registration />}
+              />
 
-          {/* Events Docket */}
-          <Route path="/events" element={<Events />} />
-          <Route path="/udbhav/events" element={<Events />} />
+              {/* Events */}
+              <Route path="/events" element={<Events />} />
+              <Route
+                path="/udbhav/events"
+                element={<Events />}
+              />
 
-          {/* Dashboard */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/udbhav/dashboard" element={<Dashboard />} />
+              {/* Dashboard */}
+              <Route
+                path="/dashboard"
+                element={<Dashboard />}
+              />
+              <Route
+                path="/udbhav/dashboard"
+                element={<Dashboard />}
+              />
 
-          {/* Teams / Crew */}
-          <Route path="/teams" element={<Teams />} />
-          <Route path="/udbhav/teams" element={<Teams />} />
+              {/* Teams / Crew */}
+              <Route path="/teams" element={<Teams />} />
+              <Route
+                path="/udbhav/teams"
+                element={<Teams />}
+              />
 
-          {/* Gallery / Chronicles */}
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/udbhav/gallery" element={<Gallery />} />
+              {/* Gallery / Chronicles */}
+              <Route path="/gallery" element={<Gallery />} />
+              <Route
+                path="/udbhav/gallery"
+                element={<Gallery />}
+              />
 
-          {/* Auth Callback */}
-          <Route path="/login/success" element={<LoginSuccess />} />
-          <Route path="/udbhav/login/success" element={<LoginSuccess />} />
+              {/* Auth Callback */}
+              <Route
+                path="/login/success"
+                element={<LoginSuccess />}
+              />
+              <Route
+                path="/udbhav/login/success"
+                element={<LoginSuccess />}
+              />
 
-          {/* Fallback to Home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+              {/* Fallback */}
+              <Route
+                path="*"
+                element={<Navigate to="/" replace />}
+              />
+            </Routes>
+          </Suspense>
         </div>
       </SmoothScroll>
     </BrowserRouter>

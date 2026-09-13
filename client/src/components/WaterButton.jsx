@@ -53,18 +53,25 @@ export default function WaterButton({
       });
     }
 
-    let animationFrameId;
+    let animationFrameId = null;
     let time = 0;
 
     const render = () => {
-      animationFrameId = requestAnimationFrame(render);
       time += 0.05;
 
       // Update target fill based on hover state
       targetWaterFill = isHovered ? 1.0 : 0.0;
-      currentWaterFill += (targetWaterFill - currentWaterFill) * 0.09;
+      currentWaterFill += (targetWaterFill - currentWaterFill) * 0.12;
 
-      // Only draw if water is visible
+      // If button is unhovered and water has completely drained, sleep the loop to save 100% CPU
+      if (!isHovered && currentWaterFill <= 0.005) {
+        currentWaterFill = 0;
+        ctx.clearRect(0, 0, width, height);
+        animationFrameId = null;
+        return;
+      }
+
+      animationFrameId = requestAnimationFrame(render);
       ctx.clearRect(0, 0, width, height);
 
       if (currentWaterFill > 0.01) {
@@ -159,7 +166,12 @@ export default function WaterButton({
       }
     };
 
-    render();
+    // Trigger render when hovered or when water is still settling
+    if (isHovered || currentWaterFill > 0.005) {
+      if (!animationFrameId) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    }
 
     // Mouse Ripple Splashing on the Water Canvas
     const handleMouseMove = (e) => {

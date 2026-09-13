@@ -26,10 +26,11 @@ function ThreeBackground() {
         const renderer = new THREE.WebGLRenderer({
             canvas,
             antialias: true,
+            powerPreference: "high-performance",
         });
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.VSMShadowMap;
+        const initialDpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        renderer.setPixelRatio(initialDpr);
+        renderer.shadowMap.enabled = false; // Disable unused shadow maps
 
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x020610);
@@ -61,8 +62,8 @@ function ThreeBackground() {
             iAnimation: { value: new THREE.Vector3(0, 0, 0) },
             iResolution: {
                 value: {
-                    x: window.innerWidth * window.devicePixelRatio,
-                    y: window.innerHeight * window.devicePixelRatio,
+                    x: window.innerWidth * initialDpr,
+                    y: window.innerHeight * initialDpr,
                 },
             },
             uDepth: { value: 3.7 },
@@ -158,27 +159,30 @@ function ThreeBackground() {
 
         // ---------- Postprocessing (Unified Single Composer - Zero Flickering) ----------
         const composer = new EffectComposer(renderer);
+        composer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
         const renderPass = new RenderPass(scene, camera);
         composer.addPass(renderPass);
 
-        // Underwater Bloom for Golden Coin glints and particle sparkles
+        // Fast, downscaled Bloom Pass for Golden Coin glints
         const bloomPass = new UnrealBloomPass(
-            new THREE.Vector2(window.innerWidth, window.innerHeight),
-            0.35, // strength
-            0.4,  // radius
-            0.6   // threshold
+            new THREE.Vector2(Math.floor(window.innerWidth * 0.6), Math.floor(window.innerHeight * 0.6)),
+            0.28, // strength
+            0.35, // radius
+            0.65  // threshold
         );
         composer.addPass(bloomPass);
 
         composer.addPass(new ShaderPass(GammaCorrectionShader));
 
-        // ---------- Animations ----------
+        // ---------- Animations & Zero-Allocation Math ----------
         const DUST_ALPHA = 0.68;
         const DRIFT_SPEED = 0.4;
+        const shiftVec = new THREE.Vector3();
 
         let appearStart = null;
         let appearAnimFrameId = null;
         let mainAnimFrameId = null;
+        let isTabVisible = true;
 
         function smootherstep(t) {
             return t * t * t * (t * (t * 6 - 15) + 10);
@@ -197,26 +201,40 @@ function ThreeBackground() {
 
         function flyPoints() {
             uniforms.iTime.value = performance.now() / 1000;
-            uniforms.iShift.value.add(camera.position.clone().multiplyScalar(0.0022 * DRIFT_SPEED));
+            shiftVec.copy(camera.position).multiplyScalar(0.0022 * DRIFT_SPEED);
+            uniforms.iShift.value.add(shiftVec);
         }
 
         function animate() {
+            if (!isTabVisible) {
+                mainAnimFrameId = null;
+                return;
+            }
             mainAnimFrameId = requestAnimationFrame(animate);
 
             const now = performance.now() / 1000;
             flyPoints();
 
-            // Update 3D Floating Pirate Artifacts (natural underwater drift with zero mouse interference)
+            // Update 3D Floating Pirate Artifacts
             pirateArtifacts.update(now);
 
             composer.render();
         }
 
+        function onVisibilityChange() {
+            isTabVisible = !document.hidden;
+            if (isTabVisible && !mainAnimFrameId) {
+                mainAnimFrameId = requestAnimationFrame(animate);
+            }
+        }
+        document.addEventListener("visibilitychange", onVisibilityChange);
+
         // ---------- Resize Listener ----------
         function onResize() {
             const w = window.innerWidth;
             const h = window.innerHeight;
-            const dpr = window.devicePixelRatio;
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            const composerDpr = Math.min(window.devicePixelRatio || 1, 1.25);
 
             renderer.setPixelRatio(dpr);
             renderer.setSize(w, h, false);
@@ -224,9 +242,10 @@ function ThreeBackground() {
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
 
-            composer.setPixelRatio(dpr);
+            composer.setPixelRatio(composerDpr);
             composer.setSize(w, h);
 
+            bloomPass.resolution.set(Math.floor(w * 0.6), Math.floor(h * 0.6));
             uniforms.iResolution.value = { x: w * dpr, y: h * dpr };
         }
 
@@ -237,6 +256,7 @@ function ThreeBackground() {
         // ---------- Cleanup on Unmount ----------
         return () => {
             window.removeEventListener("resize", onResize);
+            document.removeEventListener("visibilitychange", onVisibilityChange);
             if (appearAnimFrameId) cancelAnimationFrame(appearAnimFrameId);
             if (mainAnimFrameId) cancelAnimationFrame(mainAnimFrameId);
 

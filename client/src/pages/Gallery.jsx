@@ -6,21 +6,21 @@ export default function Gallery({ embedded = false }) {
   return (
     <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#F4EBD9] flex flex-col justify-between`}>
       <div className="max-w-4xl mx-auto px-6 w-full mb-16 text-center">
-        <div className="mb-12">
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#0A192F] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">
+        <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-[#020610]/80 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl">
+          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#041021] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">
             Media & Event Gallery
           </span>
-          <h1 className="font-cinzel text-3xl sm:text-5xl font-bold mb-3">
+          <h1 className="font-cinzel text-3xl sm:text-5xl font-bold mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Renaissance Gallery
           </h1>
           <div className="w-16 h-[2px] bg-[#C5A25F] mx-auto mb-4" />
-          <p className="font-montserrat text-xs text-[#94A3B8] max-w-lg mx-auto">
+          <p className="font-montserrat text-xs text-[#E2E8F0] max-w-lg mx-auto drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
             Official photos and keynote recordings from Renaissance 2026.
           </p>
         </div>
 
         {/* Clean Empty Placeholder State */}
-        <div className="p-12 sm:p-16 rounded-2xl bg-[#0A192F]/50 border border-[#C5A25F]/20 flex flex-col items-center justify-center max-w-xl mx-auto shadow-2xl">
+        <div className="p-12 sm:p-16 rounded-3xl bg-[#041021]/85 backdrop-blur-xl border border-[#C5A25F]/30 flex flex-col items-center justify-center max-w-xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
           <div className="w-16 h-16 rounded-full bg-[#050B14] border border-[#C5A25F]/30 flex items-center justify-center mb-5 text-[#C5A25F]">
             <svg
               className="w-8 h-8"

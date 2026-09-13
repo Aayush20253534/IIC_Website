@@ -26,24 +26,26 @@ export default function Dashboard({ embedded = false }) {
   return (
     <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#F4EBD9] flex flex-col justify-between`}>
       <div className="max-w-5xl mx-auto px-6 w-full mb-16">
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#C5A25F]/20">
-          <div>
-            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#0A192F] border border-[#C5A25F]/30 uppercase mb-2 font-semibold">
-              Participant Docket
-            </span>
-            <h1 className="font-cinzel text-3xl font-bold mb-1">User Dashboard</h1>
-            <p className="font-mono text-xs text-[#94A3B8]">ID: {profile.studentId} • {profile.collegeName}</p>
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#020610]/80 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl mb-8">
+          <div className="flex items-center justify-between pb-4 border-b border-[#C5A25F]/20">
+            <div>
+              <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#041021] border border-[#C5A25F]/30 uppercase mb-2 font-semibold">
+                Participant Docket
+              </span>
+              <h1 className="font-cinzel text-3xl font-bold mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">User Dashboard</h1>
+              <p className="font-mono text-xs text-[#E2E8F0]">ID: {profile.studentId} • {profile.collegeName}</p>
+            </div>
+            <button
+              onClick={() => setIsEditing(!isEditing)}
+              className="px-4 py-2 rounded-lg border border-[#C5A25F] text-[#C5A25F] font-montserrat text-xs font-bold uppercase cursor-pointer hover:bg-[#C5A25F] hover:text-[#020610] transition-colors shadow-md"
+            >
+              {isEditing ? "Cancel" : "Edit Profile"}
+            </button>
           </div>
-          <button
-            onClick={() => setIsEditing(!isEditing)}
-            className="px-4 py-2 rounded-lg border border-[#C5A25F] text-[#C5A25F] font-montserrat text-xs font-bold uppercase cursor-pointer hover:bg-[#C5A25F] hover:text-[#050B14] transition-colors"
-          >
-            {isEditing ? "Cancel" : "Edit Profile"}
-          </button>
         </div>
 
         {/* Profile Details Form */}
-        <div className="p-6 rounded-xl bg-[#0A192F]/40 border border-[#C5A25F]/20 mb-8">
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#041021]/85 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl mb-8">
           <h3 className="font-cinzel text-lg font-bold text-[#C5A25F] mb-4">Profile Information</h3>
           <form onSubmit={handleSave} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>

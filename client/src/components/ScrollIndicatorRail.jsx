@@ -1,8 +1,10 @@
-import React from "react";
+import { useSmoothScroll } from "../lib/smoothScroll";
 
 export default function ScrollIndicatorRail() {
+  const { scrollTo } = useSmoothScroll();
+
   const handleScrollDown = () => {
-    window.scrollBy({ top: window.innerHeight * 0.85, behavior: "smooth" });
+    scrollTo(window.scrollY + window.innerHeight * 0.85);
   };
 
   return (

@@ -1,8 +1,24 @@
-import  { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+
+// Components
 import RenaissanceIntro from "./components/RenaissanceIntro";
 import Navbar from "./components/Navbar";
+import PirateCursor from "./components/PirateCursor";
 import ThreeBackground from "./pages/background";
+import SmoothScroll from "./components/SmoothScroll";
+import { useSmoothScroll } from "./lib/smoothScroll";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  const { scrollTo } = useSmoothScroll();
+
+  useEffect(() => {
+    scrollTo(0, { immediate: true, force: true });
+  }, [pathname, scrollTo]);
+
+  return null;
+}
 
 // Pages
 import Home from "./pages/Home";
@@ -23,51 +39,54 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      {/* Persistent visual layer shared by every route. */}
-      <ThreeBackground />
+      <SmoothScroll>
+        <ScrollToTop />
+        {/* Interactive Custom Pirate Hook Cursor */}
+        <PirateCursor />
 
-      {/* 1. NetraAI-style Cinematic Splash Screen */}
-      {showIntro && (
-        <RenaissanceIntro
-          onComplete={handleIntroComplete}
-          onSkip={handleIntroComplete}
-        />
-      )}
+        {/* Persistent visual layer shared by every route. */}
+        <ThreeBackground />
 
+        {/* 1. NetraAI-style Cinematic Splash Screen */}
+        {showIntro && (
+          <RenaissanceIntro
+            onComplete={handleIntroComplete}
+            onSkip={handleIntroComplete}
+          />
+        )}
 
-      {/* 3. Global Navigation */}
-      <Navbar />
+        {/* 2. Global Navigation */}
+        <Navbar />
 
-
-      {/* 5. Main Route Views */}
-      <div className="relative z-10 min-h-screen bg-[#050B14]/80 text-[#F4EBD9]">
-        <Routes>
-          {/* Main Summit Portal */}
+        {/* 3. Main Route Views */}
+        <div className="relative z-10 min-h-screen bg-transparent text-[#F4EBD9]">
+          <Routes>
+          {/* Home / Main Summit Portal */}
           <Route path="/" element={<Home />} />
           <Route path="/udbhav" element={<Navigate to="/" replace />} />
 
-          {/* Events Docket */}
-          <Route path="/events" element={<Events />} />
-          <Route path="/udbhav/events" element={<Events />} />
+          {/* Sponsors Section */}
+          <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/udbhav/sponsors" element={<Sponsors />} />
 
           {/* Registration */}
           <Route path="/register" element={<Registration />} />
           <Route path="/events/:eventId/register" element={<Registration />} />
           <Route path="/udbhav/events/:eventId/register" element={<Registration />} />
 
-          {/* Captain's Dashboard */}
+          {/* Events Docket */}
+          <Route path="/events" element={<Events />} />
+          <Route path="/udbhav/events" element={<Events />} />
+
+          {/* Dashboard */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/udbhav/dashboard" element={<Dashboard />} />
 
-          {/* The Crew / Teams */}
+          {/* Teams / Crew */}
           <Route path="/teams" element={<Teams />} />
           <Route path="/udbhav/teams" element={<Teams />} />
 
-          {/* Alliances / Sponsors */}
-          <Route path="/sponsors" element={<Sponsors />} />
-          <Route path="/udbhav/sponsors" element={<Sponsors />} />
-
-          {/* Chronicles / Gallery */}
+          {/* Gallery / Chronicles */}
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/udbhav/gallery" element={<Gallery />} />
 
@@ -75,10 +94,11 @@ export default function App() {
           <Route path="/login/success" element={<LoginSuccess />} />
           <Route path="/udbhav/login/success" element={<LoginSuccess />} />
 
-          {/* Fallback */}
+          {/* Fallback to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
+          </Routes>
+        </div>
+      </SmoothScroll>
     </BrowserRouter>
   );
 }

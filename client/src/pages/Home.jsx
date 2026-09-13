@@ -17,50 +17,68 @@ import ScrollIndicatorRail from "../components/ScrollIndicatorRail";
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-transparent text-[#F4EBD9] selection:bg-[#C5A25F] selection:text-[#050B14]">
-      {/* IIT Kanpur Reference Side Rails */}
+      {/* Side rails */}
       <SocialSideRail />
       <ScrollIndicatorRail />
 
-      {/* 1. HOME SECTION */}
+      {/* 1. Home */}
       <section id="home" className="relative scroll-mt-20">
         <Hero />
         <SlidingBar />
         <About />
       </section>
 
-      {/* 2. SPONSORS SECTION (2nd) */}
-      <section id="sponsors" className="relative scroll-mt-20 border-t border-[#C5A25F]/15">
-        <Sponsors embedded={true} />
+      {/* 2. Sponsors */}
+      <section
+        id="sponsors"
+        className="relative scroll-mt-20 border-t border-[#C5A25F]/15"
+      >
+        <Sponsors embedded />
       </section>
 
-      {/* 3. REGISTER SECTION (3rd) */}
-      <section id="register" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-transparent">
-        <Registration embedded={true} />
+      {/* 3. Registration */}
+      <section
+        id="register"
+        className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-[#030912]/80"
+      >
+        <Registration embedded />
       </section>
 
-      {/* 4. EVENTS SECTION (4th) */}
-      <section id="events" className="relative scroll-mt-20 border-t border-[#C5A25F]/15">
-        <Events embedded={true} />
+      {/* 4. Events */}
+      <section
+        id="events"
+        className="relative scroll-mt-20 border-t border-[#C5A25F]/15"
+      >
+        <Events embedded />
         <EventTimeline />
       </section>
 
-      {/* 5. DASHBOARD SECTION (5th) */}
-      <section id="dashboard" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-transparent">
-        <Dashboard embedded={true} />
+      {/* 5. Dashboard */}
+      <section
+        id="dashboard"
+        className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-[#030912]/80"
+      >
+        <Dashboard embedded />
       </section>
 
-      {/* 6. TEAMS SECTION (6th - 100% Placeholders) */}
-      <section id="teams" className="relative scroll-mt-20 border-t border-[#C5A25F]/15">
-        <Teams embedded={true} />
+      {/* 6. Teams */}
+      <section
+        id="teams"
+        className="relative scroll-mt-20 border-t border-[#C5A25F]/15"
+      >
+        <Teams embedded />
       </section>
 
-      {/* 7. GALLERY & KEYNOTE SPEAKERS SECTION (7th) */}
-      <section id="gallery" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-transparent">
-        <Gallery embedded={true} />
+      {/* 7. Gallery + Speakers */}
+      <section
+        id="gallery"
+        className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-[#030912]/80"
+      >
+        <Gallery embedded />
         <Speakers />
       </section>
 
-      {/* 8. CONTACT FOOTER */}
+      {/* 8. Contact */}
       <section id="contact" className="relative">
         <ContactFooter />
       </section>

@@ -11,7 +11,7 @@ html.lenis.lenis-smooth {
 }
 
 html.lenis.lenis-stopped {
-  overflow: clip;
+  overflow: clip; 
 }
 
 @layer base {

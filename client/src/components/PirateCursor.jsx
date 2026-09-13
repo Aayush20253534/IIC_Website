@@ -1,61 +1,116 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function PirateCursor() {
   const cursorRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isMouseDown, setIsMouseDown] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const iconRef = useRef(null);
+  const glintRef = useRef(null);
 
   useEffect(() => {
     if (typeof window === "undefined" || window.matchMedia("(pointer: coarse)").matches) {
       return;
     }
 
+    const cursorEl = cursorRef.current;
+    const iconEl = iconRef.current;
+    const glintEl = glintRef.current;
+    if (!cursorEl) return;
+
     let mouseX = -100;
     let mouseY = -100;
     let currentX = -100;
     let currentY = -100;
     let animFrameId = null;
+    let isVisible = false;
+    let isHovered = false;
+    let isMouseDown = false;
 
-    const handleMouseMove = (e) => {
-      if (!visible) setVisible(true);
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    const updateTransform = () => {
+      if (!iconEl) return;
+      if (isMouseDown) {
+        iconEl.style.transform = "scale(0.9) rotate(-6deg)";
+      } else if (isHovered) {
+        iconEl.style.transform = "scale(1.15) rotate(-4deg)";
+      } else {
+        iconEl.style.transform = "scale(1) rotate(0deg)";
+      }
     };
 
-    const handleMouseDown = () => setIsMouseDown(true);
-    const handleMouseUp = () => setIsMouseDown(false);
+    const renderLoop = () => {
+      const dx = mouseX - currentX;
+      const dy = mouseY - currentY;
+
+      // If cursor has caught up to mouse position, snap and sleep loop (0% idle CPU)
+      if (Math.abs(dx) < 0.2 && Math.abs(dy) < 0.2) {
+        currentX = mouseX;
+        currentY = mouseY;
+        cursorEl.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        animFrameId = null;
+        return;
+      }
+
+      currentX += dx * 0.85;
+      currentY += dy * 0.85;
+
+      cursorEl.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      animFrameId = requestAnimationFrame(renderLoop);
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isVisible) {
+        isVisible = true;
+        cursorEl.style.opacity = "1";
+      }
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Wake up render loop if asleep
+      if (!animFrameId) {
+        animFrameId = requestAnimationFrame(renderLoop);
+      }
+    };
+
+    const handleMouseDown = () => {
+      isMouseDown = true;
+      updateTransform();
+    };
+
+    const handleMouseUp = () => {
+      isMouseDown = false;
+      updateTransform();
+    };
 
     const handleMouseOver = (e) => {
       const target = e.target;
-      if (
-        target.tagName === "BUTTON" ||
-        target.tagName === "A" ||
-        target.tagName === "INPUT" ||
-        target.tagName === "SELECT" ||
-        target.tagName === "TEXTAREA" ||
-        target.closest("button") ||
-        target.closest("a") ||
-        target.closest("[role='button']") ||
-        target.classList.contains("cursor-pointer")
-      ) {
-        setIsHovered(true);
-      } else {
-        setIsHovered(false);
+      if (!target || !target.tagName) return;
+      const tag = target.tagName;
+      const interactive =
+        tag === "BUTTON" ||
+        tag === "A" ||
+        tag === "INPUT" ||
+        tag === "SELECT" ||
+        tag === "TEXTAREA" ||
+        Boolean(target.closest && target.closest("a, button, [role='button'], .cursor-pointer"));
+
+      if (interactive !== isHovered) {
+        isHovered = interactive;
+        if (iconEl) {
+          iconEl.src = isHovered ? "/steampunk-cursor-hover.png" : "/steampunk-cursor.png";
+        }
+        if (glintEl) {
+          glintEl.style.display = isHovered ? "block" : "none";
+        }
+        updateTransform();
       }
     };
 
-    const handleMouseLeave = () => setVisible(false);
-    const handleMouseEnter = () => setVisible(true);
+    const handleMouseLeave = () => {
+      isVisible = false;
+      if (cursorEl) cursorEl.style.opacity = "0";
+    };
 
-    const renderLoop = () => {
-      currentX += (mouseX - currentX) * 0.8;
-      currentY += (mouseY - currentY) * 0.8;
-
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-      }
-      animFrameId = requestAnimationFrame(renderLoop);
+    const handleMouseEnter = () => {
+      isVisible = true;
+      if (cursorEl) cursorEl.style.opacity = "1";
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -76,39 +131,32 @@ export default function PirateCursor() {
       document.removeEventListener("mouseenter", handleMouseEnter);
       if (animFrameId) cancelAnimationFrame(animFrameId);
     };
-  }, [visible]);
-
-  if (!visible) return null;
+  }, []);
 
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 pointer-events-none z-[999999] hidden md:block select-none"
+      className="fixed top-0 left-0 pointer-events-none z-[999999] hidden md:block select-none opacity-0 transition-opacity duration-200"
       style={{
         transform: "translate3d(-100px, -100px, 0)",
         willChange: "transform",
       }}
     >
-      <div
-        className={`relative -ml-1 -mt-1 transition-transform duration-150 ease-out origin-top-left ${
-          isMouseDown
-            ? "scale-90 rotate-[-6deg]"
-            : isHovered
-            ? "scale-115 rotate-[-4deg]"
-            : "scale-100 rotate-0"
-        }`}
-      >
+      <div className="relative -ml-1 -mt-1 origin-top-left transition-transform duration-150 ease-out">
         <img
-          src={isHovered ? "/steampunk-cursor-hover.png" : "/steampunk-cursor.png"}
+          ref={iconRef}
+          src="/steampunk-cursor.png"
           alt="Steampunk Cursor"
-          className="w-6 h-auto object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] drop-shadow-[0_0_6px_rgba(217,119,6,0.35)] select-none pointer-events-none"
+          className="w-6 h-auto object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] drop-shadow-[0_0_6px_rgba(217,119,6,0.35)] select-none pointer-events-none origin-top-left transition-transform duration-150 ease-out"
         />
 
         {/* Dynamic golden steampunk steam / glint pulse on hover */}
-        {isHovered && (
-          <div className="absolute top-0 left-0 w-3 h-3 bg-[#FFE79A] rounded-full filter blur-[2px] animate-ping opacity-75 pointer-events-none" />
-        )}
+        <div
+          ref={glintRef}
+          className="absolute top-0 left-0 w-3 h-3 bg-[#FFE79A] rounded-full filter blur-[2px] animate-ping opacity-75 pointer-events-none hidden"
+        />
       </div>
     </div>
   );
 }
+

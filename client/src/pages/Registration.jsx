@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { EVENTS_DATA } from "../data/eventsData";
 import { getStoredProfile, getStoredTeams, saveStoredTeams, getStoredRegistrations, saveStoredRegistrations, generateTeamCode } from "../utils/mockStore";
-import ContactFooter from "../components/ContactFooter";
 
 export default function Registration({ embedded = false }) {
   const { eventId } = useParams();
@@ -16,6 +15,8 @@ export default function Registration({ embedded = false }) {
   const [generatedCode, setGeneratedCode] = useState(null);
 
   const activeEvent = EVENTS_DATA.find((e) => e.id === selectedEventId) || EVENTS_DATA[0];
+
+
 
   const handleSoloRegister = () => {
     const regs = getStoredRegistrations();
@@ -55,109 +56,172 @@ export default function Registration({ embedded = false }) {
   };
 
   return (
-    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#F4EBD9] flex flex-col justify-between`}>
-      <div className="max-w-4xl mx-auto px-6 w-full mb-16">
-        <div className="text-center mb-8 p-6 sm:p-8 rounded-3xl bg-[#020610]/80 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl">
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#041021] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">
-            Registration Desk
-          </span>
-          <h1 className="font-cinzel text-3xl sm:text-4xl font-bold mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            Summit Registration
-          </h1>
-          <div className="w-16 h-[2px] bg-[#C5A25F] mx-auto mb-4" />
-          <p className="font-montserrat text-xs text-[#E2E8F0] drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-            Selected Challenge: <span className="text-[#C5A25F] font-semibold">{activeEvent.name}</span>
-          </p>
-        </div>
-
-        {/* Event Selector */}
-        <div className="p-4 rounded-2xl bg-[#041021]/85 backdrop-blur-xl border border-[#D4AF37]/30 mb-8 flex items-center justify-between shadow-xl">
-          <span className="text-xs font-montserrat text-[#E2E8F0] font-medium">Select Event:</span>
-          <select
-            value={selectedEventId}
-            onChange={(e) => setSelectedEventId(e.target.value)}
-            className="bg-[#020610] border border-[#D4AF37]/40 rounded-lg px-3 py-1.5 text-xs text-[#F4EBD9]"
-          >
-            {EVENTS_DATA.map((e) => (
-              <option key={e.id} value={e.id}>{e.name}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* 3 Simple Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Solo */}
-          <div className="p-6 rounded-2xl bg-[#041021]/85 backdrop-blur-xl border border-[#D4AF37]/30 shadow-xl flex flex-col justify-between">
-            <div>
-              <h3 className="font-cinzel text-lg font-bold text-[#F4EBD9] mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Solo Entry</h3>
-              <p className="font-montserrat text-xs text-[#94A3B8] mb-6">
-                Register as {profile.name}.
-              </p>
-            </div>
-            <button
-              onClick={handleSoloRegister}
-              className="w-full py-2.5 rounded-lg bg-[#0284C7] hover:bg-[#0369a1] text-white font-montserrat text-xs font-bold uppercase cursor-pointer transition-colors shadow-lg"
-            >
-              Register Solo
-            </button>
+    <div className={`${embedded ? "py-4" : "min-h-[calc(100vh-4rem)] pt-18 pb-4"} bg-transparent text-[#1B120C] flex flex-col justify-center items-center overflow-hidden`}>
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 w-full relative flex flex-col justify-center my-auto">
+        
+        {/* Authentic Aged Wrinkled Pirate Scroll Frame */}
+        <div className="relative flex flex-col items-center select-none">
+          
+          {/* Top Wooden Roller Dowel with Brass Finials */}
+          <div className="w-[98%] sm:w-[99%] h-6 sm:h-7 bg-gradient-to-r from-[#201007] via-[#4a2814] to-[#201007] rounded-full shadow-[0_6px_14px_rgba(0,0,0,0.9)] border-y border-[#D4AF37]/70 flex items-center justify-between px-3 z-30 relative">
+            <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-gradient-to-br from-[#FFE79A] via-[#D4AF37] to-[#78350F] shadow-sm border border-[#FDE68A]" />
+            <div className="h-[2px] flex-1 mx-3 bg-[#D4AF37]/50" />
+            <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-gradient-to-br from-[#FFE79A] via-[#D4AF37] to-[#78350F] shadow-sm border border-[#FDE68A]" />
           </div>
 
-          {/* Create Team */}
-          <div className="p-6 rounded-2xl bg-[#041021]/85 backdrop-blur-xl border border-[#D4AF37]/30 shadow-xl flex flex-col justify-between">
-            <div>
-              <h3 className="font-cinzel text-lg font-bold text-[#D4AF37] mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Create Team</h3>
-              {!generatedCode ? (
-                <form onSubmit={handleCreateCrew} className="space-y-3">
-                  <input
-                    type="text"
-                    placeholder="Team Name..."
-                    value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
-                    required
-                    className="w-full bg-[#020610] border border-[#D4AF37]/40 rounded-lg px-3 py-2 text-xs text-white"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full py-2.5 rounded-lg bg-[#D4AF37] hover:bg-[#b8952b] text-[#020610] font-montserrat text-xs font-bold uppercase cursor-pointer transition-colors shadow-lg"
-                  >
-                    Generate Code
-                  </button>
-                </form>
-              ) : (
-                <div className="text-center p-3 bg-[#050B14] rounded-lg border border-[#D4AF37]">
-                  <span className="text-[10px] text-[#94A3B8] block">Team Code:</span>
-                  <span className="font-mono text-xl text-[#D4AF37] font-bold">{generatedCode}</span>
+          {/* Main Aged Wrinkled Parchment Body (Static Open) */}
+          <div className="w-full bg-gradient-to-b from-[#F9EED9] via-[#EED4A2] to-[#DFBC86] text-[#1B120C] shadow-[0_20px_50px_rgba(0,0,0,0.95),inset_0_0_60px_rgba(120,53,15,0.25)] border-x-[5px] border-[#78350F]/70 -my-1 py-5 sm:py-6 px-4 sm:px-8 z-20 relative rounded-sm overflow-hidden">
+            {/* Antique Wrinkled Crease Shading & Burnt Deckle Watermark */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.06] bg-[radial-gradient(#2E1A0A_1px,transparent_1px)] [background-size:16px_16px]" />
+            
+            {/* Subtle Aged Parchment Crease Folds (CSS linear gradients) */}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/5 via-transparent to-black/5" />
+            <div className="absolute top-1/3 inset-x-0 h-12 pointer-events-none bg-gradient-to-b from-black/[0.04] via-transparent to-black/[0.04]" />
+
+            {/* Decree Content Layer */}
+            <div className="relative z-10">
+              {/* Header Decree Stamp */}
+              <div className="text-center mb-4 pb-3 border-b-2 border-[#8C6239]/35">
+                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[9px] font-mono tracking-[0.2em] text-[#78350F] bg-[#8C6239]/15 border border-[#8C6239]/40 uppercase mb-1 font-bold">
+                  <span>⚓</span>
+                  <span>Grand Voyage Manifest</span>
+                  <span>⚓</span>
                 </div>
-              )}
-            </div>
-          </div>
+                <h1 className="font-cinzel text-2xl sm:text-3xl font-black text-[#241408] tracking-wide drop-shadow-sm">
+                  Official Summit Enlistment
+                </h1>
+                <p className="font-montserrat text-[11px] sm:text-xs text-[#52341A] font-medium max-w-md mx-auto line-clamp-1">
+                  Enter your name into the voyage ledger and chart your course for Renaissance 2026.
+                </p>
+              </div>
 
-          {/* Join Team */}
-          <div className="p-6 rounded-xl bg-[#0A192F]/40 border border-[#D4AF37]/20 flex flex-col justify-between">
-            <div>
-              <h3 className="font-cinzel text-lg font-bold text-[#F4EBD9] mb-2">Join Team</h3>
-              <form onSubmit={handleJoinCrew} className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="Enter Code..."
-                  value={joinCode}
-                  onChange={(e) => setJoinCode(e.target.value)}
-                  required
-                  className="w-full bg-[#050B14] border border-[#C5A25F]/30 rounded-lg px-3 py-2 text-xs text-white uppercase font-mono"
-                />
-                <button
-                  type="submit"
-                  className="w-full py-2.5 rounded-lg border border-[#C5A25F] text-[#C5A25F] font-montserrat text-xs font-bold uppercase cursor-pointer hover:bg-[#C5A25F] hover:text-[#050B14] transition-colors"
+              {/* Compact Event Selector Banner */}
+              <div className="p-2.5 sm:p-3 rounded-lg bg-[#FAF1DF]/90 border border-[#8C6239]/45 mb-4 flex flex-row items-center justify-between gap-2 shadow-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-cinzel font-bold text-[#241408]">Expedition Track:</span>
+                  <span className="text-xs text-[#0284C7] font-semibold hidden sm:inline">{activeEvent.name}</span>
+                </div>
+                <select
+                  value={selectedEventId}
+                  onChange={(e) => setSelectedEventId(e.target.value)}
+                  className="bg-[#FFF9EE] border border-[#8C6239]/70 rounded-md px-2.5 py-1 text-xs text-[#241408] font-montserrat font-bold shadow-inner focus:outline-none focus:border-[#0284C7]"
                 >
-                  Join Team
-                </button>
-              </form>
+                  {EVENTS_DATA.map((e) => (
+                    <option key={e.id} value={e.id}>{e.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* 3 Balanced Enlistment Action Columns (Viewport Fit) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+                
+                {/* 1. Solo Entry */}
+                <div className="p-4 sm:p-4.5 rounded-xl bg-[#FFF9EE]/90 border border-[#8C6239]/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="w-6 h-6 rounded-full bg-[#0284C7]/20 border border-[#0284C7]/40 flex items-center justify-center text-[#0284C7] font-cinzel font-black text-xs">
+                        Ⅰ
+                      </span>
+                      <h3 className="font-cinzel text-sm sm:text-base font-bold text-[#241408]">Solo Navigator</h3>
+                    </div>
+                    <p className="font-montserrat text-[11px] text-[#5C3A21] mb-3 leading-tight">
+                      Enlist individually as <span className="font-bold text-[#1B120C]">{profile.name}</span>.
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleSoloRegister}
+                    className="w-full py-2 rounded-lg bg-gradient-to-r from-[#0284C7] to-[#0369A1] hover:from-[#0369A1] hover:to-[#075985] text-white font-montserrat text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all shadow-sm active:scale-95"
+                  >
+                    Register Solo
+                  </button>
+                </div>
+
+                {/* 2. Create Crew */}
+                <div className="p-4 sm:p-4.5 rounded-xl bg-[#FFF9EE]/90 border border-[#C5A25F]/70 shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="w-6 h-6 rounded-full bg-[#D4AF37]/25 border border-[#D4AF37]/60 flex items-center justify-center text-[#78350F] font-cinzel font-black text-xs">
+                        Ⅱ
+                      </span>
+                      <h3 className="font-cinzel text-sm sm:text-base font-bold text-[#78350F]">Found a Crew</h3>
+                    </div>
+                    
+                    {!generatedCode ? (
+                      <form onSubmit={handleCreateCrew} className="space-y-2">
+                        <input
+                          type="text"
+                          placeholder="Enter Crew Name..."
+                          value={teamName}
+                          onChange={(e) => setTeamName(e.target.value)}
+                          required
+                          className="w-full bg-[#FAF3E3] border border-[#8C6239]/50 rounded-md px-2.5 py-1.5 text-xs text-[#241408] placeholder-[#8C6239]/60 font-montserrat font-medium focus:outline-none focus:border-[#8C6239]"
+                        />
+                        <button
+                          type="submit"
+                          className="w-full py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#C5A25F] hover:from-[#C5A25F] hover:to-[#B38F4D] text-[#1B120C] font-montserrat text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all shadow-sm active:scale-95"
+                        >
+                          Generate Code
+                        </button>
+                      </form>
+                    ) : (
+                      <div className="text-center p-2 bg-[#FAF1DF] rounded-md border-2 border-dashed border-[#8C6239]">
+                        <span className="text-[9px] text-[#5C3A21] font-mono uppercase block font-semibold">Your Crew Code:</span>
+                        <span className="font-mono text-base text-[#8C6239] font-extrabold tracking-wider">{generatedCode}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* 3. Join Crew */}
+                <div className="p-4 sm:p-4.5 rounded-xl bg-[#FFF9EE]/90 border border-[#8C6239]/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="w-6 h-6 rounded-full bg-[#8C6239]/20 border border-[#8C6239]/40 flex items-center justify-center text-[#78350F] font-cinzel font-black text-xs">
+                        Ⅲ
+                      </span>
+                      <h3 className="font-cinzel text-sm sm:text-base font-bold text-[#241408]">Join a Crew</h3>
+                    </div>
+
+                    <form onSubmit={handleJoinCrew} className="space-y-2">
+                      <input
+                        type="text"
+                        placeholder="Enter Code (e.g. VOYAGE-89)..."
+                        value={joinCode}
+                        onChange={(e) => setJoinCode(e.target.value)}
+                        required
+                        className="w-full bg-[#FAF3E3] border border-[#8C6239]/50 rounded-md px-2.5 py-1.5 text-xs text-[#241408] placeholder-[#8C6239]/60 font-mono uppercase tracking-wider font-semibold focus:outline-none focus:border-[#8C6239]"
+                      />
+                      <button
+                        type="submit"
+                        className="w-full py-2 rounded-lg border-2 border-[#8C6239] text-[#78350F] hover:bg-[#8C6239] hover:text-white font-montserrat text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all shadow-sm active:scale-95"
+                      >
+                        Join Crew
+                      </button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {!embedded && <ContactFooter />}
+          {/* Bottom Wooden Roller Dowel with Brass Finials (Static Open) */}
+          <div className="w-[98%] sm:w-[99%] h-6 sm:h-7 bg-gradient-to-r from-[#201007] via-[#4a2814] to-[#201007] rounded-full shadow-[0_8px_18px_rgba(0,0,0,0.9)] border-y border-[#D4AF37]/70 flex items-center justify-between px-3 z-30 relative">
+            <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-gradient-to-br from-[#FFE79A] via-[#D4AF37] to-[#78350F] shadow-sm border border-[#FDE68A]" />
+            <div className="h-[2px] flex-1 mx-3 bg-[#D4AF37]/50" />
+            <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-gradient-to-br from-[#FFE79A] via-[#D4AF37] to-[#78350F] shadow-sm border border-[#FDE68A]" />
+          </div>
+
+        </div>
+
+        {/* Subtle Nautical Seal Footer Note */}
+        <div className="text-center mt-3 text-[10px] font-mono text-[#C5A25F]/60 tracking-wider">
+          ✦ RENAISSANCE SUMMIT • EXPEDITION DESK ✦
+        </div>
+
+      </div>
     </div>
   );
 }
+
+

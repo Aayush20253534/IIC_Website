@@ -64,26 +64,14 @@ const fragmentShader = /* glsl */ `
   varying float vWaveHeight;
   varying float vCrest;
 
-  // Procedural 2D noise for organic micro-ripples and foam
-  float hash(vec2 p) {
-    p = 50.0 * fract(p * 0.3183099 + vec2(0.71, 0.113));
-    return -1.0 + 2.0 * fract(p.x * p.y * (p.x + p.y));
-  }
-
-  float noise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
-               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
-  }
-
   void main() {
-    // 1. High-frequency normal perturbation (Micro-ripples)
-    vec2 uvCoord = vWorldPosition.xz * 0.4;
-    float n1 = noise(uvCoord + vec2(uTime * 0.31, uTime * 0.22));
-    float microWave = n1 * 0.105;
-    
+    // 1. Cheap analytic micro-ripples. Two travelling sine fields preserve
+    // the moving-water shimmer without evaluating procedural hash/noise for
+    // every screen pixel on every frame.
+    float rippleA = sin(vWorldPosition.x * 1.72 + vWorldPosition.z * 1.19 + uTime * 1.38);
+    float rippleB = sin(vWorldPosition.x * 3.05 - vWorldPosition.z * 2.23 - uTime * 1.82);
+    float microWave = (rippleA * 0.64 + rippleB * 0.36) * 0.072;
+
     vec3 normal = normalize(vWorldNormal + vec3(microWave, 0.0, microWave));
     vec3 viewDir = normalize(cameraPosition - vWorldPosition);
     vec3 moonDir = normalize(uMoonDirection);
@@ -105,12 +93,16 @@ const fragmentShader = /* glsl */ `
     waterBody = mix(waterBody, uSurfaceColor, smoothstep(0.0, 0.8, vWaveHeight));
     waterBody += uTranslucentColor * sss * 0.7;
 
-    // 5. Dynamic Organic Seafoam Generation
-    float foamNoise = noise(vWorldPosition.xz * 3.4 + vec2(uTime * 0.18, -uTime * 0.24));
-    float combinedFoamNoise = foamNoise * 0.5 + 0.5;
-    
-    float crestFoam = smoothstep(0.42, 0.85, vCrest + combinedFoamNoise * 0.35);
-    float turbulentFoam = smoothstep(0.72, 0.98, combinedFoamNoise + (1.0 - ndotv) * 0.25) * vCrest;
+    // 5. Dynamic seafoam using the same travelling fields. The phase offset
+    // prevents the foam breakup from looking locked to the normal ripple.
+    float foamPattern = 0.5 + 0.5 * sin(
+      vWorldPosition.x * 2.55 + vWorldPosition.z * 3.18 - uTime * 1.12 +
+      sin(vWorldPosition.z * 0.72 + uTime * 0.43) * 1.25
+    );
+    float combinedFoamNoise = clamp(foamPattern * 0.72 + (rippleB * 0.5 + 0.5) * 0.28, 0.0, 1.0);
+
+    float crestFoam = smoothstep(0.42, 0.86, vCrest + combinedFoamNoise * 0.33);
+    float turbulentFoam = smoothstep(0.74, 0.98, combinedFoamNoise + (1.0 - ndotv) * 0.23) * vCrest;
     float totalFoam = clamp(crestFoam + turbulentFoam * 0.6, 0.0, 1.0);
 
     // 6. Color Composition
@@ -169,7 +161,7 @@ export default function Ocean({ variant = "default" }) {
 
   return (
     <mesh position-y={-0.8} receiveShadow>
-      <planeGeometry args={[200, 200, 96, 96]} />
+      <planeGeometry args={[200, 200, 72, 72]} />
       <shaderMaterial
         ref={materialRef}
         uniforms={uniforms}

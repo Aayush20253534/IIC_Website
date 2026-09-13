@@ -378,6 +378,7 @@
   width: 106%;
   height: 113%;
   pointer-events: none;
+  contain: paint;
 }
 
 .sponsor-voyage-canvas {
@@ -432,10 +433,12 @@
 
 
 .sponsor-voyage__cards--sailing-next .voyage-sponsor-card {
+  will-change: transform, opacity;
   animation: sponsorCardsSailNext 1.16s cubic-bezier(0.3, 0.02, 0.2, 1) both;
 }
 
 .sponsor-voyage__cards--sailing-prev .voyage-sponsor-card {
+  will-change: transform, opacity;
   animation: sponsorCardsSailPrev 1.16s cubic-bezier(0.3, 0.02, 0.2, 1) both;
 }
 
@@ -450,21 +453,21 @@
 }
 
 @keyframes sponsorCardsSailNext {
-  0% { opacity: 1; transform: translateX(-50%) translate3d(0, 0, 0); filter: blur(0); }
-  34% { opacity: 0.72; transform: translateX(-50%) translate3d(-3.6vw, 1px, 0); filter: blur(0.35px); }
-  41% { opacity: 0; transform: translateX(-50%) translate3d(-5.4vw, 2px, 0); filter: blur(1.4px); }
-  48% { opacity: 0; transform: translateX(-50%) translate3d(5.1vw, -1px, 0); filter: blur(1.4px); }
-  61% { opacity: 0.72; transform: translateX(-50%) translate3d(2.4vw, 0, 0); filter: blur(0.35px); }
-  100% { opacity: 1; transform: translateX(-50%) translate3d(0, 0, 0); filter: blur(0); }
+  0% { opacity: 1; transform: translateX(-50%) translate3d(0, 0, 0); }
+  34% { opacity: 0.72; transform: translateX(-50%) translate3d(-3.6vw, 1px, 0); }
+  41% { opacity: 0; transform: translateX(-50%) translate3d(-5.4vw, 2px, 0); }
+  48% { opacity: 0; transform: translateX(-50%) translate3d(5.1vw, -1px, 0); }
+  61% { opacity: 0.72; transform: translateX(-50%) translate3d(2.4vw, 0, 0); }
+  100% { opacity: 1; transform: translateX(-50%) translate3d(0, 0, 0); }
 }
 
 @keyframes sponsorCardsSailPrev {
-  0% { opacity: 1; transform: translateX(-50%) translate3d(0, 0, 0); filter: blur(0); }
-  34% { opacity: 0.72; transform: translateX(-50%) translate3d(3.6vw, 1px, 0); filter: blur(0.35px); }
-  41% { opacity: 0; transform: translateX(-50%) translate3d(5.4vw, 2px, 0); filter: blur(1.4px); }
-  48% { opacity: 0; transform: translateX(-50%) translate3d(-5.1vw, -1px, 0); filter: blur(1.4px); }
-  61% { opacity: 0.72; transform: translateX(-50%) translate3d(-2.4vw, 0, 0); filter: blur(0.35px); }
-  100% { opacity: 1; transform: translateX(-50%) translate3d(0, 0, 0); filter: blur(0); }
+  0% { opacity: 1; transform: translateX(-50%) translate3d(0, 0, 0); }
+  34% { opacity: 0.72; transform: translateX(-50%) translate3d(3.6vw, 1px, 0); }
+  41% { opacity: 0; transform: translateX(-50%) translate3d(5.4vw, 2px, 0); }
+  48% { opacity: 0; transform: translateX(-50%) translate3d(-5.1vw, -1px, 0); }
+  61% { opacity: 0.72; transform: translateX(-50%) translate3d(-2.4vw, 0, 0); }
+  100% { opacity: 1; transform: translateX(-50%) translate3d(0, 0, 0); }
 }
 
 .voyage-sponsor-card::before,
@@ -583,8 +586,7 @@
     radial-gradient(ellipse at 50% 38%, rgba(255, 190, 94, 0.46), transparent 21%),
     radial-gradient(ellipse at 50% 62%, rgba(255, 151, 49, 0.28), transparent 30%),
     linear-gradient(180deg, transparent 36%, rgba(255, 179, 75, 0.13) 65%, transparent 100%);
-  filter: blur(7px);
-  opacity: 0.9;
+  opacity: 0.84;
   animation: voyageGlowPulse 3.4s ease-in-out infinite alternate;
 }
 
@@ -856,7 +858,6 @@
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: saturate(0.82) contrast(1.04);
 }
 
 .storm-cloud {
@@ -869,7 +870,7 @@
   opacity: 0.76;
   transform-box: fill-box;
   transform-origin: center;
-  will-change: transform, opacity;
+  will-change: transform;
   animation: stormCloudDrift 15s ease-in-out infinite alternate;
 }
 
@@ -906,13 +907,46 @@
   animation-duration: 17s;
 }
 
-.storm-cloud__body {
-  filter: saturate(0.76);
+.storm-cloud__mass {
+  opacity: 0.98;
+}
+
+.storm-cloud__puff {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+
+.storm-cloud__puff--light {
+  opacity: 0.96;
+}
+
+.storm-cloud__puff--mid {
+  opacity: 0.94;
+}
+
+.storm-cloud__puff--shade {
+  opacity: 0.86;
+}
+
+.storm-cloud__mist {
+  opacity: 0.56;
 }
 
 .storm-cloud__underside {
   mix-blend-mode: multiply;
-  opacity: 0.72;
+  opacity: 0.66;
+}
+
+.storm-cloud__silver-lining {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 3.2;
+  stroke-dasharray: 210 830;
+  stroke-linecap: round;
+  opacity: 0.58;
+  transform: rotate(-7deg);
+  transform-origin: 215px 83px;
 }
 
 .storm-cloud__flash {

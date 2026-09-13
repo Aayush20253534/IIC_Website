@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import Ocean from "./Ocean";
@@ -12,18 +12,7 @@ const SHIP_LAYOUT = [
 
 const smoothstep = (value) => value * value * (3 - 2 * value);
 
-function Ship({
-  position,
-  rotation,
-  phase,
-  slotIndex,
-  transitionKey,
-  transitionDirection,
-}) {
-  const group = useRef(null);
-  const latestTime = useRef(0);
-  const previousTransitionKey = useRef(transitionKey);
-  const transition = useRef({ active: false, startedAt: 0, direction: 0 });
+function Ship({ groupRef, position, rotation }) {
   const { scene } = useGLTF("/pirate_ship.glb");
 
   const model = useMemo(() => {
@@ -31,9 +20,6 @@ function Ship({
 
     clone.traverse((node) => {
       if (!node.isMesh) return;
-      // The fleet is continuously moving, so real-time shadow maps are very
-      // expensive for little visible gain on a dark ocean. The warm emissive
-      // treatment below preserves the lantern-lit look without a shadow pass.
       node.castShadow = false;
       node.receiveShadow = false;
 
@@ -42,11 +28,11 @@ function Ship({
           const material = source.clone();
           material.roughness = Math.min(material.roughness ?? 0.7, 0.72);
           material.metalness = Math.min(material.metalness ?? 0.1, 0.28);
-          material.envMapIntensity = 1.15;
+          material.envMapIntensity = 1.28;
 
           if ("emissive" in material) {
-            material.emissive = new THREE.Color("#301605");
-            material.emissiveIntensity = 0.3;
+            material.emissive = new THREE.Color("#3a1a06");
+            material.emissiveIntensity = 0.44;
           }
           return material;
         };
@@ -71,107 +57,115 @@ function Ship({
     [model],
   );
 
+  return (
+    <group ref={groupRef} position={position} rotation={rotation} scale={0.255}>
+      <primitive object={model} />
+    </group>
+  );
+}
+
+function FleetMotion({ shipRefs, transitionKey, transitionDirection }) {
+  const visualTime = useRef(0);
+  const previousTransitionKey = useRef(transitionKey);
+  const transition = useRef({
+    active: false,
+    elapsed: 0,
+    direction: 0,
+  });
+
   useEffect(() => {
     if (previousTransitionKey.current === transitionKey) return;
 
     previousTransitionKey.current = transitionKey;
     transition.current = {
       active: true,
-      startedAt: latestTime.current,
+      elapsed: 0,
       direction: transitionDirection || 1,
     };
   }, [transitionDirection, transitionKey]);
 
-  useFrame(({ clock }) => {
-    if (!group.current) return;
-
-    const t = clock.elapsedTime;
-    latestTime.current = t;
-
-    // Ocean response uses several incommensurate swells. This avoids the
-    // repetitive pendulum motion that makes ships look like suspended toys.
-    const localTime = t + phase;
-    const primarySwell = Math.sin(localTime * 0.61);
-    const secondarySwell = Math.sin(localTime * 1.13 + phase * 0.63);
-    const chop = Math.sin(localTime * 2.17 + slotIndex * 1.37);
-    const quarteringSea = Math.cos(localTime * 0.43 + phase * 1.41);
-
-    const heave = primarySwell * 0.1 + secondarySwell * 0.034 + chop * 0.012;
-    const pitch =
-      Math.cos(localTime * 0.54 + phase * 0.2) * 0.027 +
-      secondarySwell * 0.008 +
-      chop * 0.003;
-    const roll =
-      Math.sin(localTime * 0.49 + phase * 1.15) * 0.039 +
-      quarteringSea * 0.012 +
-      chop * 0.0035;
-
-    let carouselX = 0;
-    let carouselZ = 0;
-    let carouselYaw = 0;
-    let carouselHeel = 0;
-    let carouselLift = 0;
+  useFrame(({ camera }, delta) => {
+    // If the GPU misses a frame, elapsedTime-based motion jumps ahead. Capping
+    // the simulation step makes the fleet slow imperceptibly instead of
+    // visibly stuttering, while preserving the exact same swell/roll motion.
+    const simulationDelta = Math.min(delta, 1 / 30);
+    visualTime.current += simulationDelta;
+    const t = visualTime.current;
 
     if (transition.current.active) {
-      const duration = 1.16;
-      const stagger = slotIndex * 0.045;
-      const rawProgress = Math.max(
-        0,
-        Math.min(1, (t - transition.current.startedAt - stagger) / (duration - stagger)),
-      );
-      const travel = Math.sin(rawProgress * Math.PI);
-      const easedTravel = smoothstep(Math.min(1, rawProgress * 1.08));
-      const direction = transition.current.direction;
-
-      // Ships surge in the direction of carousel travel, heel into the turn,
-      // and settle back onto their assigned route position. The slight depth
-      // change creates parallax, so the movement reads as sailing rather than
-      // a DOM-style horizontal translation.
-      carouselX = -direction * travel * (0.82 + slotIndex * 0.055);
-      carouselZ = -travel * 0.24 + Math.sin(rawProgress * Math.PI * 2) * 0.045;
-      carouselYaw = -direction * travel * 0.105;
-      carouselHeel = direction * travel * 0.047;
-      carouselLift = Math.sin(rawProgress * Math.PI * 2) * 0.025 * (1 - easedTravel * 0.2);
-
-      if (rawProgress >= 1) {
-        transition.current.active = false;
-      }
+      transition.current.elapsed += simulationDelta;
     }
 
-    group.current.position.x =
-      position[0] +
-      Math.sin(localTime * 0.22 + slotIndex) * 0.035 +
-      carouselX;
-    group.current.position.y = position[1] + heave + carouselLift;
-    group.current.position.z =
-      position[2] + Math.cos(localTime * 0.29 + phase) * 0.022 + carouselZ;
+    SHIP_LAYOUT.forEach((ship, slotIndex) => {
+      const group = shipRefs.current[slotIndex];
+      if (!group) return;
 
-    group.current.rotation.x = rotation[0] + pitch;
-    group.current.rotation.y =
-      rotation[1] + Math.sin(localTime * 0.24) * 0.009 + carouselYaw;
-    group.current.rotation.z = rotation[2] + roll + carouselHeel;
-  });
+      const { position, rotation, phase } = ship;
+      const localTime = t + phase;
+      const primarySwell = Math.sin(localTime * 0.61);
+      const secondarySwell = Math.sin(localTime * 1.13 + phase * 0.63);
+      const chop = Math.sin(localTime * 2.17 + slotIndex * 1.37);
+      const quarteringSea = Math.cos(localTime * 0.43 + phase * 1.41);
 
-  return (
-    <group ref={group} position={position} rotation={rotation} scale={0.255}>
-      <primitive object={model} />
+      const heave = primarySwell * 0.1 + secondarySwell * 0.034 + chop * 0.012;
+      const pitch =
+        Math.cos(localTime * 0.54 + phase * 0.2) * 0.027 +
+        secondarySwell * 0.008 +
+        chop * 0.003;
+      const roll =
+        Math.sin(localTime * 0.49 + phase * 1.15) * 0.039 +
+        quarteringSea * 0.012 +
+        chop * 0.0035;
 
-      <pointLight
-        position={[0, 2.15, 1.25]}
-        color="#ffb24a"
-        intensity={13.5}
-        distance={6.3}
-        decay={2}
-      />
-    </group>
-  );
-}
+      let carouselX = 0;
+      let carouselZ = 0;
+      let carouselYaw = 0;
+      let carouselHeel = 0;
+      let carouselLift = 0;
 
-function CameraDrift() {
-  const { camera } = useThree();
+      if (transition.current.active) {
+        const duration = 1.16;
+        const stagger = slotIndex * 0.045;
+        const rawProgress = Math.max(
+          0,
+          Math.min(
+            1,
+            (transition.current.elapsed - stagger) / (duration - stagger),
+          ),
+        );
+        const travel = Math.sin(rawProgress * Math.PI);
+        const easedTravel = smoothstep(Math.min(1, rawProgress * 1.08));
+        const direction = transition.current.direction;
 
-  useFrame(({ clock }) => {
-    const t = clock.elapsedTime;
+        carouselX = -direction * travel * (0.82 + slotIndex * 0.055);
+        carouselZ = -travel * 0.24 + Math.sin(rawProgress * Math.PI * 2) * 0.045;
+        carouselYaw = -direction * travel * 0.105;
+        carouselHeel = direction * travel * 0.047;
+        carouselLift =
+          Math.sin(rawProgress * Math.PI * 2) * 0.025 * (1 - easedTravel * 0.2);
+      }
+
+      group.position.x =
+        position[0] +
+        Math.sin(localTime * 0.22 + slotIndex) * 0.035 +
+        carouselX;
+      group.position.y = position[1] + heave + carouselLift;
+      group.position.z =
+        position[2] + Math.cos(localTime * 0.29 + phase) * 0.022 + carouselZ;
+
+      group.rotation.x = rotation[0] + pitch;
+      group.rotation.y =
+        rotation[1] + Math.sin(localTime * 0.24) * 0.009 + carouselYaw;
+      group.rotation.z = rotation[2] + roll + carouselHeel;
+    });
+
+    if (transition.current.active && transition.current.elapsed >= 1.16) {
+      transition.current.active = false;
+    }
+
+    // Keep the original subtle camera drift, but run it inside the same frame
+    // callback so React Three Fiber only dispatches one animation callback for
+    // the entire fleet instead of one per ship plus one for the camera.
     camera.position.x = Math.sin(t * 0.12) * 0.12;
     camera.position.y = 4.4 + Math.sin(t * 0.17) * 0.035;
     camera.lookAt(0, 0.45, -1.0);
@@ -181,23 +175,21 @@ function CameraDrift() {
 }
 
 function Fleet({ transitionKey, transitionDirection }) {
+  const shipRefs = useRef([]);
+
   return (
     <>
       <color attach="background" args={["#02070d"]} />
       <fog attach="fog" args={["#03101a", 17, 58]} />
 
-      <ambientLight color="#547b9b" intensity={0.68} />
-      <hemisphereLight color="#a5c9df" groundColor="#02060a" intensity={0.94} />
-      <directionalLight
-        position={[-8, 11, 8]}
-        color="#b9ddf2"
-        intensity={2.65}
-      />
-      <directionalLight position={[8, 7, 4]} color="#ffc06a" intensity={1.18} />
+      <ambientLight color="#547b9b" intensity={0.74} />
+      <hemisphereLight color="#a5c9df" groundColor="#02060a" intensity={1.02} />
+      <directionalLight position={[-8, 11, 8]} color="#b9ddf2" intensity={2.75} />
+      <directionalLight position={[8, 7, 4]} color="#ffc06a" intensity={1.32} />
 
       <Environment resolution={32}>
         <Lightformer
-          intensity={4.2}
+          intensity={4.5}
           color="#ffd08a"
           position={[-4, 7, 5]}
           scale={[7, 7, 1]}
@@ -217,13 +209,17 @@ function Fleet({ transitionKey, transitionDirection }) {
         <Ship
           key={index}
           {...ship}
-          slotIndex={index}
-          transitionKey={transitionKey}
-          transitionDirection={transitionDirection}
+          groupRef={(node) => {
+            shipRefs.current[index] = node;
+          }}
         />
       ))}
 
-      <CameraDrift />
+      <FleetMotion
+        shipRefs={shipRefs}
+        transitionKey={transitionKey}
+        transitionDirection={transitionDirection}
+      />
     </>
   );
 }
@@ -252,14 +248,20 @@ export default function SponsorVoyageScene({
     <div ref={hostRef} className="sponsor-voyage-canvas-shell" aria-hidden="true">
       <Canvas
         className="sponsor-voyage-canvas"
-        dpr={[0.85, 1.25]}
+        dpr={[0.72, 1]}
         frameloop={isVisible ? "always" : "never"}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance",
+          precision: "mediump",
+          stencil: false,
+        }}
         camera={{ position: [0, 4.4, 13.1], fov: 41, near: 0.1, far: 150 }}
         onCreated={({ gl }) => {
           gl.outputColorSpace = THREE.SRGBColorSpace;
           gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.42;
+          gl.toneMappingExposure = 1.46;
         }}
       >
         <Suspense fallback={null}>

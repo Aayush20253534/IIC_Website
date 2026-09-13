@@ -22,6 +22,19 @@ function LighthouseCoast() {
   );
 }
 
+const CLOUD_PUFFS = [
+  { cx: 82, cy: 111, rx: 62, ry: 36, tone: "shade" },
+  { cx: 126, cy: 82, rx: 70, ry: 53, tone: "mid" },
+  { cx: 176, cy: 66, rx: 82, ry: 61, tone: "light" },
+  { cx: 228, cy: 55, rx: 78, ry: 55, tone: "light" },
+  { cx: 280, cy: 73, rx: 78, ry: 54, tone: "mid" },
+  { cx: 333, cy: 91, rx: 71, ry: 43, tone: "mid" },
+  { cx: 373, cy: 117, rx: 52, ry: 31, tone: "shade" },
+  { cx: 221, cy: 103, rx: 124, ry: 55, tone: "mid" },
+  { cx: 155, cy: 119, rx: 92, ry: 42, tone: "shade" },
+  { cx: 303, cy: 120, rx: 96, ry: 40, tone: "shade" },
+];
+
 function StormClouds() {
   const clouds = [
     { slot: "left", x: 70, y: 56, width: 440, height: 170 },
@@ -37,44 +50,40 @@ function StormClouds() {
         preserveAspectRatio="none"
       >
         <defs>
-          <linearGradient id="stormCloudTop" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#f5f8fa" stopOpacity="0.88" />
-            <stop offset="0.38" stopColor="#d6e0e7" stopOpacity="0.8" />
-            <stop offset="0.72" stopColor="#8495a3" stopOpacity="0.72" />
-            <stop offset="1" stopColor="#3f5262" stopOpacity="0.5" />
-          </linearGradient>
+          <radialGradient id="stormPuffLight" cx="38%" cy="28%" r="74%">
+            <stop offset="0" stopColor="#ffffff" stopOpacity="0.98" />
+            <stop offset="0.38" stopColor="#f3f7fa" stopOpacity="0.96" />
+            <stop offset="0.74" stopColor="#cfdbe3" stopOpacity="0.9" />
+            <stop offset="1" stopColor="#8799a7" stopOpacity="0.74" />
+          </radialGradient>
+          <radialGradient id="stormPuffMid" cx="42%" cy="30%" r="78%">
+            <stop offset="0" stopColor="#edf3f7" stopOpacity="0.95" />
+            <stop offset="0.56" stopColor="#c7d3dc" stopOpacity="0.9" />
+            <stop offset="1" stopColor="#667887" stopOpacity="0.76" />
+          </radialGradient>
+          <radialGradient id="stormPuffShade" cx="44%" cy="22%" r="82%">
+            <stop offset="0" stopColor="#cfd9e0" stopOpacity="0.88" />
+            <stop offset="0.58" stopColor="#8b9ca8" stopOpacity="0.82" />
+            <stop offset="1" stopColor="#3a4d5b" stopOpacity="0.76" />
+          </radialGradient>
           <linearGradient id="stormCloudUnder" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#aebdc8" stopOpacity="0.38" />
-            <stop offset="1" stopColor="#263947" stopOpacity="0.72" />
+            <stop offset="0" stopColor="#95a8b5" stopOpacity="0.72" />
+            <stop offset="0.55" stopColor="#526675" stopOpacity="0.78" />
+            <stop offset="1" stopColor="#243744" stopOpacity="0.88" />
           </linearGradient>
-          <filter id="stormCloudTexture" x="-30%" y="-45%" width="160%" height="200%">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.012 0.038"
-              numOctaves="2"
-              seed="19"
-              result="noise"
-            />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="17"
-              xChannelSelector="R"
-              yChannelSelector="B"
-              result="displaced"
-            />
-            <feGaussianBlur in="displaced" stdDeviation="0.85" result="softCloud" />
-            <feDropShadow dx="0" dy="13" stdDeviation="13" floodColor="#000711" floodOpacity="0.55" />
-          </filter>
+          <radialGradient id="stormCloudMist" cx="50%" cy="45%" r="58%">
+            <stop offset="0" stopColor="#eaf5fb" stopOpacity="0.48" />
+            <stop offset="1" stopColor="#b6cad5" stopOpacity="0" />
+          </radialGradient>
           <filter id="stormLightningGlow" x="-180%" y="-40%" width="460%" height="220%">
-            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feGaussianBlur stdDeviation="2.2" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
           <filter id="stormFlashBlur" x="-80%" y="-100%" width="260%" height="300%">
-            <feGaussianBlur stdDeviation="22" />
+            <feGaussianBlur stdDeviation="18" />
           </filter>
         </defs>
 
@@ -108,16 +117,37 @@ function StormClouds() {
               filter="url(#stormFlashBlur)"
             />
 
-            <g filter="url(#stormCloudTexture)">
-              <path
-                className="storm-cloud__body"
-                fill="url(#stormCloudTop)"
-                d="M26 128 C24 101 50 81 82 83 C92 48 126 27 164 39 C187 10 235 7 266 36 C301 15 349 33 356 70 C397 68 424 92 416 124 C407 153 370 158 329 154 C286 168 240 159 207 156 C166 166 120 159 88 154 C53 157 29 148 26 128 Z"
+            <g className="storm-cloud__mass">
+              <ellipse
+                className="storm-cloud__mist"
+                cx="220"
+                cy="98"
+                rx="205"
+                ry="78"
+                fill="url(#stormCloudMist)"
               />
+              {CLOUD_PUFFS.map((puff, index) => (
+                <ellipse
+                  key={`${cloud.slot}-puff-${index}`}
+                  className={`storm-cloud__puff storm-cloud__puff--${puff.tone}`}
+                  cx={puff.cx}
+                  cy={puff.cy}
+                  rx={puff.rx}
+                  ry={puff.ry}
+                  fill={`url(#stormPuff${puff.tone === "light" ? "Light" : puff.tone === "mid" ? "Mid" : "Shade"})`}
+                />
+              ))}
               <path
                 className="storm-cloud__underside"
                 fill="url(#stormCloudUnder)"
-                d="M45 126 C89 112 124 120 159 130 C200 113 250 119 282 133 C324 113 369 120 399 132 C385 153 350 159 320 153 C283 168 242 158 209 156 C169 166 122 157 91 153 C67 155 49 144 45 126 Z"
+                d="M38 124 C78 111 119 115 155 126 C194 113 245 115 283 129 C322 114 369 116 405 130 C395 151 357 160 320 153 C283 166 243 159 208 157 C166 165 124 159 90 154 C64 155 44 145 38 124 Z"
+              />
+              <ellipse
+                className="storm-cloud__silver-lining"
+                cx="215"
+                cy="83"
+                rx="166"
+                ry="63"
               />
             </g>
 

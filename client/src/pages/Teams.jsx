@@ -129,7 +129,7 @@ export default function Teams({ embedded = false }) {
         )}
       </div>
 
-      <ContactFooter />
+      {!embedded && <ContactFooter />}
     </div>
   );
 }

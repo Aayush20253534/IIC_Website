@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { getStoredProfile, saveStoredProfile, getStoredTeams, getStoredRegistrations } from "../utils/mockStore";
 import ContactFooter from "../components/ContactFooter";
 

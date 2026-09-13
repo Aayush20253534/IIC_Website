@@ -3,7 +3,7 @@ import { SPEAKERS_DATA } from "../data/speakersData";
 
 export default function Speakers() {
   return (
-    <section className="py-24 px-6 bg-[#070E1A] relative overflow-hidden border-t border-[#C5A25F]/15">
+    <section className="py-24 px-6 bg-transparent relative overflow-hidden border-t border-[#C5A25F]/15">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">

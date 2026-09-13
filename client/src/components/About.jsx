@@ -2,7 +2,7 @@ import React from "react";
 
 export default function About() {
   return (
-    <section className="py-20 px-6 bg-[#050B14]">
+    <section className="py-20 px-6 bg-transparent">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="font-cinzel text-3xl sm:text-4xl font-bold text-[#F4EBD9] mb-4">
           About Renaissance

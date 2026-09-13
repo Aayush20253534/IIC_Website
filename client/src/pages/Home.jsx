@@ -45,7 +45,7 @@ export default function Home() {
       </section>
 
       {/* 5. DASHBOARD SECTION (5th) */}
-      <section id="dashboard" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-[#030912]">
+      <section id="dashboard" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-transparent">
         <Dashboard embedded={true} />
       </section>
 
@@ -55,7 +55,7 @@ export default function Home() {
       </section>
 
       {/* 7. GALLERY & KEYNOTE SPEAKERS SECTION (7th) */}
-      <section id="gallery" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-[#030912]">
+      <section id="gallery" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-transparent">
         <Gallery embedded={true} />
         <Speakers />
       </section>

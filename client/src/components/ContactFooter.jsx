@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function ContactFooter() {
   return (
-    <footer className="bg-[#02060D] border-t border-[#C5A25F]/20 py-12 px-6 text-[#94A3B8]">
+    <footer className="bg-[#050B14]/90 backdrop-blur-md border-t border-[#C5A25F]/20 py-12 px-6 text-[#94A3B8] relative z-20">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-xs font-montserrat">
         <div>
           <h4 className="font-cinzel text-sm font-bold text-[#F4EBD9] mb-3">

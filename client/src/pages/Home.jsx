@@ -2,17 +2,8 @@ import React from "react";
 import Hero from "../components/Hero";
 import SlidingBar from "../components/SlidingBar";
 import About from "../components/About";
-import Sponsors from "./Sponsors";
-import Registration from "./Registration";
-import Events from "./Events";
-import EventTimeline from "../components/EventTimeline";
-import Dashboard from "./Dashboard";
-import Teams from "./Teams";
-import Gallery from "./Gallery";
 import Speakers from "../components/Speakers";
 import ContactFooter from "../components/ContactFooter";
-import SocialSideRail from "../components/SocialSideRail";
-import ScrollIndicatorRail from "../components/ScrollIndicatorRail";
 
 export default function Home() {
   return (
@@ -34,7 +25,7 @@ export default function Home() {
       </section>
 
       {/* 3. REGISTER SECTION (3rd) */}
-      <section id="register" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-transparent">
+      <section id="register" className="relative scroll-mt-20 border-t border-[#C5A25F]/15 bg-[#030912]">
         <Registration embedded={true} />
       </section>
 
@@ -60,10 +51,8 @@ export default function Home() {
         <Speakers />
       </section>
 
-      {/* 8. CONTACT FOOTER */}
-      <section id="contact" className="relative">
-        <ContactFooter />
-      </section>
+      {/* 5. Contact Footer */}
+      <ContactFooter />
     </main>
   );
 }

@@ -6,6 +6,7 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader.js";
 import { CopyShader } from "three/addons/shaders/CopyShader.js";
+import { PirateFloatingArtifacts } from "../components/PirateFloatingArtifacts";
 
 function hexToVec3(hex) {
     const n = parseInt(hex.slice(1), 16);
@@ -31,8 +32,8 @@ function ThreeBackground() {
         renderer.shadowMap.type = THREE.VSMShadowMap;
 
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000);
-        scene.fog = new THREE.Fog(0x000000, 0, 22);
+        scene.background = new THREE.Color(0x020610);
+        scene.fog = new THREE.Fog(0x020610, 1, 24);
 
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 80);
         camera.position.set(0, 0, 3);
@@ -41,13 +42,13 @@ function ThreeBackground() {
         camera.layers.enable(LAYERS.ENTIRE_SCENE);
         scene.add(camera);
 
-        // ---------- Geometry / Points ----------
-        const count = 940;
+        // ---------- Geometry / Water Bubble Particles (Reduced & Calmed) ----------
+        const count = 260;
         const positions = [];
         const sizes = [];
         for (let i = 0; i < count; i++) {
             positions.push(2 * Math.random() - 1, 2 * Math.random() - 1, 2 * Math.random() - 1);
-            sizes.push(25 + 25 * Math.random());
+            sizes.push(16 + 18 * Math.random());
         }
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
@@ -65,8 +66,8 @@ function ThreeBackground() {
                 },
             },
             uDepth: { value: 3.7 },
-            uCool: { value: hexToVec3("#1e88e5") },
-            uWarm: { value: hexToVec3("#8ecfff") },
+            uCool: { value: hexToVec3("#0a4b8c") },
+            uWarm: { value: hexToVec3("#38bdf8") },
         };
 
         const vertexShader = `
@@ -128,86 +129,48 @@ function ThreeBackground() {
         points.layers.enable(LAYERS.ENTIRE_SCENE);
         scene.add(points);
 
-        // ---------- Postprocessing ----------
+        // ---------- Underwater Lighting for 3D Pirate Artifacts ----------
+        const ambientLight = new THREE.AmbientLight(0x1e3a5f, 1.4);
+        ambientLight.layers.enable(LAYERS.ENTIRE_SCENE);
+        ambientLight.layers.enable(LAYERS.BLOOM_SCENE);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffeedb, 3.8);
+        dirLight.position.set(6, 14, 10);
+        dirLight.layers.enable(LAYERS.ENTIRE_SCENE);
+        dirLight.layers.enable(LAYERS.BLOOM_SCENE);
+        scene.add(dirLight);
+
+        const fillLight = new THREE.DirectionalLight(0x0369a1, 2.2);
+        fillLight.position.set(-8, -6, 6);
+        fillLight.layers.enable(LAYERS.ENTIRE_SCENE);
+        fillLight.layers.enable(LAYERS.BLOOM_SCENE);
+        scene.add(fillLight);
+
+        // ---------- 3D Floating Pirate Artifacts (Gold Coins, Hooks, Eyepatches) ----------
+        const pirateArtifacts = new PirateFloatingArtifacts(scene, { count: 18 });
+        pirateArtifacts.group.traverse((child) => {
+            if (child.isMesh || child.isGroup) {
+                child.layers.enable(LAYERS.ENTIRE_SCENE);
+                child.layers.enable(LAYERS.BLOOM_SCENE);
+            }
+        });
+
+        // ---------- Postprocessing (Unified Single Composer - Zero Flickering) ----------
+        const composer = new EffectComposer(renderer);
         const renderPass = new RenderPass(scene, camera);
+        composer.addPass(renderPass);
 
-        const torusComposer = new EffectComposer(renderer);
-        torusComposer.renderToScreen = false;
-        torusComposer.addPass(renderPass);
-        torusComposer.addPass(new ShaderPass(GammaCorrectionShader));
-        torusComposer.addPass(new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.3, 0.3, 0));
-        torusComposer.addPass(new ShaderPass(CopyShader));
+        // Underwater Bloom for Golden Coin glints and particle sparkles
+        const bloomPass = new UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            0.35, // strength
+            0.4,  // radius
+            0.6   // threshold
+        );
+        composer.addPass(bloomPass);
 
-        const bloomComposer = new EffectComposer(renderer);
-        bloomComposer.renderToScreen = false;
-        bloomComposer.addPass(renderPass);
-        bloomComposer.addPass(new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.5, 0.7, 0));
-        bloomComposer.addPass(new ShaderPass(GammaCorrectionShader));
-
-        const FinalPass = {
-            uniforms: {
-                iTime: { value: 0 },
-                tDiffuse: { value: null },
-                torusTexture: { value: null },
-                bloomTexture: { value: null },
-                haloTexture: { value: null },
-                uBg: { value: hexToVec3("#08213a") },
-                uFlameA: { value: hexToVec3("#2196f3") },
-                uFlameB: { value: hexToVec3("#aee2ff") },
-                uFlameAmt: { value: 0.2 },
-            },
-            vertexShader: `
-        varying vec2 vUv; 
-        void main(){
-          vUv = uv; 
-          gl_Position = vec4(position, 1.0); 
-        }`,
-            fragmentShader: `
-        uniform float iTime; 
-        uniform sampler2D tDiffuse; 
-        uniform sampler2D bloomTexture; 
-        uniform sampler2D torusTexture; 
-        uniform sampler2D haloTexture;
-        uniform vec3 uBg; 
-        uniform vec3 uFlameA; 
-        uniform vec3 uFlameB; 
-        uniform float uFlameAmt;
-        varying vec2 vUv;
-
-        vec3 warp3d(vec3 pos, float t){
-          float curv=.8,a=1.9,b=0.7; 
-          pos*=2.;
-          pos.x+=curv*sin(t+a*pos.y)+t*b; 
-          pos.y+=curv*cos(t+a*pos.x);
-          pos.y+=curv*sin(t+a*pos.z)+t*b; 
-          pos.z+=curv*cos(t+a*pos.y);
-          pos.z+=curv*sin(t+a*pos.x)+t*b; 
-          pos.x+=curv*cos(t+a*pos.z);
-          return 0.5+0.5*cos(pos.xyz+vec3(1,2,4)); 
-        }
-
-        void main(){
-          vec2 uv = 2.*vUv - 1.;
-          vec3 w = pow(warp3d(vec3(uv.x, sin(uv.y), uv.y), iTime*1.5), vec3(1.5));
-          vec3 flame = 1.5*uFlameA*w.x; 
-          flame*=w.y; 
-          flame += uFlameB*w.z;
-          flame *= smoothstep(0.25, 1., abs(uv.y));
-          float md = smoothstep(-0.7, 1., -uv.y*uv.x); 
-          flame *= md*md;
-          vec3 bg = uBg * (1.0 - 0.4 * length(uv));
-          vec3 halo = texture2D(haloTexture, vUv).xyz;
-          gl_FragColor = vec4(bg + flame*uFlameAmt + texture2D(bloomTexture, vUv).xyz + texture2D(torusTexture, vUv).xyz + texture2D(tDiffuse, vUv).xyz + halo, 1.);
-        }`,
-        };
-
-        const finalPass = new ShaderPass(FinalPass);
-        const finalComposer = new EffectComposer(renderer);
-        finalComposer.addPass(renderPass);
-        finalComposer.addPass(finalPass);
-
-        finalPass.uniforms.bloomTexture.value = bloomComposer.renderTarget1.texture;
-        finalPass.uniforms.torusTexture.value = torusComposer.renderTarget1.texture;
+        composer.addPass(new ShaderPass(GammaCorrectionShader));
 
         // ---------- Animations ----------
         const DUST_ALPHA = 0.68;
@@ -240,17 +203,13 @@ function ThreeBackground() {
         function animate() {
             mainAnimFrameId = requestAnimationFrame(animate);
 
-            finalPass.uniforms.iTime.value = performance.now() / 1000;
+            const now = performance.now() / 1000;
             flyPoints();
 
-            camera.layers.set(LAYERS.TORUS_SCENE);
-            torusComposer.render();
+            // Update 3D Floating Pirate Artifacts (natural underwater drift with zero mouse interference)
+            pirateArtifacts.update(now);
 
-            camera.layers.set(LAYERS.BLOOM_SCENE);
-            bloomComposer.render();
-
-            camera.layers.set(LAYERS.ENTIRE_SCENE);
-            finalComposer.render();
+            composer.render();
         }
 
         // ---------- Resize Listener ----------
@@ -265,10 +224,8 @@ function ThreeBackground() {
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
 
-            [torusComposer, bloomComposer, finalComposer].forEach((c) => {
-                c.setPixelRatio(dpr);
-                c.setSize(w, h);
-            });
+            composer.setPixelRatio(dpr);
+            composer.setSize(w, h);
 
             uniforms.iResolution.value = { x: w * dpr, y: h * dpr };
         }
@@ -283,6 +240,8 @@ function ThreeBackground() {
             if (appearAnimFrameId) cancelAnimationFrame(appearAnimFrameId);
             if (mainAnimFrameId) cancelAnimationFrame(mainAnimFrameId);
 
+            pirateArtifacts.dispose();
+            composer.dispose();
             geometry.dispose();
             material.dispose();
             renderer.dispose();

@@ -29,7 +29,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
-          <img src="/renaissance-logo.png" alt="Renaissance Logo" className="h-9 w-auto" />
+          <img src="/renaissance_logo_transparent.png" alt="Renaissance Logo" className="h-10 md:h-12 w-auto object-contain" />
         </Link>
 
         {/* Desktop Links */}

@@ -298,12 +298,12 @@ export default function Events({ embedded = false }) {
               initial={
                 prefersReducedMotion
                   ? false
-                  : { x: -46, y: 4, scale: 1.055, rotate: -0.08 }
+                  : { x: 46, y: 4, scale: 1.055, rotate: 0.08 }
               }
               animate={
                 prefersReducedMotion
                   ? undefined
-                  : { x: 34, y: -4, scale: 1.085, rotate: 0.08 }
+                  : { x: -34, y: -4, scale: 1.085, rotate: -0.08 }
               }
               transition={{
                 duration: 14.5,
@@ -534,12 +534,12 @@ export default function Events({ embedded = false }) {
                         initial={
                           prefersReducedMotion
                             ? false
-                            : { x: -24, y: 3, scale: 1.075 }
+                            : { x: 24, y: 3, scale: 1.075 }
                         }
                         whileInView={
                           prefersReducedMotion
                             ? undefined
-                            : { x: 20, y: -3, scale: 1.1 }
+                            : { x: -20, y: -3, scale: 1.1 }
                         }
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{
@@ -554,7 +554,7 @@ export default function Events({ embedded = false }) {
                       {!prefersReducedMotion && (
                         <motion.div
                           className="absolute -left-[35%] bottom-[18%] h-px w-[54%] bg-gradient-to-r from-transparent via-white/55 to-transparent"
-                          animate={{ x: [0, 520], opacity: [0, 0.48, 0] }}
+                          animate={{ x: [520, 0], opacity: [0, 0.48, 0] }}
                           transition={{
                             duration: 10.5 + (index % 3) * 0.55,
                             ease: "easeOut",

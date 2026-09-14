@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   AnimatePresence,
@@ -13,6 +13,8 @@ import {
 export default function Events({ embedded = false }) {
   const [activeDay, setActiveDay] = useState(1);
   const [selectedEventModal, setSelectedEventModal] = useState(null);
+  const [openingEventId, setOpeningEventId] = useState(null);
+  const openingTimerRef = useRef(null);
   const navigate = useNavigate();
   const heroRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
@@ -58,6 +60,34 @@ export default function Events({ embedded = false }) {
   const resetHeroPointer = () => {
     heroPointerX.set(0);
     heroPointerY.set(0);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (openingTimerRef.current) {
+        window.clearTimeout(openingTimerRef.current);
+      }
+    };
+  }, []);
+
+  const openStandaloneEvent = (event) => {
+    if (openingEventId) return;
+
+    if (prefersReducedMotion) {
+      setSelectedEventModal(event);
+      return;
+    }
+
+    setOpeningEventId(event.id);
+    if (openingTimerRef.current) {
+      window.clearTimeout(openingTimerRef.current);
+    }
+
+    openingTimerRef.current = window.setTimeout(() => {
+      setSelectedEventModal(event);
+      setOpeningEventId(null);
+      openingTimerRef.current = null;
+    }, 760);
   };
 
   const [eventSearch, setEventSearch] = useState("");
@@ -469,15 +499,45 @@ export default function Events({ embedded = false }) {
                     layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                   }}
                   whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.008 }}
-                  className="group relative isolate h-full overflow-hidden rounded-[24px] border border-[#dfd0b7] bg-[#fffdf9] shadow-[0_10px_28px_rgba(38,64,65,.11)] transition-[border-color,box-shadow] duration-300 hover:border-[#cdb47c] hover:shadow-[0_18px_40px_rgba(38,64,65,.16)]"
+                  className="group relative isolate h-full overflow-hidden rounded-[13px] border border-[#dfd0b7] bg-[#fffdf9] shadow-[0_10px_28px_rgba(38,64,65,.11)] transition-[border-color,box-shadow] duration-300 hover:border-[#cdb47c] hover:shadow-[0_18px_40px_rgba(38,64,65,.16)]"
                   style={{ contentVisibility: "auto", containIntrinsicSize: "350px" }}
                 >
-                  <button
+                  <motion.button
                     type="button"
-                    onClick={() => setSelectedEventModal(event)}
-                    className="flex h-full w-full flex-col text-left"
+                    onClick={() => openStandaloneEvent(event)}
+                    disabled={Boolean(openingEventId)}
+                    animate={
+                      openingEventId === event.id && !prefersReducedMotion
+                        ? {
+                            rotateY: [0, 180, 360, 540, 720],
+                            rotateZ: [0, -1.2, 0.8, -0.5, 0],
+                            scale: [1, 0.96, 1.025, 0.975, 1],
+                          }
+                        : { rotateY: 0, rotateZ: 0, scale: 1 }
+                    }
+                    transition={{
+                      duration: openingEventId === event.id ? 0.74 : 0.18,
+                      ease: openingEventId === event.id ? [0.22, 0.75, 0.18, 1] : "easeOut",
+                    }}
+                    style={{ transformPerspective: 1100 }}
+                    className="relative flex h-full w-full flex-col text-left disabled:cursor-wait"
                     aria-label={`View details for ${event.title}`}
                   >
+                    <AnimatePresence>
+                      {openingEventId === event.id && !prefersReducedMotion && (
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: [0, 1, 1, 0], scale: [0.9, 1, 1, 1.04] }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.7, times: [0, 0.22, 0.76, 1] }}
+                          className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center bg-[#062c3c]/20 backdrop-blur-[1px]"
+                        >
+                          <span className="border border-[#f0cb73]/75 bg-[#07384a]/90 px-4 py-2 font-montserrat text-[9px] font-black uppercase tracking-[0.22em] text-[#f6d98f] shadow-[0_8px_28px_rgba(0,0,0,.25)]">
+                            Opening notice
+                          </span>
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
                     <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px]">
                       <motion.div
                         className="absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 group-hover:scale-[1.055]"
@@ -564,7 +624,7 @@ export default function Events({ embedded = false }) {
                         <span className="font-montserrat text-[9px] font-bold uppercase tracking-[0.16em] text-[#a18f70]">
                           Explore the voyage
                         </span>
-                        <span className="inline-flex items-center gap-2 rounded-full bg-[#0a5269] px-3.5 py-2 font-montserrat text-[10px] font-extrabold text-white shadow-[0_5px_14px_rgba(10,82,105,.18)] transition-all duration-300 group-hover:bg-[#0b617c] group-hover:shadow-[0_7px_18px_rgba(10,82,105,.24)]">
+                        <span className="inline-flex items-center gap-2 rounded-[7px] border border-[#0e6a84] bg-[#0a5269] px-3.5 py-2 font-montserrat text-[10px] font-extrabold text-white shadow-[0_5px_14px_rgba(10,82,105,.18)] transition-all duration-300 group-hover:bg-[#0b617c] group-hover:shadow-[0_7px_18px_rgba(10,82,105,.24)]">
                           View details
                           <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                             <path d="M5 12h14" strokeLinecap="round" />
@@ -573,7 +633,7 @@ export default function Events({ embedded = false }) {
                         </span>
                       </div>
                     </div>
-                  </button>
+                  </motion.button>
                 </motion.article>
               ))}
               </AnimatePresence>
@@ -613,91 +673,149 @@ export default function Events({ embedded = false }) {
         </section>
 
         <AnimatePresence>
-        {selectedEventModal &&
-          standaloneEvents.some((event) => event.id === selectedEventModal.id) && (
-            <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#061c27]/70 p-4 backdrop-blur-md"
-              onClick={() => setSelectedEventModal(null)}
-            >
+          {selectedEventModal &&
+            standaloneEvents.some((event) => event.id === selectedEventModal.id) && (
               <motion.div
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 28, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 18, scale: 0.97 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                className="relative w-full max-w-lg overflow-hidden rounded-[26px] border border-white/70 bg-[#fffdf8] text-[#173f51] shadow-[0_30px_90px_rgba(0,0,0,.42)]"
-                onClick={(event) => event.stopPropagation()}
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18 }}
+                className="fixed inset-0 z-50 flex items-center justify-center bg-[#020b12]/80 p-3 sm:p-5"
+                onClick={() => setSelectedEventModal(null)}
               >
                 <div
-                  className="relative h-32"
+                  className="pointer-events-none absolute inset-0 opacity-[0.16]"
                   style={{
                     backgroundImage:
-                      "linear-gradient(180deg, rgba(4,35,50,.08), rgba(4,35,50,.68)), url('/ship-map-hero.jpg')",
-                    backgroundSize: "cover",
-                    backgroundPosition: selectedEventModal.visualPosition,
+                      "linear-gradient(rgba(237,202,116,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(237,202,116,.16) 1px, transparent 1px)",
+                    backgroundSize: "42px 42px",
                   }}
+                />
+
+                <motion.div
+                  initial={
+                    prefersReducedMotion
+                      ? false
+                      : { opacity: 0, scale: 0.9, rotateX: -12, y: 18 }
+                  }
+                  animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, y: 10 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ transformPerspective: 1200 }}
+                  className="relative w-full max-w-[720px] overflow-hidden rounded-[10px] border border-[#d4ad58] bg-[#f4ead4] text-[#173f51] shadow-[0_28px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.2)_inset]"
+                  onClick={(event) => event.stopPropagation()}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={`${selectedEventModal.title} event notice`}
                 >
-                  <button
-                    type="button"
-                    onClick={() => setSelectedEventModal(null)}
-                    className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-[#072f40]/65 text-lg text-white backdrop-blur-md transition hover:bg-[#072f40]"
-                    aria-label="Close event details"
-                  >
-                    ×
-                  </button>
-                  <div className="absolute bottom-4 left-5">
-                    <span className="rounded-full border border-[#e4bf6a]/60 bg-[#f7df9c] px-3 py-1 font-montserrat text-[9px] font-black uppercase tracking-[0.12em] text-[#654a12]">
-                      {selectedEventModal.label}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-5 sm:p-6">
-                  <h2 className="pr-8 font-cinzel text-2xl font-bold leading-tight">
-                    {selectedEventModal.title}
-                  </h2>
-
-                  <div className="mt-4 grid grid-cols-2 gap-2.5 font-montserrat text-xs">
-                    <div className="rounded-xl border border-[#e4ddcf] bg-[#f5f1e8] p-3">
-                      <span className="block text-[9px] font-bold uppercase tracking-[0.14em] text-[#7b8c91]">Time</span>
-                      <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.time}</strong>
+                  {/* Game-style notice masthead */}
+                  <div className="relative flex min-h-[58px] items-center justify-between border-b border-[#d5b15e]/65 bg-[linear-gradient(180deg,#0d4257_0%,#082f40_100%)] px-4 sm:px-6">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-8 w-8 items-center justify-center border border-[#e5c26e]/60 bg-[#e1b957]/10 text-[#efca73]">
+                        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                          <circle cx="12" cy="12" r="8.5" />
+                          <path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9 3.9-1.7Z" />
+                        </svg>
+                      </span>
+                      <div>
+                        <p className="font-montserrat text-[8px] font-bold uppercase tracking-[0.26em] text-[#d9b967]">
+                          Renaissance // System Notice
+                        </p>
+                        <p className="mt-0.5 font-cinzel text-sm font-black uppercase tracking-[0.11em] text-white sm:text-base">
+                          Event Notice
+                        </p>
+                      </div>
                     </div>
-                    <div className="rounded-xl border border-[#e4ddcf] bg-[#f5f1e8] p-3">
-                      <span className="block text-[9px] font-bold uppercase tracking-[0.14em] text-[#7b8c91]">Location</span>
-                      <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.location}</strong>
-                    </div>
-                  </div>
-
-                  <p className="mt-4 font-montserrat text-sm leading-relaxed text-[#5f737b]">
-                    {selectedEventModal.description}
-                  </p>
-
-                  <div className="mt-5 flex gap-2.5">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedEventModal(null);
-                        navigate(`/events/${selectedEventModal.id}/register`);
-                      }}
-                      className="flex-1 rounded-xl bg-[#0c5870] px-4 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.12em] text-white shadow-[0_8px_22px_rgba(12,88,112,.24)] transition hover:bg-[#09475b]"
-                    >
-                      Register
-                    </button>
                     <button
                       type="button"
                       onClick={() => setSelectedEventModal(null)}
-                      className="rounded-xl border border-[#ddd3c1] bg-white px-5 py-3 font-montserrat text-xs font-bold text-[#60757e] transition hover:bg-[#f5f1e8]"
+                      className="flex h-8 w-8 items-center justify-center border border-white/20 bg-white/5 font-montserrat text-base font-bold text-white/80 transition hover:border-[#e4c16f]/70 hover:bg-[#e4c16f]/10 hover:text-white"
+                      aria-label="Close event notice"
                     >
-                      Close
+                      ×
                     </button>
+                    {!prefersReducedMotion && (
+                      <motion.span
+                        className="pointer-events-none absolute bottom-0 left-0 h-px w-24 bg-gradient-to-r from-transparent via-[#f4d783] to-transparent"
+                        animate={{ x: [-100, 760] }}
+                        transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
+                      />
+                    )}
                   </div>
-                </div>
+
+                  <div className="grid sm:grid-cols-[210px_minmax(0,1fr)]">
+                    <div
+                      className="relative min-h-[185px] border-b border-[#d9c294] sm:min-h-full sm:border-b-0 sm:border-r"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(180deg, rgba(3,26,38,.05), rgba(3,26,38,.64)), url('/ship-map-hero.jpg')",
+                        backgroundSize: "cover",
+                        backgroundPosition: selectedEventModal.visualPosition,
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_35%,rgba(239,202,116,.12)_100%)]" />
+                      <div className="absolute left-4 top-4 border border-white/25 bg-[#07384a]/80 px-2.5 py-1 font-montserrat text-[8px] font-black uppercase tracking-[0.15em] text-white backdrop-blur-sm">
+                        {selectedEventModal.eyebrow}
+                      </div>
+                      <div className="absolute bottom-4 left-4 border border-[#d6ad4f] bg-[#f1d17d] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.14em] text-[#5d430e] shadow-[0_5px_14px_rgba(0,0,0,.16)]">
+                        {selectedEventModal.label}
+                      </div>
+                    </div>
+
+                    <div className="relative p-5 sm:p-6">
+                      <div className="absolute right-0 top-0 h-16 w-16 border-r border-t border-[#cba352]/35" />
+                      <div className="absolute bottom-0 left-0 h-12 w-12 border-b border-l border-[#cba352]/25" />
+
+                      <p className="font-montserrat text-[8px] font-extrabold uppercase tracking-[0.24em] text-[#9d7a36]">
+                        Voyage briefing
+                      </p>
+                      <h2 className="mt-1 font-cinzel text-xl font-black leading-[1.16] text-[#123f55] sm:text-2xl">
+                        {selectedEventModal.title}
+                      </h2>
+
+                      <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden border border-[#d6c7aa] bg-[#d6c7aa] font-montserrat text-[10px] sm:grid-cols-3">
+                        <div className="bg-[#fbf6ea] px-3 py-2.5">
+                          <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Time</span>
+                          <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.time}</strong>
+                        </div>
+                        <div className="bg-[#fbf6ea] px-3 py-2.5">
+                          <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Location</span>
+                          <strong className="mt-1 block truncate text-[#234d5d]">{selectedEventModal.location}</strong>
+                        </div>
+                        <div className="col-span-2 bg-[#fbf6ea] px-3 py-2.5 sm:col-span-1">
+                          <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Class</span>
+                          <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.category}</strong>
+                        </div>
+                      </div>
+
+                      <p className="mt-4 border-l-2 border-[#d1a64e] pl-3 font-montserrat text-xs leading-relaxed text-[#63777e] sm:text-[13px]">
+                        {selectedEventModal.description}
+                      </p>
+
+                      <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedEventModal(null);
+                            navigate(`/events/${selectedEventModal.id}/register`);
+                          }}
+                          className="flex-1 border border-[#0c5870] bg-[#0c5870] px-4 py-3 font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
+                        >
+                          Enter Event
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedEventModal(null)}
+                          className="border border-[#cfc1a5] bg-[#fffaf0] px-5 py-3 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#6e756f] transition hover:border-[#bfa364] hover:bg-white hover:text-[#173f51]"
+                        >
+                          Dismiss
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          )}
+            )}
         </AnimatePresence>
       </main>
     );

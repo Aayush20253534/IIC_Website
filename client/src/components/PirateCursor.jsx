@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from "react";
 
+const HOOK_HOTSPOT = {
+  x: 10,
+  y: 13,
+};
+
 export default function PirateCursor() {
   const cursorRef = useRef(null);
   const iconRef = useRef(null);
-  const glintRef = useRef(null);
 
   useEffect(() => {
     if (typeof window === "undefined" || window.matchMedia("(pointer: coarse)").matches) {
@@ -12,8 +16,7 @@ export default function PirateCursor() {
 
     const cursorEl = cursorRef.current;
     const iconEl = iconRef.current;
-    const glintEl = glintRef.current;
-    if (!cursorEl) return;
+    if (!cursorEl || !iconEl) return;
 
     let mouseX = -100;
     let mouseY = -100;
@@ -24,12 +27,11 @@ export default function PirateCursor() {
     let isHovered = false;
     let isMouseDown = false;
 
-    const updateTransform = () => {
-      if (!iconEl) return;
+    const updateIconTransform = () => {
       if (isMouseDown) {
-        iconEl.style.transform = "scale(0.9) rotate(-6deg)";
+        iconEl.style.transform = "scale(0.9) rotate(-7deg)";
       } else if (isHovered) {
-        iconEl.style.transform = "scale(1.15) rotate(-4deg)";
+        iconEl.style.transform = "scale(1.14) rotate(-4deg)";
       } else {
         iconEl.style.transform = "scale(1) rotate(0deg)";
       }
@@ -39,7 +41,7 @@ export default function PirateCursor() {
       const dx = mouseX - currentX;
       const dy = mouseY - currentY;
 
-      // If cursor has caught up to mouse position, snap and sleep loop (0% idle CPU)
+      // Snap once the cursor is effectively caught up, then stop the RAF loop.
       if (Math.abs(dx) < 0.2 && Math.abs(dy) < 0.2) {
         currentX = mouseX;
         currentY = mouseY;
@@ -50,20 +52,19 @@ export default function PirateCursor() {
 
       currentX += dx * 0.85;
       currentY += dy * 0.85;
-
       cursorEl.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
       animFrameId = requestAnimationFrame(renderLoop);
     };
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (event) => {
       if (!isVisible) {
         isVisible = true;
         cursorEl.style.opacity = "1";
       }
-      mouseX = e.clientX;
-      mouseY = e.clientY;
 
-      // Wake up render loop if asleep
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+
       if (!animFrameId) {
         animFrameId = requestAnimationFrame(renderLoop);
       }
@@ -71,17 +72,18 @@ export default function PirateCursor() {
 
     const handleMouseDown = () => {
       isMouseDown = true;
-      updateTransform();
+      updateIconTransform();
     };
 
     const handleMouseUp = () => {
       isMouseDown = false;
-      updateTransform();
+      updateIconTransform();
     };
 
-    const handleMouseOver = (e) => {
-      const target = e.target;
+    const handleMouseOver = (event) => {
+      const target = event.target;
       if (!target || !target.tagName) return;
+
       const tag = target.tagName;
       const interactive =
         tag === "BUTTON" ||
@@ -89,28 +91,22 @@ export default function PirateCursor() {
         tag === "INPUT" ||
         tag === "SELECT" ||
         tag === "TEXTAREA" ||
-        Boolean(target.closest && target.closest("a, button, [role='button'], .cursor-pointer"));
+        Boolean(target.closest?.("a, button, [role='button'], .cursor-pointer"));
 
       if (interactive !== isHovered) {
         isHovered = interactive;
-        if (iconEl) {
-          iconEl.src = isHovered ? "/steampunk-cursor-hover.png" : "/steampunk-cursor.png";
-        }
-        if (glintEl) {
-          glintEl.style.display = isHovered ? "block" : "none";
-        }
-        updateTransform();
+        updateIconTransform();
       }
     };
 
     const handleMouseLeave = () => {
       isVisible = false;
-      if (cursorEl) cursorEl.style.opacity = "0";
+      cursorEl.style.opacity = "0";
     };
 
     const handleMouseEnter = () => {
       isVisible = true;
-      if (cursorEl) cursorEl.style.opacity = "1";
+      cursorEl.style.opacity = "1";
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -119,8 +115,6 @@ export default function PirateCursor() {
     document.addEventListener("mouseover", handleMouseOver, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
-
-    animFrameId = requestAnimationFrame(renderLoop);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -136,27 +130,30 @@ export default function PirateCursor() {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 pointer-events-none z-[999999] hidden md:block select-none opacity-0 transition-opacity duration-200"
+      aria-hidden="true"
+      className="fixed top-0 left-0 pointer-events-none z-[999999] hidden md:block select-none opacity-0 transition-opacity duration-150"
       style={{
         transform: "translate3d(-100px, -100px, 0)",
         willChange: "transform",
       }}
     >
-      <div className="relative -ml-1 -mt-1 origin-top-left transition-transform duration-150 ease-out">
+      <div
+        className="relative"
+        style={{
+          transform: `translate(-${HOOK_HOTSPOT.x}px, -${HOOK_HOTSPOT.y}px)`,
+        }}
+      >
         <img
           ref={iconRef}
-          src="/steampunk-cursor.png"
-          alt="Steampunk Cursor"
-          className="w-6 h-auto object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] drop-shadow-[0_0_6px_rgba(217,119,6,0.35)] select-none pointer-events-none origin-top-left transition-transform duration-150 ease-out"
-        />
-
-        {/* Dynamic golden steampunk steam / glint pulse on hover */}
-        <div
-          ref={glintRef}
-          className="absolute top-0 left-0 w-3 h-3 bg-[#FFE79A] rounded-full filter blur-[2px] animate-ping opacity-75 pointer-events-none hidden"
+          src="/hook-cursor.png"
+          alt=""
+          draggable="false"
+          className="block w-[34px] h-[34px] object-contain select-none pointer-events-none transition-transform duration-150 ease-out filter drop-shadow-[0_2px_5px_rgba(0,0,0,0.7)] drop-shadow-[0_0_3px_rgba(226,232,240,0.22)]"
+          style={{
+            transformOrigin: `${HOOK_HOTSPOT.x}px ${HOOK_HOTSPOT.y}px`,
+          }}
         />
       </div>
     </div>
   );
 }
-

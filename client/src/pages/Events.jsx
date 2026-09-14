@@ -499,7 +499,7 @@ export default function Events({ embedded = false }) {
                     layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                   }}
                   whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.008 }}
-                  className="group relative isolate h-full overflow-hidden rounded-[13px] border border-[#dfd0b7] bg-[#fffdf9] shadow-[0_10px_28px_rgba(38,64,65,.11)] transition-[border-color,box-shadow] duration-300 hover:border-[#cdb47c] hover:shadow-[0_18px_40px_rgba(38,64,65,.16)]"
+                  className="group relative isolate h-full overflow-hidden rounded-[6px] border border-[#dfd0b7] bg-[#fffdf9] shadow-[0_10px_28px_rgba(38,64,65,.11)] transition-[border-color,box-shadow] duration-300 hover:border-[#cdb47c] hover:shadow-[0_18px_40px_rgba(38,64,65,.16)]"
                   style={{ contentVisibility: "auto", containIntrinsicSize: "350px" }}
                 >
                   <motion.button

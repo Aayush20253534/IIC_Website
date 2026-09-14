@@ -24,8 +24,8 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-white/10 px-6 py-4">
-      {/* Top Edge Ambient Marine Vignette Guard */}
-      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#020610] via-[#020610]/70 to-transparent pointer-events-none -z-10" />
+      {/* Top Edge Ambient Marine Vignette Guard - Seamless Alpha Blend */}
+      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#020610]/50 via-[#020610]/15 to-transparent pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
         {/* 10th Edition Logo */}

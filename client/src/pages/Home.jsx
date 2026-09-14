@@ -49,7 +49,7 @@ export default function Home() {
       if (sponsorsSectionRef.current) {
         const totalSteps = SPONSORS.length;
 
-        // 1. Rapid Standalone Entrance Trigger (Fades in elements cleanly as section approaches viewport)
+        // 1. Entrance Trigger (Reveals elements smoothly as section reaches viewport)
         const entranceTargets = [
           sponsorsHeaderRef.current,
           wheelContainerRef.current,
@@ -60,45 +60,50 @@ export default function Home() {
         if (entranceTargets.length > 0) {
           gsap.fromTo(
             entranceTargets,
-            { opacity: 0, y: 25, scale: 0.95, filter: "blur(8px)" },
+            { opacity: 0, y: 20, scale: 0.96 },
             {
               opacity: 1,
               y: 0,
               scale: 1,
-              filter: "blur(0px)",
-              duration: 0.45,
-              stagger: 0.05,
+              duration: 0.4,
+              stagger: 0.04,
               ease: "power2.out",
               scrollTrigger: {
                 trigger: sponsorsSectionRef.current,
-                start: "top 85%",
+                start: "top 70%",
                 toggleActions: "play none none reverse",
               },
             }
           );
         }
 
-        // 2. Pinned ScrollTrigger for Wheel Rotation & Sponsor Stepping
+        // 2. Pinned ScrollTrigger (Locks full screen & holds on Sponsor 01 before stepping)
         ScrollTrigger.create({
           trigger: sponsorsSectionRef.current,
           start: "top top",
-          end: `+=${totalSteps * 260}`,
+          end: `+=${totalSteps * 320}`,
           pin: true,
-          scrub: 0.6, // Snappy & responsive momentum scrubbing
+          scrub: 0.5, // Crisp & responsive momentum scrubbing
           onUpdate: (self) => {
             const rawProgress = self.progress;
 
             // Rotate transparent pirate wheel smoothly
             if (wheelImgRef.current) {
               gsap.set(wheelImgRef.current, {
-                rotation: rawProgress * 360 * 1.8,
+                rotation: rawProgress * 360 * 2.0,
               });
             }
 
-            // Step active sponsor index smoothly starting at 0
+            // Hold Sponsor 01 for the initial 15% of pinned scroll distance
+            const holdThreshold = 0.15;
+            let normalizedProgress = 0;
+            if (rawProgress > holdThreshold) {
+              normalizedProgress = (rawProgress - holdThreshold) / (1 - holdThreshold);
+            }
+
             const newIdx = Math.min(
               totalSteps - 1,
-              Math.floor(rawProgress * totalSteps)
+              Math.floor(normalizedProgress * totalSteps)
             );
 
             setActiveSponsorIdx((prev) => {

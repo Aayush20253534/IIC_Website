@@ -678,12 +678,40 @@ export default function Events({ embedded = false }) {
                   initial={
                     prefersReducedMotion
                       ? false
-                      : { opacity: 0, scale: 0.86, rotateX: -9, y: 28 }
+                      : {
+                          opacity: 0,
+                          scale: 0.08,
+                          rotate: 0,
+                          y: 0,
+                          borderRadius: "50%",
+                        }
                   }
-                  animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.94, y: 16 }}
-                  transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ transformPerspective: 1200 }}
+                  animate={
+                    prefersReducedMotion
+                      ? { opacity: 1, scale: 1 }
+                      : {
+                          opacity: [0, 0.42, 0.78, 1, 1],
+                          scale: [0.08, 0.24, 0.56, 1.045, 1],
+                          rotate: [0, 180, 360, 540, 720],
+                          y: [0, -4, 5, -2, 0],
+                          borderRadius: ["50%", "48%", "36%", "24px", "18px"],
+                        }
+                  }
+                  exit={
+                    prefersReducedMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0, scale: 0.9, rotate: 8, y: 18 }
+                  }
+                  transition={
+                    prefersReducedMotion
+                      ? { duration: 0.2 }
+                      : {
+                          duration: 1.55,
+                          times: [0, 0.25, 0.52, 0.82, 1],
+                          ease: [0.22, 0.9, 0.22, 1],
+                        }
+                  }
+                  style={{ transformPerspective: 1200, transformOrigin: "50% 50%" }}
                   className="relative w-full max-w-[720px] overflow-hidden rounded-[18px] border border-[#d4ad58] bg-[#f4ead4] text-[#173f51] shadow-[0_28px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.2)_inset]"
                   onClick={(event) => event.stopPropagation()}
                   role="dialog"

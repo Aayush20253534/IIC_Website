@@ -1538,3 +1538,101 @@ html.lenis.lenis-stopped {
   content-visibility: auto;
   contain-intrinsic-size: 1px 600px;
 }
+
+@keyframes sponsorShipSail {
+  0% {
+    transform: translateX(-12vw) translateY(0px);
+  }
+
+  45% {
+    transform: translateX(42vw) translateY(-4px);
+  }
+
+  100% {
+    transform: translateX(105vw) translateY(1px);
+  }
+}
+
+@keyframes sponsorShipBob {
+  0%,
+  100% {
+    margin-top: 0px;
+  }
+
+  50% {
+    margin-top: -6px;
+  }
+}
+
+@keyframes sponsorFloat {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes sponsorCompassSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sponsorWaveMove {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: 180px;
+  }
+}
+
+@keyframes sponsorRopeSwing {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.sponsor-ship-sail {
+  animation: sponsorShipSail 32s linear infinite;
+}
+
+.sponsor-ship-bob {
+  animation: sponsorShipBob 3.2s ease-in-out infinite;
+}
+
+.sponsor-floating {
+  animation: sponsorFloat 5s ease-in-out infinite;
+}
+
+.sponsor-compass {
+  animation: sponsorCompassSpin 50s linear infinite;
+}
+
+.sponsor-rope {
+  transform-origin: top center;
+  animation: sponsorRopeSwing 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sponsor-ship-sail,
+  .sponsor-ship-bob,
+  .sponsor-floating,
+  .sponsor-compass,
+  .sponsor-rope {
+    animation: none !important;
+  }
+}

@@ -274,13 +274,12 @@ function StormClouds() {
                   cy={puff.cy}
                   rx={puff.rx}
                   ry={puff.ry}
-                  fill={`url(#stormPuff${
-                    puff.tone === "light"
+                  fill={`url(#stormPuff${puff.tone === "light"
                       ? "Light"
                       : puff.tone === "mid"
                         ? "Mid"
                         : "Shade"
-                  })`}
+                    })`}
                 />
               ))}
 
@@ -382,7 +381,7 @@ export default function SponsorStream() {
       CARD_SLOTS.map(
         (_, slotIndex) =>
           SPONSOR_STREAM_ITEMS[
-            (startIndex + slotIndex) % sponsorCount
+          (startIndex + slotIndex) % sponsorCount
           ],
       ),
     [startIndex, sponsorCount],
@@ -446,15 +445,13 @@ export default function SponsorStream() {
 
   return (
     <section
-      className={`sponsor-voyage ${
-        fleetTransition.active
-          ? `sponsor-voyage--fleet-${
-              fleetTransition.direction > 0
-                ? "next"
-                : "prev"
-            }`
+      className={`sponsor-voyage ${fleetTransition.active
+          ? `sponsor-voyage--fleet-${fleetTransition.direction > 0
+            ? "next"
+            : "prev"
+          }`
           : ""
-      }`}
+        }`}
       aria-labelledby="sponsor-voyage-title"
     >
       <div
@@ -618,15 +615,13 @@ export default function SponsorStream() {
       </div>
 
       <div
-        className={`sponsor-voyage__cards ${
-          fleetTransition.active
-            ? `sponsor-voyage__cards--sailing-${
-                fleetTransition.direction > 0
-                  ? "next"
-                  : "prev"
-              }`
+        className={`sponsor-voyage__cards ${fleetTransition.active
+            ? `sponsor-voyage__cards--sailing-${fleetTransition.direction > 0
+              ? "next"
+              : "prev"
+            }`
             : ""
-        }`}
+          }`}
       >
         {visibleSponsors.map(
           (sponsor, index) => (

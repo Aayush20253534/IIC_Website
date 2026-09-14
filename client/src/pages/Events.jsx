@@ -1,10 +1,64 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 
 export default function Events({ embedded = false }) {
   const [activeDay, setActiveDay] = useState(1);
   const [selectedEventModal, setSelectedEventModal] = useState(null);
   const navigate = useNavigate();
+  const heroRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress: heroScrollProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroParallaxY = useSpring(
+    useTransform(heroScrollProgress, [0, 1], [0, 108]),
+    { stiffness: 88, damping: 24, mass: 0.35 },
+  );
+  const heroParallaxX = useSpring(
+    useTransform(heroScrollProgress, [0, 1], [0, -42]),
+    { stiffness: 88, damping: 24, mass: 0.35 },
+  );
+  const heroScale = useTransform(heroScrollProgress, [0, 1], [1.045, 1.13]);
+  const heroCueOpacity = useTransform(heroScrollProgress, [0, 0.42], [1, 0]);
+  const heroPointerX = useMotionValue(0);
+  const heroPointerY = useMotionValue(0);
+  const heroPointerSpringX = useSpring(heroPointerX, { stiffness: 110, damping: 22, mass: 0.28 });
+  const heroPointerSpringY = useSpring(heroPointerY, { stiffness: 110, damping: 22, mass: 0.28 });
+  const heroCombinedX = useTransform(
+    [heroParallaxX, heroPointerSpringX],
+    ([scrollX, pointerX]) => scrollX + pointerX,
+  );
+  const heroCombinedY = useTransform(
+    [heroParallaxY, heroPointerSpringY],
+    ([scrollY, pointerY]) => scrollY + pointerY,
+  );
+
+  const handleHeroPointerMove = (event) => {
+    if (prefersReducedMotion || !heroRef.current) return;
+
+    const bounds = heroRef.current.getBoundingClientRect();
+    if (event.clientY > bounds.bottom) return;
+
+    const normalizedX = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const normalizedY = (event.clientY - bounds.top) / bounds.height - 0.5;
+    heroPointerX.set(normalizedX * 30);
+    heroPointerY.set(normalizedY * 18);
+  };
+
+  const resetHeroPointer = () => {
+    heroPointerX.set(0);
+    heroPointerY.set(0);
+  };
 
   const [eventSearch, setEventSearch] = useState("");
   const [eventFilter, setEventFilter] = useState("All Events");
@@ -112,26 +166,142 @@ export default function Events({ embedded = false }) {
       <main
         className="relative min-h-[100svh] w-full overflow-x-hidden bg-[#efe3cb] text-[#123f55]"
         aria-label="Events"
+        onPointerMove={handleHeroPointerMove}
+        onPointerLeave={resetHeroPointer}
       >
         {/*
           The supplied artwork already contains the event hero copy. Keep it clean and
           let it do the visual work instead of layering a second giant heading on top.
         */}
-        <div className="absolute inset-x-0 top-0 h-[330px] sm:h-[360px] lg:h-[390px] pointer-events-none">
-          <img
-            src="/bg_images/events.png"
-            alt=""
-            aria-hidden="true"
-            className="h-full w-full object-cover object-top"
-            draggable="false"
-          />
+        <motion.div
+          ref={heroRef}
+          className="pointer-events-none absolute inset-x-0 top-0 h-[330px] overflow-hidden sm:h-[360px] lg:h-[390px]"
+        >
+          <motion.div
+            className="absolute -inset-[3%]"
+            style={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    x: heroCombinedX,
+                    y: heroCombinedY,
+                    scale: heroScale,
+                  }
+            }
+          >
+            <motion.img
+              src="/bg_images/events.png"
+              alt=""
+              aria-hidden="true"
+              className="h-full w-full object-cover object-top will-change-transform"
+              draggable="false"
+              animate={
+                prefersReducedMotion
+                  ? undefined
+                  : {
+                      x: [-30, 26, -18, 32, -30],
+                      y: [5, -12, 7, -9, 5],
+                      scale: [1.035, 1.075, 1.05, 1.082, 1.035],
+                      rotate: [-0.22, 0.16, -0.1, 0.2, -0.22],
+                    }
+              }
+              transition={{
+                duration: 3.15,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
+
+          {/* Faster wakes, sunlight glints and distant birds make the hero feel alive without WebGL. */}
+          {!prefersReducedMotion && (
+            <>
+              <motion.div
+                className="absolute left-[44%] top-[72%] h-px w-[34%] origin-left bg-gradient-to-r from-transparent via-white/80 to-transparent blur-[0.35px]"
+                animate={{ x: [-42, 54, -42], opacity: [0.08, 0.82, 0.08], scaleX: [0.58, 1.38, 0.58] }}
+                transition={{ duration: 1.95, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute left-[50%] top-[77%] h-px w-[27%] origin-left bg-gradient-to-r from-transparent via-[#dff8ff]/75 to-transparent"
+                animate={{ x: [34, -38, 34], opacity: [0.06, 0.66, 0.06], scaleX: [0.7, 1.32, 0.7] }}
+                transition={{ duration: 2.35, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+              />
+              <motion.div
+                className="absolute left-[55%] top-[80%] h-[2px] w-[18%] origin-left rounded-full bg-gradient-to-r from-transparent via-white/65 to-transparent blur-[0.8px]"
+                animate={{ x: [-24, 44, -24], opacity: [0, 0.7, 0], scaleX: [0.5, 1.45, 0.5] }}
+                transition={{ duration: 1.65, repeat: Infinity, ease: "easeInOut", delay: 0.72 }}
+              />
+              <motion.div
+                className="absolute left-[48%] top-[74%] h-[2px] w-[23%] origin-left rounded-full bg-gradient-to-r from-transparent via-white/75 to-transparent blur-[1px]"
+                animate={{ x: [-35, 52, -35], y: [0, 3, 0], opacity: [0, 0.72, 0], scaleX: [0.48, 1.5, 0.48] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.18 }}
+              />
+              <motion.div
+                className="absolute left-[52%] top-[82%] h-px w-[31%] origin-left bg-gradient-to-r from-transparent via-[#e8fbff]/70 to-transparent blur-[0.5px]"
+                animate={{ x: [28, -46, 28], opacity: [0, 0.58, 0], scaleX: [0.62, 1.34, 0.62] }}
+                transition={{ duration: 2.15, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+              />
+              <motion.div
+                className="absolute left-[39%] top-[69%] h-8 w-[40%] rounded-[50%] border-t border-white/25 blur-[1.5px]"
+                animate={{ x: [-18, 26, -18], scaleX: [0.82, 1.08, 0.82], opacity: [0.08, 0.42, 0.08] }}
+                transition={{ duration: 2.45, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute left-[58%] top-[45%] h-24 w-36 rounded-full bg-white/10 blur-3xl"
+                animate={{ x: [-42, 34, -42], y: [10, -16, 10], opacity: [0.08, 0.32, 0.08], scale: [0.9, 1.16, 0.9] }}
+                transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut" }}
+              />
+
+              {/* Sunlight sweeping across the water gives the hero a cinematic shimmer. */}
+              <motion.div
+                className="absolute -left-[28%] top-[59%] h-28 w-[42%] -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-2xl mix-blend-screen"
+                animate={{ x: [0, 1700], opacity: [0, 0.55, 0] }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.55 }}
+              />
+
+              {/* Tiny distant birds cross at different speeds for extra depth. */}
+              <motion.span
+                className="absolute left-[18%] top-[31%] font-serif text-lg text-[#173f51]/45 drop-shadow-sm"
+                animate={{ x: [0, 165], y: [0, -13, 3], rotate: [-4, 5, -4], opacity: [0, 0.65, 0] }}
+                transition={{ duration: 7.2, repeat: Infinity, ease: "linear", repeatDelay: 1.1 }}
+                aria-hidden="true"
+              >
+                ︿
+              </motion.span>
+              <motion.span
+                className="absolute left-[30%] top-[38%] font-serif text-sm text-[#173f51]/35 drop-shadow-sm"
+                animate={{ x: [0, 120], y: [0, 9, -4], rotate: [3, -5, 3], opacity: [0, 0.5, 0] }}
+                transition={{ duration: 8.1, repeat: Infinity, ease: "linear", delay: 1.6, repeatDelay: 1.7 }}
+                aria-hidden="true"
+              >
+                ︿
+              </motion.span>
+            </>
+          )}
+
           <div className="absolute inset-0 bg-gradient-to-b from-[#071421]/10 via-transparent to-[#efe3cb]" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#efe3cb]" />
-        </div>
+
+          <motion.div
+            className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/45 bg-[#073b4d]/35 px-3.5 py-2 font-montserrat text-[9px] font-bold uppercase tracking-[0.18em] text-white/90 backdrop-blur-md sm:flex"
+            style={prefersReducedMotion ? undefined : { opacity: heroCueOpacity }}
+            animate={prefersReducedMotion ? undefined : { y: [0, 5, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <span>Scroll to explore</span>
+            <span className="text-[#efc96f]">↓</span>
+          </motion.div>
+        </motion.div>
 
         <section className="relative z-10 mx-auto w-full max-w-[1540px] px-3 pb-14 pt-[255px] sm:px-5 sm:pt-[282px] lg:px-8 lg:pt-[304px]">
           {/* Search and filters deliberately share one contained dock so they never overflow. */}
-          <div className="grid gap-2 rounded-[24px] border border-white/80 bg-[#fffdf7]/92 p-2.5 shadow-[0_18px_45px_rgba(35,57,61,.16)] backdrop-blur-xl md:grid-cols-[minmax(250px,.75fr)_minmax(0,1.25fr)] md:items-center md:gap-3 md:p-3">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 28, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.72 }}
+            transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+            className="grid gap-2 rounded-[24px] border border-white/80 bg-[#fffdf7]/92 p-2.5 shadow-[0_18px_45px_rgba(35,57,61,.16)] backdrop-blur-xl md:grid-cols-[minmax(250px,.75fr)_minmax(0,1.25fr)] md:items-center md:gap-3 md:p-3"
+          >
             <label className="flex min-h-[54px] min-w-0 items-center gap-3 rounded-[17px] border border-[#d9ccb7] bg-white/95 px-4 shadow-[inset_0_1px_0_rgba(255,255,255,.9)]">
               <svg
                 viewBox="0 0 24 24"
@@ -157,10 +327,13 @@ export default function Events({ embedded = false }) {
               {standaloneCategories.map(({ label, icon }) => {
                 const isActive = eventFilter === label;
                 return (
-                  <button
+                  <motion.button
                     key={label}
                     type="button"
                     onClick={() => setEventFilter(label)}
+                    whileHover={prefersReducedMotion ? undefined : { y: -2, scale: 1.025 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 420, damping: 24 }}
                     className={`flex min-w-0 items-center justify-center gap-1.5 rounded-[12px] px-2 py-2.5 font-montserrat text-[10px] font-extrabold transition-all duration-200 sm:text-[11px] ${
                       isActive
                         ? "bg-[#0c5870] text-white shadow-[inset_0_0_0_1px_rgba(225,174,80,.85),0_5px_14px_rgba(12,88,112,.22)]"
@@ -172,18 +345,63 @@ export default function Events({ embedded = false }) {
                       {icon}
                     </span>
                     <span className="truncate">{label}</span>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
+          </motion.div>
+
+          {/* Slow decorative currents behind the fleet, transform-only for smooth scrolling. */}
+          <div className="pointer-events-none absolute inset-x-0 top-[360px] -z-0 h-[620px] overflow-hidden">
+            {!prefersReducedMotion && (
+              <>
+                <motion.div
+                  className="absolute left-[-12%] top-24 h-56 w-56 rounded-full bg-[#1f7f96]/[0.07] blur-3xl"
+                  animate={{ x: [0, 120, 0], y: [0, 34, 0], scale: [0.95, 1.08, 0.95] }}
+                  transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute right-[-8%] top-72 h-64 w-64 rounded-full bg-[#d6a64f]/[0.08] blur-3xl"
+                  animate={{ x: [0, -96, 0], y: [0, -42, 0], scale: [1, 1.1, 1] }}
+                  transition={{ duration: 11.5, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute left-[-20%] top-[46%] h-[2px] w-[55%] rounded-full bg-gradient-to-r from-transparent via-[#2c8296]/25 to-transparent blur-[1px]"
+                  animate={{ x: [0, 1250], opacity: [0, 0.55, 0], scaleX: [0.7, 1.2, 0.7] }}
+                  transition={{ duration: 7.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.8 }}
+                />
+              </>
+            )}
           </div>
 
           {visibleEvents.length > 0 ? (
-            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:gap-4">
-              {visibleEvents.map((event) => (
-                <article
+            <motion.div layout className="relative z-10 mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:gap-4">
+              <AnimatePresence mode="popLayout">
+              {visibleEvents.map((event, index) => (
+                <motion.article
+                  layout
                   key={event.id}
-                  className="group relative overflow-hidden rounded-[20px] border border-[#eadfca] bg-[#fffdf8]/96 shadow-[0_12px_32px_rgba(45,61,58,.13)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d8c18f] hover:shadow-[0_20px_42px_rgba(45,61,58,.19)]"
+                  initial={
+                    prefersReducedMotion
+                      ? false
+                      : { opacity: 0, y: 46, x: index % 2 === 0 ? -12 : 12, rotate: index % 2 === 0 ? -1.2 : 1.2, scale: 0.97 }
+                  }
+                  whileInView={{ opacity: 1, y: 0, x: 0, rotate: 0, scale: 1 }}
+                  exit={prefersReducedMotion ? undefined : { opacity: 0, y: 18, scale: 0.97 }}
+                  viewport={{ once: true, amount: 0.16 }}
+                  transition={{
+                    duration: 0.58,
+                    delay: prefersReducedMotion ? 0 : (index % 3) * 0.07,
+                    ease: [0.22, 1, 0.36, 1],
+                    layout: { duration: 0.34, ease: [0.22, 1, 0.36, 1] },
+                  }}
+                  whileHover={
+                    prefersReducedMotion
+                      ? undefined
+                      : { y: -14, scale: 1.024, rotateX: 2.5, rotateY: index % 2 === 0 ? 2.4 : -2.4 }
+                  }
+                  className="group relative overflow-hidden rounded-[20px] border border-[#eadfca] bg-[#fffdf8]/96 shadow-[0_12px_32px_rgba(45,61,58,.13)] transition-[border-color,box-shadow] duration-300 hover:border-[#d8c18f] hover:shadow-[0_22px_48px_rgba(45,61,58,.2)] [transform-style:preserve-3d]"
+                  style={{ perspective: 1100 }}
                 >
                   <button
                     type="button"
@@ -191,37 +409,123 @@ export default function Events({ embedded = false }) {
                     className="block w-full text-left"
                     aria-label={`View details for ${event.title}`}
                   >
-                    <div
-                      className="relative h-[118px] overflow-hidden sm:h-[126px] lg:h-[138px]"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(180deg, rgba(4,35,50,.12), rgba(4,35,50,.48)), url('/ship-map-hero.jpg')",
-                        backgroundSize: "cover",
-                        backgroundPosition: event.visualPosition,
-                      }}
-                    >
-                      <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(7,53,70,.26),transparent_50%,rgba(219,167,78,.14))]" />
+                    <div className="relative h-[118px] overflow-hidden sm:h-[126px] lg:h-[138px]">
+                      <motion.div
+                        className="absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 group-hover:scale-[1.075]"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(180deg, rgba(4,35,50,.12), rgba(4,35,50,.48)), url('/ship-map-hero.jpg')",
+                          backgroundPosition: event.visualPosition,
+                        }}
+                        animate={
+                          prefersReducedMotion
+                            ? undefined
+                            : {
+                                y: [-10, 6, -5, 9, -10],
+                                x:
+                                  index % 2 === 0
+                                    ? [-16, 14, -9, 17, -16]
+                                    : [16, -14, 9, -17, 16],
+                                scale: [1.07, 1.115, 1.085, 1.12, 1.07],
+                                rotate: index % 2 === 0
+                                  ? [-0.35, 0.22, -0.12, 0.28, -0.35]
+                                  : [0.35, -0.22, 0.12, -0.28, 0.35],
+                              }
+                        }
+                        transition={{
+                          duration: 3.15 + (index % 3) * 0.38,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: index * 0.12,
+                        }}
+                      />
+                      <motion.div
+                        className="absolute inset-0 bg-[linear-gradient(120deg,rgba(7,53,70,.26),transparent_50%,rgba(219,167,78,.14))]"
+                        animate={
+                          prefersReducedMotion
+                            ? undefined
+                            : { opacity: [0.52, 1, 0.64, 0.94, 0.52] }
+                        }
+                        transition={{ duration: 2.45, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 }}
+                      />
+                      {!prefersReducedMotion && (
+                        <>
+                          <motion.div
+                            className="absolute inset-x-[-12%] bottom-[16%] h-6 rounded-[50%] border-t border-white/35 blur-[0.8px]"
+                            animate={{ x: [-22, 26, -22], y: [0, -3, 0], scaleX: [0.82, 1.12, 0.82], opacity: [0.1, 0.52, 0.1] }}
+                            transition={{ duration: 2.15 + (index % 2) * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.08 }}
+                          />
+                          <motion.div
+                            className="absolute -left-[18%] bottom-[25%] h-px w-[58%] bg-gradient-to-r from-transparent via-white/70 to-transparent blur-[0.5px]"
+                            animate={{ x: [0, 360], opacity: [0, 0.62, 0], scaleX: [0.55, 1.25, 0.55] }}
+                            transition={{ duration: 1.75 + (index % 3) * 0.18, repeat: Infinity, ease: "easeInOut", delay: index * 0.13 }}
+                          />
+                          <motion.div
+                            className="absolute right-[8%] top-[15%] h-12 w-12 rounded-full bg-[#ffe8a6]/18 blur-xl mix-blend-screen"
+                            animate={{ x: [-8, 12, -8], y: [4, -6, 4], opacity: [0.08, 0.3, 0.08], scale: [0.8, 1.18, 0.8] }}
+                            transition={{ duration: 2.8 + (index % 2) * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                          <motion.div
+                            className="absolute -left-[45%] top-0 h-full w-[34%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/24 to-transparent mix-blend-screen"
+                          animate={{ x: [0, 760] }}
+                          transition={{
+                            duration: 1.55,
+                            repeat: Infinity,
+                            repeatDelay: 1.55 + (index % 3) * 0.28,
+                            delay: index * 0.18,
+                            ease: "easeInOut",
+                          }}
+                        />
+                        </>
+                      )}
+                      <motion.div
+                        className="absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10"
+                        animate={prefersReducedMotion ? undefined : { boxShadow: ["inset 0 0 0 rgba(255,255,255,0)", "inset 0 0 24px rgba(255,224,158,.16)", "inset 0 0 0 rgba(255,255,255,0)"] }}
+                        transition={{ duration: 2.6 + (index % 3) * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 }}
+                      />
                       <div className="absolute left-4 top-3 rounded-full border border-white/25 bg-[#073b4d]/55 px-2.5 py-1 font-montserrat text-[9px] font-extrabold uppercase tracking-[0.14em] text-white/90 backdrop-blur-md">
                         {event.eyebrow}
                       </div>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 font-cinzel text-4xl text-[#f2cf82]/85 drop-shadow-[0_3px_12px_rgba(0,0,0,.35)] transition-transform duration-300 group-hover:scale-110 sm:text-5xl">
+                      <motion.div
+                        className="absolute right-4 top-1/2 -translate-y-1/2 font-cinzel text-4xl text-[#f2cf82]/85 drop-shadow-[0_3px_12px_rgba(0,0,0,.35)] sm:text-5xl"
+                        animate={
+                          prefersReducedMotion
+                            ? undefined
+                            : { y: [0, -8, 2, -5, 0], rotate: [-5, 5, -3, 4, -5], scale: [1, 1.1, 1.03, 1.08, 1] }
+                        }
+                        transition={{
+                          duration: 2.55 + (index % 2) * 0.32,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: index * 0.18,
+                        }}
+                        whileHover={prefersReducedMotion ? undefined : { scale: 1.18, rotate: 6 }}
+                      >
                         {event.visual}
-                      </div>
+                      </motion.div>
                       <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#092c3a]/65 to-transparent" />
                     </div>
 
                     <div className="relative px-4 pb-4 pt-5 sm:px-5">
-                      <span className="absolute -top-4 left-4 rounded-full border border-[#dfbd68] bg-[#f7df9c] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.12em] text-[#654a12] shadow-[0_3px_10px_rgba(77,57,14,.12)]">
+                      <motion.span
+                        className="absolute -top-4 left-4 rounded-full border border-[#dfbd68] bg-[#f7df9c] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.12em] text-[#654a12] shadow-[0_3px_10px_rgba(77,57,14,.12)]"
+                        animate={prefersReducedMotion ? undefined : { y: [0, -2, 0], boxShadow: ["0 3px 10px rgba(77,57,14,.12)", "0 7px 18px rgba(183,127,27,.24)", "0 3px 10px rgba(77,57,14,.12)"] }}
+                        transition={{ duration: 2.2 + (index % 2) * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.12 }}
+                      >
                         {event.label}
-                      </span>
+                      </motion.span>
 
                       <div className="flex items-start justify-between gap-3">
                         <h2 className="min-w-0 font-cinzel text-[15px] font-bold leading-[1.2] text-[#153f51] transition-colors group-hover:text-[#9a5c11] sm:text-base">
                           {event.title}
                         </h2>
-                        <span className="mt-0.5 shrink-0 whitespace-nowrap font-mono text-[10px] font-semibold text-[#56727f]">
+                        <motion.span
+                          className="mt-0.5 shrink-0 whitespace-nowrap font-mono text-[10px] font-semibold text-[#56727f]"
+                          animate={prefersReducedMotion ? undefined : { opacity: [0.72, 1, 0.72] }}
+                          transition={{ duration: 1.7 + (index % 3) * 0.18, repeat: Infinity, ease: "easeInOut" }}
+                        >
                           ◷ {event.time}
-                        </span>
+                        </motion.span>
                       </div>
 
                       <p className="mt-2 flex items-center gap-1.5 font-montserrat text-[11px] font-semibold text-[#536e79]">
@@ -238,14 +542,22 @@ export default function Events({ embedded = false }) {
                           {event.category}
                         </span>
                         <span className="inline-flex items-center gap-1.5 font-montserrat text-[11px] font-extrabold text-[#a4600d] transition-all group-hover:gap-2.5">
-                          View Details <span aria-hidden="true">→</span>
+                          View Details
+                          <motion.span
+                            aria-hidden="true"
+                            animate={prefersReducedMotion ? undefined : { x: [0, 4, 0] }}
+                            transition={{ duration: 1.35, repeat: Infinity, ease: "easeInOut" }}
+                          >
+                            →
+                          </motion.span>
                         </span>
                       </div>
                     </div>
                   </button>
-                </article>
+                </motion.article>
               ))}
-            </div>
+              </AnimatePresence>
+            </motion.div>
           ) : (
             <div className="mt-4 rounded-[20px] border border-[#ddcfb7] bg-[#fffdf8]/95 px-6 py-12 text-center shadow-[0_10px_28px_rgba(45,61,58,.1)]">
               <p className="font-cinzel text-lg font-bold text-[#173f51]">
@@ -257,22 +569,45 @@ export default function Events({ embedded = false }) {
             </div>
           )}
 
-          <div className="mt-6 flex items-center justify-center gap-3 text-center sm:gap-5">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-6 flex items-center justify-center gap-3 text-center sm:gap-5"
+          >
             <span className="h-px w-12 bg-[#b88a47]/55 sm:w-28" />
             <span className="font-cinzel text-[9px] font-bold uppercase tracking-[0.28em] text-[#956329] sm:text-[10px]">
-              Same Ocean <span className="mx-1 text-base leading-none">⚓</span> Higher Horizons
+              Same Ocean
+              <motion.span
+                className="mx-1 inline-block text-base leading-none"
+                animate={prefersReducedMotion ? undefined : { y: [0, -4, 0], rotate: [-4, 4, -4] }}
+                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                ⚓
+              </motion.span>
+              Higher Horizons
             </span>
             <span className="h-px w-12 bg-[#b88a47]/55 sm:w-28" />
-          </div>
+          </motion.div>
         </section>
 
+        <AnimatePresence>
         {selectedEventModal &&
           standaloneEvents.some((event) => event.id === selectedEventModal.id) && (
-            <div
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-[#061c27]/70 p-4 backdrop-blur-md"
               onClick={() => setSelectedEventModal(null)}
             >
-              <div
+              <motion.div
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 28, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 18, scale: 0.97 }}
+                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                 className="relative w-full max-w-lg overflow-hidden rounded-[26px] border border-white/70 bg-[#fffdf8] text-[#173f51] shadow-[0_30px_90px_rgba(0,0,0,.42)]"
                 onClick={(event) => event.stopPropagation()}
               >
@@ -340,9 +675,10 @@ export default function Events({ embedded = false }) {
                     </button>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           )}
+        </AnimatePresence>
       </main>
     );
   }

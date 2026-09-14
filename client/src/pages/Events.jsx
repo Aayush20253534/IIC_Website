@@ -692,7 +692,7 @@ export default function Events({ embedded = false }) {
                       : {
                           opacity: [0, 0.48, 0.68, 0.82, 0.94, 1, 1],
                           scale: [0.04, 0.055, 0.075, 0.11, 0.5, 1.06, 1],
-                          rotate: [0, 360, 720, 1080, 1440, 1620, 1800],
+                          rotate: [0, 360, 720, 1080, 1440, 1800, 1800],
                           y: [0, -2, 2, -2, 3, -1, 0],
                           borderRadius: ["50%", "50%", "50%", "48%", "40%", "24px", "18px"],
                         }
@@ -707,7 +707,7 @@ export default function Events({ embedded = false }) {
                       ? { duration: 0.2 }
                       : {
                           duration: 2.75,
-                          times: [0, 0.18, 0.36, 0.54, 0.72, 0.9, 1],
+                          times: [0, 0.16, 0.32, 0.48, 0.64, 0.78, 1],
                           ease: [0.16, 0.84, 0.2, 1],
                         }
                   }

@@ -8,6 +8,9 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
+  optimizeDeps: {
+    include: ['lenis'],
+  },
   build: {
     rollupOptions: {
       output: {

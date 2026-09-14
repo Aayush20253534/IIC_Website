@@ -18,6 +18,7 @@ function ThreeBackground() {
         const renderer = new THREE.WebGLRenderer({
             canvas,
             antialias: false,
+            alpha: true,
             powerPreference: "low-power",
         });
         const initialDpr = Math.min(window.devicePixelRatio || 1, 1.0);
@@ -25,8 +26,8 @@ function ThreeBackground() {
         renderer.shadowMap.enabled = false; // Disable unused shadow maps
 
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x020610);
-        scene.fog = new THREE.Fog(0x020610, 1, 24);
+        // Transparent scene so AdisyonShader ocean abyss wave background is visible underneath
+        scene.fog = new THREE.Fog(0x020610, 2, 28);
 
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 80);
         camera.position.set(0, 0, 3);

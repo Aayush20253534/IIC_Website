@@ -435,7 +435,7 @@ export default function Events({ embedded = false }) {
         return (
           <svg
             viewBox="0 0 24 24"
-            className="w-5 h-5 text-[#fbbf24] filter drop-shadow-[0_0_6px_rgba(251,191,36,0.7)]"
+            className="w-5 h-5 text-[#38BDF8] filter drop-shadow-[0_0_6px_rgba(56,189,248,0.7)]"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.8"
@@ -454,7 +454,7 @@ export default function Events({ embedded = false }) {
         return (
           <svg
             viewBox="0 0 24 24"
-            className="w-5 h-5 text-[#fbbf24] filter drop-shadow-[0_0_6px_rgba(251,191,36,0.7)]"
+            className="w-5 h-5 text-[#38BDF8] filter drop-shadow-[0_0_6px_rgba(56,189,248,0.7)]"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.8"
@@ -467,7 +467,7 @@ export default function Events({ embedded = false }) {
             <path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34" />
             <path
               d="M6 4h12v6c0 3.31-2.69 6-6 6s-6-2.69-6-6V4z"
-              fill="rgba(251,191,36,0.25)"
+              fill="rgba(56,189,248,0.25)"
             />
           </svg>
         );
@@ -475,7 +475,7 @@ export default function Events({ embedded = false }) {
         return (
           <svg
             viewBox="0 0 24 24"
-            className="w-5 h-5 text-[#fbbf24] filter drop-shadow-[0_0_6px_rgba(251,191,36,0.7)]"
+            className="w-5 h-5 text-[#38BDF8] filter drop-shadow-[0_0_6px_rgba(56,189,248,0.7)]"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.8"
@@ -485,7 +485,7 @@ export default function Events({ embedded = false }) {
             <circle cx="12" cy="12" r="10" />
             <polygon
               points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
-              fill="#fbbf24"
+              fill="#38BDF8"
             />
           </svg>
         );
@@ -494,7 +494,7 @@ export default function Events({ embedded = false }) {
         return (
           <svg
             viewBox="0 0 24 24"
-            className="w-5 h-5 text-[#fbbf24] filter drop-shadow-[0_0_6px_rgba(251,191,36,0.7)]"
+            className="w-5 h-5 text-[#38BDF8] filter drop-shadow-[0_0_6px_rgba(56,189,248,0.7)]"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.8"
@@ -523,7 +523,7 @@ export default function Events({ embedded = false }) {
       <div
         className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay z-0"
         style={{
-          backgroundImage: `radial-gradient(rgba(251, 191, 36, 0.18) 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(rgba(56, 189, 248, 0.18) 1px, transparent 1px)`,
           backgroundSize: "36px 36px",
         }}
       />
@@ -533,7 +533,7 @@ export default function Events({ embedded = false }) {
       <div className="relative z-10 flex items-center justify-between w-full max-w-5xl mx-auto shrink-0 mb-1">
         {/* Left Simple Text Regarding Page */}
         <div className="flex flex-col text-left">
-          <h1 className="font-cinzel text-sm sm:text-base md:text-lg font-bold tracking-widest text-[#fbbf24] flex items-center gap-1.5 uppercase">
+          <h1 className="font-cinzel text-sm sm:text-base md:text-lg font-bold tracking-widest text-[#38BDF8] flex items-center gap-1.5 uppercase drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">
             <span className="text-xs">✦</span> EVENTS
           </h1>
           <p className="text-[9px] sm:text-[10px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
@@ -542,21 +542,21 @@ export default function Events({ embedded = false }) {
         </div>
 
         {/* Center Day Switcher Tabs (Strictly 2 Days) */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 mx-auto md:mx-0 bg-slate-950/80 p-1 sm:p-1.5 rounded-2xl border border-[#fbbf24]/25 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 mx-auto md:mx-0 bg-slate-950/80 p-1 sm:p-1.5 rounded-2xl border border-white/15 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
           {[1, 2].map((d) => (
             <button
               key={d}
               onClick={() => setActiveDay(d)}
               className={`px-4 sm:px-6 py-1 sm:py-1.5 rounded-xl font-cinzel text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer flex items-center gap-1.5 sm:gap-2 ${
                 activeDay === d
-                  ? "bg-gradient-to-r from-[#fbbf24]/25 to-[#fbbf24]/10 text-[#fbbf24] border border-[#fbbf24]/60 shadow-[0_0_15px_rgba(251,191,36,0.35)] scale-105"
+                  ? "bg-gradient-to-r from-[#38BDF8]/25 to-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/60 shadow-[0_0_15px_rgba(56,189,248,0.35)] scale-105"
                   : "text-slate-400 hover:text-slate-200 hover:border-white/20 border border-transparent"
               }`}
             >
               <span
                 className={`w-1.5 h-1.5 rounded-full ${
                   activeDay === d
-                    ? "bg-[#fbbf24] shadow-[0_0_6px_#fbbf24]"
+                    ? "bg-[#38BDF8] shadow-[0_0_6px_#38BDF8]"
                     : "bg-slate-600"
                 }`}
               />
@@ -570,10 +570,10 @@ export default function Events({ embedded = false }) {
       </div>
 
       {/* 3. Central Interactive Marine Stage (Spacious 2-Day Layout with Zero Overlap) */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto h-[400px] sm:h-[440px] md:h-[470px] my-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#fbbf24]/20 shadow-[0_20px_70px_rgba(0,0,0,0.95)] bg-[#030914]/50 backdrop-blur-md shrink-0">
+      <div className="relative z-10 w-full max-w-5xl mx-auto h-[400px] sm:h-[440px] md:h-[470px] my-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 shadow-[0_20px_70px_rgba(0,0,0,0.95)] bg-[#030914]/50 backdrop-blur-md shrink-0">
         {/* Subtle Marine Backlight Orbs */}
         <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[280px] bg-blue-900/15 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute top-1/4 left-1/4 w-[320px] h-[180px] bg-[#fbbf24]/5 rounded-full blur-[90px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/4 w-[320px] h-[180px] bg-[#38BDF8]/5 rounded-full blur-[90px] pointer-events-none" />
 
         {/* Background Astrolabe & Rhumb Lines (Pure Fine SVG, No Compass Rose) */}
         <svg
@@ -590,7 +590,7 @@ export default function Events({ embedded = false }) {
           </defs>
 
           {/* Nautical Grid Arcs & Astrolabe Markings */}
-          <g stroke="#fbbf24" strokeWidth="0.6" opacity="0.12" fill="none">
+          <g stroke="#38BDF8" strokeWidth="0.6" opacity="0.15" fill="none">
             <circle cx="350" cy="225" r="140" strokeDasharray="3 6" />
             <circle cx="350" cy="225" r="260" strokeDasharray="4 8" />
             <circle cx="350" cy="225" r="380" strokeDasharray="2 5" />
@@ -600,10 +600,10 @@ export default function Events({ embedded = false }) {
             <line x1="650" y1="0" x2="50" y2="450" strokeDasharray="2 7" />
           </g>
 
-          {/* Primary Clean Golden Dashed Trajectory Line connecting Day 1 -> Day 2 */}
+          {/* Primary Clean Cyan Dashed Trajectory Line connecting Day 1 -> Day 2 */}
           <path
             d="M 200 225 C 270 175, 390 275, 460 225"
-            stroke="#fbbf24"
+            stroke="#38BDF8"
             strokeWidth="2.4"
             strokeDasharray="6 6"
             fill="none"
@@ -615,7 +615,7 @@ export default function Events({ embedded = false }) {
           {activeDay === 1 && (
             <path
               d="M 200 225 C 280 130, 480 150, 640 225"
-              stroke="#fbbf24"
+              stroke="#38BDF8"
               strokeWidth="2"
               strokeDasharray="4 4"
               fill="none"
@@ -626,7 +626,7 @@ export default function Events({ embedded = false }) {
           {activeDay === 2 && (
             <path
               d="M 460 225 C 520 180, 580 260, 640 225"
-              stroke="#fbbf24"
+              stroke="#38BDF8"
               strokeWidth="2"
               strokeDasharray="4 4"
               fill="none"
@@ -644,25 +644,25 @@ export default function Events({ embedded = false }) {
           className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group flex flex-col items-center"
         >
           {activeDay === 1 && (
-            <div className="absolute -inset-4 rounded-full border border-[#fbbf24] animate-ping opacity-75 pointer-events-none" />
+            <div className="absolute -inset-4 rounded-full border border-[#38BDF8] animate-ping opacity-75 pointer-events-none" />
           )}
           {/* Astrolabe Circular Ring when active */}
           {activeDay === 1 && (
-            <div className="absolute -inset-3 rounded-full border border-[#fbbf24]/50 border-dashed animate-spin-slow pointer-events-none" />
+            <div className="absolute -inset-3 rounded-full border border-[#38BDF8]/50 border-dashed animate-spin-slow pointer-events-none" />
           )}
           <div
             className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 backdrop-blur-md ${
               activeDay === 1
-                ? "bg-[#040e1f] border-[#fbbf24] shadow-[0_0_25px_rgba(251,191,36,0.7)] scale-110"
-                : "bg-[#020612]/90 border-[#fbbf24]/40 group-hover:border-[#fbbf24] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(251,191,36,0.3)]"
+                ? "bg-[#040e1f] border-[#38BDF8] shadow-[0_0_25px_rgba(56,189,248,0.7)] scale-110"
+                : "bg-[#020612]/90 border-white/30 group-hover:border-[#38BDF8] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.3)]"
             }`}
           >
-            <span className="font-cinzel text-xs font-black text-[#fbbf24]">
+            <span className="font-cinzel text-xs font-black text-[#38BDF8]">
               01
             </span>
           </div>
           <div className="mt-2 text-center pointer-events-none">
-            <h3 className="font-cinzel text-xs font-bold text-white tracking-wider group-hover:text-[#fbbf24] transition-colors">
+            <h3 className="font-cinzel text-xs font-bold text-white tracking-wider group-hover:text-[#38BDF8] transition-colors">
               DAY 1
             </h3>
             <p className="text-[8px] sm:text-[9px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
@@ -678,24 +678,25 @@ export default function Events({ embedded = false }) {
           className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group flex flex-col items-center"
         >
           {activeDay === 2 && (
-            <div className="absolute -inset-4 rounded-full border border-[#fbbf24] animate-ping opacity-75 pointer-events-none" />
+            <div className="absolute -inset-4 rounded-full border border-[#38BDF8] animate-ping opacity-75 pointer-events-none" />
           )}
+          {/* Astrolabe Circular Ring when active */}
           {activeDay === 2 && (
-            <div className="absolute -inset-3 rounded-full border border-[#fbbf24]/50 border-dashed animate-spin-slow pointer-events-none" />
+            <div className="absolute -inset-3 rounded-full border border-[#38BDF8]/50 border-dashed animate-spin-slow pointer-events-none" />
           )}
           <div
             className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 backdrop-blur-md ${
               activeDay === 2
-                ? "bg-[#040e1f] border-[#fbbf24] shadow-[0_0_25px_rgba(251,191,36,0.7)] scale-110"
-                : "bg-[#020612]/90 border-[#fbbf24]/40 group-hover:border-[#fbbf24] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(251,191,36,0.3)]"
+                ? "bg-[#040e1f] border-[#38BDF8] shadow-[0_0_25px_rgba(56,189,248,0.7)] scale-110"
+                : "bg-[#020612]/90 border-white/30 group-hover:border-[#38BDF8] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.3)]"
             }`}
           >
-            <span className="font-cinzel text-xs font-black text-[#fbbf24]">
+            <span className="font-cinzel text-xs font-black text-[#38BDF8]">
               02
             </span>
           </div>
           <div className="mt-2 text-center pointer-events-none">
-            <h3 className="font-cinzel text-xs font-bold text-white tracking-wider group-hover:text-[#fbbf24] transition-colors">
+            <h3 className="font-cinzel text-xs font-bold text-white tracking-wider group-hover:text-[#38BDF8] transition-colors">
               DAY 2
             </h3>
             <p className="text-[8px] sm:text-[9px] font-mono text-slate-400 tracking-wider uppercase mt-0.5">
@@ -710,31 +711,31 @@ export default function Events({ embedded = false }) {
             <div
               key={event.id}
               onClick={() => setSelectedEventModal(event)}
-              className="relative p-3 sm:p-3.5 rounded-2xl bg-[#040e1f]/85 backdrop-blur-xl border border-[#fbbf24]/30 shadow-[0_12px_36px_rgba(0,0,0,0.9),inset_0_1px_2px_rgba(251,191,36,0.15)] hover:border-[#fbbf24]/70 hover:shadow-[0_16px_40px_rgba(251,191,36,0.25)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group flex items-center gap-3"
+              className="relative p-3 sm:p-3.5 rounded-2xl bg-[#040e1f]/85 backdrop-blur-xl border border-white/15 shadow-[0_12px_36px_rgba(0,0,0,0.9),inset_0_1px_2px_rgba(56,189,248,0.15)] hover:border-[#38BDF8]/70 hover:shadow-[0_16px_40px_rgba(56,189,248,0.25)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group flex items-center gap-3"
             >
-              {/* Gold Anchor Connector Point */}
+              {/* Cyan Anchor Connector Point */}
               <div className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 items-center pointer-events-none">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#020612] border border-[#fbbf24] flex items-center justify-center shadow-[0_0_8px_#fbbf24]">
-                  <div className="w-1 h-1 rounded-full bg-[#fbbf24]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#020612] border border-[#38BDF8] flex items-center justify-center shadow-[0_0_8px_#38BDF8]">
+                  <div className="w-1 h-1 rounded-full bg-[#38BDF8]" />
                 </div>
               </div>
 
-              {/* Metallic Coin Emblem Badge */}
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#020712] border border-[#fbbf24]/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(251,191,36,0.25)] group-hover:scale-105 group-hover:border-[#fbbf24] transition-all">
+              {/* Metallic Emblem Badge */}
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#020712] border border-white/20 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(56,189,248,0.25)] group-hover:scale-105 group-hover:border-[#38BDF8] transition-all">
                 {renderBadgeIcon(event.icon)}
               </div>
 
               {/* Text Meta Content */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-1 mb-0.5">
-                  <span className="text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-[#fbbf24] bg-[#fbbf24]/10 px-1.5 py-0.5 rounded border border-[#fbbf24]/25">
+                  <span className="text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-[#38BDF8] bg-[#38BDF8]/10 px-1.5 py-0.5 rounded border border-[#38BDF8]/25">
                     {event.tag}
                   </span>
                   <span className="text-[9px] sm:text-[10px] font-mono text-slate-400">
                     🕒 {event.time}
                   </span>
                 </div>
-                <h3 className="font-cinzel text-xs sm:text-[13px] font-bold text-white tracking-wide truncate group-hover:text-[#fbbf24] transition-colors">
+                <h3 className="font-cinzel text-xs sm:text-[13px] font-bold text-white tracking-wide truncate group-hover:text-[#38BDF8] transition-colors">
                   {event.title}
                 </h3>
                 <p className="text-[9px] sm:text-[10px] font-montserrat text-slate-300 mt-0.5 truncate flex items-center gap-1">
@@ -749,11 +750,11 @@ export default function Events({ embedded = false }) {
 
       {/* 4. Bottom Horizon Inscription */}
       <div className="relative z-10 flex items-center justify-center gap-3 text-center shrink-0 pointer-events-none select-none py-0.5 mb-1">
-        <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-r from-transparent to-[#fbbf24]/40" />
-        <span className="font-cinzel text-[9px] sm:text-[10px] font-bold tracking-[0.25em] text-[#fbbf24] uppercase">
+        <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-r from-transparent to-[#38BDF8]/40" />
+        <span className="font-cinzel text-[9px] sm:text-[10px] font-bold tracking-[0.25em] text-[#38BDF8] uppercase">
           DIFFERENT CREWS ✦ SAME HORIZON
         </span>
-        <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-l from-transparent to-[#fbbf24]/40" />
+        <div className="w-16 sm:w-28 h-[1px] bg-gradient-to-l from-transparent to-[#38BDF8]/40" />
       </div>
 
       {/* 5. Dark Glassmorphic Event Dossier Modal */}
@@ -764,23 +765,23 @@ export default function Events({ embedded = false }) {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-lg p-6 sm:p-8 rounded-2xl bg-[#030914]/95 border border-[#fbbf24]/40 backdrop-blur-2xl text-slate-100 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_30px_rgba(251,191,36,0.2)]"
+            className="relative w-full max-w-lg p-6 sm:p-8 rounded-2xl bg-[#030914]/95 border border-[#38BDF8]/40 backdrop-blur-2xl text-slate-100 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_30px_rgba(56,189,248,0.2)]"
           >
             {/* Ghost Close Button */}
             <button
               onClick={() => setSelectedEventModal(null)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-900 border border-white/10 text-slate-400 hover:text-[#fbbf24] hover:border-[#fbbf24]/50 flex items-center justify-center text-sm font-bold transition-all cursor-pointer"
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-900 border border-white/10 text-slate-400 hover:text-[#38BDF8] hover:border-[#38BDF8]/50 flex items-center justify-center text-sm font-bold transition-all cursor-pointer"
             >
               ✕
             </button>
 
             {/* Modal Header */}
             <div className="flex items-center gap-3.5 mb-5 border-b border-slate-800 pb-4">
-              <div className="w-12 h-12 rounded-xl bg-slate-900 border border-[#fbbf24]/40 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(251,191,36,0.25)]">
+              <div className="w-12 h-12 rounded-xl bg-slate-900 border border-[#38BDF8]/40 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(56,189,248,0.25)]">
                 {renderBadgeIcon(selectedEventModal.icon)}
               </div>
               <div>
-                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#fbbf24]/10 text-[#fbbf24] border border-[#fbbf24]/20">
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/20">
                   {selectedEventModal.tag}
                 </span>
                 <h2 className="font-cinzel text-xl sm:text-2xl font-bold text-white mt-1 leading-tight">
@@ -807,7 +808,7 @@ export default function Events({ embedded = false }) {
                 <span className="block text-[10px] font-mono text-slate-500 uppercase">
                   Bounty / Honors
                 </span>
-                <span className="text-[#fbbf24] font-semibold">💰 {selectedEventModal.prize}</span>
+                <span className="text-[#38BDF8] font-semibold">💰 {selectedEventModal.prize}</span>
               </div>
               <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
                 <span className="block text-[10px] font-mono text-slate-500 uppercase">
@@ -819,7 +820,7 @@ export default function Events({ embedded = false }) {
 
             {/* Description / Briefing */}
             <div className="mb-5">
-              <h4 className="text-[11px] font-mono uppercase tracking-wider text-[#fbbf24] font-bold mb-1">
+              <h4 className="text-[11px] font-mono uppercase tracking-wider text-[#38BDF8] font-bold mb-1">
                 Voyage Briefing
               </h4>
               <p className="font-montserrat text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -830,7 +831,7 @@ export default function Events({ embedded = false }) {
             {/* Directives & Rules */}
             {selectedEventModal.rules && (
               <div className="mb-6">
-                <h4 className="text-[11px] font-mono uppercase tracking-wider text-[#fbbf24] font-bold mb-1.5">
+                <h4 className="text-[11px] font-mono uppercase tracking-wider text-[#38BDF8] font-bold mb-1.5">
                   Directives & Rules
                 </h4>
                 <ul className="list-disc list-inside space-y-1 text-xs font-montserrat text-slate-400">

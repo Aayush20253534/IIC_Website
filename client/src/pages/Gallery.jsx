@@ -1,14 +1,67 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import GalleryCursor from "../components/GalleryCursor";
 
 const EVENTS = [
-  { id: 1, title: "INAUGURAL", date: "APR 12, 2026", img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600", category: "Flagship" },
-  { id: 2, title: "HACKATHON", date: "APR 13, 2026", img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1600", category: "Competition" },
-  { id: 3, title: "PITCH DESK", date: "APR 14, 2026", img: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600", category: "Workshop" },
-  { id: 4, title: "CLOSING", date: "APR 15, 2026", img: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80&w=1600", category: "Ceremony" },
-  { id: 5, title: "NETWORKING", date: "APR 16, 2026", img: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1600", category: "Networking" },
-  { id: 6, title: "WORKSHOP", date: "APR 17, 2026", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600", category: "Learning" },
+  { 
+    id: 1, title: "INAUGURAL", date: "APR 12, 2026", 
+    img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600", 
+    category: "Flagship",
+    images: [
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 2, title: "HACKATHON", date: "APR 13, 2026", 
+    img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1600", 
+    category: "Competition",
+    images: [
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 3, title: "PITCH DESK", date: "APR 14, 2026", 
+    img: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600", 
+    category: "Workshop",
+    images: [
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 4, title: "CLOSING", date: "APR 15, 2026", 
+    img: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80&w=1600", 
+    category: "Ceremony",
+    images: [
+      "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1533174000243-7826359f1c7d?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 5, title: "NETWORKING", date: "APR 16, 2026", 
+    img: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1600", 
+    category: "Networking",
+    images: [
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 6, title: "WORKSHOP", date: "APR 17, 2026", 
+    img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600", 
+    category: "Learning",
+    images: [
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
 ];
 
 function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredIndex }) {
@@ -85,7 +138,7 @@ function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredI
           {/* Image Area */}
           <div className={`w-full lg:w-1/2 flex ${index % 2 === 0 ? 'order-1 lg:order-2 justify-end' : 'order-1 lg:order-1 justify-start'}`}>
             <motion.div 
-              className={`relative w-full lg:w-[85%] aspect-[4/5] overflow-hidden cursor-none gallery-image-hover transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${isHovered ? 'scale-[1.03] shadow-2xl' : 'scale-100 shadow-lg'} ${isOtherHovered ? 'opacity-40 scale-[0.98]' : 'opacity-100'}`}
+              className={`group relative w-full lg:w-[85%] aspect-[4/5] overflow-hidden cursor-pointer gallery-image-hover transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${isHovered ? 'scale-[1.03] shadow-2xl' : 'scale-100 shadow-lg'} ${isOtherHovered ? 'opacity-40 scale-[0.98]' : 'opacity-100'} hover:scale-[1.06] hover:shadow-2xl`}
               onClick={() => setSelectedImage(event)}
               layoutId={`project-image-${event.id}`}
             >
@@ -113,10 +166,12 @@ function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredI
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   useEffect(() => {
     if (selectedImage) {
       document.body.style.overflow = "hidden";
+      setCurrentImageIndex(0);
     } else {
       document.body.style.overflow = "";
     }
@@ -127,7 +182,6 @@ export default function Gallery() {
 
   return (
     <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0A2239] overflow-x-hidden font-montserrat">
-      <GalleryCursor expanded={!!selectedImage} isHoveringProject={hoveredIndex !== null} />
       
       {/* Intro Header */}
       <section className="relative w-full h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24">
@@ -176,7 +230,7 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#F4EBD9] overflow-y-auto"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F4EBD9] overflow-y-auto"
           >
             <div className="min-h-screen w-full flex flex-col">
               {/* Close Button */}
@@ -186,29 +240,74 @@ export default function Gallery() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: 0.4 }}
                 onClick={() => setSelectedImage(null)}
-                className="fixed top-8 right-8 z-50 flex items-center gap-3 text-[#0A2239] hover:text-[#B47A32] transition-colors group cursor-pointer"
+                className="fixed top-24 right-6 sm:top-28 sm:right-8 z-[110] flex items-center gap-3 text-[#0A2239] hover:text-[#B47A32] transition-colors group cursor-pointer"
               >
-                <span className="font-mono text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">Close</span>
-                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center">
+                <span className="font-mono text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity bg-[#F4EBD9]/80 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm">Close</span>
+                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center bg-[#F4EBD9]/80 backdrop-blur-sm shadow-lg">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M13 1L1 13M1 1L13 13" />
                   </svg>
                 </div>
               </motion.button>
 
-              {/* Massive Layout Image */}
-              <div className="relative w-full h-[70vh] sm:h-[85vh]">
+              {/* Massive Layout Image with Slider */}
+              <div className="relative w-full h-[70vh] sm:h-[85vh] group/slider">
                 <motion.div 
                   layoutId={`project-image-${selectedImage.id}`}
-                  className="absolute inset-0 w-full h-full"
+                  className="absolute inset-0 w-full h-full overflow-hidden"
                 >
-                  <img 
-                    src={selectedImage.img} 
-                    alt={selectedImage.title}
-                    className="w-full h-full object-cover filter contrast-[1.05]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F4EBD9]" />
+                  <AnimatePresence mode="popLayout">
+                    <motion.img 
+                      key={currentImageIndex}
+                      src={selectedImage.images[currentImageIndex]} 
+                      alt={`${selectedImage.title} ${currentImageIndex + 1}`}
+                      initial={{ opacity: 0, scale: 1.02 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6 }}
+                      className="absolute inset-0 w-full h-full object-cover filter contrast-[1.05]"
+                    />
+                  </AnimatePresence>
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#F4EBD9]/0 via-[#F4EBD9]/0 to-[#F4EBD9] pointer-events-none z-10" />
                 </motion.div>
+
+                {/* Slider Controls */}
+                {selectedImage.images.length > 1 && (
+                  <>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : selectedImage.images.length - 1));
+                      }}
+                      className="absolute left-6 sm:left-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-[#F4EBD9]/80 backdrop-blur-md text-[#0A2239] hover:bg-[#F4EBD9] transition-all opacity-0 group-hover/slider:opacity-100 shadow-xl z-50 cursor-pointer"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((prev) => (prev < selectedImage.images.length - 1 ? prev + 1 : 0));
+                      }}
+                      className="absolute right-6 sm:right-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-[#F4EBD9]/80 backdrop-blur-md text-[#0A2239] hover:bg-[#F4EBD9] transition-all opacity-0 group-hover/slider:opacity-100 shadow-xl z-50 cursor-pointer"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                    
+                    {/* Dots indicator */}
+                    <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-3 z-50">
+                      {selectedImage.images.map((_, i) => (
+                        <button 
+                          key={i} 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentImageIndex(i);
+                          }}
+                          className={`h-2 rounded-full transition-all duration-300 cursor-pointer shadow-sm ${i === currentImageIndex ? 'bg-[#B47A32] w-8' : 'bg-[#F4EBD9]/60 hover:bg-[#F4EBD9] w-2'}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Detailed Project Info */}

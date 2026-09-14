@@ -192,21 +192,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seamless Gaussian Blur Backdrop Transition Strip */}
-      <div className="w-full h-20 backdrop-blur-md bg-gradient-to-b from-transparent via-[#020610]/70 to-[#020610]/95 pointer-events-none -mb-1 z-20" />
-
       {/* ============================================================ */}
-      {/* SECTION 2: SPONSORS (BLEEDING LEFT WHEEL | MATCHING CARD)   */}
+      {/* SECTION 2: SPONSORS (FULL-SCREEN WHEEL ANCHORED TO MONITOR LEFT) */}
       {/* ============================================================ */}
       <section
         id="sponsors"
         ref={sponsorsSectionRef}
-        className="relative w-full h-screen bg-[#020610]/90 backdrop-blur-xl border-y border-[#38BDF8]/20 flex flex-col justify-between py-8 px-6 sm:px-12 overflow-hidden select-none"
+        className="relative w-full h-screen bg-[#020610]/95 border-y border-[#38BDF8]/20 flex flex-col justify-between py-6 px-6 sm:px-12 overflow-hidden select-none"
       >
+        {/* Colossal Full Screen Height Wheel (Anchored to exact left boundary of monitor: left-0 -translate-x-1/2) */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible">
+          {/* Cyan Glow Aura */}
+          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/20 blur-3xl pointer-events-none" />
+
+          {/* Transparent Pirate Wheel Image */}
+          <img
+            ref={wheelImgRef}
+            src="/pirate-wheel-transparent.png"
+            alt="Pirate Ship Wheel"
+            className="w-full h-full object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] drop-shadow-[0_0_50px_rgba(56,189,248,0.5)] select-none pointer-events-none will-change-transform overflow-visible"
+          />
+        </div>
+
         {/* Status Lock Bar */}
         <div className="max-w-7xl w-full mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-20">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#38BDF8]/30 bg-[#040e1d]/80 text-[#38BDF8] text-[11px] font-mono uppercase tracking-widest mb-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#38BDF8]/30 bg-[#040e1d]/90 text-[#38BDF8] text-[11px] font-mono uppercase tracking-widest mb-1 shadow-md">
               <ShieldCheck className="w-3.5 h-3.5 text-[#38BDF8]" />
               <span>Armada Fleet • 8 Strategic Partners</span>
             </div>
@@ -215,7 +226,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="flex items-center gap-3 bg-[#030914]/80 px-4 py-2 rounded-xl border border-white/10 font-mono text-xs">
+          <div className="flex items-center gap-3 bg-[#030914]/90 px-4 py-2 rounded-xl border border-white/10 font-mono text-xs shadow-lg">
             <span className="text-[#94A3B8]">Viewing Partner:</span>
             <span className="text-[#38BDF8] font-bold text-sm">
               {String(activeSponsorIdx + 1).padStart(2, "0")} / 08
@@ -223,89 +234,63 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Split Screen Layout: Giant Bleeding Wheel Left | Styled Showcase Card Right */}
-        <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto relative z-20">
-          {/* Left Column (5 Cols): Giant Pirate Wheel Bleeding off Left Edge */}
-          <div className="lg:col-span-5 flex flex-col items-start justify-center relative overflow-visible">
-            <div className="relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] md:w-[600px] md:h-[600px] lg:w-[680px] lg:h-[680px] -ml-28 sm:-ml-40 lg:-ml-56 flex items-center justify-center pointer-events-none overflow-visible">
-              {/* Cyan glow aura ring */}
-              <div className="absolute inset-0 rounded-full bg-[#38BDF8]/20 blur-3xl pointer-events-none" />
+        {/* Right Half Container: Sponsor Card Matching media_1789415331311.png */}
+        <div className="max-w-7xl w-full mx-auto flex items-center justify-end my-auto relative z-20">
+          <div
+            ref={sponsorCardRef}
+            className="w-full max-w-lg sm:max-w-xl p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.2)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden ml-auto"
+          >
+            {/* Top Header */}
+            <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
+              <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
+                PARTNER {activeSponsor.id} / 08
+              </span>
+              <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
+                {activeSponsor.tier}
+              </span>
+            </div>
 
-              {/* Transparent Pirate Wheel Image */}
+            {/* Inner Dark Showcase Container */}
+            <div className="w-full my-6 p-8 sm:p-12 bg-[#020610] rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center shadow-inner relative group min-h-[220px]">
+              {/* Big White Title */}
+              <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-wide">
+                {activeSponsor.name}
+              </h3>
+
+              {/* Subtitle */}
+              <span className="text-xs sm:text-sm font-mono text-[#38BDF8] mt-2 font-semibold tracking-wider">
+                Official Summit Partner
+              </span>
+
+              {/* Hook Icon */}
               <img
-                ref={wheelImgRef}
-                src="/pirate-wheel-transparent.png"
-                alt="Pirate Ship Wheel"
-                className="w-full h-full object-contain filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] drop-shadow-[0_0_35px_rgba(56,189,248,0.4)] select-none pointer-events-none will-change-transform overflow-visible"
+                src="/hook.png"
+                alt="Nautical Hook"
+                onError={(e) => {
+                  e.currentTarget.src = "/hook-cursor.png";
+                }}
+                className="w-7 h-7 sm:w-8 sm:h-8 mt-4 object-contain filter drop-shadow-[0_0_10px_rgba(56,189,248,0.6)]"
               />
             </div>
 
-            <span className="text-[10px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-2 pl-4">
-              Nautical Helm • Wheel Turns With Scroll
-            </span>
-          </div>
-
-          {/* Right Column (7 Cols): Showcase Card Matching media_1789415331311.png */}
-          <div className="lg:col-span-7 flex flex-col items-center justify-center">
-            <div
-              ref={sponsorCardRef}
-              className="w-full max-w-xl p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/35 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.9)] shadow-[0_0_35px_rgba(56,189,248,0.15)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
-            >
-              {/* Top Header */}
-              <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
-                <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
-                  PARTNER {activeSponsor.id} / 08
-                </span>
-                <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
-                  {activeSponsor.tier}
-                </span>
-              </div>
-
-              {/* Inner Dark Showcase Container */}
-              <div className="w-full my-6 p-8 sm:p-12 bg-[#020610] rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center shadow-inner relative group min-h-[220px]">
-                {/* Big White Title */}
-                <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-wide">
-                  {activeSponsor.name}
-                </h3>
-
-                {/* Subtitle */}
-                <span className="text-xs sm:text-sm font-mono text-[#38BDF8] mt-2 font-semibold tracking-wider">
-                  Official Summit Partner
-                </span>
-
-                {/* Hook Icon */}
-                <img
-                  src="/hook.png"
-                  alt="Nautical Hook"
-                  onError={(e) => {
-                    e.currentTarget.src = "/hook-cursor.png";
-                  }}
-                  className="w-7 h-7 sm:w-8 sm:h-8 mt-4 object-contain filter drop-shadow-[0_0_10px_rgba(56,189,248,0.6)]"
-                />
-              </div>
-
-              {/* Bottom Details Section */}
-              <div className="w-full pt-3.5 border-t border-white/10 text-center">
-                <h4 className="text-lg sm:text-xl font-extrabold text-white tracking-wide">
-                  {activeSponsor.name}
-                </h4>
-                <p className="text-xs text-[#94A3B8] font-mono mt-1">
-                  {activeSponsor.desc}
-                </p>
-              </div>
+            {/* Bottom Details Section */}
+            <div className="w-full pt-3.5 border-t border-white/10 text-center">
+              <h4 className="text-lg sm:text-xl font-extrabold text-white tracking-wide">
+                {activeSponsor.name}
+              </h4>
+              <p className="text-xs text-[#94A3B8] font-mono mt-1">
+                {activeSponsor.desc}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Bottom Status */}
         <div className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20">
-          <span>Scroll to turn wheel & survey all 8 sponsors</span>
-          <span className="hidden sm:inline">Authentic Nautical Helm</span>
+          <span className="text-[#38BDF8]/80">Scroll to turn wheel & survey all 8 sponsors</span>
+          <span className="hidden sm:inline">Authentic Nautical Helm • Full Screen Height</span>
         </div>
       </section>
-
-      {/* Seamless Gaussian Blur Backdrop Transition Strip */}
-      <div className="w-full h-20 backdrop-blur-md bg-gradient-to-b from-transparent via-[#020610]/70 to-[#020610]/95 pointer-events-none -mt-1 z-20" />
 
       {/* ============================================================ */}
       {/* TRANSITION WRAPPER: SECTION 3 (ABOUT) & SECTION 4 (SPEAKERS) */}

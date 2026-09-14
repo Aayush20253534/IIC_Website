@@ -33,51 +33,46 @@ export default function RenaissanceIntro({ onComplete, onSkip }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020610] text-[#F4EBD9] pointer-events-auto cursor-pointer select-none"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020610] text-[#F4EBD9] pointer-events-auto cursor-pointer select-none backdrop-blur-2xl"
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={{ delay: INTRO_TIMING.outStart, duration: INTRO_TIMING.outDur, ease: "easeInOut" }}
       onClick={() => (onSkipRef.current ? onSkipRef.current() : onCompleteRef.current?.())}
     >
-      {/* Ambient Cinematic Golden Aura */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[220px] bg-[#fbbf24]/10 rounded-full blur-[90px] pointer-events-none" />
+      {/* Ambient Ocean Cyan Glow Aura */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-[#38BDF8]/20 rounded-full blur-[90px] pointer-events-none" />
 
       <div className="relative text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
-        {/* Staggered Renaissance Wordmark with Rich Metallic Gold Gradient */}
-        <div className="flex items-center justify-center overflow-hidden my-1">
-          {titleLetters.map((char, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 0, y: 35, scale: 0.9, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-              transition={{
-                duration: 0.55,
-                delay: 0.12 + index * 0.035,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="font-cinzel text-5xl sm:text-7xl md:text-8xl font-black tracking-[0.14em] sm:tracking-[0.18em] bg-gradient-to-b from-[#FFFDF0] via-[#FFD700] to-[#B45309] bg-clip-text text-transparent filter drop-shadow-[0_0_30px_rgba(251,191,36,0.5)] drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] inline-block"
-            >
-              {char}
-            </motion.span>
-          ))}
-        </div>
+        {/* NetraAI-style Emblem */}
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0, filter: "blur(6px)" }}
+          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="w-56 sm:w-80 md:w-[400px] mb-4 flex items-center justify-center"
+        >
+          <img
+            src="/renaissance-logo-clean.png"
+            alt="Renaissance 10th Edition"
+            className="w-full h-auto object-contain filter drop-shadow-[0_0_35px_rgba(56,189,248,0.6)]"
+          />
+        </motion.div>
 
-        {/* Expanding Golden Hairline Accent */}
+        {/* Laser Hairline Accent */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="w-48 sm:w-72 h-[1px] bg-gradient-to-r from-transparent via-[#fbbf24] to-transparent my-3"
+          transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="w-48 sm:w-72 h-[1.5px] bg-gradient-to-r from-transparent via-[#38BDF8] to-transparent my-3 shadow-[0_0_12px_#38BDF8]"
         />
 
         {/* Sub-caption */}
         <motion.p
-          initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
+          initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="font-montserrat text-[10px] sm:text-xs font-semibold tracking-[0.3em] sm:tracking-[0.35em] text-[#F4EBD9]/85 uppercase"
+          transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.35em] text-[#38BDF8]/90 uppercase"
         >
-          10TH EDITION • E-CELL MNNIT ALLAHABAD
+          10TH EDITION • THE GREAT VOYAGE
         </motion.p>
       </div>
     </motion.div>

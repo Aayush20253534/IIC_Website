@@ -254,7 +254,7 @@ export default function Gallery() {
               <div className="relative w-full h-[70vh] sm:h-[85vh] group/slider">
                 <motion.div 
                   layoutId={`project-image-${selectedImage.id}`}
-                  className="absolute inset-0 w-full h-full bg-[#121c22]"
+                  className="absolute inset-0 w-full h-full overflow-hidden"
                 >
                   <AnimatePresence mode="popLayout">
                     <motion.img 
@@ -268,7 +268,7 @@ export default function Gallery() {
                       className="absolute inset-0 w-full h-full object-cover filter contrast-[1.05]"
                     />
                   </AnimatePresence>
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F4EBD9] pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#F4EBD9]/0 via-[#F4EBD9]/0 to-[#F4EBD9] pointer-events-none z-10" />
                 </motion.div>
 
                 {/* Slider Controls */}

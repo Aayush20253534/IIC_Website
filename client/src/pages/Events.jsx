@@ -6,6 +6,24 @@ export default function Events({ embedded = false }) {
   const [selectedEventModal, setSelectedEventModal] = useState(null);
   const navigate = useNavigate();
 
+  // The standalone Events page is intentionally artwork-only.
+  // Keep the richer timeline UI for the homepage embedded section.
+  if (!embedded) {
+    return (
+      <main
+        className="relative min-h-[100svh] w-full overflow-hidden bg-black"
+        aria-label="Events"
+      >
+        <img
+          src="/bg_images/event.png"
+          alt="Renaissance events"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          draggable="false"
+        />
+      </main>
+    );
+  }
+
   // Structured 2-Day event dataset with clean placeholder copy
   const timelineData = {
     1: {

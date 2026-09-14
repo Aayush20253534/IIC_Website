@@ -1,59 +1,96 @@
 export const SPONSOR_STREAM_ITEMS = [
   {
-    name: "Sponsor 1",
-    tier: "Title Sponsor",
-    image: "/placeholder-sponsor.svg",
+    name: "Bank of Baroda",
+    tier: "Title Banking Partner",
+    category: "Banking & Financial Services",
+    image: "/sponsors/Bank-of-Baroda-logo.jpg",
+    description: "Official title banking partner anchoring the financial horizon of Renaissance 2026.",
   },
   {
-    name: "Sponsor 2",
-    tier: "Associate Sponsor",
-    image: "/placeholder-sponsor.svg",
+    name: "Royal Enfield",
+    tier: "Associate Partner",
+    category: "Automobile & Exploration",
+    image: "/sponsors/Royal_Enfield_Logo_full.png",
+    description: "Powering the spirit of pure motorcycling and boundless expedition across the summit.",
   },
   {
-    name: "Sponsor 3",
-    tier: "Gold Partner",
-    image: "/placeholder-sponsor.svg",
-  },
-  {
-    name: "Sponsor 4",
-    tier: "Platform Partner",
-    image: "/placeholder-sponsor.svg",
-  },
-  {
-    name: "Sponsor 5",
-    tier: "Media Partner",
-    image: "/placeholder-sponsor.svg",
-  },
-  {
-    name: "Sponsor 6",
+    name: "Campa Cola",
     tier: "Beverage Partner",
-    image: "/placeholder-sponsor.svg",
+    category: "Beverages & Refreshment",
+    image: "/sponsors/campacola.jpeg",
+    description: "Refreshing the voyage crew with the great Indian taste.",
+  },
+  {
+    name: "D2D",
+    tier: "Innovation Partner",
+    category: "Logistics & Growth",
+    image: "/sponsors/D2D LOGO (1).png",
+    description: "Connecting innovation pipelines directly from shore to harbor.",
+  },
+  {
+    name: "Summit Armada",
+    tier: "Gold Partner",
+    category: "Strategic Ventures",
+    image: "/sponsors/LOGO.png",
+    description: "Charting bold strategic growth trajectories for early-stage founder fleets.",
+  },
+  {
+    name: "Voyage Guild",
+    tier: "Media & Guild Partner",
+    category: "Broadcasting & Reach",
+    image: "/sponsors/unnamed.png",
+    description: "Broadcasting summit chronicles and keynote sessions to visionary audiences worldwide.",
   },
 ];
 
 export const SPONSOR_TIERS = [
   {
     id: "title",
-    title: "Title & Key Sponsors (Placeholder)",
+    title: "Flagship Title & Key Fleet",
     sponsors: [
-      { name: "Sponsor 1", category: "Title Sponsor", image: "/placeholder-sponsor.svg" },
-      { name: "Sponsor 2", category: "Associate Sponsor", image: "/placeholder-sponsor.svg" }
-    ]
+      {
+        name: "Bank of Baroda",
+        category: "Title Banking Partner",
+        image: "/sponsors/Bank-of-Baroda-logo.jpg",
+      },
+      {
+        name: "Royal Enfield",
+        category: "Associate Partner",
+        image: "/sponsors/Royal_Enfield_Logo_full.png",
+      },
+    ],
   },
   {
     id: "gold",
-    title: "Gold Partners (Placeholder)",
+    title: "Gold Fleet Partners",
     sponsors: [
-      { name: "Sponsor 3", category: "Gold Partner", image: "/placeholder-sponsor.svg" },
-      { name: "Sponsor 4", category: "Platform Partner", image: "/placeholder-sponsor.svg" }
-    ]
+      {
+        name: "Campa Cola",
+        category: "Beverage Partner",
+        image: "/sponsors/campacola.jpeg",
+      },
+      {
+        name: "D2D",
+        category: "Innovation Partner",
+        image: "/sponsors/D2D LOGO (1).png",
+      },
+    ],
   },
   {
     id: "media",
-    title: "Media & Event Guild (Placeholder)",
+    title: "Guild & Strategic Partners",
     sponsors: [
-      { name: "Sponsor 5", category: "Media Partner", image: "/placeholder-sponsor.svg" },
-      { name: "Sponsor 6", category: "Beverage Partner", image: "/placeholder-sponsor.svg" }
-    ]
-  }
+      {
+        name: "Summit Armada",
+        category: "Strategic Ventures",
+        image: "/sponsors/LOGO.png",
+      },
+      {
+        name: "Voyage Guild",
+        category: "Media Partner",
+        image: "/sponsors/unnamed.png",
+      },
+    ],
+  },
 ];
+

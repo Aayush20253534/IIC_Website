@@ -7,7 +7,6 @@ import {
   Sparkles,
   Ship,
   Star,
-  Waves,
   Navigation,
 } from "lucide-react";
 

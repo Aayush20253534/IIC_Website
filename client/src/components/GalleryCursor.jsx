@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-export default function GalleryCursor() {
+export default function GalleryCursor({ expanded, isHoveringProject }) {
   const cursorRef = useRef(null);
   const textRef = useRef(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -20,21 +20,21 @@ export default function GalleryCursor() {
     };
 
     const handleMouseOver = (e) => {
-      if (e.target.closest(".gallery-image-hover")) {
+      if (e.target.closest(".gallery-image-hover") || isHoveringProject) {
         setIsHovering(true);
         gsap.to(cursor, {
           scale: 1,
           opacity: 1,
-          duration: 0.3,
-          ease: "power2.out",
+          duration: 0.4,
+          ease: "expo.out",
         });
       } else {
         setIsHovering(false);
         gsap.to(cursor, {
           scale: 0.2,
           opacity: 0,
-          duration: 0.3,
-          ease: "power2.out",
+          duration: 0.4,
+          ease: "expo.out",
         });
       }
     };
@@ -46,12 +46,14 @@ export default function GalleryCursor() {
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, []);
+  }, [isHoveringProject]);
+
+  if (expanded) return null;
 
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 w-24 h-24 rounded-full border border-[#C5A25F] bg-[#020610]/40 backdrop-blur-sm pointer-events-none z-50 flex items-center justify-center mix-blend-difference"
+      className={`fixed top-0 left-0 rounded-full border border-[#C89B53] flex items-center justify-center pointer-events-none z-50 transition-all duration-500 ease-out ${isHoveringProject ? 'w-32 h-32 bg-[#0A2239]/15 backdrop-blur-md' : 'w-24 h-24 bg-[#0A2239]/5 backdrop-blur-sm'}`}
       style={{
         transform: "translate(-50%, -50%) scale(0.2)",
         opacity: 0,
@@ -59,11 +61,11 @@ export default function GalleryCursor() {
     >
       <span
         ref={textRef}
-        className={`font-mono text-xs tracking-widest text-[#F4EBD9] transition-opacity duration-200 ${
-          isHovering ? "opacity-100" : "opacity-0"
+        className={`font-mono text-xs tracking-widest text-[#0A2239] transition-all duration-300 ${
+          isHovering || isHoveringProject ? "opacity-100 scale-100" : "opacity-0 scale-75"
         }`}
       >
-        VIEW
+        {isHoveringProject ? "EXPLORE" : "VIEW"}
       </span>
     </div>
   );

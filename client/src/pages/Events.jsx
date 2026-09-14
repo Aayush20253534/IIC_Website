@@ -6,20 +6,318 @@ export default function Events({ embedded = false }) {
   const [selectedEventModal, setSelectedEventModal] = useState(null);
   const navigate = useNavigate();
 
-  // The standalone Events page is intentionally artwork-only.
-  // Keep the richer timeline UI for the homepage embedded section.
+  const [eventSearch, setEventSearch] = useState("");
+  const [eventFilter, setEventFilter] = useState("All Events");
+
+  // Standalone /events page mock catalogue.
+  // The existing timeline below is intentionally preserved for embedded usage.
+  const standaloneCategories = [
+    "All Events",
+    "Competitions",
+    "Workshops",
+    "Talks",
+    "Networking",
+    "Cultural",
+  ];
+
+  const standaloneEvents = [
+    {
+      id: "summit-keynote",
+      title: "Summit Keynote & Inaugural",
+      category: "Talks",
+      label: "Flagship",
+      time: "09:30 AM",
+      location: "Main Auditorium",
+      description: "Setting sail on a journey of ideas, innovation and impact.",
+      visual: "✦",
+      visualLabel: "Opening Summit",
+      visualStyle:
+        "linear-gradient(135deg, rgba(4,47,66,.96), rgba(15,77,96,.78) 52%, rgba(220,167,70,.42))",
+    },
+    {
+      id: "hackathon-sprint",
+      title: "Hackathon Sprint: Round 1",
+      category: "Competitions",
+      label: "Competition",
+      time: "11:30 AM",
+      location: "Innovation Hub",
+      description: "Build. Collaborate. Conquer.",
+      visual: "⌘",
+      visualLabel: "Innovation Lab",
+      visualStyle:
+        "linear-gradient(135deg, rgba(7,38,63,.96), rgba(32,105,129,.8) 48%, rgba(229,194,116,.38))",
+    },
+    {
+      id: "product-masterclass",
+      title: "Product Building Masterclass",
+      category: "Workshops",
+      label: "Workshop",
+      time: "02:00 PM",
+      location: "Learning Deck",
+      description: "From concept to reality with industry experts.",
+      visual: "⚒",
+      visualLabel: "Builder's Deck",
+      visualStyle:
+        "linear-gradient(135deg, rgba(67,51,28,.96), rgba(135,94,42,.76) 50%, rgba(20,75,89,.52))",
+    },
+    {
+      id: "leadership-talk",
+      title: "Leadership in a Changing World",
+      category: "Talks",
+      label: "Talk",
+      time: "04:00 PM",
+      location: "Main Auditorium",
+      description: "Insights from visionaries shaping tomorrow.",
+      visual: "◉",
+      visualLabel: "Leadership Forum",
+      visualStyle:
+        "linear-gradient(135deg, rgba(62,36,24,.96), rgba(165,95,45,.72) 52%, rgba(250,211,134,.32))",
+    },
+    {
+      id: "voyagers-circle",
+      title: "Voyagers' Circle",
+      category: "Networking",
+      label: "Networking",
+      time: "06:00 PM",
+      location: "The Harbor Deck",
+      description: "Conversations. Connections. Opportunities.",
+      visual: "◎",
+      visualLabel: "Harbor Meetup",
+      visualStyle:
+        "linear-gradient(135deg, rgba(12,49,63,.96), rgba(38,104,115,.72) 48%, rgba(238,168,79,.42))",
+    },
+    {
+      id: "music-stars",
+      title: "Music Under the Stars",
+      category: "Cultural",
+      label: "Cultural",
+      time: "07:30 PM",
+      location: "Open Air Arena",
+      description: "Unwind. Celebrate. Create memories.",
+      visual: "♪",
+      visualLabel: "Night at Sea",
+      visualStyle:
+        "linear-gradient(135deg, rgba(11,34,58,.97), rgba(27,64,93,.8) 48%, rgba(202,128,64,.5))",
+    },
+  ];
+
   if (!embedded) {
+    const normalizedSearch = eventSearch.trim().toLowerCase();
+    const visibleEvents = standaloneEvents.filter((event) => {
+      const matchesFilter =
+        eventFilter === "All Events" || event.category === eventFilter;
+      const matchesSearch =
+        !normalizedSearch ||
+        `${event.title} ${event.category} ${event.location} ${event.description}`
+          .toLowerCase()
+          .includes(normalizedSearch);
+
+      return matchesFilter && matchesSearch;
+    });
+
     return (
       <main
-        className="relative min-h-[100svh] w-full overflow-hidden bg-black"
+        className="relative min-h-[100svh] w-full overflow-x-hidden bg-[#f4ead5] text-[#123f55]"
         aria-label="Events"
       >
+        {/* Keep the supplied event artwork as the page backdrop. */}
         <img
           src="/bg_images/events.png"
-          alt="Renaissance events"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          alt=""
+          aria-hidden="true"
+          className="fixed inset-0 h-full w-full object-cover object-center"
           draggable="false"
         />
+        <div className="fixed inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,.2),rgba(251,247,236,.52)_44%,rgba(246,235,210,.86)_100%)] pointer-events-none" />
+
+        <section className="relative z-10 mx-auto w-full max-w-[1360px] px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+          {/* Reference-style heading, kept compact so the artwork remains visible. */}
+          <div className="max-w-3xl">
+            <p className="font-cinzel text-xs font-bold uppercase tracking-[0.3em] text-[#a96b18] sm:text-sm">
+              ✦ Events
+            </p>
+            <h1 className="mt-2 font-cinzel text-3xl font-semibold uppercase tracking-[0.06em] text-[#123f55] drop-shadow-[0_1px_0_rgba(255,255,255,.75)] sm:text-5xl lg:text-6xl">
+              The Expedition Awaits
+            </h1>
+            <p className="mt-3 max-w-2xl font-montserrat text-xs font-semibold uppercase tracking-[0.22em] text-[#315f72] sm:text-sm">
+              A series of battles, discoveries and experiences across new horizons.
+            </p>
+            <div className="mt-4 h-[2px] w-28 bg-[#bf7d22]" />
+          </div>
+
+          {/* Search + category controls */}
+          <div className="mt-8 flex flex-col gap-3 lg:flex-row lg:items-center">
+            <label className="flex min-h-12 flex-1 items-center gap-3 rounded-2xl border border-[#d7ccb6] bg-white/90 px-4 shadow-[0_8px_30px_rgba(39,60,65,.10)] backdrop-blur-md">
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5 shrink-0 text-[#1f5b70]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+              </svg>
+              <span className="sr-only">Search events</span>
+              <input
+                value={eventSearch}
+                onChange={(event) => setEventSearch(event.target.value)}
+                placeholder="Search events..."
+                className="w-full bg-transparent py-3 font-montserrat text-sm text-[#173f51] outline-none placeholder:text-[#6f8791]"
+              />
+            </label>
+
+            <div className="flex min-h-12 flex-1 items-center gap-1 overflow-x-auto rounded-2xl border border-[#d7ccb6] bg-white/90 p-1.5 shadow-[0_8px_30px_rgba(39,60,65,.10)] backdrop-blur-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {standaloneCategories.map((category) => {
+                const isActive = eventFilter === category;
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() => setEventFilter(category)}
+                    className={`shrink-0 rounded-xl px-4 py-2.5 font-montserrat text-xs font-bold transition-all duration-200 ${
+                      isActive
+                        ? "bg-[#0d5870] text-white shadow-[inset_0_0_0_1px_rgba(224,168,72,.8),0_5px_16px_rgba(13,88,112,.25)]"
+                        : "text-[#28586a] hover:bg-[#eaf0ee] hover:text-[#123f55]"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Mock event cards */}
+          {visibleEvents.length > 0 ? (
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {visibleEvents.map((event) => (
+                <article
+                  key={event.id}
+                  className="group overflow-hidden rounded-[18px] border border-white/80 bg-[#fffdf8]/95 shadow-[0_12px_34px_rgba(55,68,63,.14)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(55,68,63,.2)]"
+                >
+                  <div
+                    className="relative h-36 overflow-hidden sm:h-40"
+                    style={{ backgroundImage: event.visualStyle }}
+                  >
+                    <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.1)_1px,transparent_1px)] [background-size:32px_32px]" />
+                    <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-white/20" />
+                    <div className="absolute -right-2 top-4 h-24 w-24 rounded-full border border-white/15" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="font-cinzel text-6xl text-[#f4cc78]/80 drop-shadow-[0_5px_18px_rgba(0,0,0,.3)] transition-transform duration-300 group-hover:scale-110">
+                        {event.visual}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-3 left-4 font-cinzel text-[10px] font-bold uppercase tracking-[0.2em] text-white/80">
+                      {event.visualLabel}
+                    </div>
+                  </div>
+
+                  <div className="relative px-5 pb-5 pt-6">
+                    <span className="absolute -top-4 left-4 rounded-full border border-[#e5c67e] bg-[#f5df9b] px-4 py-1.5 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#5d491d] shadow-sm">
+                      {event.label}
+                    </span>
+
+                    <div className="flex items-start justify-between gap-3">
+                      <h2 className="font-cinzel text-base font-bold leading-tight text-[#163f52] sm:text-lg">
+                        {event.title}
+                      </h2>
+                      <span className="shrink-0 font-mono text-[11px] font-semibold text-[#456b7b]">
+                        ◷ {event.time}
+                      </span>
+                    </div>
+
+                    <p className="mt-2 flex items-center gap-1.5 font-montserrat text-xs font-semibold text-[#516d78]">
+                      <span className="text-[#c42635]">●</span>
+                      {event.location}
+                    </p>
+                    <p className="mt-2 min-h-10 font-montserrat text-xs leading-relaxed text-[#63757a]">
+                      {event.description}
+                    </p>
+
+                    <button
+                      type="button"
+                      className="mt-3 inline-flex items-center gap-2 font-montserrat text-xs font-extrabold text-[#a76513] transition group-hover:gap-3"
+                      onClick={() => setSelectedEventModal(event)}
+                    >
+                      View Details <span aria-hidden="true">→</span>
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-5 rounded-2xl border border-[#d8c9aa] bg-white/85 px-6 py-12 text-center shadow-sm backdrop-blur">
+              <p className="font-cinzel text-lg font-bold text-[#173f51]">
+                No events found on this horizon.
+              </p>
+              <p className="mt-1 font-montserrat text-sm text-[#617982]">
+                Try another search or event category.
+              </p>
+            </div>
+          )}
+
+          <div className="mt-7 flex items-center justify-center gap-4 text-center">
+            <span className="h-px w-20 bg-[#b88a47]/60 sm:w-32" />
+            <span className="font-cinzel text-[10px] font-bold uppercase tracking-[0.35em] text-[#96652d]">
+              Same Ocean ⚓ Higher Horizons
+            </span>
+            <span className="h-px w-20 bg-[#b88a47]/60 sm:w-32" />
+          </div>
+        </section>
+
+        {/* Lightweight mock detail modal for the standalone catalogue. */}
+        {selectedEventModal && standaloneEvents.some((event) => event.id === selectedEventModal.id) && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#062b39]/65 p-4 backdrop-blur-sm"
+            onClick={() => setSelectedEventModal(null)}
+          >
+            <div
+              className="relative w-full max-w-md rounded-3xl border border-white/70 bg-[#fffdf8] p-6 text-[#173f51] shadow-[0_24px_80px_rgba(0,0,0,.35)]"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setSelectedEventModal(null)}
+                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d9cfbd] bg-white text-lg text-[#54717d] hover:text-[#173f51]"
+                aria-label="Close event details"
+              >
+                ×
+              </button>
+              <span className="inline-flex rounded-full bg-[#f3df9e] px-3 py-1 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#684f18]">
+                {selectedEventModal.label}
+              </span>
+              <h2 className="mt-4 pr-10 font-cinzel text-2xl font-bold">
+                {selectedEventModal.title}
+              </h2>
+              <div className="mt-4 grid grid-cols-2 gap-3 font-montserrat text-xs">
+                <div className="rounded-xl bg-[#eef3f1] p-3">
+                  <span className="block text-[10px] uppercase tracking-wider text-[#71848b]">
+                    Time
+                  </span>
+                  <strong>{selectedEventModal.time}</strong>
+                </div>
+                <div className="rounded-xl bg-[#eef3f1] p-3">
+                  <span className="block text-[10px] uppercase tracking-wider text-[#71848b]">
+                    Location
+                  </span>
+                  <strong>{selectedEventModal.location}</strong>
+                </div>
+              </div>
+              <p className="mt-4 font-montserrat text-sm leading-relaxed text-[#5b7079]">
+                {selectedEventModal.description}
+              </p>
+              <button
+                type="button"
+                onClick={() => setSelectedEventModal(null)}
+                className="mt-6 w-full rounded-xl bg-[#0d5870] px-4 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_8px_22px_rgba(13,88,112,.25)]"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </main>
     );
   }

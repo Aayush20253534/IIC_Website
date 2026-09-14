@@ -235,111 +235,121 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: SPONSORS (FULL-SCREEN WHEEL ANCHORED TO MONITOR LEFT) */}
+      {/* SECTION 2: SPONSORS (LEFT WHEEL | RIGHT SPONSOR SHOWCASE)    */}
       {/* ============================================================ */}
       <section
         id="sponsors"
         ref={sponsorsSectionRef}
         className="relative w-full h-screen bg-[#020610]/95 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-24 sm:pt-28 pb-6 px-6 sm:px-12 overflow-hidden select-none"
       >
-        {/* Colossal Full Screen Height Wheel (Anchored to exact left boundary of monitor: left-0 -translate-x-1/2) */}
+        {/* Giant Rotating Nautical Wheel (Anchored to exact left boundary: 50% on screen, 50% off screen) */}
         <div
           ref={wheelContainerRef}
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible"
         >
           {/* Cyan Glow Aura */}
-          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/20 blur-3xl pointer-events-none" />
+          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/15 blur-3xl pointer-events-none" />
 
           {/* Transparent Pirate Wheel Image */}
           <img
             ref={wheelImgRef}
             src="/pirate-wheel-transparent.png"
-            alt="Pirate Ship Wheel"
-            className="w-full h-full object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] drop-shadow-[0_0_50px_rgba(56,189,248,0.5)] select-none pointer-events-none will-change-transform overflow-visible"
+            alt="Nautical Wheel"
+            className="w-full h-full object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] drop-shadow-[0_0_50px_rgba(56,189,248,0.4)] select-none pointer-events-none will-change-transform overflow-visible"
           />
         </div>
 
-        {/* Status Lock Bar */}
-        <div
-          ref={sponsorsHeaderRef}
-          className="max-w-7xl w-full mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-20"
-        >
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#38BDF8]/30 bg-[#040e1d]/90 text-[#38BDF8] text-[11px] font-mono uppercase tracking-widest mb-1 shadow-md">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#38BDF8]" />
-              <span>Armada Fleet • 8 Strategic Partners</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Expedition Sponsors
-            </h2>
-          </div>
+        {/* Right Half Container: Section Header & Showcase Card (100% Readable, Zero Overlap with Wheel) */}
+        <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
+          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-4">
 
-          <div className="flex items-center gap-3 bg-[#030914]/90 px-4 py-2 rounded-xl border border-white/10 font-mono text-xs shadow-lg">
-            <span className="text-[#94A3B8]">Viewing Partner:</span>
-            <span className="text-[#38BDF8] font-bold text-sm">
-              {String(activeSponsorIdx + 1).padStart(2, "0")} / 08
-            </span>
+            {/* Clean Section Header (Right Aligned above Card) */}
+            <div
+              ref={sponsorsHeaderRef}
+              className="w-full flex items-end justify-between pb-1"
+            >
+              <div>
+                <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold">
+                  Summit Partners
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                  Expedition Sponsors
+                </h2>
+              </div>
+
+              <div className="flex items-center gap-2 bg-[#030914]/90 px-3.5 py-1.5 rounded-xl border border-white/10 font-mono text-xs shadow-lg">
+                <span className="text-[#94A3B8]">Partner:</span>
+                <span className="text-[#38BDF8] font-bold text-sm">
+                  {String(activeSponsorIdx + 1).padStart(2, "0")} / 08
+                </span>
+              </div>
+            </div>
+
+            {/* Showcase Card with '?' Placeholder Image */}
+            <div
+              ref={sponsorCardRef}
+              className="w-full p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.2)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
+            >
+              {/* Card Header */}
+              <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
+                <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
+                  PARTNER {activeSponsor.id} / 08
+                </span>
+                <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
+                  {activeSponsor.tier}
+                </span>
+              </div>
+
+              {/* Inner Dark Showcase Container with Mystery '?' Image Badge */}
+              <div className="w-full my-5 p-5 sm:p-6 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left shadow-inner relative group min-h-[190px]">
+                {/* '?' Placeholder Image Frame */}
+                <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border border-[#38BDF8]/40 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_25px_rgba(56,189,248,0.25)] overflow-hidden">
+                  {/* Background Grid Pattern */}
+                  <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
+                  
+                  {/* Giant Glowing Question Mark */}
+                  <span className="text-4xl sm:text-5xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_15px_rgba(56,189,248,0.9)] z-10 font-mono">
+                    ?
+                  </span>
+
+                  <span className="text-[9px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-1 z-10 font-bold">
+                    REVEAL SOON
+                  </span>
+                </div>
+
+                {/* Details Next to Image */}
+                <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                    {activeSponsor.name}
+                  </h3>
+
+                  <span className="text-xs font-mono text-[#38BDF8] mt-1 font-semibold tracking-wider">
+                    Official Summit Partner
+                  </span>
+
+                  <p className="text-xs text-[#94A3B8] font-mono mt-2 leading-relaxed max-w-xs">
+                    {activeSponsor.desc}
+                  </p>
+                </div>
+              </div>
+
+              {/* Bottom Card Bar */}
+              <div className="w-full pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+                <span className="text-[#94A3B8]">Renaissance 10th Edition</span>
+                <span className="text-[#38BDF8] font-bold">Partner Showcase</span>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        {/* Right Half Container: Sponsor Card Matching media_1789415331311.png */}
-        <div className="max-w-7xl w-full mx-auto flex items-center justify-end my-auto relative z-20">
-          <div
-            ref={sponsorCardRef}
-            className="w-full max-w-lg sm:max-w-xl p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.2)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden ml-auto"
-          >
-            {/* Top Header */}
-            <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
-              <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
-                PARTNER {activeSponsor.id} / 08
-              </span>
-              <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
-                {activeSponsor.tier}
-              </span>
-            </div>
-
-            {/* Inner Dark Showcase Container */}
-            <div className="w-full my-6 p-8 sm:p-12 bg-[#020610] rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center shadow-inner relative group min-h-[220px]">
-              {/* Big White Title */}
-              <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-wide">
-                {activeSponsor.name}
-              </h3>
-
-              {/* Subtitle */}
-              <span className="text-xs sm:text-sm font-mono text-[#38BDF8] mt-2 font-semibold tracking-wider">
-                Official Summit Partner
-              </span>
-
-              {/* Hook Icon */}
-              <img
-                src="/hook.png"
-                alt="Nautical Hook"
-                onError={(e) => {
-                  e.currentTarget.src = "/hook-cursor.png";
-                }}
-                className="w-7 h-7 sm:w-8 sm:h-8 mt-4 object-contain filter drop-shadow-[0_0_10px_rgba(56,189,248,0.6)]"
-              />
-            </div>
-
-            {/* Bottom Details Section */}
-            <div className="w-full pt-3.5 border-t border-white/10 text-center">
-              <h4 className="text-lg sm:text-xl font-extrabold text-white tracking-wide">
-                {activeSponsor.name}
-              </h4>
-              <p className="text-xs text-[#94A3B8] font-mono mt-1">
-                {activeSponsor.desc}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Status */}
+        {/* Clean Bottom Status Bar */}
         <div
           ref={sponsorsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          <span className="text-[#38BDF8]/80">Scroll to turn wheel & survey all 8 sponsors</span>
-          <span className="hidden sm:inline">Authentic Nautical Helm • Full Screen Height</span>
+          <span className="text-[#38BDF8]/80">Scroll to explore summit partners</span>
+          <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>
 

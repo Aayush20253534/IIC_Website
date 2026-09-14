@@ -25,7 +25,6 @@ export default function ContactFooter() {
             <Link to="/" className="hover:text-[#C5A25F] transition-colors">Home</Link>
             <Link to="/events" className="hover:text-[#C5A25F] transition-colors">Events</Link>
             <Link to="/register" className="hover:text-[#C5A25F] transition-colors">Register</Link>
-            <Link to="/dashboard" className="hover:text-[#C5A25F] transition-colors">Dashboard</Link>
             <Link to="/teams" className="hover:text-[#C5A25F] transition-colors">Teams</Link>
             <Link to="/sponsors" className="hover:text-[#C5A25F] transition-colors">Sponsors</Link>
             <Link to="/gallery" className="hover:text-[#C5A25F] transition-colors">Gallery</Link>

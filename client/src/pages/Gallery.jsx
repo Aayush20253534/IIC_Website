@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import GalleryCursor from "../components/GalleryCursor";
 
 const EVENTS = [
   { id: 1, title: "INAUGURAL", date: "APR 12, 2026", img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600", category: "Flagship" },
@@ -85,7 +84,7 @@ function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredI
           {/* Image Area */}
           <div className={`w-full lg:w-1/2 flex ${index % 2 === 0 ? 'order-1 lg:order-2 justify-end' : 'order-1 lg:order-1 justify-start'}`}>
             <motion.div 
-              className={`relative w-full lg:w-[85%] aspect-[4/5] overflow-hidden cursor-none gallery-image-hover transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${isHovered ? 'scale-[1.03] shadow-2xl' : 'scale-100 shadow-lg'} ${isOtherHovered ? 'opacity-40 scale-[0.98]' : 'opacity-100'}`}
+              className={`group relative w-full lg:w-[85%] aspect-[4/5] overflow-hidden cursor-pointer gallery-image-hover transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${isHovered ? 'scale-[1.03] shadow-2xl' : 'scale-100 shadow-lg'} ${isOtherHovered ? 'opacity-40 scale-[0.98]' : 'opacity-100'} hover:scale-[1.06] hover:shadow-2xl`}
               onClick={() => setSelectedImage(event)}
               layoutId={`project-image-${event.id}`}
             >
@@ -127,7 +126,6 @@ export default function Gallery() {
 
   return (
     <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0A2239] overflow-x-hidden font-montserrat">
-      <GalleryCursor expanded={!!selectedImage} isHoveringProject={hoveredIndex !== null} />
       
       {/* Intro Header */}
       <section className="relative w-full h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24">
@@ -176,7 +174,7 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#F4EBD9] overflow-y-auto"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F4EBD9] overflow-y-auto"
           >
             <div className="min-h-screen w-full flex flex-col">
               {/* Close Button */}
@@ -186,10 +184,10 @@ export default function Gallery() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: 0.4 }}
                 onClick={() => setSelectedImage(null)}
-                className="fixed top-8 right-8 z-50 flex items-center gap-3 text-[#0A2239] hover:text-[#B47A32] transition-colors group cursor-pointer"
+                className="fixed top-24 right-6 sm:top-28 sm:right-8 z-[110] flex items-center gap-3 text-[#0A2239] hover:text-[#B47A32] transition-colors group cursor-pointer"
               >
-                <span className="font-mono text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">Close</span>
-                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center">
+                <span className="font-mono text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity bg-[#F4EBD9]/80 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm">Close</span>
+                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center bg-[#F4EBD9]/80 backdrop-blur-sm shadow-lg">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M13 1L1 13M1 1L13 13" />
                   </svg>

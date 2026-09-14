@@ -27,9 +27,17 @@ export default function Navbar() {
       <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#020610] via-[#020610]/70 to-transparent pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <img src="/renaissance_logo_transparent.png" alt="Renaissance Logo" className="h-10 md:h-12 w-auto object-contain" />
+        <Link to="/" className="flex items-center gap-3 relative group">
+          {/* Soft glow behind the logo for contrast */}
+          <div className="absolute inset-0 bg-[#F4EBD9]/40 blur-xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
+          
+          <div className="relative bg-[#F4EBD9] px-4 py-2 rounded-xl sm:rounded-2xl border border-[#C5A25F]/40 shadow-lg group-hover:shadow-[#C5A25F]/20 transition-all flex items-center justify-center">
+            <img 
+              src="/renaissance_logo_cropped.png" 
+              alt="Renaissance Logo" 
+              className="h-8 md:h-10 w-auto object-contain" 
+            />
+          </div>
         </Link>
 
         {/* Desktop Links */}

@@ -87,7 +87,7 @@ export default function Events({ embedded = false }) {
       setSelectedEventModal(event);
       setOpeningEventId(null);
       openingTimerRef.current = null;
-    }, 760);
+    }, 1580);
   };
 
   const [eventSearch, setEventSearch] = useState("");
@@ -516,7 +516,7 @@ export default function Events({ embedded = false }) {
                         : { rotateY: 0, rotateZ: 0, scale: 1 }
                     }
                     transition={{
-                      duration: openingEventId === event.id ? 0.74 : 0.18,
+                      duration: openingEventId === event.id ? 1.55 : 0.18,
                       ease: openingEventId === event.id ? [0.22, 0.75, 0.18, 1] : "easeOut",
                     }}
                     style={{ transformPerspective: 1100 }}
@@ -529,7 +529,7 @@ export default function Events({ embedded = false }) {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: [0, 1, 1, 0], scale: [0.9, 1, 1, 1.04] }}
                           exit={{ opacity: 0 }}
-                          transition={{ duration: 0.7, times: [0, 0.22, 0.76, 1] }}
+                          transition={{ duration: 1.48, times: [0, 0.18, 0.82, 1] }}
                           className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center bg-[#062c3c]/20 backdrop-blur-[1px]"
                         >
                           <span className="border border-[#f0cb73]/75 bg-[#07384a]/90 px-4 py-2 font-montserrat text-[9px] font-black uppercase tracking-[0.22em] text-[#f6d98f] shadow-[0_8px_28px_rgba(0,0,0,.25)]">
@@ -679,7 +679,7 @@ export default function Events({ embedded = false }) {
                 initial={prefersReducedMotion ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.18 }}
+                transition={{ duration: 0.38, ease: "easeOut" }}
                 className="fixed inset-0 z-50 flex items-center justify-center bg-[#020b12]/80 p-3 sm:p-5"
                 onClick={() => setSelectedEventModal(null)}
               >
@@ -696,13 +696,13 @@ export default function Events({ embedded = false }) {
                   initial={
                     prefersReducedMotion
                       ? false
-                      : { opacity: 0, scale: 0.9, rotateX: -12, y: 18 }
+                      : { opacity: 0, scale: 0.86, rotateX: -9, y: 28 }
                   }
                   animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.96, y: 10 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  exit={{ opacity: 0, scale: 0.94, y: 16 }}
+                  transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
                   style={{ transformPerspective: 1200 }}
-                  className="relative w-full max-w-[720px] overflow-hidden rounded-[10px] border border-[#d4ad58] bg-[#f4ead4] text-[#173f51] shadow-[0_28px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.2)_inset]"
+                  className="relative w-full max-w-[720px] overflow-hidden rounded-[18px] border border-[#d4ad58] bg-[#f4ead4] text-[#173f51] shadow-[0_28px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.2)_inset]"
                   onClick={(event) => event.stopPropagation()}
                   role="dialog"
                   aria-modal="true"

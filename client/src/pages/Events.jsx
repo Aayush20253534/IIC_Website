@@ -15,7 +15,7 @@ export default function Events({ embedded = false }) {
         aria-label="Events"
       >
         <img
-          src="/bg_images/event.png"
+          src="/bg_images/events.png"
           alt="Renaissance events"
           className="absolute inset-0 h-full w-full object-cover object-center"
           draggable="false"

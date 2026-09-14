@@ -158,7 +158,6 @@ export default function Events({ embedded = false }) {
       time: "09:30 AM",
       location: "Main Auditorium",
       description: "Setting sail on a journey of ideas, innovation and impact.",
-      visual: "✦",
       eyebrow: "Opening Summit",
       visualPosition: "18% 58%",
     },
@@ -170,7 +169,6 @@ export default function Events({ embedded = false }) {
       time: "11:30 AM",
       location: "Innovation Hub",
       description: "Build. Collaborate. Conquer.",
-      visual: "⚔",
       eyebrow: "Innovation Lab",
       visualPosition: "52% 48%",
     },
@@ -182,7 +180,6 @@ export default function Events({ embedded = false }) {
       time: "02:00 PM",
       location: "Learning Deck",
       description: "From concept to reality with industry experts.",
-      visual: "⚒",
       eyebrow: "Builder's Deck",
       visualPosition: "78% 50%",
     },
@@ -194,7 +191,6 @@ export default function Events({ embedded = false }) {
       time: "04:00 PM",
       location: "Main Auditorium",
       description: "Insights from visionaries shaping tomorrow.",
-      visual: "◉",
       eyebrow: "Leadership Forum",
       visualPosition: "26% 72%",
     },
@@ -206,7 +202,6 @@ export default function Events({ embedded = false }) {
       time: "06:00 PM",
       location: "The Harbor Deck",
       description: "Conversations. Connections. Opportunities.",
-      visual: "◎",
       eyebrow: "Harbor Meetup",
       visualPosition: "58% 72%",
     },
@@ -218,7 +213,6 @@ export default function Events({ embedded = false }) {
       time: "07:30 PM",
       location: "Open Air Arena",
       description: "Unwind. Celebrate. Create memories.",
-      visual: "♪",
       eyebrow: "Night at Sea",
       visualPosition: "88% 72%",
     },
@@ -463,37 +457,33 @@ export default function Events({ embedded = false }) {
                   initial={
                     prefersReducedMotion
                       ? false
-                      : { opacity: 0, y: 46, x: index % 2 === 0 ? -12 : 12, rotate: index % 2 === 0 ? -1.2 : 1.2, scale: 0.97 }
+                      : { opacity: 0, y: 42, x: index % 2 === 0 ? -10 : 10, scale: 0.975 }
                   }
-                  whileInView={{ opacity: 1, y: 0, x: 0, rotate: 0, scale: 1 }}
-                  exit={prefersReducedMotion ? undefined : { opacity: 0, y: 18, scale: 0.97 }}
+                  whileInView={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+                  exit={prefersReducedMotion ? undefined : { opacity: 0, y: 16, scale: 0.98 }}
                   viewport={{ once: true, amount: 0.16 }}
                   transition={{
-                    duration: 0.58,
-                    delay: prefersReducedMotion ? 0 : (index % 3) * 0.07,
+                    duration: 0.56,
+                    delay: prefersReducedMotion ? 0 : (index % 3) * 0.065,
                     ease: [0.22, 1, 0.36, 1],
-                    layout: { duration: 0.34, ease: [0.22, 1, 0.36, 1] },
+                    layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                   }}
-                  whileHover={
-                    prefersReducedMotion
-                      ? undefined
-                      : { y: -7, scale: 1.012 }
-                  }
-                  className="group relative overflow-hidden rounded-[20px] border border-[#eadfca] bg-[#fffdf8]/96 shadow-[0_12px_32px_rgba(45,61,58,.13)] transition-[border-color,box-shadow,transform] duration-300 hover:border-[#d8c18f] hover:shadow-[0_18px_38px_rgba(45,61,58,.17)]"
-                  style={{ contentVisibility: "auto", containIntrinsicSize: "320px" }}
+                  whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.008 }}
+                  className="group relative isolate h-full overflow-hidden rounded-[24px] border border-[#dfd0b7] bg-[#fffdf9] shadow-[0_10px_28px_rgba(38,64,65,.11)] transition-[border-color,box-shadow] duration-300 hover:border-[#cdb47c] hover:shadow-[0_18px_40px_rgba(38,64,65,.16)]"
+                  style={{ contentVisibility: "auto", containIntrinsicSize: "350px" }}
                 >
                   <button
                     type="button"
                     onClick={() => setSelectedEventModal(event)}
-                    className="block w-full text-left"
+                    className="flex h-full w-full flex-col text-left"
                     aria-label={`View details for ${event.title}`}
                   >
-                    <div className="relative h-[118px] overflow-hidden sm:h-[126px] lg:h-[138px]">
+                    <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px]">
                       <motion.div
-                        className="absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 group-hover:scale-[1.075]"
+                        className="absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 group-hover:scale-[1.055]"
                         style={{
                           backgroundImage:
-                            "linear-gradient(180deg, rgba(4,35,50,.12), rgba(4,35,50,.48)), url('/ship-map-hero.jpg')",
+                            "linear-gradient(180deg, rgba(4,35,50,.08), rgba(4,35,50,.46)), url('/ship-map-hero.jpg')",
                           backgroundPosition: event.visualPosition,
                         }}
                         animate={
@@ -505,10 +495,7 @@ export default function Events({ embedded = false }) {
                                   index % 2 === 0
                                     ? [-16, 14, -9, 17, -16]
                                     : [16, -14, 9, -17, 16],
-                                scale: [1.07, 1.115, 1.085, 1.12, 1.07],
-                                rotate: index % 2 === 0
-                                  ? [-0.35, 0.22, -0.12, 0.28, -0.35]
-                                  : [0.35, -0.22, 0.12, -0.28, 0.35],
+                                scale: [1.07, 1.11, 1.085, 1.115, 1.07],
                               }
                         }
                         transition={{
@@ -518,100 +505,71 @@ export default function Events({ embedded = false }) {
                           delay: index * 0.12,
                         }}
                       />
-                      <motion.div
-                        className="absolute inset-0 bg-[linear-gradient(120deg,rgba(7,53,70,.26),transparent_50%,rgba(219,167,78,.14))]"
-                        animate={
-                          prefersReducedMotion
-                            ? undefined
-                            : { opacity: [0.52, 1, 0.64, 0.94, 0.52] }
-                        }
-                        transition={{ duration: 4.9, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 }}
-                      />
+
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,27,39,.12)_0%,rgba(2,27,39,.08)_48%,rgba(2,27,39,.68)_100%)]" />
+
                       {!prefersReducedMotion && (
-                        <>
-                          <motion.div
-                            className="absolute inset-x-[-12%] bottom-[16%] h-6 rounded-[50%] border-t border-white/35 blur-[0.8px]"
-                            animate={{ x: [-22, 26, -22], y: [0, -3, 0], scaleX: [0.82, 1.12, 0.82], opacity: [0.1, 0.52, 0.1] }}
-                            transition={{ duration: 4.3 + (index % 2) * 0.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.08 }}
-                          />
-                          <motion.div
-                            className="absolute -left-[18%] bottom-[25%] h-px w-[58%] bg-gradient-to-r from-transparent via-white/70 to-transparent blur-[0.5px]"
-                            animate={{ x: [0, 360], opacity: [0, 0.62, 0], scaleX: [0.55, 1.25, 0.55] }}
-                            transition={{ duration: 3.5 + (index % 3) * 0.36, repeat: Infinity, ease: "easeInOut", delay: index * 0.13 }}
-                          />
-                          <motion.div
-                            className="absolute -left-[45%] top-0 h-full w-[34%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/24 to-transparent mix-blend-screen"
-                          animate={{ x: [0, 760] }}
+                        <motion.div
+                          className="absolute -left-[35%] bottom-[18%] h-px w-[54%] bg-gradient-to-r from-transparent via-white/55 to-transparent"
+                          animate={{ x: [0, 520], opacity: [0, 0.48, 0] }}
                           transition={{
-                            duration: 3.1,
+                            duration: 5.8 + (index % 3) * 0.45,
                             repeat: Infinity,
-                            repeatDelay: 1.55 + (index % 3) * 0.28,
-                            delay: index * 0.18,
                             ease: "easeInOut",
+                            delay: index * 0.16,
                           }}
                         />
-                        </>
                       )}
-                      <div className="absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/15" />
-                      <div className="absolute left-4 top-3 rounded-full border border-white/25 bg-[#073b4d]/55 px-2.5 py-1 font-montserrat text-[9px] font-extrabold uppercase tracking-[0.14em] text-white/90 backdrop-blur-md">
+
+                      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent" />
+                      <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-[#073b4d]/72 px-3 py-1.5 font-montserrat text-[9px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[0_5px_16px_rgba(0,0,0,.16)] backdrop-blur-md">
                         {event.eyebrow}
                       </div>
-                      <motion.div
-                        className="absolute right-4 top-1/2 -translate-y-1/2 font-cinzel text-4xl text-[#f2cf82]/85 drop-shadow-[0_3px_12px_rgba(0,0,0,.35)] sm:text-5xl"
-                        animate={
-                          prefersReducedMotion
-                            ? undefined
-                            : { y: [0, -8, 2, -5, 0], rotate: [-5, 5, -3, 4, -5], scale: [1, 1.1, 1.03, 1.08, 1] }
-                        }
-                        transition={{
-                          duration: 5.1 + (index % 2) * 0.64,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: index * 0.18,
-                        }}
-                        whileHover={prefersReducedMotion ? undefined : { scale: 1.18, rotate: 6 }}
-                      >
-                        {event.visual}
-                      </motion.div>
-                      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#092c3a]/65 to-transparent" />
+
+                      <div className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#082f40]/72 px-2.5 py-1.5 font-mono text-[9px] font-bold tracking-wide text-white/95 backdrop-blur-md">
+                        <svg className="h-3.5 w-3.5 text-[#f2c768]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                          <circle cx="12" cy="12" r="8.5" />
+                          <path d="M12 7v5l3 2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        {event.time}
+                      </div>
                     </div>
 
-                    <div className="relative px-4 pb-4 pt-5 sm:px-5">
-                      <span className="absolute -top-4 left-4 rounded-full border border-[#dfbd68] bg-[#f7df9c] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.12em] text-[#654a12] shadow-[0_3px_10px_rgba(77,57,14,.12)] transition-transform duration-300 group-hover:-translate-y-0.5">
+                    <div className="relative flex flex-1 flex-col px-5 pb-5 pt-6 sm:px-5">
+                      <span className="absolute -top-4 left-5 rounded-full border border-[#d8b55d] bg-[#f8df98] px-3.5 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.14em] text-[#65480e] shadow-[0_4px_12px_rgba(94,67,17,.12)]">
                         {event.label}
                       </span>
 
-                      <div className="flex items-start justify-between gap-3">
-                        <h2 className="min-w-0 font-cinzel text-[15px] font-bold leading-[1.2] text-[#153f51] transition-colors group-hover:text-[#9a5c11] sm:text-base">
-                          {event.title}
-                        </h2>
-                        <span className="mt-0.5 shrink-0 whitespace-nowrap font-mono text-[10px] font-semibold text-[#56727f]">
-                          ◷ {event.time}
+                      <h2 className="font-cinzel text-[16px] font-bold leading-[1.22] text-[#123f55] transition-colors duration-300 group-hover:text-[#8f5915] sm:text-[17px]">
+                        {event.title}
+                      </h2>
+
+                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 font-montserrat text-[10px] font-semibold text-[#5d7781] sm:text-[11px]">
+                        <span className="inline-flex min-w-0 items-center gap-1.5">
+                          <svg className="h-3.5 w-3.5 shrink-0 text-[#c74247]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
+                            <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" strokeLinecap="round" strokeLinejoin="round" />
+                            <circle cx="12" cy="10" r="2.3" />
+                          </svg>
+                          <span className="truncate">{event.location}</span>
                         </span>
+                        <span className="h-1 w-1 rounded-full bg-[#d5c4a4]" aria-hidden="true" />
+                        <span className="uppercase tracking-[0.11em] text-[#87979d]">{event.category}</span>
                       </div>
 
-                      <p className="mt-2 flex items-center gap-1.5 font-montserrat text-[11px] font-semibold text-[#536e79]">
-                        <span className="text-[#cc3340]" aria-hidden="true">●</span>
-                        <span className="truncate">{event.location}</span>
-                      </p>
-
-                      <p className="mt-2 line-clamp-2 min-h-[34px] font-montserrat text-[11px] leading-[1.55] text-[#687b82] sm:text-xs">
+                      <p className="mt-3 line-clamp-2 min-h-[38px] font-montserrat text-[11px] leading-[1.65] text-[#6c7f86] sm:text-xs">
                         {event.description}
                       </p>
 
-                      <div className="mt-3 flex items-center justify-between border-t border-[#eee5d5] pt-3">
-                        <span className="font-montserrat text-[10px] font-bold uppercase tracking-[0.12em] text-[#82939a]">
-                          {event.category}
+                      <div className="mt-auto flex items-center justify-between border-t border-[#eee4d3] pt-4">
+                        <span className="font-montserrat text-[9px] font-bold uppercase tracking-[0.16em] text-[#a18f70]">
+                          Explore the voyage
                         </span>
-                        <span className="inline-flex items-center gap-1.5 font-montserrat text-[11px] font-extrabold text-[#a4600d] transition-all group-hover:gap-2.5">
-                          View Details
-                          <motion.span
-                            aria-hidden="true"
-                            animate={prefersReducedMotion ? undefined : { x: [0, 4, 0] }}
-                            transition={{ duration: 2.7, repeat: Infinity, ease: "easeInOut" }}
-                          >
-                            →
-                          </motion.span>
+                        <span className="inline-flex items-center gap-2 rounded-full bg-[#0a5269] px-3.5 py-2 font-montserrat text-[10px] font-extrabold text-white shadow-[0_5px_14px_rgba(10,82,105,.18)] transition-all duration-300 group-hover:bg-[#0b617c] group-hover:shadow-[0_7px_18px_rgba(10,82,105,.24)]">
+                          View details
+                          <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                            <path d="M5 12h14" strokeLinecap="round" />
+                            <path d="m14 7 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
                         </span>
                       </div>
                     </div>

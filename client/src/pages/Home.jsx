@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 import { useSmoothScroll } from "../lib/smoothScroll";
+import ContactFooter from "../components/ContactFooter";
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -239,7 +240,7 @@ export default function Home() {
       <section
         id="sponsors"
         ref={sponsorsSectionRef}
-        className="relative w-full h-screen bg-[#020610]/95 border-y border-[#38BDF8]/20 flex flex-col justify-between py-6 px-6 sm:px-12 overflow-hidden select-none"
+        className="relative w-full h-screen bg-[#020610]/95 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-24 sm:pt-28 pb-6 px-6 sm:px-12 overflow-hidden select-none"
       >
         {/* Colossal Full Screen Height Wheel (Anchored to exact left boundary of monitor: left-0 -translate-x-1/2) */}
         <div
@@ -431,6 +432,9 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      {/* Global Summit Footer */}
+      <ContactFooter />
     </div>
   );
 }

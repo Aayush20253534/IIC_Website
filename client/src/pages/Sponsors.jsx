@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { SPONSOR_TIERS } from "../data/sponsorsData";
-import SponsorStream from "../components/SponsorStream";
 import ContactFooter from "../components/ContactFooter";
 import SocialSideRail from "../components/SocialSideRail";
 import ScrollIndicatorRail from "../components/ScrollIndicatorRail";
@@ -71,12 +70,9 @@ export default function Sponsors({ embedded = false }) {
         </>
       )}
 
-      {/* Continuous sponsor fleet / ocean scene */}
-      <SponsorStream />
-
       <div
         id="sponsor-tiers"
-        className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-16"
+        className={`relative max-w-6xl mx-auto px-4 sm:px-6 ${embedded ? "pt-4" : "pt-28"} pb-16`}
       >
         <div className="text-center mb-14">
           <p className="text-[10px] sm:text-xs tracking-[0.38em] uppercase text-[#C5A25F] mb-3">

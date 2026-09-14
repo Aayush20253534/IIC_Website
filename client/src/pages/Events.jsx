@@ -65,13 +65,89 @@ export default function Events({ embedded = false }) {
 
   // Standalone /events catalogue. The embedded homepage timeline below stays untouched.
   const standaloneCategories = [
-    { label: "All Events", icon: "✦" },
-    { label: "Competitions", icon: "⚔" },
-    { label: "Workshops", icon: "⚒" },
-    { label: "Talks", icon: "◉" },
-    { label: "Networking", icon: "◎" },
-    { label: "Cultural", icon: "♪" },
+    "All Events",
+    "Competitions",
+    "Workshops",
+    "Talks",
+    "Networking",
+    "Cultural",
   ];
+
+  const renderStandaloneCategoryIcon = (label) => {
+    const iconClass = "h-[18px] w-[18px]";
+    const commonProps = {
+      className: iconClass,
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: 1.9,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      "aria-hidden": true,
+    };
+
+    switch (label) {
+      case "Competitions":
+        return (
+          <svg {...commonProps}>
+            <path d="m14.5 5.5 4-4 1.5 1.5-4 4" />
+            <path d="m10 10 6-6" />
+            <path d="m4 20 6.5-6.5" />
+            <path d="m3 15 6 6" />
+            <path d="m9.5 5.5-4-4L4 3l4 4" />
+            <path d="m14 10-6-6" />
+            <path d="m20 20-6.5-6.5" />
+            <path d="m15 21 6-6" />
+          </svg>
+        );
+      case "Workshops":
+        return (
+          <svg {...commonProps}>
+            <path d="M14.7 6.3a4 4 0 0 0-5.5 5.5l-6.7 6.7a1.4 1.4 0 0 0 2 2l6.7-6.7a4 4 0 0 0 5.5-5.5l-2.3 2.3-2.7-.7-.7-2.7 2.3-2.3Z" />
+            <path d="m15 15 5 5" />
+          </svg>
+        );
+      case "Talks":
+        return (
+          <svg {...commonProps}>
+            <rect x="9" y="2.5" width="6" height="12" rx="3" />
+            <path d="M5.5 10.5a6.5 6.5 0 0 0 13 0" />
+            <path d="M12 17v4" />
+            <path d="M9 21h6" />
+          </svg>
+        );
+      case "Networking":
+        return (
+          <svg {...commonProps}>
+            <circle cx="9" cy="8" r="3" />
+            <circle cx="17" cy="9" r="2.5" />
+            <path d="M3.5 19c.8-3.5 2.7-5.2 5.5-5.2s4.7 1.7 5.5 5.2" />
+            <path d="M14.5 14.8c2.8-.8 5 .6 6 3.7" />
+          </svg>
+        );
+      case "Cultural":
+        return (
+          <svg {...commonProps}>
+            <path d="M9 18V5l10-2v13" />
+            <ellipse cx="6.5" cy="18" rx="2.5" ry="2" />
+            <ellipse cx="16.5" cy="16" rx="2.5" ry="2" />
+            <path d="M9 9l10-2" />
+          </svg>
+        );
+      case "All Events":
+      default:
+        return (
+          <svg {...commonProps}>
+            <circle cx="12" cy="12" r="8.5" />
+            <path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9 3.9-1.7Z" />
+            <path d="M12 1.8v2" />
+            <path d="M12 20.2v2" />
+            <path d="M1.8 12h2" />
+            <path d="M20.2 12h2" />
+          </svg>
+        );
+    }
+  };
 
   const standaloneEvents = [
     {
@@ -323,28 +399,46 @@ export default function Events({ embedded = false }) {
               />
             </label>
 
-            <div className="grid min-w-0 grid-cols-3 gap-1.5 rounded-[17px] border border-[#d9ccb7] bg-white/90 p-1.5 sm:grid-cols-6">
-              {standaloneCategories.map(({ label, icon }) => {
+            <div className="grid min-w-0 grid-cols-2 gap-2 rounded-[18px] border border-[#d9ccb7] bg-white/95 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,.95)] sm:grid-cols-3 lg:grid-cols-6">
+              {standaloneCategories.map((label) => {
                 const isActive = eventFilter === label;
                 return (
                   <motion.button
                     key={label}
                     type="button"
                     onClick={() => setEventFilter(label)}
-                    whileHover={prefersReducedMotion ? undefined : { y: -2, scale: 1.025 }}
-                    whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
-                    transition={{ type: "spring", stiffness: 420, damping: 24 }}
-                    className={`flex min-w-0 items-center justify-center gap-1.5 rounded-[12px] px-2 py-2.5 font-montserrat text-[10px] font-extrabold transition-all duration-200 sm:text-[11px] ${
+                    whileHover={
+                      prefersReducedMotion
+                        ? undefined
+                        : { y: -3, scale: 1.025 }
+                    }
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.965 }}
+                    transition={{ type: "spring", stiffness: 430, damping: 25 }}
+                    className={`group/filter relative flex min-h-[48px] min-w-0 items-center justify-center gap-2 overflow-hidden rounded-[13px] border px-2.5 py-2 font-montserrat text-[10px] font-extrabold tracking-[-0.01em] transition-[color,background-color,border-color,box-shadow] duration-200 sm:text-[11px] ${
                       isActive
-                        ? "bg-[#0c5870] text-white shadow-[inset_0_0_0_1px_rgba(225,174,80,.85),0_5px_14px_rgba(12,88,112,.22)]"
-                        : "text-[#2c5c6e] hover:bg-[#edf2ef] hover:text-[#123f55]"
+                        ? "border-[#d8a642] bg-gradient-to-b from-[#12677f] to-[#0a526a] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_7px_18px_rgba(12,88,112,.22)]"
+                        : "border-transparent bg-transparent text-[#2c5c6e] hover:border-[#dfd3bf] hover:bg-[#f5f3ec] hover:text-[#123f55] hover:shadow-[0_5px_14px_rgba(38,82,96,.08)]"
                     }`}
                     aria-pressed={isActive}
                   >
-                    <span className="hidden text-[#e7bd66] sm:inline" aria-hidden="true">
-                      {icon}
+                    <span
+                      className={`relative flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border transition-all duration-200 ${
+                        isActive
+                          ? "border-[#f0cf82]/45 bg-[#f4c86a]/15 text-[#f6cf79] shadow-[0_0_14px_rgba(230,183,88,.15)]"
+                          : "border-[#d8c8aa] bg-[#fbf5e9] text-[#c69335] group-hover/filter:border-[#d7b86f] group-hover/filter:bg-[#fff9ec] group-hover/filter:text-[#ad7822]"
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {renderStandaloneCategoryIcon(label)}
                     </span>
-                    <span className="truncate">{label}</span>
+                    <span className="min-w-0 truncate leading-none">{label}</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="events-filter-active-glow"
+                        className="pointer-events-none absolute inset-x-5 bottom-0 h-px bg-gradient-to-r from-transparent via-[#f2c967] to-transparent"
+                        transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                      />
+                    )}
                   </motion.button>
                 );
               })}

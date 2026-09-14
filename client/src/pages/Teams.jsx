@@ -9,14 +9,16 @@ const MAIN_SECTION_HEADING_CLASS =
 
 const facultyIncharges = [
   {
-    name: "Faculty Incharge 1",
-    image_url: DUMMY_MEMBER_PHOTO,
-    linkedin: "https://www.linkedin.com/in/faculty-incharge-1/",
+    name: "Prof. Mukul Shukla",
+    image_url:
+      "https://res.cloudinary.com/ddjzcyl4d/image/upload/v1774029796/image_1_roojuv.avif",
+    linkedin: "https://www.linkedin.com/in/mukul-shukla-329a7121",
   },
   {
-    name: "Faculty Incharge 2",
-    image_url: DUMMY_MEMBER_PHOTO,
-    linkedin: "https://www.linkedin.com/in/faculty-incharge-2/",
+    name: "Prof. Mayank Pandey",
+    image_url:
+      "https://res.cloudinary.com/ddjzcyl4d/image/upload/v1774029797/image_wj6szw.avif",
+    linkedin: "https://www.linkedin.com/in/mayank-pandey-0b433137/",
   },
 ];
 
@@ -116,6 +118,33 @@ const MemberCard = ({ member, compact = false }) => (
   </div>
 );
 
+const FacultyCard = ({ member }) => (
+  <article className="teams-member-card group flex w-[220px] flex-col rounded-2xl border border-[#D8C4A8] bg-[#FDF3DF] p-3.5 text-center shadow-[0_10px_24px_rgba(84,64,43,0.2)] transition-all duration-300 sm:w-[232px] sm:p-4">
+    <div className="aspect-square w-full overflow-hidden rounded-xl border border-[#D8C4A8] bg-[#EAD7BC]">
+      <img
+        src={member.image_url}
+        alt={member.name}
+        className="h-full w-full object-cover"
+        onError={(e) => {
+          e.currentTarget.src = "/placeholder-speaker.svg";
+        }}
+      />
+    </div>
+    <h3 className="mt-5 font-cinzel text-xl font-bold text-[#40352B] sm:text-2xl">
+      {member.name}
+    </h3>
+    <a
+      href={member.linkedin}
+      target="_blank"
+      rel="noreferrer"
+      className="mt-4 inline-flex items-center justify-center gap-2 self-center font-montserrat text-xs font-bold uppercase tracking-[0.13em] text-[#7A6A58] transition-colors hover:text-[#40352B]"
+    >
+      <FaLinkedin className="text-lg" aria-hidden="true" />
+      <span>LinkedIn</span>
+    </a>
+  </article>
+);
+
 const ScrollingMemberRow = ({ members, label, compact = false }) => {
   const [isPaused, setIsPaused] = useState(false);
 
@@ -152,7 +181,7 @@ const ScrollingMemberRow = ({ members, label, compact = false }) => {
 
 export default function Teams({ embedded = false }) {
   return (
-    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-[#F3E3C6] text-[#173F56] flex flex-col justify-between`}>
+    <div className={`${embedded ? "py-16" : "min-h-screen pt-20 pb-12"} bg-[radial-gradient(ellipse_at_15%_18%,rgba(249,231,196,0.60)_0%,transparent_34%),radial-gradient(ellipse_at_85%_76%,rgba(128,199,220,0.35)_0%,transparent_36%),linear-gradient(180deg,#E9DFC9_0%,#C6DEE0_20%,#D7E1D9_44%,#F2E8C8_72%,#FFD9A5_100%)] text-[#173F56] flex flex-col justify-between`}>
       <style>{`
         @keyframes teams-member-scroll {
           from { transform: translateX(0); }
@@ -170,14 +199,29 @@ export default function Teams({ embedded = false }) {
         }
       `}</style>
       <div className="max-w-6xl mx-auto px-6 w-full mb-36">
-        <div className="text-center mb-8 p-6 sm:p-8 rounded-3xl bg-[#8ED3F4] border border-[#238BBB] shadow-[0_10px_26px_rgba(35,93,119,0.2)] max-w-3xl mx-auto">
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#173F56] bg-[#FDF3DF] border border-[#238BBB]/40 uppercase mb-3 font-semibold">
-            The Organizing Guild
-          </span>
-          <h1 className="font-cinzel text-3xl sm:text-5xl font-bold text-[#173F56] mb-2">The Team</h1>
-          <div className="w-16 h-[2px] bg-[#9A6B27] mx-auto mb-4" />
-          <p className="font-montserrat text-xs text-[#173F56]">Meet the people behind Renaissance 2026.</p>
-        </div>
+        <header className="relative mb-6 rounded-[26px] border border-[#C9953D] bg-[#FDF6E8] p-1.5 shadow-[0_16px_32px_rgba(92,67,27,0.18)] sm:rounded-[30px] sm:p-2">
+          <div className="relative flex min-h-[190px] flex-col items-center justify-center overflow-hidden rounded-[20px] border border-[#E1BC73] px-5 py-6 text-center sm:min-h-[200px] sm:rounded-[23px] sm:py-6">
+            <span className="absolute left-3 top-2 font-serif text-sm text-[#B98531] sm:left-4 sm:top-3">✦</span>
+            <span className="absolute right-3 top-2 font-serif text-sm text-[#B98531] sm:right-4 sm:top-3">✦</span>
+            <span className="absolute bottom-2 left-3 font-serif text-sm text-[#B98531] sm:bottom-3 sm:left-4">✦</span>
+            <span className="absolute bottom-2 right-3 font-serif text-sm text-[#B98531] sm:bottom-3 sm:right-4">✦</span>
+
+            <span className="rounded-full border border-[#C9953D] px-4 py-2 font-mono text-[8px] font-bold uppercase tracking-[0.32em] text-[#A97929] sm:px-6 sm:text-xs sm:tracking-[0.5em]">
+              ✦ The Organizing Guild ✦
+            </span>
+            <h1 className="mt-4 font-cinzel text-3xl font-bold uppercase tracking-[0.08em] text-[#31291F] sm:mt-5 sm:text-4xl">
+              The Team
+            </h1>
+            <div className="mt-4 flex items-center gap-3 text-[#C9953D] sm:mt-5 sm:gap-5">
+              <span className="h-px w-14 bg-[#C9953D] sm:w-28" />
+              <span className="text-sm">✦</span>
+              <span className="h-px w-14 bg-[#C9953D] sm:w-28" />
+            </div>
+            <p className="mt-3 font-montserrat text-xs font-medium tracking-wide text-[#796E5B] sm:mt-4 sm:text-base">
+              Meet the people behind Renaissance 2026.
+            </p>
+          </div>
+        </header>
 
         <div className="space-y-14">
           <section aria-labelledby="faculty-incharge-heading">
@@ -188,11 +232,9 @@ export default function Teams({ embedded = false }) {
               <span className="transition-transform duration-300 group-hover:scale-105">Faculty Incharge</span>
               <span className="mt-3 h-1 w-24 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
             </h2>
-            <div className="flex justify-center gap-8 overflow-x-auto px-1 pb-2">
+            <div className="flex justify-center gap-8 overflow-x-auto px-1 pb-2 sm:gap-12">
               {facultyIncharges.map((member) => (
-                <div key={member.name} className="w-[280px] shrink-0">
-                  <MemberCard member={member} />
-                </div>
+                <FacultyCard key={member.name} member={member} />
               ))}
             </div>
           </section>

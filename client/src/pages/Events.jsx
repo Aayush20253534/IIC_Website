@@ -87,7 +87,7 @@ export default function Events({ embedded = false }) {
       setSelectedEventModal(event);
       setOpeningEventId(null);
       openingTimerRef.current = null;
-    }, 2860);
+    }, 1520);
   };
 
   const [eventSearch, setEventSearch] = useState("");
@@ -508,15 +508,15 @@ export default function Events({ embedded = false }) {
                     animate={
                       openingEventId === event.id && !prefersReducedMotion
                         ? {
-                            rotateY: [0, 360, 720, 0],
-                            rotateZ: [0, 0.7, 1.05, 0],
-                            scale: [1, 0.965, 1.018, 1],
+                            rotateY: [0, 180, 0],
+                            rotateZ: [0, 0.65, 0],
+                            scale: [1, 0.965, 1],
                           }
                         : { rotateY: 0, rotateZ: 0, scale: 1 }
                     }
                     transition={{
-                      duration: openingEventId === event.id ? 2.8 : 0.18,
-                      times: openingEventId === event.id ? [0, 0.34, 0.62, 1] : undefined,
+                      duration: openingEventId === event.id ? 1.46 : 0.18,
+                      times: openingEventId === event.id ? [0, 0.5, 1] : undefined,
                       ease: openingEventId === event.id ? "easeInOut" : "easeOut",
                     }}
                     style={{ transformPerspective: 1100 }}
@@ -690,11 +690,11 @@ export default function Events({ embedded = false }) {
                     prefersReducedMotion
                       ? { opacity: 1, scale: 1 }
                       : {
-                          opacity: [0, 0.42, 0.78, 1, 1],
-                          scale: [0.08, 0.24, 0.56, 1.045, 1],
-                          rotate: [0, 180, 360, 540, 720],
-                          y: [0, -4, 5, -2, 0],
-                          borderRadius: ["50%", "48%", "36%", "24px", "18px"],
+                          opacity: [0, 0.48, 0.68, 0.82, 0.94, 1, 1],
+                          scale: [0.04, 0.055, 0.075, 0.11, 0.5, 1.06, 1],
+                          rotate: [0, 720, 1440, 2160, 2880, 3240, 3600],
+                          y: [0, -2, 2, -2, 3, -1, 0],
+                          borderRadius: ["50%", "50%", "50%", "48%", "40%", "24px", "18px"],
                         }
                   }
                   exit={
@@ -706,9 +706,9 @@ export default function Events({ embedded = false }) {
                     prefersReducedMotion
                       ? { duration: 0.2 }
                       : {
-                          duration: 1.55,
-                          times: [0, 0.25, 0.52, 0.82, 1],
-                          ease: [0.22, 0.9, 0.22, 1],
+                          duration: 2.75,
+                          times: [0, 0.18, 0.36, 0.54, 0.72, 0.9, 1],
+                          ease: [0.16, 0.84, 0.2, 1],
                         }
                   }
                   style={{ transformPerspective: 1200, transformOrigin: "50% 50%" }}

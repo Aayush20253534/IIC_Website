@@ -21,14 +21,14 @@ export default function Events({ embedded = false }) {
     offset: ["start start", "end start"],
   });
   const heroParallaxY = useSpring(
-    useTransform(heroScrollProgress, [0, 1], [0, 68]),
+    useTransform(heroScrollProgress, [0, 1], [0, 108]),
     { stiffness: 88, damping: 24, mass: 0.35 },
   );
   const heroParallaxX = useSpring(
-    useTransform(heroScrollProgress, [0, 1], [0, -20]),
+    useTransform(heroScrollProgress, [0, 1], [0, -42]),
     { stiffness: 88, damping: 24, mass: 0.35 },
   );
-  const heroScale = useTransform(heroScrollProgress, [0, 1], [1.025, 1.085]);
+  const heroScale = useTransform(heroScrollProgress, [0, 1], [1.045, 1.13]);
   const heroCueOpacity = useTransform(heroScrollProgress, [0, 0.42], [1, 0]);
   const heroPointerX = useMotionValue(0);
   const heroPointerY = useMotionValue(0);
@@ -51,8 +51,8 @@ export default function Events({ embedded = false }) {
 
     const normalizedX = (event.clientX - bounds.left) / bounds.width - 0.5;
     const normalizedY = (event.clientY - bounds.top) / bounds.height - 0.5;
-    heroPointerX.set(normalizedX * 18);
-    heroPointerY.set(normalizedY * 10);
+    heroPointerX.set(normalizedX * 30);
+    heroPointerY.set(normalizedY * 18);
   };
 
   const resetHeroPointer = () => {
@@ -198,10 +198,15 @@ export default function Events({ embedded = false }) {
               animate={
                 prefersReducedMotion
                   ? undefined
-                  : { x: [-7, 7, -7], y: [1, -4, 1], scale: [1.005, 1.018, 1.005] }
+                  : {
+                      x: [-30, 26, -18, 32, -30],
+                      y: [5, -12, 7, -9, 5],
+                      scale: [1.035, 1.075, 1.05, 1.082, 1.035],
+                      rotate: [-0.22, 0.16, -0.1, 0.2, -0.22],
+                    }
               }
               transition={{
-                duration: 5.1,
+                duration: 3.15,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
@@ -213,30 +218,45 @@ export default function Events({ embedded = false }) {
             <>
               <motion.div
                 className="absolute left-[44%] top-[72%] h-px w-[34%] origin-left bg-gradient-to-r from-transparent via-white/80 to-transparent blur-[0.35px]"
-                animate={{ x: [-18, 24, -18], opacity: [0.12, 0.68, 0.12], scaleX: [0.68, 1.16, 0.68] }}
-                transition={{ duration: 3.25, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ x: [-42, 54, -42], opacity: [0.08, 0.82, 0.08], scaleX: [0.58, 1.38, 0.58] }}
+                transition={{ duration: 1.95, repeat: Infinity, ease: "easeInOut" }}
               />
               <motion.div
                 className="absolute left-[50%] top-[77%] h-px w-[27%] origin-left bg-gradient-to-r from-transparent via-[#dff8ff]/75 to-transparent"
-                animate={{ x: [18, -14, 18], opacity: [0.08, 0.52, 0.08], scaleX: [0.8, 1.18, 0.8] }}
-                transition={{ duration: 3.9, repeat: Infinity, ease: "easeInOut", delay: 0.45 }}
+                animate={{ x: [34, -38, 34], opacity: [0.06, 0.66, 0.06], scaleX: [0.7, 1.32, 0.7] }}
+                transition={{ duration: 2.35, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
               />
               <motion.div
                 className="absolute left-[55%] top-[80%] h-[2px] w-[18%] origin-left rounded-full bg-gradient-to-r from-transparent via-white/65 to-transparent blur-[0.8px]"
-                animate={{ x: [-4, 22, -4], opacity: [0, 0.5, 0], scaleX: [0.6, 1.25, 0.6] }}
-                transition={{ duration: 2.75, repeat: Infinity, ease: "easeInOut", delay: 1.1 }}
+                animate={{ x: [-24, 44, -24], opacity: [0, 0.7, 0], scaleX: [0.5, 1.45, 0.5] }}
+                transition={{ duration: 1.65, repeat: Infinity, ease: "easeInOut", delay: 0.72 }}
+              />
+              <motion.div
+                className="absolute left-[48%] top-[74%] h-[2px] w-[23%] origin-left rounded-full bg-gradient-to-r from-transparent via-white/75 to-transparent blur-[1px]"
+                animate={{ x: [-35, 52, -35], y: [0, 3, 0], opacity: [0, 0.72, 0], scaleX: [0.48, 1.5, 0.48] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.18 }}
+              />
+              <motion.div
+                className="absolute left-[52%] top-[82%] h-px w-[31%] origin-left bg-gradient-to-r from-transparent via-[#e8fbff]/70 to-transparent blur-[0.5px]"
+                animate={{ x: [28, -46, 28], opacity: [0, 0.58, 0], scaleX: [0.62, 1.34, 0.62] }}
+                transition={{ duration: 2.15, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+              />
+              <motion.div
+                className="absolute left-[39%] top-[69%] h-8 w-[40%] rounded-[50%] border-t border-white/25 blur-[1.5px]"
+                animate={{ x: [-18, 26, -18], scaleX: [0.82, 1.08, 0.82], opacity: [0.08, 0.42, 0.08] }}
+                transition={{ duration: 2.45, repeat: Infinity, ease: "easeInOut" }}
               />
               <motion.div
                 className="absolute left-[58%] top-[45%] h-24 w-36 rounded-full bg-white/10 blur-3xl"
-                animate={{ x: [-18, 15, -18], y: [5, -7, 5], opacity: [0.1, 0.27, 0.1] }}
-                transition={{ duration: 4.9, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ x: [-42, 34, -42], y: [10, -16, 10], opacity: [0.08, 0.32, 0.08], scale: [0.9, 1.16, 0.9] }}
+                transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut" }}
               />
 
               {/* Sunlight sweeping across the water gives the hero a cinematic shimmer. */}
               <motion.div
                 className="absolute -left-[28%] top-[59%] h-28 w-[42%] -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-2xl mix-blend-screen"
-                animate={{ x: [0, 1700], opacity: [0, 0.45, 0] }}
-                transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.2 }}
+                animate={{ x: [0, 1700], opacity: [0, 0.55, 0] }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.55 }}
               />
 
               {/* Tiny distant birds cross at different speeds for extra depth. */}
@@ -378,7 +398,7 @@ export default function Events({ embedded = false }) {
                   whileHover={
                     prefersReducedMotion
                       ? undefined
-                      : { y: -11, scale: 1.018, rotateX: 1.8, rotateY: index % 2 === 0 ? 1.7 : -1.7 }
+                      : { y: -14, scale: 1.024, rotateX: 2.5, rotateY: index % 2 === 0 ? 2.4 : -2.4 }
                   }
                   className="group relative overflow-hidden rounded-[20px] border border-[#eadfca] bg-[#fffdf8]/96 shadow-[0_12px_32px_rgba(45,61,58,.13)] transition-[border-color,box-shadow] duration-300 hover:border-[#d8c18f] hover:shadow-[0_22px_48px_rgba(45,61,58,.2)] [transform-style:preserve-3d]"
                   style={{ perspective: 1100 }}
@@ -401,16 +421,22 @@ export default function Events({ embedded = false }) {
                           prefersReducedMotion
                             ? undefined
                             : {
-                                y: [-2, 2, -2],
-                                x: index % 2 === 0 ? [-2, 2, -2] : [2, -2, 2],
-                                scale: [1.025, 1.045, 1.025],
+                                y: [-10, 6, -5, 9, -10],
+                                x:
+                                  index % 2 === 0
+                                    ? [-16, 14, -9, 17, -16]
+                                    : [16, -14, 9, -17, 16],
+                                scale: [1.07, 1.115, 1.085, 1.12, 1.07],
+                                rotate: index % 2 === 0
+                                  ? [-0.35, 0.22, -0.12, 0.28, -0.35]
+                                  : [0.35, -0.22, 0.12, -0.28, 0.35],
                               }
                         }
                         transition={{
-                          duration: 4.9 + (index % 3) * 0.65,
+                          duration: 3.15 + (index % 3) * 0.38,
                           repeat: Infinity,
                           ease: "easeInOut",
-                          delay: index * 0.22,
+                          delay: index * 0.12,
                         }}
                       />
                       <motion.div
@@ -418,23 +444,45 @@ export default function Events({ embedded = false }) {
                         animate={
                           prefersReducedMotion
                             ? undefined
-                            : { opacity: [0.68, 0.98, 0.68] }
+                            : { opacity: [0.52, 1, 0.64, 0.94, 0.52] }
                         }
-                        transition={{ duration: 3.7, repeat: Infinity, ease: "easeInOut", delay: index * 0.15 }}
+                        transition={{ duration: 2.45, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 }}
                       />
                       {!prefersReducedMotion && (
-                        <motion.div
-                          className="absolute -left-[45%] top-0 h-full w-[34%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/24 to-transparent mix-blend-screen"
+                        <>
+                          <motion.div
+                            className="absolute inset-x-[-12%] bottom-[16%] h-6 rounded-[50%] border-t border-white/35 blur-[0.8px]"
+                            animate={{ x: [-22, 26, -22], y: [0, -3, 0], scaleX: [0.82, 1.12, 0.82], opacity: [0.1, 0.52, 0.1] }}
+                            transition={{ duration: 2.15 + (index % 2) * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.08 }}
+                          />
+                          <motion.div
+                            className="absolute -left-[18%] bottom-[25%] h-px w-[58%] bg-gradient-to-r from-transparent via-white/70 to-transparent blur-[0.5px]"
+                            animate={{ x: [0, 360], opacity: [0, 0.62, 0], scaleX: [0.55, 1.25, 0.55] }}
+                            transition={{ duration: 1.75 + (index % 3) * 0.18, repeat: Infinity, ease: "easeInOut", delay: index * 0.13 }}
+                          />
+                          <motion.div
+                            className="absolute right-[8%] top-[15%] h-12 w-12 rounded-full bg-[#ffe8a6]/18 blur-xl mix-blend-screen"
+                            animate={{ x: [-8, 12, -8], y: [4, -6, 4], opacity: [0.08, 0.3, 0.08], scale: [0.8, 1.18, 0.8] }}
+                            transition={{ duration: 2.8 + (index % 2) * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                          <motion.div
+                            className="absolute -left-[45%] top-0 h-full w-[34%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/24 to-transparent mix-blend-screen"
                           animate={{ x: [0, 760] }}
                           transition={{
-                            duration: 2.1,
+                            duration: 1.55,
                             repeat: Infinity,
-                            repeatDelay: 3.6 + (index % 3) * 0.65,
-                            delay: index * 0.34,
+                            repeatDelay: 1.55 + (index % 3) * 0.28,
+                            delay: index * 0.18,
                             ease: "easeInOut",
                           }}
                         />
+                        </>
                       )}
+                      <motion.div
+                        className="absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10"
+                        animate={prefersReducedMotion ? undefined : { boxShadow: ["inset 0 0 0 rgba(255,255,255,0)", "inset 0 0 24px rgba(255,224,158,.16)", "inset 0 0 0 rgba(255,255,255,0)"] }}
+                        transition={{ duration: 2.6 + (index % 3) * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 }}
+                      />
                       <div className="absolute left-4 top-3 rounded-full border border-white/25 bg-[#073b4d]/55 px-2.5 py-1 font-montserrat text-[9px] font-extrabold uppercase tracking-[0.14em] text-white/90 backdrop-blur-md">
                         {event.eyebrow}
                       </div>
@@ -443,10 +491,10 @@ export default function Events({ embedded = false }) {
                         animate={
                           prefersReducedMotion
                             ? undefined
-                            : { y: [0, -5, 0], rotate: [-3, 3, -3], scale: [1, 1.06, 1] }
+                            : { y: [0, -8, 2, -5, 0], rotate: [-5, 5, -3, 4, -5], scale: [1, 1.1, 1.03, 1.08, 1] }
                         }
                         transition={{
-                          duration: 3.4 + (index % 2) * 0.55,
+                          duration: 2.55 + (index % 2) * 0.32,
                           repeat: Infinity,
                           ease: "easeInOut",
                           delay: index * 0.18,
@@ -459,17 +507,25 @@ export default function Events({ embedded = false }) {
                     </div>
 
                     <div className="relative px-4 pb-4 pt-5 sm:px-5">
-                      <span className="absolute -top-4 left-4 rounded-full border border-[#dfbd68] bg-[#f7df9c] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.12em] text-[#654a12] shadow-[0_3px_10px_rgba(77,57,14,.12)]">
+                      <motion.span
+                        className="absolute -top-4 left-4 rounded-full border border-[#dfbd68] bg-[#f7df9c] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.12em] text-[#654a12] shadow-[0_3px_10px_rgba(77,57,14,.12)]"
+                        animate={prefersReducedMotion ? undefined : { y: [0, -2, 0], boxShadow: ["0 3px 10px rgba(77,57,14,.12)", "0 7px 18px rgba(183,127,27,.24)", "0 3px 10px rgba(77,57,14,.12)"] }}
+                        transition={{ duration: 2.2 + (index % 2) * 0.25, repeat: Infinity, ease: "easeInOut", delay: index * 0.12 }}
+                      >
                         {event.label}
-                      </span>
+                      </motion.span>
 
                       <div className="flex items-start justify-between gap-3">
                         <h2 className="min-w-0 font-cinzel text-[15px] font-bold leading-[1.2] text-[#153f51] transition-colors group-hover:text-[#9a5c11] sm:text-base">
                           {event.title}
                         </h2>
-                        <span className="mt-0.5 shrink-0 whitespace-nowrap font-mono text-[10px] font-semibold text-[#56727f]">
+                        <motion.span
+                          className="mt-0.5 shrink-0 whitespace-nowrap font-mono text-[10px] font-semibold text-[#56727f]"
+                          animate={prefersReducedMotion ? undefined : { opacity: [0.72, 1, 0.72] }}
+                          transition={{ duration: 1.7 + (index % 3) * 0.18, repeat: Infinity, ease: "easeInOut" }}
+                        >
                           ◷ {event.time}
-                        </span>
+                        </motion.span>
                       </div>
 
                       <p className="mt-2 flex items-center gap-1.5 font-montserrat text-[11px] font-semibold text-[#536e79]">

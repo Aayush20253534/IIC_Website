@@ -87,7 +87,7 @@ export default function Events({ embedded = false }) {
       setSelectedEventModal(event);
       setOpeningEventId(null);
       openingTimerRef.current = null;
-    }, 1580);
+    }, 2860);
   };
 
   const [eventSearch, setEventSearch] = useState("");
@@ -295,20 +295,19 @@ export default function Events({ embedded = false }) {
               aria-hidden="true"
               className="h-full w-full object-cover object-top will-change-transform"
               draggable="false"
+              initial={
+                prefersReducedMotion
+                  ? false
+                  : { x: -46, y: 4, scale: 1.055, rotate: -0.08 }
+              }
               animate={
                 prefersReducedMotion
                   ? undefined
-                  : {
-                      x: [-30, 26, -18, 32, -30],
-                      y: [5, -12, 7, -9, 5],
-                      scale: [1.035, 1.075, 1.05, 1.082, 1.035],
-                      rotate: [-0.22, 0.16, -0.1, 0.2, -0.22],
-                    }
+                  : { x: 34, y: -4, scale: 1.085, rotate: 0.08 }
               }
               transition={{
-                duration: 6.3,
-                repeat: Infinity,
-                ease: "easeInOut",
+                duration: 14.5,
+                ease: [0.22, 0.68, 0.26, 1],
               }}
             />
           </motion.div>
@@ -319,36 +318,36 @@ export default function Events({ embedded = false }) {
               <motion.div
                 className="absolute left-[44%] top-[72%] h-px w-[34%] origin-left bg-gradient-to-r from-transparent via-white/80 to-transparent blur-[0.35px]"
                 animate={{ x: [-42, 54, -42], opacity: [0.08, 0.82, 0.08], scaleX: [0.58, 1.38, 0.58] }}
-                transition={{ duration: 3.9, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 8.6, ease: "easeOut", delay: 1.1 }}
               />
               <motion.div
                 className="absolute left-[50%] top-[77%] h-px w-[27%] origin-left bg-gradient-to-r from-transparent via-[#dff8ff]/75 to-transparent"
                 animate={{ x: [34, -38, 34], opacity: [0.06, 0.66, 0.06], scaleX: [0.7, 1.32, 0.7] }}
-                transition={{ duration: 4.7, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                transition={{ duration: 9.8, ease: "easeOut", delay: 1.8 }}
               />
               <motion.div
                 className="absolute left-[55%] top-[80%] h-[2px] w-[18%] origin-left rounded-full bg-gradient-to-r from-transparent via-white/65 to-transparent blur-[0.8px]"
                 animate={{ x: [-24, 44, -24], opacity: [0, 0.7, 0], scaleX: [0.5, 1.45, 0.5] }}
-                transition={{ duration: 3.3, repeat: Infinity, ease: "easeInOut", delay: 0.72 }}
+                transition={{ duration: 8.1, ease: "easeOut", delay: 2.7 }}
               />
               <motion.div
                 className="absolute left-[39%] top-[69%] h-8 w-[40%] rounded-[50%] border-t border-white/25 blur-[1.5px]"
                 animate={{ x: [-18, 26, -18], scaleX: [0.82, 1.08, 0.82], opacity: [0.08, 0.42, 0.08] }}
-                transition={{ duration: 4.9, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 10.8, ease: "easeInOut", delay: 0.8 }}
               />
 
               {/* Sunlight sweeping across the water gives the hero a cinematic shimmer. */}
               <motion.div
                 className="absolute -left-[28%] top-[59%] h-28 w-[42%] -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-2xl mix-blend-screen"
                 animate={{ x: [0, 1700], opacity: [0, 0.55, 0] }}
-                transition={{ duration: 7.6, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.9 }}
+                transition={{ duration: 12.8, ease: "easeInOut", delay: 1.2 }}
               />
 
               {/* Tiny distant birds cross at different speeds for extra depth. */}
               <motion.span
                 className="absolute left-[18%] top-[31%] font-serif text-lg text-[#173f51]/45 drop-shadow-sm"
                 animate={{ x: [0, 165], y: [0, -13, 3], rotate: [-4, 5, -4], opacity: [0, 0.65, 0] }}
-                transition={{ duration: 7.2, repeat: Infinity, ease: "linear", repeatDelay: 1.1 }}
+                transition={{ duration: 12.4, ease: "linear", delay: 1.6 }}
                 aria-hidden="true"
               >
                 ︿
@@ -356,7 +355,7 @@ export default function Events({ embedded = false }) {
               <motion.span
                 className="absolute left-[30%] top-[38%] font-serif text-sm text-[#173f51]/35 drop-shadow-sm"
                 animate={{ x: [0, 120], y: [0, 9, -4], rotate: [3, -5, 3], opacity: [0, 0.5, 0] }}
-                transition={{ duration: 8.1, repeat: Infinity, ease: "linear", delay: 1.6, repeatDelay: 1.7 }}
+                transition={{ duration: 13.6, ease: "linear", delay: 2.4 }}
                 aria-hidden="true"
               >
                 ︿
@@ -509,35 +508,21 @@ export default function Events({ embedded = false }) {
                     animate={
                       openingEventId === event.id && !prefersReducedMotion
                         ? {
-                            rotateY: [0, 180, 360, 540, 720],
-                            rotateZ: [0, -1.2, 0.8, -0.5, 0],
-                            scale: [1, 0.96, 1.025, 0.975, 1],
+                            rotateY: [0, 360, 720, 0],
+                            rotateZ: [0, 0.7, 1.05, 0],
+                            scale: [1, 0.965, 1.018, 1],
                           }
                         : { rotateY: 0, rotateZ: 0, scale: 1 }
                     }
                     transition={{
-                      duration: openingEventId === event.id ? 1.55 : 0.18,
-                      ease: openingEventId === event.id ? [0.22, 0.75, 0.18, 1] : "easeOut",
+                      duration: openingEventId === event.id ? 2.8 : 0.18,
+                      times: openingEventId === event.id ? [0, 0.34, 0.62, 1] : undefined,
+                      ease: openingEventId === event.id ? "easeInOut" : "easeOut",
                     }}
                     style={{ transformPerspective: 1100 }}
                     className="relative flex h-full w-full flex-col text-left disabled:cursor-wait"
                     aria-label={`View details for ${event.title}`}
                   >
-                    <AnimatePresence>
-                      {openingEventId === event.id && !prefersReducedMotion && (
-                        <motion.span
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: [0, 1, 1, 0], scale: [0.9, 1, 1, 1.04] }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 1.48, times: [0, 0.18, 0.82, 1] }}
-                          className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center bg-[#062c3c]/20 backdrop-blur-[1px]"
-                        >
-                          <span className="border border-[#f0cb73]/75 bg-[#07384a]/90 px-4 py-2 font-montserrat text-[9px] font-black uppercase tracking-[0.22em] text-[#f6d98f] shadow-[0_8px_28px_rgba(0,0,0,.25)]">
-                            Opening notice
-                          </span>
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
                     <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px]">
                       <motion.div
                         className="absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 group-hover:scale-[1.055]"
@@ -546,23 +531,21 @@ export default function Events({ embedded = false }) {
                             "linear-gradient(180deg, rgba(4,35,50,.08), rgba(4,35,50,.46)), url('/ship-map-hero.jpg')",
                           backgroundPosition: event.visualPosition,
                         }}
-                        animate={
+                        initial={
+                          prefersReducedMotion
+                            ? false
+                            : { x: -24, y: 3, scale: 1.075 }
+                        }
+                        whileInView={
                           prefersReducedMotion
                             ? undefined
-                            : {
-                                y: [-10, 6, -5, 9, -10],
-                                x:
-                                  index % 2 === 0
-                                    ? [-16, 14, -9, 17, -16]
-                                    : [16, -14, 9, -17, 16],
-                                scale: [1.07, 1.11, 1.085, 1.115, 1.07],
-                              }
+                            : { x: 20, y: -3, scale: 1.1 }
                         }
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{
-                          duration: 6.3 + (index % 3) * 0.76,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: index * 0.12,
+                          duration: 11.5 + (index % 3) * 0.9,
+                          ease: [0.2, 0.65, 0.24, 1],
+                          delay: index * 0.28,
                         }}
                       />
 
@@ -573,10 +556,9 @@ export default function Events({ embedded = false }) {
                           className="absolute -left-[35%] bottom-[18%] h-px w-[54%] bg-gradient-to-r from-transparent via-white/55 to-transparent"
                           animate={{ x: [0, 520], opacity: [0, 0.48, 0] }}
                           transition={{
-                            duration: 5.8 + (index % 3) * 0.45,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: index * 0.16,
+                            duration: 10.5 + (index % 3) * 0.55,
+                            ease: "easeOut",
+                            delay: 0.8 + index * 0.24,
                           }}
                         />
                       )}

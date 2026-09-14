@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { Suspense, useMemo, useRef } from "react";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 
@@ -7,6 +7,8 @@ import { Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
 
 import Ocean from "./Ocean";
+
+import PirateShip from "./PirateShip";
 
 function CameraParallax() {
   const { camera, pointer } = useThree();
@@ -53,6 +55,48 @@ function Moon() {
   );
 }
 
+function ShipSpotlight() {
+  const lightRef = useRef();
+
+  const targetObj = useMemo(() => {
+    const obj = new THREE.Object3D();
+
+    obj.position.set(2.6, 0.5, -0.2);
+
+    return obj;
+  }, []);
+
+  return (
+    <>
+      <primitive object={targetObj} />
+
+      {/* Golden key light on proper pirate ship */}
+      <spotLight
+        ref={lightRef}
+        position={[-6, 18, 12]}
+        target={targetObj}
+        intensity={6.5}
+        angle={0.65}
+        penumbra={0.7}
+        color="#FDE047"
+        castShadow
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+      />
+
+      {/* Cyan rim light */}
+      <spotLight
+        position={[12, 16, -6]}
+        target={targetObj}
+        intensity={5.0}
+        angle={0.75}
+        penumbra={0.8}
+        color="#38BDF8"
+      />
+    </>
+  );
+}
+
 function Scene() {
   return (
     <>
@@ -62,7 +106,6 @@ function Scene() {
 
       <ambientLight intensity={0.5} color="#334E68" />
 
-      {/* Celestial directional lighting */}
       <directionalLight
         position={[-14, 24, 12]}
         intensity={3.2}
@@ -71,6 +114,8 @@ function Scene() {
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
       />
+
+      <ShipSpotlight />
 
       <Environment resolution={128}>
         <Lightformer
@@ -92,6 +137,11 @@ function Scene() {
       <Moon />
 
       <Ocean />
+
+      {/* KEEP the proper detailed pirate ship */}
+      <Suspense fallback={null}>
+        <PirateShip />
+      </Suspense>
 
       <CameraParallax />
     </>
@@ -118,10 +168,8 @@ export default function OceanHeroBackground() {
         <Scene />
       </Canvas>
 
-      {/* Left vignette keeps foreground content readable */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#050B14]/90 via-[#050B14]/40 to-transparent pointer-events-none hidden lg:block" />
 
-      {/* Vertical cinematic vignette */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#050B14] via-transparent to-[#050B14]/30 pointer-events-none" />
     </div>
   );

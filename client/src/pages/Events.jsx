@@ -9,15 +9,14 @@ export default function Events({ embedded = false }) {
   const [eventSearch, setEventSearch] = useState("");
   const [eventFilter, setEventFilter] = useState("All Events");
 
-  // Standalone /events page mock catalogue.
-  // The existing timeline below is intentionally preserved for embedded usage.
+  // Standalone /events catalogue. The embedded homepage timeline below stays untouched.
   const standaloneCategories = [
-    "All Events",
-    "Competitions",
-    "Workshops",
-    "Talks",
-    "Networking",
-    "Cultural",
+    { label: "All Events", icon: "✦" },
+    { label: "Competitions", icon: "⚔" },
+    { label: "Workshops", icon: "⚒" },
+    { label: "Talks", icon: "◉" },
+    { label: "Networking", icon: "◎" },
+    { label: "Cultural", icon: "♪" },
   ];
 
   const standaloneEvents = [
@@ -30,9 +29,8 @@ export default function Events({ embedded = false }) {
       location: "Main Auditorium",
       description: "Setting sail on a journey of ideas, innovation and impact.",
       visual: "✦",
-      visualLabel: "Opening Summit",
-      visualStyle:
-        "linear-gradient(135deg, rgba(4,47,66,.96), rgba(15,77,96,.78) 52%, rgba(220,167,70,.42))",
+      eyebrow: "Opening Summit",
+      visualPosition: "18% 58%",
     },
     {
       id: "hackathon-sprint",
@@ -42,10 +40,9 @@ export default function Events({ embedded = false }) {
       time: "11:30 AM",
       location: "Innovation Hub",
       description: "Build. Collaborate. Conquer.",
-      visual: "⌘",
-      visualLabel: "Innovation Lab",
-      visualStyle:
-        "linear-gradient(135deg, rgba(7,38,63,.96), rgba(32,105,129,.8) 48%, rgba(229,194,116,.38))",
+      visual: "⚔",
+      eyebrow: "Innovation Lab",
+      visualPosition: "52% 48%",
     },
     {
       id: "product-masterclass",
@@ -56,9 +53,8 @@ export default function Events({ embedded = false }) {
       location: "Learning Deck",
       description: "From concept to reality with industry experts.",
       visual: "⚒",
-      visualLabel: "Builder's Deck",
-      visualStyle:
-        "linear-gradient(135deg, rgba(67,51,28,.96), rgba(135,94,42,.76) 50%, rgba(20,75,89,.52))",
+      eyebrow: "Builder's Deck",
+      visualPosition: "78% 50%",
     },
     {
       id: "leadership-talk",
@@ -69,9 +65,8 @@ export default function Events({ embedded = false }) {
       location: "Main Auditorium",
       description: "Insights from visionaries shaping tomorrow.",
       visual: "◉",
-      visualLabel: "Leadership Forum",
-      visualStyle:
-        "linear-gradient(135deg, rgba(62,36,24,.96), rgba(165,95,45,.72) 52%, rgba(250,211,134,.32))",
+      eyebrow: "Leadership Forum",
+      visualPosition: "26% 72%",
     },
     {
       id: "voyagers-circle",
@@ -82,9 +77,8 @@ export default function Events({ embedded = false }) {
       location: "The Harbor Deck",
       description: "Conversations. Connections. Opportunities.",
       visual: "◎",
-      visualLabel: "Harbor Meetup",
-      visualStyle:
-        "linear-gradient(135deg, rgba(12,49,63,.96), rgba(38,104,115,.72) 48%, rgba(238,168,79,.42))",
+      eyebrow: "Harbor Meetup",
+      visualPosition: "58% 72%",
     },
     {
       id: "music-stars",
@@ -95,9 +89,8 @@ export default function Events({ embedded = false }) {
       location: "Open Air Arena",
       description: "Unwind. Celebrate. Create memories.",
       visual: "♪",
-      visualLabel: "Night at Sea",
-      visualStyle:
-        "linear-gradient(135deg, rgba(11,34,58,.97), rgba(27,64,93,.8) 48%, rgba(202,128,64,.5))",
+      eyebrow: "Night at Sea",
+      visualPosition: "88% 72%",
     },
   ];
 
@@ -117,40 +110,32 @@ export default function Events({ embedded = false }) {
 
     return (
       <main
-        className="relative min-h-[100svh] w-full overflow-x-hidden bg-[#f4ead5] text-[#123f55]"
+        className="relative min-h-[100svh] w-full overflow-x-hidden bg-[#efe3cb] text-[#123f55]"
         aria-label="Events"
       >
-        {/* Keep the supplied event artwork as the page backdrop. */}
-        <img
-          src="/bg_images/events.png"
-          alt=""
-          aria-hidden="true"
-          className="fixed inset-0 h-full w-full object-cover object-center"
-          draggable="false"
-        />
-        <div className="fixed inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,.2),rgba(251,247,236,.52)_44%,rgba(246,235,210,.86)_100%)] pointer-events-none" />
+        {/*
+          The supplied artwork already contains the event hero copy. Keep it clean and
+          let it do the visual work instead of layering a second giant heading on top.
+        */}
+        <div className="absolute inset-x-0 top-0 h-[330px] sm:h-[360px] lg:h-[390px] pointer-events-none">
+          <img
+            src="/bg_images/events.png"
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover object-top"
+            draggable="false"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#071421]/10 via-transparent to-[#efe3cb]" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#efe3cb]" />
+        </div>
 
-        <section className="relative z-10 mx-auto w-full max-w-[1360px] px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:px-8">
-          {/* Reference-style heading, kept compact so the artwork remains visible. */}
-          <div className="max-w-3xl">
-            <p className="font-cinzel text-xs font-bold uppercase tracking-[0.3em] text-[#a96b18] sm:text-sm">
-              ✦ Events
-            </p>
-            <h1 className="mt-2 font-cinzel text-3xl font-semibold uppercase tracking-[0.06em] text-[#123f55] drop-shadow-[0_1px_0_rgba(255,255,255,.75)] sm:text-5xl lg:text-6xl">
-              The Expedition Awaits
-            </h1>
-            <p className="mt-3 max-w-2xl font-montserrat text-xs font-semibold uppercase tracking-[0.22em] text-[#315f72] sm:text-sm">
-              A series of battles, discoveries and experiences across new horizons.
-            </p>
-            <div className="mt-4 h-[2px] w-28 bg-[#bf7d22]" />
-          </div>
-
-          {/* Search + category controls */}
-          <div className="mt-8 flex flex-col gap-3 lg:flex-row lg:items-center">
-            <label className="flex min-h-12 flex-1 items-center gap-3 rounded-2xl border border-[#d7ccb6] bg-white/90 px-4 shadow-[0_8px_30px_rgba(39,60,65,.10)] backdrop-blur-md">
+        <section className="relative z-10 mx-auto w-full max-w-[1540px] px-3 pb-14 pt-[255px] sm:px-5 sm:pt-[282px] lg:px-8 lg:pt-[304px]">
+          {/* Search and filters deliberately share one contained dock so they never overflow. */}
+          <div className="grid gap-2 rounded-[24px] border border-white/80 bg-[#fffdf7]/92 p-2.5 shadow-[0_18px_45px_rgba(35,57,61,.16)] backdrop-blur-xl md:grid-cols-[minmax(250px,.75fr)_minmax(0,1.25fr)] md:items-center md:gap-3 md:p-3">
+            <label className="flex min-h-[54px] min-w-0 items-center gap-3 rounded-[17px] border border-[#d9ccb7] bg-white/95 px-4 shadow-[inset_0_1px_0_rgba(255,255,255,.9)]">
               <svg
                 viewBox="0 0 24 24"
-                className="h-5 w-5 shrink-0 text-[#1f5b70]"
+                className="h-5 w-5 shrink-0 text-[#1c6078]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
@@ -164,160 +149,200 @@ export default function Events({ embedded = false }) {
                 value={eventSearch}
                 onChange={(event) => setEventSearch(event.target.value)}
                 placeholder="Search events..."
-                className="w-full bg-transparent py-3 font-montserrat text-sm text-[#173f51] outline-none placeholder:text-[#6f8791]"
+                className="min-w-0 flex-1 bg-transparent py-3 font-montserrat text-sm font-medium text-[#173f51] outline-none placeholder:text-[#79909a]"
               />
             </label>
 
-            <div className="flex min-h-12 flex-1 items-center gap-1 overflow-x-auto rounded-2xl border border-[#d7ccb6] bg-white/90 p-1.5 shadow-[0_8px_30px_rgba(39,60,65,.10)] backdrop-blur-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {standaloneCategories.map((category) => {
-                const isActive = eventFilter === category;
+            <div className="grid min-w-0 grid-cols-3 gap-1.5 rounded-[17px] border border-[#d9ccb7] bg-white/90 p-1.5 sm:grid-cols-6">
+              {standaloneCategories.map(({ label, icon }) => {
+                const isActive = eventFilter === label;
                 return (
                   <button
-                    key={category}
+                    key={label}
                     type="button"
-                    onClick={() => setEventFilter(category)}
-                    className={`shrink-0 rounded-xl px-4 py-2.5 font-montserrat text-xs font-bold transition-all duration-200 ${
+                    onClick={() => setEventFilter(label)}
+                    className={`flex min-w-0 items-center justify-center gap-1.5 rounded-[12px] px-2 py-2.5 font-montserrat text-[10px] font-extrabold transition-all duration-200 sm:text-[11px] ${
                       isActive
-                        ? "bg-[#0d5870] text-white shadow-[inset_0_0_0_1px_rgba(224,168,72,.8),0_5px_16px_rgba(13,88,112,.25)]"
-                        : "text-[#28586a] hover:bg-[#eaf0ee] hover:text-[#123f55]"
+                        ? "bg-[#0c5870] text-white shadow-[inset_0_0_0_1px_rgba(225,174,80,.85),0_5px_14px_rgba(12,88,112,.22)]"
+                        : "text-[#2c5c6e] hover:bg-[#edf2ef] hover:text-[#123f55]"
                     }`}
+                    aria-pressed={isActive}
                   >
-                    {category}
+                    <span className="hidden text-[#e7bd66] sm:inline" aria-hidden="true">
+                      {icon}
+                    </span>
+                    <span className="truncate">{label}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Mock event cards */}
           {visibleEvents.length > 0 ? (
-            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:gap-4">
               {visibleEvents.map((event) => (
                 <article
                   key={event.id}
-                  className="group overflow-hidden rounded-[18px] border border-white/80 bg-[#fffdf8]/95 shadow-[0_12px_34px_rgba(55,68,63,.14)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(55,68,63,.2)]"
+                  className="group relative overflow-hidden rounded-[20px] border border-[#eadfca] bg-[#fffdf8]/96 shadow-[0_12px_32px_rgba(45,61,58,.13)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d8c18f] hover:shadow-[0_20px_42px_rgba(45,61,58,.19)]"
                 >
-                  <div
-                    className="relative h-36 overflow-hidden sm:h-40"
-                    style={{ backgroundImage: event.visualStyle }}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedEventModal(event)}
+                    className="block w-full text-left"
+                    aria-label={`View details for ${event.title}`}
                   >
-                    <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.1)_1px,transparent_1px)] [background-size:32px_32px]" />
-                    <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-white/20" />
-                    <div className="absolute -right-2 top-4 h-24 w-24 rounded-full border border-white/15" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-cinzel text-6xl text-[#f4cc78]/80 drop-shadow-[0_5px_18px_rgba(0,0,0,.3)] transition-transform duration-300 group-hover:scale-110">
-                        {event.visual}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-3 left-4 font-cinzel text-[10px] font-bold uppercase tracking-[0.2em] text-white/80">
-                      {event.visualLabel}
-                    </div>
-                  </div>
-
-                  <div className="relative px-5 pb-5 pt-6">
-                    <span className="absolute -top-4 left-4 rounded-full border border-[#e5c67e] bg-[#f5df9b] px-4 py-1.5 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#5d491d] shadow-sm">
-                      {event.label}
-                    </span>
-
-                    <div className="flex items-start justify-between gap-3">
-                      <h2 className="font-cinzel text-base font-bold leading-tight text-[#163f52] sm:text-lg">
-                        {event.title}
-                      </h2>
-                      <span className="shrink-0 font-mono text-[11px] font-semibold text-[#456b7b]">
-                        ◷ {event.time}
-                      </span>
-                    </div>
-
-                    <p className="mt-2 flex items-center gap-1.5 font-montserrat text-xs font-semibold text-[#516d78]">
-                      <span className="text-[#c42635]">●</span>
-                      {event.location}
-                    </p>
-                    <p className="mt-2 min-h-10 font-montserrat text-xs leading-relaxed text-[#63757a]">
-                      {event.description}
-                    </p>
-
-                    <button
-                      type="button"
-                      className="mt-3 inline-flex items-center gap-2 font-montserrat text-xs font-extrabold text-[#a76513] transition group-hover:gap-3"
-                      onClick={() => setSelectedEventModal(event)}
+                    <div
+                      className="relative h-[118px] overflow-hidden sm:h-[126px] lg:h-[138px]"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(180deg, rgba(4,35,50,.12), rgba(4,35,50,.48)), url('/ship-map-hero.jpg')",
+                        backgroundSize: "cover",
+                        backgroundPosition: event.visualPosition,
+                      }}
                     >
-                      View Details <span aria-hidden="true">→</span>
-                    </button>
-                  </div>
+                      <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(7,53,70,.26),transparent_50%,rgba(219,167,78,.14))]" />
+                      <div className="absolute left-4 top-3 rounded-full border border-white/25 bg-[#073b4d]/55 px-2.5 py-1 font-montserrat text-[9px] font-extrabold uppercase tracking-[0.14em] text-white/90 backdrop-blur-md">
+                        {event.eyebrow}
+                      </div>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 font-cinzel text-4xl text-[#f2cf82]/85 drop-shadow-[0_3px_12px_rgba(0,0,0,.35)] transition-transform duration-300 group-hover:scale-110 sm:text-5xl">
+                        {event.visual}
+                      </div>
+                      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#092c3a]/65 to-transparent" />
+                    </div>
+
+                    <div className="relative px-4 pb-4 pt-5 sm:px-5">
+                      <span className="absolute -top-4 left-4 rounded-full border border-[#dfbd68] bg-[#f7df9c] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.12em] text-[#654a12] shadow-[0_3px_10px_rgba(77,57,14,.12)]">
+                        {event.label}
+                      </span>
+
+                      <div className="flex items-start justify-between gap-3">
+                        <h2 className="min-w-0 font-cinzel text-[15px] font-bold leading-[1.2] text-[#153f51] transition-colors group-hover:text-[#9a5c11] sm:text-base">
+                          {event.title}
+                        </h2>
+                        <span className="mt-0.5 shrink-0 whitespace-nowrap font-mono text-[10px] font-semibold text-[#56727f]">
+                          ◷ {event.time}
+                        </span>
+                      </div>
+
+                      <p className="mt-2 flex items-center gap-1.5 font-montserrat text-[11px] font-semibold text-[#536e79]">
+                        <span className="text-[#cc3340]" aria-hidden="true">●</span>
+                        <span className="truncate">{event.location}</span>
+                      </p>
+
+                      <p className="mt-2 line-clamp-2 min-h-[34px] font-montserrat text-[11px] leading-[1.55] text-[#687b82] sm:text-xs">
+                        {event.description}
+                      </p>
+
+                      <div className="mt-3 flex items-center justify-between border-t border-[#eee5d5] pt-3">
+                        <span className="font-montserrat text-[10px] font-bold uppercase tracking-[0.12em] text-[#82939a]">
+                          {event.category}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 font-montserrat text-[11px] font-extrabold text-[#a4600d] transition-all group-hover:gap-2.5">
+                          View Details <span aria-hidden="true">→</span>
+                        </span>
+                      </div>
+                    </div>
+                  </button>
                 </article>
               ))}
             </div>
           ) : (
-            <div className="mt-5 rounded-2xl border border-[#d8c9aa] bg-white/85 px-6 py-12 text-center shadow-sm backdrop-blur">
+            <div className="mt-4 rounded-[20px] border border-[#ddcfb7] bg-[#fffdf8]/95 px-6 py-12 text-center shadow-[0_10px_28px_rgba(45,61,58,.1)]">
               <p className="font-cinzel text-lg font-bold text-[#173f51]">
                 No events found on this horizon.
               </p>
-              <p className="mt-1 font-montserrat text-sm text-[#617982]">
+              <p className="mt-1 font-montserrat text-sm text-[#667d86]">
                 Try another search or event category.
               </p>
             </div>
           )}
 
-          <div className="mt-7 flex items-center justify-center gap-4 text-center">
-            <span className="h-px w-20 bg-[#b88a47]/60 sm:w-32" />
-            <span className="font-cinzel text-[10px] font-bold uppercase tracking-[0.35em] text-[#96652d]">
-              Same Ocean ⚓ Higher Horizons
+          <div className="mt-6 flex items-center justify-center gap-3 text-center sm:gap-5">
+            <span className="h-px w-12 bg-[#b88a47]/55 sm:w-28" />
+            <span className="font-cinzel text-[9px] font-bold uppercase tracking-[0.28em] text-[#956329] sm:text-[10px]">
+              Same Ocean <span className="mx-1 text-base leading-none">⚓</span> Higher Horizons
             </span>
-            <span className="h-px w-20 bg-[#b88a47]/60 sm:w-32" />
+            <span className="h-px w-12 bg-[#b88a47]/55 sm:w-28" />
           </div>
         </section>
 
-        {/* Lightweight mock detail modal for the standalone catalogue. */}
-        {selectedEventModal && standaloneEvents.some((event) => event.id === selectedEventModal.id) && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#062b39]/65 p-4 backdrop-blur-sm"
-            onClick={() => setSelectedEventModal(null)}
-          >
+        {selectedEventModal &&
+          standaloneEvents.some((event) => event.id === selectedEventModal.id) && (
             <div
-              className="relative w-full max-w-md rounded-3xl border border-white/70 bg-[#fffdf8] p-6 text-[#173f51] shadow-[0_24px_80px_rgba(0,0,0,.35)]"
-              onClick={(event) => event.stopPropagation()}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#061c27]/70 p-4 backdrop-blur-md"
+              onClick={() => setSelectedEventModal(null)}
             >
-              <button
-                type="button"
-                onClick={() => setSelectedEventModal(null)}
-                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#d9cfbd] bg-white text-lg text-[#54717d] hover:text-[#173f51]"
-                aria-label="Close event details"
+              <div
+                className="relative w-full max-w-lg overflow-hidden rounded-[26px] border border-white/70 bg-[#fffdf8] text-[#173f51] shadow-[0_30px_90px_rgba(0,0,0,.42)]"
+                onClick={(event) => event.stopPropagation()}
               >
-                ×
-              </button>
-              <span className="inline-flex rounded-full bg-[#f3df9e] px-3 py-1 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#684f18]">
-                {selectedEventModal.label}
-              </span>
-              <h2 className="mt-4 pr-10 font-cinzel text-2xl font-bold">
-                {selectedEventModal.title}
-              </h2>
-              <div className="mt-4 grid grid-cols-2 gap-3 font-montserrat text-xs">
-                <div className="rounded-xl bg-[#eef3f1] p-3">
-                  <span className="block text-[10px] uppercase tracking-wider text-[#71848b]">
-                    Time
-                  </span>
-                  <strong>{selectedEventModal.time}</strong>
+                <div
+                  className="relative h-32"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(180deg, rgba(4,35,50,.08), rgba(4,35,50,.68)), url('/ship-map-hero.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: selectedEventModal.visualPosition,
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setSelectedEventModal(null)}
+                    className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-[#072f40]/65 text-lg text-white backdrop-blur-md transition hover:bg-[#072f40]"
+                    aria-label="Close event details"
+                  >
+                    ×
+                  </button>
+                  <div className="absolute bottom-4 left-5">
+                    <span className="rounded-full border border-[#e4bf6a]/60 bg-[#f7df9c] px-3 py-1 font-montserrat text-[9px] font-black uppercase tracking-[0.12em] text-[#654a12]">
+                      {selectedEventModal.label}
+                    </span>
+                  </div>
                 </div>
-                <div className="rounded-xl bg-[#eef3f1] p-3">
-                  <span className="block text-[10px] uppercase tracking-wider text-[#71848b]">
-                    Location
-                  </span>
-                  <strong>{selectedEventModal.location}</strong>
+
+                <div className="p-5 sm:p-6">
+                  <h2 className="pr-8 font-cinzel text-2xl font-bold leading-tight">
+                    {selectedEventModal.title}
+                  </h2>
+
+                  <div className="mt-4 grid grid-cols-2 gap-2.5 font-montserrat text-xs">
+                    <div className="rounded-xl border border-[#e4ddcf] bg-[#f5f1e8] p-3">
+                      <span className="block text-[9px] font-bold uppercase tracking-[0.14em] text-[#7b8c91]">Time</span>
+                      <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.time}</strong>
+                    </div>
+                    <div className="rounded-xl border border-[#e4ddcf] bg-[#f5f1e8] p-3">
+                      <span className="block text-[9px] font-bold uppercase tracking-[0.14em] text-[#7b8c91]">Location</span>
+                      <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.location}</strong>
+                    </div>
+                  </div>
+
+                  <p className="mt-4 font-montserrat text-sm leading-relaxed text-[#5f737b]">
+                    {selectedEventModal.description}
+                  </p>
+
+                  <div className="mt-5 flex gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedEventModal(null);
+                        navigate(`/events/${selectedEventModal.id}/register`);
+                      }}
+                      className="flex-1 rounded-xl bg-[#0c5870] px-4 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.12em] text-white shadow-[0_8px_22px_rgba(12,88,112,.24)] transition hover:bg-[#09475b]"
+                    >
+                      Register
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedEventModal(null)}
+                      className="rounded-xl border border-[#ddd3c1] bg-white px-5 py-3 font-montserrat text-xs font-bold text-[#60757e] transition hover:bg-[#f5f1e8]"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
-              <p className="mt-4 font-montserrat text-sm leading-relaxed text-[#5b7079]">
-                {selectedEventModal.description}
-              </p>
-              <button
-                type="button"
-                onClick={() => setSelectedEventModal(null)}
-                className="mt-6 w-full rounded-xl bg-[#0d5870] px-4 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_8px_22px_rgba(13,88,112,.25)]"
-              >
-                Close
-              </button>
             </div>
-          </div>
-        )}
+          )}
       </main>
     );
   }

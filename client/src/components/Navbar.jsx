@@ -11,7 +11,6 @@ export default function Navbar() {
     { name: "Sponsors", path: "/sponsors" },
     { name: "Register", path: "/register" },
     { name: "Events", path: "/events" },
-    { name: "Dashboard", path: "/dashboard" },
     { name: "Teams", path: "/teams" },
     { name: "Gallery", path: "/gallery" },
   ];

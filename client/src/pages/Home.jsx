@@ -4,6 +4,7 @@ import { Navigation, Wind, ChevronRight, ShieldCheck, UserCheck, Compass } from 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
+import { useSmoothScroll } from "../lib/smoothScroll";
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -27,41 +28,74 @@ const SPEAKERS = [
 
 export default function Home() {
   const [activeSponsorIdx, setActiveSponsorIdx] = useState(0);
+  const smoothScroll = useSmoothScroll();
 
   const heroSectionRef = useRef(null);
   const sponsorsSectionRef = useRef(null);
   const transitionWrapperRef = useRef(null);
+  const wheelContainerRef = useRef(null);
   const wheelImgRef = useRef(null);
+  const sponsorsHeaderRef = useRef(null);
   const sponsorCardRef = useRef(null);
+  const sponsorsFooterRef = useRef(null);
   const aboutTextRef = useRef(null);
   const speakersPanelRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Smooth Fluid Locked Sponsors & Rotating Wheel
+      // Section 2: Rapid Entrance Reveal & Fluid Locked Sponsors
       // -------------------------------------------------------------
       if (sponsorsSectionRef.current) {
         const totalSteps = SPONSORS.length;
 
+        // 1. Rapid Standalone Entrance Trigger (Fades in elements cleanly as section approaches viewport)
+        const entranceTargets = [
+          sponsorsHeaderRef.current,
+          wheelContainerRef.current,
+          sponsorCardRef.current,
+          sponsorsFooterRef.current,
+        ].filter(Boolean);
+
+        if (entranceTargets.length > 0) {
+          gsap.fromTo(
+            entranceTargets,
+            { opacity: 0, y: 25, scale: 0.95, filter: "blur(8px)" },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              filter: "blur(0px)",
+              duration: 0.45,
+              stagger: 0.05,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: sponsorsSectionRef.current,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        }
+
+        // 2. Pinned ScrollTrigger for Wheel Rotation & Sponsor Stepping
         ScrollTrigger.create({
           trigger: sponsorsSectionRef.current,
           start: "top top",
-          end: `+=${totalSteps * 250}`,
+          end: `+=${totalSteps * 260}`,
           pin: true,
-          scrub: 1, // Fluid momentum interpolation
-          anticipatePin: 1,
+          scrub: 0.6, // Snappy & responsive momentum scrubbing
           onUpdate: (self) => {
             const rawProgress = self.progress;
 
             // Rotate transparent pirate wheel smoothly
             if (wheelImgRef.current) {
               gsap.set(wheelImgRef.current, {
-                rotation: rawProgress * 360 * 1.5,
+                rotation: rawProgress * 360 * 1.8,
               });
             }
 
-            // Step active sponsor index smoothly
+            // Step active sponsor index smoothly starting at 0
             const newIdx = Math.min(
               totalSteps - 1,
               Math.floor(rawProgress * totalSteps)
@@ -69,12 +103,11 @@ export default function Home() {
 
             setActiveSponsorIdx((prev) => {
               if (prev !== newIdx) {
-                // Motion blur & scale transition on sponsor card on right
                 if (sponsorCardRef.current) {
                   gsap.fromTo(
                     sponsorCardRef.current,
-                    { filter: "blur(12px)", opacity: 0.35, scale: 0.95 },
-                    { filter: "blur(0px)", opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
+                    { filter: "blur(10px)", opacity: 0.5, scale: 0.97 },
+                    { filter: "blur(0px)", opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }
                   );
                 }
                 return newIdx;
@@ -96,7 +129,6 @@ export default function Home() {
             end: "+=150%",
             pin: true,
             scrub: 1,
-            anticipatePin: 1,
           },
         });
 
@@ -166,7 +198,11 @@ export default function Home() {
               href="#sponsors"
               onClick={(e) => {
                 e.preventDefault();
-                sponsorsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                if (smoothScroll?.scrollTo && sponsorsSectionRef.current) {
+                  smoothScroll.scrollTo(sponsorsSectionRef.current, { duration: 1.2 });
+                } else {
+                  sponsorsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                }
               }}
               className="group relative flex items-center justify-center gap-3 px-8 py-3.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/75 backdrop-blur-md text-[#CBD5E1] hover:text-white hover:border-[#38BDF8] hover:bg-[#040e1d]/90 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.45)] overflow-visible cursor-pointer"
             >
@@ -201,7 +237,10 @@ export default function Home() {
         className="relative w-full h-screen bg-[#020610]/95 border-y border-[#38BDF8]/20 flex flex-col justify-between py-6 px-6 sm:px-12 overflow-hidden select-none"
       >
         {/* Colossal Full Screen Height Wheel (Anchored to exact left boundary of monitor: left-0 -translate-x-1/2) */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible">
+        <div
+          ref={wheelContainerRef}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible"
+        >
           {/* Cyan Glow Aura */}
           <div className="absolute inset-0 rounded-full bg-[#38BDF8]/20 blur-3xl pointer-events-none" />
 
@@ -215,7 +254,10 @@ export default function Home() {
         </div>
 
         {/* Status Lock Bar */}
-        <div className="max-w-7xl w-full mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-20">
+        <div
+          ref={sponsorsHeaderRef}
+          className="max-w-7xl w-full mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-20"
+        >
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#38BDF8]/30 bg-[#040e1d]/90 text-[#38BDF8] text-[11px] font-mono uppercase tracking-widest mb-1 shadow-md">
               <ShieldCheck className="w-3.5 h-3.5 text-[#38BDF8]" />
@@ -286,7 +328,10 @@ export default function Home() {
         </div>
 
         {/* Bottom Status */}
-        <div className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20">
+        <div
+          ref={sponsorsFooterRef}
+          className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
+        >
           <span className="text-[#38BDF8]/80">Scroll to turn wheel & survey all 8 sponsors</span>
           <span className="hidden sm:inline">Authentic Nautical Helm • Full Screen Height</span>
         </div>

@@ -6,9 +6,7 @@ import {
   ChevronRight,
   ShieldCheck,
   UserCheck,
-  Compass,
   Clock,
-  FileText,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -23,40 +21,25 @@ const EVENTS = [
     id: "01",
     name: "E-Summit Hackathon",
     category: "Flagship 36-Hour Sprint",
+    time: "Day 1 • 09:00 AM • 36 Hours",
     desc: "Build autonomous subsea systems, AI agents, and deep-tech prototypes in a 36-hour continuous build sprint.",
     prize: "₹2,50,000 Pool",
-    timeline: [
-      { phase: "Phase 1", title: "Idea & Architecture Pitch", date: "Day 1 • 09:00 AM" },
-      { phase: "Phase 2", title: "36-Hour Dev Sprint", date: "Day 1 - Day 2 • 36 hrs" },
-      { phase: "Phase 3", title: "Jury Demo & Subsea Trial", date: "Day 2 • 06:00 PM" },
-    ],
-    rules: "Teams of 2-4 members. Open-source models allowed. Live prototype demonstration required.",
   },
   {
     id: "02",
     name: "Pitchers 10.0",
     category: "Venture Capital Arena",
+    time: "Summit Day 1 • 02:00 PM",
     desc: "Present your high-impact startup to top syndicate investors, angel funds, and tier-1 venture cartographers.",
     prize: "₹5,00,000 Pool",
-    timeline: [
-      { phase: "Phase 1", title: "Teaser Deck Screening", date: "Pre-Summit Screening" },
-      { phase: "Phase 2", title: "Closed-Door Investor Pitch", date: "Summit Day 1 • 02:00 PM" },
-      { phase: "Phase 3", title: "Term Sheet Allocation", date: "Summit Day 2 • 04:00 PM" },
-    ],
-    rules: "Early-stage startups with working MVP or traction. 5-min pitch + 10-min investor Q&A.",
   },
   {
     id: "03",
     name: "Case Odyssey",
     category: "Corporate Strategy Battle",
+    time: "Day 1 • 10:00 AM • Boardroom Pitch",
     desc: "Solve high-stakes strategic challenges and market disruption problems presented by global industry leaders.",
     prize: "₹1,50,000 Pool",
-    timeline: [
-      { phase: "Phase 1", title: "Case Statement Release", date: "Day 1 • 10:00 AM" },
-      { phase: "Phase 2", title: "Strategy Deck Submission", date: "Day 1 • 08:00 PM" },
-      { phase: "Phase 3", title: "Boardroom Presentation", date: "Day 2 • 11:00 AM" },
-    ],
-    rules: "Teams of 1-3 members. Interdisciplinary teams encouraged. Real-world corporate case study.",
   },
 ];
 
@@ -86,7 +69,7 @@ const SPEAKERS = [
 ];
 
 export default function Home() {
-  const [activeSubStep, setActiveSubStep] = useState(0);
+  const [activeEventIdx, setActiveEventIdx] = useState(0);
   const smoothScroll = useSmoothScroll();
 
   const heroSectionRef = useRef(null);
@@ -103,12 +86,12 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Flagship Events Wheel with 6 Sub-Step 2-Layer Scroll
+      // Section 2: Flagship Events Wheel Synced Motion Animation
       // -------------------------------------------------------------
       if (sponsorsSectionRef.current) {
-        const totalSubSteps = EVENTS.length * 2; // 6 sub-steps total
+        const totalEvents = EVENTS.length; // 3 events
 
-        // 1. Entrance Trigger
+        // Entrance animation
         const entranceTargets = [
           sponsorsHeaderRef.current,
           wheelContainerRef.current,
@@ -119,11 +102,10 @@ export default function Home() {
         if (entranceTargets.length > 0) {
           gsap.fromTo(
             entranceTargets,
-            { opacity: 0, y: 20, scale: 0.96 },
+            { opacity: 0, y: 20 },
             {
               opacity: 1,
               y: 0,
-              scale: 1,
               duration: 0.4,
               stagger: 0.04,
               ease: "power2.out",
@@ -136,48 +118,45 @@ export default function Home() {
           );
         }
 
-        // 2. Pinned ScrollTrigger with 4500px scroll length & 15% Hold Buffer
+        // Pinned ScrollTrigger with Wheel-Synced Orbital Motion
         ScrollTrigger.create({
           trigger: sponsorsSectionRef.current,
           start: "top top",
-          end: "+=4500",
+          end: "+=3600",
           pin: true,
           scrub: 0.5,
           onUpdate: (self) => {
             const rawProgress = self.progress;
 
-            // Rotate transparent pirate wheel smoothly
+            // 1. Rotate Pirate Wheel
             if (wheelImgRef.current) {
               gsap.set(wheelImgRef.current, {
                 rotation: rawProgress * 360 * 2.5,
               });
             }
 
-            // Firm 15% entrance hold buffer on Event 01 Overview
-            const holdThreshold = 0.15;
-            let normalizedProgress = 0;
-            if (rawProgress > holdThreshold) {
-              normalizedProgress = (rawProgress - holdThreshold) / (1 - holdThreshold);
+            // 2. Map progress to active event index (0, 1, 2)
+            const stepProgress = rawProgress * totalEvents;
+            const currentIdx = Math.min(totalEvents - 1, Math.floor(stepProgress));
+            const subProgress = stepProgress - currentIdx; // 0.0 to 1.0 within step
+
+            setActiveEventIdx(currentIdx);
+
+            // 3. Dynamic Orbital Motion & Blur Entrance synced with wheel spin
+            if (sponsorCardRef.current) {
+              const normalizedOffset = (subProgress - 0.5) * 2; // -1 to +1
+              const blurAmount = Math.abs(normalizedOffset) * 10;
+              const translateY = normalizedOffset * 35;
+              const opacity = 1 - Math.pow(Math.abs(normalizedOffset), 2) * 0.7;
+              const rotateZ = normalizedOffset * -6;
+
+              gsap.set(sponsorCardRef.current, {
+                filter: `blur(${blurAmount}px)`,
+                y: translateY,
+                rotation: rotateZ,
+                opacity: Math.max(0.2, opacity),
+              });
             }
-
-            const newSubStep = Math.min(
-              totalSubSteps - 1,
-              Math.floor(normalizedProgress * totalSubSteps)
-            );
-
-            setActiveSubStep((prev) => {
-              if (prev !== newSubStep) {
-                if (sponsorCardRef.current) {
-                  gsap.fromTo(
-                    sponsorCardRef.current,
-                    { filter: "blur(8px)", opacity: 0.7, scale: 0.98 },
-                    { filter: "blur(0px)", opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
-                  );
-                }
-                return newSubStep;
-              }
-              return prev;
-            });
           },
         });
       }
@@ -218,8 +197,6 @@ export default function Home() {
     };
   }, []);
 
-  const activeEventIdx = Math.floor(activeSubStep / 2);
-  const isDeepDive = activeSubStep % 2 === 1;
   const activeEvent = EVENTS[activeEventIdx] || EVENTS[0];
 
   return (
@@ -250,7 +227,6 @@ export default function Home() {
 
           {/* Action CTAs: Register Now + Begin Voyage */}
           <div className="overflow-visible flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            {/* Primary Register Now CTA */}
             <Link
               to="/register"
               className="group relative flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition-all duration-300 transform hover:scale-[1.03] overflow-visible cursor-pointer"
@@ -259,7 +235,6 @@ export default function Home() {
               <span>Register Now</span>
             </Link>
 
-            {/* Begin Voyage CTA */}
             <a
               href="#sponsors"
               onClick={(e) => {
@@ -295,7 +270,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (2-LAYER MULTI-STEP SCROLL) */}
+      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (NO OUTER BACKDROP BOX)    */}
       {/* ============================================================ */}
       <section
         id="sponsors"
@@ -322,14 +297,14 @@ export default function Home() {
           />
         </div>
 
-        {/* Right Half Container: Section Header & Event Card */}
+        {/* Right Half Container: Header & Wheel-Synced Event Stream */}
         <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
-          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-4">
+          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-6">
 
-            {/* Clean Section Header (Right Aligned above Card) */}
+            {/* Clean Section Header (Right Aligned directly on background) */}
             <div
               ref={sponsorsHeaderRef}
-              className="w-full flex items-end justify-between pb-1"
+              className="w-full flex items-end justify-between pb-1 border-b border-white/10"
             >
               <div>
                 <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold">
@@ -340,149 +315,73 @@ export default function Home() {
                 </h2>
               </div>
 
-              <div className="flex items-center gap-2 bg-[#030914]/90 px-3.5 py-1.5 rounded-xl border border-white/10 font-mono text-xs shadow-lg">
-                <span className="text-[#94A3B8]">Step:</span>
+              {/* Exact Event Count (01 / 03) */}
+              <div className="flex items-center gap-2 bg-[#030914]/90 px-3.5 py-1.5 rounded-xl border border-[#38BDF8]/30 font-mono text-xs shadow-lg">
+                <span className="text-[#94A3B8]">Event:</span>
                 <span className="text-[#38BDF8] font-bold text-sm">
-                  {String(activeSubStep + 1).padStart(2, "0")} / 06
+                  {String(activeEventIdx + 1).padStart(2, "0")} / 03
                 </span>
               </div>
             </div>
 
-            {/* Event Showcase Card (2-Layer Dynamic Container) */}
+            {/* Event Display Container (No outer card backdrop, animated in sync with wheel) */}
             <div
               ref={sponsorCardRef}
-              className="w-full p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
+              className="w-full flex flex-col gap-5 bg-transparent p-0 border-none transition-all duration-300 relative will-change-transform"
             >
-              {/* Card Header */}
-              <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
-                    EVENT {activeEvent.id} / 03
+              {/* Picture + Name Block (ONLY this inner block has a glass border frame) */}
+              <div className="w-full flex flex-col sm:flex-row items-center gap-5 p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-xl shadow-[0_0_35px_rgba(56,189,248,0.25)] shadow-[0_15px_35px_rgba(0,0,0,0.8)]">
+                {/* '?' Mystery Badge Image Frame */}
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
+                  <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
+                  <span className="text-3xl sm:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
+                    ?
                   </span>
-                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-white/10 bg-white/5 text-[#94A3B8] uppercase font-semibold">
-                    {isDeepDive ? "Layer 2: Timeline & Rules" : "Layer 1: Overview"}
+                  <span className="text-[8px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-0.5 z-10 font-bold">
+                    FLAGSHIP
                   </span>
                 </div>
 
-                <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
-                  {activeEvent.category}
-                </span>
+                {/* Event Title & Prize */}
+                <div className="flex flex-col text-center sm:text-left">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                    {activeEvent.name}
+                  </h3>
+                  <span className="text-xs font-mono text-[#38BDF8] font-bold tracking-wider mt-1">
+                    {activeEvent.prize}
+                  </span>
+                </div>
               </div>
 
-              {/* Layer 1: Overview (Sub-step A) */}
-              {!isDeepDive ? (
-                <div className="w-full my-4 p-5 sm:p-6 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left shadow-inner relative group min-h-[210px]">
-                  {/* '?' Placeholder Image Frame */}
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border border-[#38BDF8]/40 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_25px_rgba(56,189,248,0.25)] overflow-hidden">
-                    {/* Background Grid Pattern */}
-                    <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
-                    
-                    {/* Giant Glowing Question Mark */}
-                    <span className="text-4xl sm:text-5xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_15px_rgba(56,189,248,0.9)] z-10 font-mono">
-                      ?
-                    </span>
+              {/* Time & Category (Directly on background) */}
+              <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                <span className="px-3.5 py-1 rounded-full border border-[#38BDF8]/30 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
+                  {activeEvent.category}
+                </span>
 
-                    <span className="text-[9px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-1 z-10 font-bold">
-                      FLAGSHIP
-                    </span>
-                  </div>
-
-                  {/* Details Next to Image */}
-                  <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
-                      {activeEvent.name}
-                    </h3>
-
-                    <span className="text-xs font-mono text-[#38BDF8] mt-1 font-semibold tracking-wider">
-                      {activeEvent.prize}
-                    </span>
-
-                    <p className="text-xs text-[#CBD5E1] font-mono mt-2 leading-relaxed max-w-xs sm:max-w-sm">
-                      {activeEvent.desc}
-                    </p>
-
-                    <div className="mt-3 text-[11px] font-mono text-[#38BDF8]/80 flex items-center gap-1.5 animate-pulse">
-                      <span>Scroll down for timeline & details</span>
-                      <ChevronRight className="w-3.5 h-3.5 rotate-90" />
-                    </div>
-                  </div>
+                <div className="flex items-center gap-2 text-[#38BDF8] font-semibold bg-[#030a17]/70 px-3 py-1 rounded-lg border border-white/10">
+                  <Clock className="w-4 h-4 text-[#38BDF8]" />
+                  <span>{activeEvent.time}</span>
                 </div>
-              ) : (
-                /* Layer 2: Deep Dive Timeline & Rules (Sub-step B) */
-                <div className="w-full my-4 p-5 sm:p-6 bg-[#020610] rounded-2xl border border-[#38BDF8]/40 flex flex-col gap-4 text-left shadow-inner relative min-h-[210px]">
-                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                    <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] uppercase font-bold tracking-wider">
-                      <Clock className="w-4 h-4 text-[#38BDF8]" />
-                      <span>Event Timeline & Structure</span>
-                    </div>
-                    <span className="text-[10px] font-mono text-amber-400 border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 rounded-full font-semibold">
-                      {activeEvent.name}
-                    </span>
-                  </div>
+              </div>
 
-                  {/* Timeline Phases Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {activeEvent.timeline.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="p-3 rounded-xl border border-white/10 bg-[#040f21]/80 flex flex-col justify-between"
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-[10px] font-mono font-bold text-[#38BDF8] uppercase">
-                            {item.phase}
-                          </span>
-                          <span className="text-[9px] font-mono text-[#64748B]">
-                            {item.date}
-                          </span>
-                        </div>
-                        <p className="text-xs font-semibold text-white leading-tight">
-                          {item.title}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+              {/* Event Description (Directly on background) */}
+              <p className="text-sm text-[#CBD5E1] font-mono leading-relaxed max-w-lg">
+                {activeEvent.desc}
+              </p>
 
-                  {/* Rules & Register CTA Bar */}
-                  <div className="pt-2 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <div className="flex items-center gap-2 text-xs text-[#CBD5E1] font-mono">
-                      <FileText className="w-4 h-4 text-[#38BDF8] shrink-0" />
-                      <span className="text-[11px] leading-tight">{activeEvent.rules}</span>
-                    </div>
+              {/* Register Action Bar (Directly on background) */}
+              <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                <Link
+                  to="/register"
+                  className="group relative flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition-all duration-300 transform hover:scale-[1.03] cursor-pointer"
+                >
+                  <UserCheck className="w-4 h-4 text-[#020610]" />
+                  <span>Register For Event</span>
+                </Link>
 
-                    <Link
-                      to="/register"
-                      className="group relative flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_25px_rgba(56,189,248,0.7)] transition-all transform hover:scale-[1.03] shrink-0 cursor-pointer"
-                    >
-                      <UserCheck className="w-4 h-4 text-[#020610]" />
-                      <span>Register For Event</span>
-                    </Link>
-                  </div>
-                </div>
-              )}
-
-              {/* Sub-step Dots Progress Indicator */}
-              <div className="w-full pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
-                <div className="flex items-center gap-1.5">
-                  {[0, 1, 2, 3, 4, 5].map((step) => {
-                    const isCurrent = activeSubStep === step;
-                    const isPast = activeSubStep > step;
-                    return (
-                      <div
-                        key={step}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${
-                          isCurrent
-                            ? "w-6 bg-[#38BDF8] shadow-[0_0_10px_#38BDF8]"
-                            : isPast
-                            ? "w-3 bg-[#38BDF8]/50"
-                            : "w-3 bg-white/20"
-                        }`}
-                      />
-                    );
-                  })}
-                </div>
-
-                <Link to="/events" className="text-[#38BDF8] font-bold hover:underline text-xs">
-                  View Full Schedule →
+                <Link to="/events" className="text-xs font-mono text-[#38BDF8] font-bold hover:underline">
+                  View Schedule →
                 </Link>
               </div>
             </div>
@@ -495,7 +394,7 @@ export default function Home() {
           ref={sponsorsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          <span className="text-[#38BDF8]/80">Scroll to explore flagship summit events & timelines</span>
+          <span className="text-[#38BDF8]/80">Scroll to explore flagship summit events</span>
           <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>
@@ -507,13 +406,13 @@ export default function Home() {
         ref={transitionWrapperRef}
         className="relative w-full h-screen overflow-hidden"
       >
-        {/* Section 3: About Renaissance (Dark Navy Backdrop Glass Container for 100% Text Readability) */}
+        {/* Section 3: About Renaissance (NO BOX BACKDROP - CRISP MARINE BLUE TEXT DIRECTLY ON BG) */}
         <section className="absolute inset-0 w-full h-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent">
           <div
             ref={aboutTextRef}
-            className="max-w-4xl mx-auto p-8 sm:p-12 rounded-3xl border border-[#38BDF8]/40 bg-[#020610]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col items-center justify-center text-center"
+            className="max-w-3xl mx-auto flex flex-col items-center justify-center text-center"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest shadow-md">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/80 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest shadow-md">
               <Wind className="w-3.5 h-3.5" />
               <span>The Odyssey • Genesis</span>
             </div>
@@ -525,15 +424,13 @@ export default function Home() {
               </span>
             </h2>
 
-            <p className="text-sm sm:text-base text-[#CBD5E1] leading-relaxed font-normal mb-6 max-w-2xl">
+            <p className="text-base sm:text-lg text-[#0369A1] font-medium leading-relaxed mb-6 max-w-2xl drop-shadow-[0_1px_2px_rgba(255,255,255,0.4)]">
               Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
             </p>
 
-            <div className="pt-4 border-t border-white/10 w-full flex items-center justify-center">
-              <p className="text-xs text-[#38BDF8] font-mono tracking-widest uppercase font-semibold">
-                Keep scrolling to descend into the abyss of our keynote voyagers ↓
-              </p>
-            </div>
+            <p className="text-xs text-[#0284C7] font-mono tracking-widest uppercase font-semibold">
+              Keep scrolling to descend into the abyss of our keynote voyagers ↓
+            </p>
           </div>
         </section>
 
@@ -564,7 +461,6 @@ export default function Home() {
                   key={speaker.id}
                   className="group relative rounded-2xl border border-white/10 bg-[#040f21]/70 p-6 flex flex-col items-center text-center transition-all duration-300 hover:border-[#38BDF8]/60 hover:bg-[#05142b]/90 shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
                 >
-                  {/* Generic Silhouette Placeholder */}
                   <div className="relative w-24 h-24 rounded-full border border-[#38BDF8]/30 bg-[#030914] flex items-center justify-center mb-5 overflow-hidden group-hover:border-[#38BDF8] transition-colors shadow-inner">
                     <svg
                       className="w-16 h-16 text-[#38BDF8]/40 group-hover:text-[#38BDF8]/80 transition-colors"
@@ -596,7 +492,6 @@ export default function Home() {
       {/* SECTION 5: SPONSORS (DEDICATED QUICK HORIZONTAL TICKER)       */}
       {/* ============================================================ */}
       <section className="relative w-full bg-[#020610] border-t border-[#38BDF8]/20 py-16 px-6 overflow-hidden select-none z-20">
-        {/* Dynamic Mariana Blue Glow Aura */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-[#0284C7]/20 rounded-full blur-[100px] pointer-events-none animate-pulse" />
 
         <div className="max-w-7xl mx-auto flex flex-col items-center mb-10 text-center relative z-10">
@@ -612,7 +507,7 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Row 1: Current Sponsors (Infinite Right-to-Left Ticker) */}
+        {/* Row 1: Current Sponsors */}
         <div className="w-full overflow-hidden mb-6 relative z-10">
           <div className="flex gap-6 animate-marquee whitespace-nowrap min-w-full">
             {[...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS].map((sponsor, idx) => (
@@ -636,7 +531,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Row 2: Past Sponsors (Infinite Left-to-Right Ticker) */}
+        {/* Row 2: Past Sponsors */}
         <div className="w-full overflow-hidden relative z-10">
           <div className="flex gap-6 animate-marquee-reverse whitespace-nowrap min-w-full">
             {[...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS].map((sponsor, idx) => (

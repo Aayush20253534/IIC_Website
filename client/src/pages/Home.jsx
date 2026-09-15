@@ -4,6 +4,8 @@ import { Navigation, Wind, ChevronRight, ShieldCheck, UserCheck, Compass } from 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
+import { useSmoothScroll } from "../lib/smoothScroll";
+import ContactFooter from "../components/ContactFooter";
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -27,54 +29,91 @@ const SPEAKERS = [
 
 export default function Home() {
   const [activeSponsorIdx, setActiveSponsorIdx] = useState(0);
+  const smoothScroll = useSmoothScroll();
 
   const heroSectionRef = useRef(null);
   const sponsorsSectionRef = useRef(null);
   const transitionWrapperRef = useRef(null);
+  const wheelContainerRef = useRef(null);
   const wheelImgRef = useRef(null);
+  const sponsorsHeaderRef = useRef(null);
   const sponsorCardRef = useRef(null);
+  const sponsorsFooterRef = useRef(null);
   const aboutTextRef = useRef(null);
   const speakersPanelRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Smooth Fluid Locked Sponsors & Rotating Wheel
+      // Section 2: Rapid Entrance Reveal & Fluid Locked Sponsors
       // -------------------------------------------------------------
       if (sponsorsSectionRef.current) {
         const totalSteps = SPONSORS.length;
 
+        // 1. Entrance Trigger (Reveals elements smoothly as section reaches viewport)
+        const entranceTargets = [
+          sponsorsHeaderRef.current,
+          wheelContainerRef.current,
+          sponsorCardRef.current,
+          sponsorsFooterRef.current,
+        ].filter(Boolean);
+
+        if (entranceTargets.length > 0) {
+          gsap.fromTo(
+            entranceTargets,
+            { opacity: 0, y: 20, scale: 0.96 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.4,
+              stagger: 0.04,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: sponsorsSectionRef.current,
+                start: "top 70%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        }
+
+        // 2. Pinned ScrollTrigger (Locks full screen & holds on Sponsor 01 before stepping)
         ScrollTrigger.create({
           trigger: sponsorsSectionRef.current,
           start: "top top",
-          end: `+=${totalSteps * 250}`,
+          end: `+=${totalSteps * 320}`,
           pin: true,
-          scrub: 1, // Fluid momentum interpolation
-          anticipatePin: 1,
+          scrub: 0.5, // Crisp & responsive momentum scrubbing
           onUpdate: (self) => {
             const rawProgress = self.progress;
 
             // Rotate transparent pirate wheel smoothly
             if (wheelImgRef.current) {
               gsap.set(wheelImgRef.current, {
-                rotation: rawProgress * 360 * 1.5,
+                rotation: rawProgress * 360 * 2.0,
               });
             }
 
-            // Step active sponsor index smoothly
+            // Hold Sponsor 01 for the initial 15% of pinned scroll distance
+            const holdThreshold = 0.15;
+            let normalizedProgress = 0;
+            if (rawProgress > holdThreshold) {
+              normalizedProgress = (rawProgress - holdThreshold) / (1 - holdThreshold);
+            }
+
             const newIdx = Math.min(
               totalSteps - 1,
-              Math.floor(rawProgress * totalSteps)
+              Math.floor(normalizedProgress * totalSteps)
             );
 
             setActiveSponsorIdx((prev) => {
               if (prev !== newIdx) {
-                // Motion blur & scale transition on sponsor card on right
                 if (sponsorCardRef.current) {
                   gsap.fromTo(
                     sponsorCardRef.current,
-                    { filter: "blur(12px)", opacity: 0.35, scale: 0.95 },
-                    { filter: "blur(0px)", opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
+                    { filter: "blur(10px)", opacity: 0.5, scale: 0.97 },
+                    { filter: "blur(0px)", opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }
                   );
                 }
                 return newIdx;
@@ -96,7 +135,6 @@ export default function Home() {
             end: "+=150%",
             pin: true,
             scrub: 1,
-            anticipatePin: 1,
           },
         });
 
@@ -166,7 +204,11 @@ export default function Home() {
               href="#sponsors"
               onClick={(e) => {
                 e.preventDefault();
-                sponsorsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                if (smoothScroll?.scrollTo && sponsorsSectionRef.current) {
+                  smoothScroll.scrollTo(sponsorsSectionRef.current, { duration: 1.2 });
+                } else {
+                  sponsorsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                }
               }}
               className="group relative flex items-center justify-center gap-3 px-8 py-3.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/75 backdrop-blur-md text-[#CBD5E1] hover:text-white hover:border-[#38BDF8] hover:bg-[#040e1d]/90 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.45)] overflow-visible cursor-pointer"
             >
@@ -192,66 +234,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seamless Gaussian Blur Backdrop Transition Strip */}
-      <div className="w-full h-20 backdrop-blur-md bg-gradient-to-b from-transparent via-[#020610]/70 to-[#020610]/95 pointer-events-none -mb-1 z-20" />
-
       {/* ============================================================ */}
-      {/* SECTION 2: SPONSORS (BLEEDING LEFT WHEEL | MATCHING CARD)   */}
+      {/* SECTION 2: SPONSORS (LEFT WHEEL | RIGHT SPONSOR SHOWCASE)    */}
       {/* ============================================================ */}
       <section
         id="sponsors"
         ref={sponsorsSectionRef}
-        className="relative w-full h-screen bg-[#020610]/90 backdrop-blur-xl border-y border-[#38BDF8]/20 flex flex-col justify-between py-8 px-6 sm:px-12 overflow-hidden select-none"
+        className="relative w-full h-screen bg-[#020610]/95 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-24 sm:pt-28 pb-6 px-6 sm:px-12 overflow-hidden select-none"
       >
-        {/* Status Lock Bar */}
-        <div className="max-w-7xl w-full mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-20">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#38BDF8]/30 bg-[#040e1d]/80 text-[#38BDF8] text-[11px] font-mono uppercase tracking-widest mb-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#38BDF8]" />
-              <span>Armada Fleet • 8 Strategic Partners</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Expedition Sponsors
-            </h2>
-          </div>
+        {/* Giant Rotating Nautical Wheel (Anchored to exact left boundary: 50% on screen, 50% off screen) */}
+        <div
+          ref={wheelContainerRef}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible"
+        >
+          {/* Cyan Glow Aura */}
+          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/15 blur-3xl pointer-events-none" />
 
-          <div className="flex items-center gap-3 bg-[#030914]/80 px-4 py-2 rounded-xl border border-white/10 font-mono text-xs">
-            <span className="text-[#94A3B8]">Viewing Partner:</span>
-            <span className="text-[#38BDF8] font-bold text-sm">
-              {String(activeSponsorIdx + 1).padStart(2, "0")} / 08
-            </span>
-          </div>
+          {/* Transparent Pirate Wheel Image */}
+          <img
+            ref={wheelImgRef}
+            src="/pirate-wheel-transparent.png"
+            alt="Nautical Wheel"
+            className="w-full h-full object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] drop-shadow-[0_0_50px_rgba(56,189,248,0.4)] select-none pointer-events-none will-change-transform overflow-visible"
+          />
         </div>
 
-        {/* Split Screen Layout: Giant Bleeding Wheel Left | Styled Showcase Card Right */}
-        <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto relative z-20">
-          {/* Left Column (5 Cols): Giant Pirate Wheel Bleeding off Left Edge */}
-          <div className="lg:col-span-5 flex flex-col items-start justify-center relative overflow-visible">
-            <div className="relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] md:w-[600px] md:h-[600px] lg:w-[680px] lg:h-[680px] -ml-28 sm:-ml-40 lg:-ml-56 flex items-center justify-center pointer-events-none overflow-visible">
-              {/* Cyan glow aura ring */}
-              <div className="absolute inset-0 rounded-full bg-[#38BDF8]/20 blur-3xl pointer-events-none" />
+        {/* Right Half Container: Section Header & Showcase Card (100% Readable, Zero Overlap with Wheel) */}
+        <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
+          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-4">
 
-              {/* Transparent Pirate Wheel Image */}
-              <img
-                ref={wheelImgRef}
-                src="/pirate-wheel-transparent.png"
-                alt="Pirate Ship Wheel"
-                className="w-full h-full object-contain filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] drop-shadow-[0_0_35px_rgba(56,189,248,0.4)] select-none pointer-events-none will-change-transform overflow-visible"
-              />
+            {/* Clean Section Header (Right Aligned above Card) */}
+            <div
+              ref={sponsorsHeaderRef}
+              className="w-full flex items-end justify-between pb-1"
+            >
+              <div>
+                <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold">
+                  Summit Partners
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                  Expedition Sponsors
+                </h2>
+              </div>
+
+              <div className="flex items-center gap-2 bg-[#030914]/90 px-3.5 py-1.5 rounded-xl border border-white/10 font-mono text-xs shadow-lg">
+                <span className="text-[#94A3B8]">Partner:</span>
+                <span className="text-[#38BDF8] font-bold text-sm">
+                  {String(activeSponsorIdx + 1).padStart(2, "0")} / 08
+                </span>
+              </div>
             </div>
 
-            <span className="text-[10px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-2 pl-4">
-              Nautical Helm • Wheel Turns With Scroll
-            </span>
-          </div>
-
-          {/* Right Column (7 Cols): Showcase Card Matching media_1789415331311.png */}
-          <div className="lg:col-span-7 flex flex-col items-center justify-center">
+            {/* Showcase Card with '?' Placeholder Image */}
             <div
               ref={sponsorCardRef}
-              className="w-full max-w-xl p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/35 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.9)] shadow-[0_0_35px_rgba(56,189,248,0.15)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
+              className="w-full p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.2)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
             >
-              {/* Top Header */}
+              {/* Card Header */}
               <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
                 <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
                   PARTNER {activeSponsor.id} / 08
@@ -261,51 +300,58 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* Inner Dark Showcase Container */}
-              <div className="w-full my-6 p-8 sm:p-12 bg-[#020610] rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center shadow-inner relative group min-h-[220px]">
-                {/* Big White Title */}
-                <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-wide">
-                  {activeSponsor.name}
-                </h3>
+              {/* Inner Dark Showcase Container with Mystery '?' Image Badge */}
+              <div className="w-full my-5 p-5 sm:p-6 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left shadow-inner relative group min-h-[190px]">
+                {/* '?' Placeholder Image Frame */}
+                <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border border-[#38BDF8]/40 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_25px_rgba(56,189,248,0.25)] overflow-hidden">
+                  {/* Background Grid Pattern */}
+                  <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
+                  
+                  {/* Giant Glowing Question Mark */}
+                  <span className="text-4xl sm:text-5xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_15px_rgba(56,189,248,0.9)] z-10 font-mono">
+                    ?
+                  </span>
 
-                {/* Subtitle */}
-                <span className="text-xs sm:text-sm font-mono text-[#38BDF8] mt-2 font-semibold tracking-wider">
-                  Official Summit Partner
-                </span>
+                  <span className="text-[9px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-1 z-10 font-bold">
+                    REVEAL SOON
+                  </span>
+                </div>
 
-                {/* Hook Icon */}
-                <img
-                  src="/hook.png"
-                  alt="Nautical Hook"
-                  onError={(e) => {
-                    e.currentTarget.src = "/hook-cursor.png";
-                  }}
-                  className="w-7 h-7 sm:w-8 sm:h-8 mt-4 object-contain filter drop-shadow-[0_0_10px_rgba(56,189,248,0.6)]"
-                />
+                {/* Details Next to Image */}
+                <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                    {activeSponsor.name}
+                  </h3>
+
+                  <span className="text-xs font-mono text-[#38BDF8] mt-1 font-semibold tracking-wider">
+                    Official Summit Partner
+                  </span>
+
+                  <p className="text-xs text-[#94A3B8] font-mono mt-2 leading-relaxed max-w-xs">
+                    {activeSponsor.desc}
+                  </p>
+                </div>
               </div>
 
-              {/* Bottom Details Section */}
-              <div className="w-full pt-3.5 border-t border-white/10 text-center">
-                <h4 className="text-lg sm:text-xl font-extrabold text-white tracking-wide">
-                  {activeSponsor.name}
-                </h4>
-                <p className="text-xs text-[#94A3B8] font-mono mt-1">
-                  {activeSponsor.desc}
-                </p>
+              {/* Bottom Card Bar */}
+              <div className="w-full pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+                <span className="text-[#94A3B8]">Renaissance 10th Edition</span>
+                <span className="text-[#38BDF8] font-bold">Partner Showcase</span>
               </div>
             </div>
+
           </div>
         </div>
 
-        {/* Bottom Status */}
-        <div className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20">
-          <span>Scroll to turn wheel & survey all 8 sponsors</span>
-          <span className="hidden sm:inline">Authentic Nautical Helm</span>
+        {/* Clean Bottom Status Bar */}
+        <div
+          ref={sponsorsFooterRef}
+          className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
+        >
+          <span className="text-[#38BDF8]/80">Scroll to explore summit partners</span>
+          <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>
-
-      {/* Seamless Gaussian Blur Backdrop Transition Strip */}
-      <div className="w-full h-20 backdrop-blur-md bg-gradient-to-b from-transparent via-[#020610]/70 to-[#020610]/95 pointer-events-none -mt-1 z-20" />
 
       {/* ============================================================ */}
       {/* TRANSITION WRAPPER: SECTION 3 (ABOUT) & SECTION 4 (SPEAKERS) */}
@@ -396,6 +442,9 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      {/* Global Summit Footer */}
+      <ContactFooter />
     </div>
   );
 }

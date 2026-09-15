@@ -9,15 +9,46 @@ import ContactFooter from "../components/ContactFooter";
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
-const SPONSORS = [
-  { id: "01", name: "Sponsor 01", tier: "Anchor Title Partner", desc: "Deep Sea Oceanography & Autonomous Navigation", image: "/sponsors/sponsor1.png" },
-  { id: "02", name: "Sponsor 02", tier: "Voyage Lead Partner", desc: "Algorithmic Navigation & Quantitative Labs", image: "/sponsors/sponsor2.png" },
-  { id: "03", name: "Sponsor 03", tier: "Helm Strategic Partner", desc: "Subsea Energy Systems & Power Networks", image: "/sponsors/sponsor3.png" },
-  { id: "04", name: "Sponsor 04", tier: "Horizon Capital", desc: "Deepwater Venture Syndicate & Capital", image: "/sponsors/sponsor4.png" },
-  { id: "05", name: "Sponsor 05", tier: "Abyss Infrastructure", desc: "High-Frequency Oceanic Fiber Networks", image: "/sponsors/sponsor5.png" },
-  { id: "06", name: "Sponsor 06", tier: "Nautical Cloud", desc: "Offshore Cloud & Maritime Supercomputing", image: "/sponsors/sponsor6.png" },
-  { id: "07", name: "Sponsor 07", tier: "Compass Robotics", desc: "Unmanned Submersible Fleets & AI Drones", image: "/sponsors/sponsor7.png" },
-  { id: "08", name: "Sponsor 08", tier: "Vanguard Marine", desc: "Decentralized Maritime Logistics & Commerce", image: "/sponsors/sponsor8.png" },
+const EVENTS = [
+  {
+    id: "01",
+    name: "E-Summit Hackathon",
+    category: "Flagship 36-Hour Sprint",
+    desc: "Build autonomous subsea systems, AI agents, and deep-tech prototypes in a 36-hour continuous build sprint.",
+    prize: "₹2,50,000 Pool",
+  },
+  {
+    id: "02",
+    name: "Pitchers 10.0",
+    category: "Venture Capital Arena",
+    desc: "Present your high-impact startup to top syndicate investors, angel funds, and tier-1 venture cartographers.",
+    prize: "₹5,00,000 Pool",
+  },
+  {
+    id: "03",
+    name: "Case Odyssey",
+    category: "Corporate Strategy Battle",
+    desc: "Solve high-stakes strategic challenges and market disruption problems presented by global industry leaders.",
+    prize: "₹1,50,000 Pool",
+  },
+];
+
+const CURRENT_SPONSORS = [
+  { name: "Google Cloud", tier: "Title Partner" },
+  { name: "Mariana Labs", tier: "Powered By" },
+  { name: "Horizon Capital", tier: "Venture Partner" },
+  { name: "Vanguard Tech", tier: "Tech Partner" },
+  { name: "Abyss Systems", tier: "Infrastructure" },
+  { name: "Nautical AI", tier: "Innovation Partner" },
+];
+
+const PAST_SPONSORS = [
+  { name: "Microsoft", tier: "Past Partner" },
+  { name: "AWS", tier: "Past Sponsor" },
+  { name: "Polygon", tier: "Past Sponsor" },
+  { name: "Sequoia", tier: "Past Partner" },
+  { name: "Intel", tier: "Past Sponsor" },
+  { name: "Cisco", tier: "Past Partner" },
 ];
 
 const SPEAKERS = [
@@ -28,7 +59,7 @@ const SPEAKERS = [
 ];
 
 export default function Home() {
-  const [activeSponsorIdx, setActiveSponsorIdx] = useState(0);
+  const [activeEventIdx, setActiveEventIdx] = useState(0);
   const smoothScroll = useSmoothScroll();
 
   const heroSectionRef = useRef(null);
@@ -45,10 +76,10 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Rapid Entrance Reveal & Fluid Locked Sponsors
+      // Section 2: Flagship Events Wheel with 25% Scroll Lock Buffer
       // -------------------------------------------------------------
       if (sponsorsSectionRef.current) {
-        const totalSteps = SPONSORS.length;
+        const totalSteps = EVENTS.length;
 
         // 1. Entrance Trigger (Reveals elements smoothly as section reaches viewport)
         const entranceTargets = [
@@ -78,25 +109,25 @@ export default function Home() {
           );
         }
 
-        // 2. Pinned ScrollTrigger (Locks full screen & holds on Sponsor 01 before stepping)
+        // 2. Pinned ScrollTrigger (Locks full screen & holds on Event 01 for first 25% of scroll)
         ScrollTrigger.create({
           trigger: sponsorsSectionRef.current,
           start: "top top",
-          end: `+=${totalSteps * 320}`,
+          end: `+=${totalSteps * 350}`,
           pin: true,
-          scrub: 0.5, // Crisp & responsive momentum scrubbing
+          scrub: 0.5,
           onUpdate: (self) => {
             const rawProgress = self.progress;
 
             // Rotate transparent pirate wheel smoothly
             if (wheelImgRef.current) {
               gsap.set(wheelImgRef.current, {
-                rotation: rawProgress * 360 * 2.0,
+                rotation: rawProgress * 360 * 2.2,
               });
             }
 
-            // Hold Sponsor 01 for the initial 15% of pinned scroll distance
-            const holdThreshold = 0.15;
+            // Firm 25% hold buffer on Event 01 so fast scrolling never skips Event 01
+            const holdThreshold = 0.25;
             let normalizedProgress = 0;
             if (rawProgress > holdThreshold) {
               normalizedProgress = (rawProgress - holdThreshold) / (1 - holdThreshold);
@@ -107,7 +138,7 @@ export default function Home() {
               Math.floor(normalizedProgress * totalSteps)
             );
 
-            setActiveSponsorIdx((prev) => {
+            setActiveEventIdx((prev) => {
               if (prev !== newIdx) {
                 if (sponsorCardRef.current) {
                   gsap.fromTo(
@@ -160,7 +191,7 @@ export default function Home() {
     };
   }, []);
 
-  const activeSponsor = SPONSORS[activeSponsorIdx];
+  const activeEvent = EVENTS[activeEventIdx];
 
   return (
     <div className="relative z-10 w-full text-white selection:bg-[#38BDF8] selection:text-[#020610]">
@@ -216,7 +247,7 @@ export default function Home() {
                 <Navigation className="w-4 h-4 text-[#38BDF8] transform -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 overflow-visible" />
               </div>
               <span className="text-xs font-semibold tracking-widest uppercase">
-                Begin Voyage
+                Explore Events
               </span>
               <div className="overflow-visible flex items-center justify-center">
                 <Wind className="w-3.5 h-3.5 text-[#38BDF8]/80 group-hover:text-[#38BDF8] transition-colors overflow-visible" />
@@ -235,31 +266,34 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: SPONSORS (LEFT WHEEL | RIGHT SPONSOR SHOWCASE)    */}
+      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (HIGH CONTRAST MARIANA BLUE)*/}
       {/* ============================================================ */}
       <section
         id="sponsors"
         ref={sponsorsSectionRef}
         className="relative w-full h-screen bg-[#020610]/95 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-24 sm:pt-28 pb-6 px-6 sm:px-12 overflow-hidden select-none"
       >
+        {/* Dynamic Mariana Blue Gaussian Blur Aura */}
+        <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#0284C7]/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
+
         {/* Giant Rotating Nautical Wheel (Anchored to exact left boundary: 50% on screen, 50% off screen) */}
         <div
           ref={wheelContainerRef}
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible"
         >
           {/* Cyan Glow Aura */}
-          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/15 blur-3xl pointer-events-none" />
+          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/20 blur-3xl pointer-events-none" />
 
           {/* Transparent Pirate Wheel Image */}
           <img
             ref={wheelImgRef}
             src="/pirate-wheel-transparent.png"
             alt="Nautical Wheel"
-            className="w-full h-full object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] drop-shadow-[0_0_50px_rgba(56,189,248,0.4)] select-none pointer-events-none will-change-transform overflow-visible"
+            className="w-full h-full object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] drop-shadow-[0_0_50px_rgba(56,189,248,0.45)] select-none pointer-events-none will-change-transform overflow-visible"
           />
         </div>
 
-        {/* Right Half Container: Section Header & Showcase Card (100% Readable, Zero Overlap with Wheel) */}
+        {/* Right Half Container: Section Header & Event Card (100% Readable, Zero Overlap with Wheel) */}
         <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
           <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-4">
 
@@ -270,33 +304,33 @@ export default function Home() {
             >
               <div>
                 <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold">
-                  Summit Partners
+                  Summit Flagships
                 </span>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                  Expedition Sponsors
+                  Featured Events
                 </h2>
               </div>
 
               <div className="flex items-center gap-2 bg-[#030914]/90 px-3.5 py-1.5 rounded-xl border border-white/10 font-mono text-xs shadow-lg">
-                <span className="text-[#94A3B8]">Partner:</span>
+                <span className="text-[#94A3B8]">Event:</span>
                 <span className="text-[#38BDF8] font-bold text-sm">
-                  {String(activeSponsorIdx + 1).padStart(2, "0")} / 08
+                  {String(activeEventIdx + 1).padStart(2, "0")} / 03
                 </span>
               </div>
             </div>
 
-            {/* Showcase Card with '?' Placeholder Image */}
+            {/* Event Showcase Card with Mystery '?' Image Frame */}
             <div
               ref={sponsorCardRef}
-              className="w-full p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.2)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
+              className="w-full p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
             >
               {/* Card Header */}
               <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
                 <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
-                  PARTNER {activeSponsor.id} / 08
+                  EVENT {activeEvent.id} / 03
                 </span>
                 <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
-                  {activeSponsor.tier}
+                  {activeEvent.category}
                 </span>
               </div>
 
@@ -313,22 +347,22 @@ export default function Home() {
                   </span>
 
                   <span className="text-[9px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-1 z-10 font-bold">
-                    REVEAL SOON
+                    FLAGSHIP
                   </span>
                 </div>
 
                 {/* Details Next to Image */}
                 <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
-                    {activeSponsor.name}
+                    {activeEvent.name}
                   </h3>
 
                   <span className="text-xs font-mono text-[#38BDF8] mt-1 font-semibold tracking-wider">
-                    Official Summit Partner
+                    {activeEvent.prize}
                   </span>
 
-                  <p className="text-xs text-[#94A3B8] font-mono mt-2 leading-relaxed max-w-xs">
-                    {activeSponsor.desc}
+                  <p className="text-xs text-[#CBD5E1] font-mono mt-2 leading-relaxed max-w-xs">
+                    {activeEvent.desc}
                   </p>
                 </div>
               </div>
@@ -336,7 +370,9 @@ export default function Home() {
               {/* Bottom Card Bar */}
               <div className="w-full pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
                 <span className="text-[#94A3B8]">Renaissance 10th Edition</span>
-                <span className="text-[#38BDF8] font-bold">Partner Showcase</span>
+                <Link to="/events" className="text-[#38BDF8] font-bold hover:underline">
+                  View Full Schedule →
+                </Link>
               </div>
             </div>
 
@@ -348,7 +384,7 @@ export default function Home() {
           ref={sponsorsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          <span className="text-[#38BDF8]/80">Scroll to explore summit partners</span>
+          <span className="text-[#38BDF8]/80">Scroll to explore flagship summit events</span>
           <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>
@@ -422,7 +458,7 @@ export default function Home() {
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                     </svg>
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020610]/90 to-transparent pointer-events-none" />
                   </div>
@@ -442,6 +478,75 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      {/* ============================================================ */}
+      {/* SECTION 5: SPONSORS (DEDICATED QUICK HORIZONTAL TICKER)       */}
+      {/* ============================================================ */}
+      <section className="relative w-full bg-[#020610] border-t border-[#38BDF8]/20 py-16 px-6 overflow-hidden select-none z-20">
+        {/* Dynamic Mariana Blue Glow Aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-[#0284C7]/20 rounded-full blur-[100px] pointer-events-none animate-pulse" />
+
+        <div className="max-w-7xl mx-auto flex flex-col items-center mb-10 text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#38BDF8]/30 bg-[#040e1d]/90 text-[#38BDF8] text-[11px] font-mono uppercase tracking-widest mb-2 shadow-md">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#38BDF8]" />
+            <span>Summit Strategic Partners</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Current & Past Sponsors
+          </h2>
+          <p className="text-xs sm:text-sm font-mono text-[#94A3B8] mt-1">
+            Industry leaders & legacy partners empowering our 10-year odyssey
+          </p>
+        </div>
+
+        {/* Row 1: Current Sponsors (Infinite Right-to-Left Ticker) */}
+        <div className="w-full overflow-hidden mb-6 relative z-10">
+          <div className="flex gap-6 animate-marquee whitespace-nowrap min-w-full">
+            {[...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS].map((sponsor, idx) => (
+              <div
+                key={`curr-${idx}`}
+                className="inline-flex items-center gap-4 px-6 py-3.5 rounded-2xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)] shadow-[0_0_15px_rgba(56,189,248,0.15)] group hover:border-[#38BDF8] transition-all cursor-pointer"
+              >
+                <div className="w-8 h-8 rounded-xl border border-[#38BDF8]/30 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-sm group-hover:scale-110 transition-transform">
+                  ★
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-sm font-extrabold text-white group-hover:text-[#38BDF8] transition-colors">
+                    {sponsor.name}
+                  </span>
+                  <span className="text-[10px] font-mono text-[#38BDF8]/80 uppercase tracking-wider font-semibold">
+                    {sponsor.tier}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2: Past Sponsors (Infinite Left-to-Right Ticker) */}
+        <div className="w-full overflow-hidden relative z-10">
+          <div className="flex gap-6 animate-marquee-reverse whitespace-nowrap min-w-full">
+            {[...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS].map((sponsor, idx) => (
+              <div
+                key={`past-${idx}`}
+                className="inline-flex items-center gap-4 px-6 py-3.5 rounded-2xl border border-white/10 bg-[#030a17]/80 backdrop-blur-md shadow-md group hover:border-[#38BDF8]/50 transition-all cursor-pointer"
+              >
+                <div className="w-8 h-8 rounded-xl border border-white/10 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#94A3B8] text-sm group-hover:text-[#38BDF8] transition-colors">
+                  ✦
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-sm font-bold text-[#CBD5E1] group-hover:text-white transition-colors">
+                    {sponsor.name}
+                  </span>
+                  <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider font-semibold">
+                    {sponsor.tier}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Global Summit Footer */}
       <ContactFooter />

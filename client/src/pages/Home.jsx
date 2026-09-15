@@ -80,6 +80,12 @@ export default function Home() {
   const detailsRef = useRef([]);
   const sponsorsFooterRef = useRef(null);
 
+  // Sponsors Section Refs
+  const sponsorsPinnedSectionRef = useRef(null);
+  const sponsorsCyanAuraRef = useRef(null);
+  const sponsorsRow1Ref = useRef(null);
+  const sponsorsRow2Ref = useRef(null);
+
   // About Section Refs
   const aboutSectionRef = useRef(null);
   const aboutAuraRef = useRef(null);
@@ -189,6 +195,51 @@ export default function Home() {
             );
           }
         });
+      }
+
+      // -------------------------------------------------------------
+      // Section 3: Sponsors Pinned Cyan Showcase & Fast Dual Marquee
+      // -------------------------------------------------------------
+      if (sponsorsPinnedSectionRef.current) {
+        const sponsorsTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sponsorsPinnedSectionRef.current,
+            start: "top top",
+            end: "+=2500",
+            pin: true,
+            scrub: 0.8,
+          },
+        });
+
+        // 1. Expanding Cyan Glow Aura
+        if (sponsorsCyanAuraRef.current) {
+          sponsorsTl.fromTo(
+            sponsorsCyanAuraRef.current,
+            { scale: 0.7, opacity: 0.3 },
+            { scale: 1.5, opacity: 0.9, ease: "none" },
+            0
+          );
+        }
+
+        // 2. Row 1: Fast Left-to-Right scroll sweep
+        if (sponsorsRow1Ref.current) {
+          sponsorsTl.fromTo(
+            sponsorsRow1Ref.current,
+            { x: "0%" },
+            { x: "-45%", ease: "none" },
+            0
+          );
+        }
+
+        // 3. Row 2: Fast Right-to-Left scroll sweep in opposite direction
+        if (sponsorsRow2Ref.current) {
+          sponsorsTl.fromTo(
+            sponsorsRow2Ref.current,
+            { x: "-45%" },
+            { x: "0%", ease: "none" },
+            0
+          );
+        }
       }
 
       // -------------------------------------------------------------
@@ -504,40 +555,56 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 3: SPONSORS (MOVED DIRECTLY AFTER EVENTS WHEEL)      */}
+      {/* SECTION 3: SPONSORS (PINNED CYAN SHOWCASE & FAST DUAL MARQUEE)*/}
       {/* ============================================================ */}
-      <section className="relative w-full bg-[#020610] border-t border-[#38BDF8]/20 py-20 px-6 overflow-hidden select-none z-20">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-[#0284C7]/20 rounded-full blur-[100px] pointer-events-none animate-pulse" />
+      <section
+        ref={sponsorsPinnedSectionRef}
+        className="relative min-h-screen w-full bg-gradient-to-b from-[#020610] via-[#031730] to-[#020610] border-t border-[#38BDF8]/30 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
+      >
+        {/* Cyan Animated Background Glow Aura */}
+        <div
+          ref={sponsorsCyanAuraRef}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-[#0284C7]/30 rounded-full blur-[150px] pointer-events-none"
+        />
 
-        <div className="max-w-7xl mx-auto flex flex-col items-center mb-10 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#38BDF8]/30 bg-[#040e1d]/90 text-[#38BDF8] text-[11px] font-mono uppercase tracking-widest mb-2 shadow-md">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#38BDF8]" />
+        {/* Left & Right Edge Gradual Blur Overlays for Maximum Readability */}
+        <div className="absolute top-0 bottom-0 left-0 w-32 sm:w-60 bg-gradient-to-r from-[#020610] via-[#020610]/85 to-transparent backdrop-blur-md pointer-events-none z-20" />
+        <div className="absolute top-0 bottom-0 right-0 w-32 sm:w-60 bg-gradient-to-l from-[#020610] via-[#020610]/85 to-transparent backdrop-blur-md pointer-events-none z-20" />
+
+        {/* Header */}
+        <div className="max-w-7xl mx-auto flex flex-col items-center mb-12 text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#38BDF8]/50 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono uppercase tracking-widest mb-3 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
+            <ShieldCheck className="w-4 h-4 text-[#38BDF8]" />
             <span>Summit Strategic Partners</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
             Current & Past Sponsors
           </h2>
-          <p className="text-xs sm:text-sm font-mono text-[#94A3B8] mt-1">
-            Industry leaders & legacy partners empowering our 10-year odyssey
+          <p className="text-xs sm:text-sm font-mono text-[#38BDF8]/90 mt-2 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2">
+            <span>Scroll to accelerate partner voyager streams</span>
+            <span className="animate-bounce">↓</span>
           </p>
         </div>
 
-        {/* Row 1: Current Sponsors */}
-        <div className="w-full overflow-hidden mb-6 relative z-10">
-          <div className="flex gap-6 animate-marquee whitespace-nowrap min-w-full">
-            {[...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS].map((sponsor, idx) => (
+        {/* Fast Left-to-Right Row 1 (Current Sponsors) */}
+        <div className="w-full overflow-hidden mb-8 relative z-10">
+          <div
+            ref={sponsorsRow1Ref}
+            className="flex gap-6 whitespace-nowrap min-w-max will-change-transform"
+          >
+            {[...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS].map((sponsor, idx) => (
               <div
                 key={`curr-${idx}`}
-                className="inline-flex items-center gap-4 px-6 py-3.5 rounded-2xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)] shadow-[0_0_15px_rgba(56,189,248,0.15)] group hover:border-[#38BDF8] transition-all cursor-pointer"
+                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#38BDF8]/50 bg-[#04152e]/95 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] shadow-[0_0_20px_rgba(56,189,248,0.25)] group hover:border-[#38BDF8] transition-all cursor-pointer"
               >
-                <div className="w-8 h-8 rounded-xl border border-[#38BDF8]/30 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-sm group-hover:scale-110 transition-transform">
+                <div className="w-9 h-9 rounded-xl border border-[#38BDF8]/40 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-base group-hover:scale-110 transition-transform shadow-inner">
                   ★
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-sm font-extrabold text-white group-hover:text-[#38BDF8] transition-colors">
+                  <span className="text-base font-extrabold text-white group-hover:text-[#38BDF8] transition-colors tracking-wide">
                     {sponsor.name}
                   </span>
-                  <span className="text-[10px] font-mono text-[#38BDF8]/80 uppercase tracking-wider font-semibold">
+                  <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-wider font-extrabold">
                     {sponsor.tier}
                   </span>
                 </div>
@@ -546,22 +613,25 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Row 2: Past Sponsors */}
+        {/* Fast Right-to-Left Row 2 (Past Sponsors) */}
         <div className="w-full overflow-hidden relative z-10">
-          <div className="flex gap-6 animate-marquee-reverse whitespace-nowrap min-w-full">
-            {[...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS].map((sponsor, idx) => (
+          <div
+            ref={sponsorsRow2Ref}
+            className="flex gap-6 whitespace-nowrap min-w-max will-change-transform"
+          >
+            {[...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS].map((sponsor, idx) => (
               <div
                 key={`past-${idx}`}
-                className="inline-flex items-center gap-4 px-6 py-3.5 rounded-2xl border border-white/10 bg-[#030a17]/80 backdrop-blur-md shadow-md group hover:border-[#38BDF8]/50 transition-all cursor-pointer"
+                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-white/20 bg-[#031024]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] group hover:border-[#38BDF8]/70 transition-all cursor-pointer"
               >
-                <div className="w-8 h-8 rounded-xl border border-white/10 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#94A3B8] text-sm group-hover:text-[#38BDF8] transition-colors">
+                <div className="w-9 h-9 rounded-xl border border-white/20 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#94A3B8] text-base group-hover:text-[#38BDF8] transition-colors shadow-inner">
                   ✦
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-sm font-bold text-[#CBD5E1] group-hover:text-white transition-colors">
+                  <span className="text-base font-bold text-[#CBD5E1] group-hover:text-white transition-colors tracking-wide">
                     {sponsor.name}
                   </span>
-                  <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider font-semibold">
+                  <span className="text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider font-bold">
                     {sponsor.tier}
                   </span>
                 </div>

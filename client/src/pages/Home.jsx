@@ -333,7 +333,7 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 5: Keynote Speakers (Pinned Deep Mariana Abyss Showcase)
+      // Section 5: Keynote Speakers (Fast & Responsive Pinned Showcase)
       // -------------------------------------------------------------
       if (speakersSectionRef.current) {
         const speakersHeaderEl = speakersSectionRef.current.querySelector(".speakers-header");
@@ -343,20 +343,20 @@ export default function Home() {
           scrollTrigger: {
             trigger: speakersSectionRef.current,
             start: "top top",
-            end: "+=3000",
+            end: "+=1600",
             pin: true,
-            scrub: 1,
+            scrub: 0.5,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
         });
 
-        // 1. Entrance (0% - 20%): Header slides down, cards stagger-fade into view with scale
+        // 1. Entrance (0% - 25%): Fast & responsive reveal of header & speaker cards
         if (speakersHeaderEl) {
           speakersTl.fromTo(
             speakersHeaderEl,
-            { opacity: 0, y: -40, scale: 0.9 },
-            { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
+            { opacity: 0, y: -30, scale: 0.95 },
+            { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.out" },
             0
           );
         }
@@ -364,20 +364,20 @@ export default function Home() {
         if (speakerCardEls.length > 0) {
           speakersTl.fromTo(
             speakerCardEls,
-            { opacity: 0, y: 60, scale: 0.85, filter: "blur(10px)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 2, stagger: 0.3, ease: "power2.out" },
-            0.5
+            { opacity: 0, y: 40, scale: 0.9, filter: "blur(8px)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.2, stagger: 0.15, ease: "power2.out" },
+            0.3
           );
         }
 
-        // 2. Hold Phase (20% - 80%): Cards remain pinned & floating in deep ocean abyss glow
-        speakersTl.to(speakerCardEls, { opacity: 1, duration: 3 });
+        // 2. Hold Showcase (25% - 75%): Brief pinned hold in deep ocean abyss glow
+        speakersTl.to(speakerCardEls, { opacity: 1, duration: 2 });
 
-        // 3. Exit (80% - 100%): Cards & Header fade out gently before unpinning into footer
+        // 3. Fast Exit (75% - 100%): Cards & Header unpin cleanly into footer
         speakersTl.to(
           [speakersHeaderEl, ...Array.from(speakerCardEls)].filter(Boolean),
-          { opacity: 0, y: -40, scale: 0.95, filter: "blur(8px)", duration: 1.5, ease: "power2.in" },
-          7
+          { opacity: 0, y: -30, scale: 0.95, filter: "blur(6px)", duration: 1, ease: "power2.in" },
+          4.5
         );
       }
     });
@@ -775,12 +775,15 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 5: FEATURED SPEAKERS (FULL-SCREEN 100VH MARIANA ABYSS) */}
+      {/* SECTION 5: FEATURED SPEAKERS (GRADUAL OCEAN BLEND SHOWCASE)  */}
       {/* ============================================================ */}
       <section
         ref={speakersSectionRef}
-        className="relative min-h-screen w-full bg-[#020610] border-t border-[#38BDF8]/20 flex flex-col items-center justify-center px-6 py-20 overflow-hidden select-none z-20"
+        className="relative min-h-screen w-full bg-gradient-to-b from-transparent via-[#020610]/95 to-[#020610] flex flex-col items-center justify-center px-6 py-24 overflow-hidden select-none z-20"
       >
+        {/* Seamless Top Backdrop Blur Gradient Blend Mask */}
+        <div className="absolute top-0 left-0 right-0 h-40 sm:h-56 bg-gradient-to-b from-transparent via-[#020610]/60 to-[#020610] backdrop-blur-md pointer-events-none z-10" />
+
         {/* Dual Mariana Blue Background Blur Auras */}
         <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />

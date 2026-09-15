@@ -6,9 +6,8 @@ import {
   ShieldCheck,
   UserCheck,
   Clock,
-  FileText,
-  Compass,
   ChevronRight,
+  Compass,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -23,40 +22,25 @@ const EVENTS = [
     id: "01",
     name: "E-Summit Hackathon",
     category: "Flagship 36-Hour Sprint",
+    time: "Day 1 • 09:00 AM • 36 Hours",
     desc: "Build autonomous subsea systems, AI agents, and deep-tech prototypes in a 36-hour continuous build sprint.",
     prize: "₹2,50,000 Pool",
-    timeline: [
-      { phase: "Phase 1", title: "Idea Pitch & Architecture", date: "Day 1 • 09:00 AM" },
-      { phase: "Phase 2", title: "36-Hour Dev Sprint", date: "Day 1 - Day 2 • 36 hrs" },
-      { phase: "Phase 3", title: "Grand Jury Demo & Subsea Trial", date: "Day 2 • 06:00 PM" },
-    ],
-    rules: "Teams of 2-4 members. Open-source models allowed. Live prototype demonstration required.",
   },
   {
     id: "02",
     name: "Pitchers 10.0",
     category: "Venture Capital Arena",
+    time: "Summit Day 1 • 02:00 PM",
     desc: "Present your high-impact startup to top syndicate investors, angel funds, and tier-1 venture cartographers.",
     prize: "₹5,00,000 Pool",
-    timeline: [
-      { phase: "Phase 1", title: "Teaser Deck Screening", date: "Pre-Summit Screening" },
-      { phase: "Phase 2", title: "Closed-Door Investor Pitch", date: "Summit Day 1 • 02:00 PM" },
-      { phase: "Phase 3", title: "Term Sheet & Syndicate Funding", date: "Summit Day 2 • 04:00 PM" },
-    ],
-    rules: "Founders with working MVP or traction. 5-min pitch + 10-min investor Q&A.",
   },
   {
     id: "03",
     name: "Case Odyssey",
     category: "Corporate Strategy Battle",
+    time: "Day 1 • 10:00 AM • Boardroom Pitch",
     desc: "Solve high-stakes strategic challenges and market disruption problems presented by global industry leaders.",
     prize: "₹1,50,000 Pool",
-    timeline: [
-      { phase: "Phase 1", title: "Case Statement Release", date: "Day 1 • 10:00 AM" },
-      { phase: "Phase 2", title: "Strategy Deck Submission", date: "Day 1 • 08:00 PM" },
-      { phase: "Phase 3", title: "Boardroom Presentation", date: "Day 2 • 11:00 AM" },
-    ],
-    rules: "Teams of 1-3 members. Interdisciplinary allowed. Real-world corporate case study.",
   },
 ];
 
@@ -94,7 +78,6 @@ export default function Home() {
   const transitionWrapperRef = useRef(null);
   const wheelContainerRef = useRef(null);
   const wheelImgRef = useRef(null);
-  const clockHandRef = useRef(null);
   const sponsorsHeaderRef = useRef(null);
   const sponsorCardRef = useRef(null);
   const sponsorsFooterRef = useRef(null);
@@ -104,7 +87,7 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Flagship Events Pirate Wheel + Clock Needle Dial
+      // Section 2: Flagship Events Radial Clock Rotation & Unrolling Dropdown
       // -------------------------------------------------------------
       if (sponsorsSectionRef.current) {
         const totalSubSteps = 6; // 6 sub-steps across 3 events
@@ -136,7 +119,7 @@ export default function Home() {
           );
         }
 
-        // 2. Pinned ScrollTrigger with 4500px scroll length
+        // Pinned ScrollTrigger with Radial Clock Arc Sweep
         ScrollTrigger.create({
           trigger: sponsorsSectionRef.current,
           start: "top top",
@@ -146,14 +129,14 @@ export default function Home() {
           onUpdate: (self) => {
             const rawProgress = self.progress;
 
-            // Rotate transparent pirate wheel smoothly (2 full turns across scroll)
+            // Rotate transparent pirate wheel smoothly
             if (wheelImgRef.current) {
               gsap.set(wheelImgRef.current, {
                 rotation: rawProgress * 720,
               });
             }
 
-            // Entrance Hold Buffer (12% buffer for firm start)
+            // Entrance Hold Buffer (12% hold buffer at top)
             const holdThreshold = 0.12;
             let normalizedProgress = 0;
             if (rawProgress > holdThreshold) {
@@ -165,23 +148,14 @@ export default function Home() {
               Math.floor(normalizedProgress * totalSubSteps)
             );
 
-            // Rotate Golden/Cyan Compass Needle Hand to point to event hours (0°, 35°, 120°, 155°, 240°, 275°)
-            const needleAngles = [0, 35, 120, 155, 240, 275];
-            const targetAngle = needleAngles[newSubStep] || 0;
-
-            if (clockHandRef.current) {
-              gsap.set(clockHandRef.current, {
-                rotation: targetAngle,
-              });
-            }
-
             setActiveSubStep((prevSubStep) => {
               if (prevSubStep !== newSubStep) {
                 if (sponsorCardRef.current) {
+                  // Radial clock arc sweep animation
                   gsap.fromTo(
                     sponsorCardRef.current,
-                    { opacity: 0, y: 20, scale: 0.96, filter: "blur(8px)" },
-                    { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power2.out" }
+                    { opacity: 0, rotation: -20, transformOrigin: "-50% 50%", scale: 0.94, filter: "blur(10px)" },
+                    { opacity: 1, rotation: 0, transformOrigin: "-50% 50%", scale: 1, filter: "blur(0px)", duration: 0.4, ease: "power2.out" }
                   );
                 }
                 return newSubStep;
@@ -303,7 +277,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: FLAGSHIP EVENTS WHEEL + PIRATE CLOCK NEEDLE DIAL  */}
+      {/* SECTION 2: FLAGSHIP EVENTS WHEEL + RADIAL CLOCK ARC ROTATION */}
       {/* ============================================================ */}
       <section
         id="sponsors"
@@ -313,7 +287,7 @@ export default function Home() {
         {/* Dynamic Mariana Blue Gaussian Blur Aura */}
         <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#0284C7]/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
 
-        {/* Giant Rotating Nautical Wheel Assembly (Anchored to exact left boundary) */}
+        {/* Giant Rotating Nautical Wheel (Anchored to exact left boundary) */}
         <div
           ref={wheelContainerRef}
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible"
@@ -321,83 +295,28 @@ export default function Home() {
           {/* Cyan Glow Aura */}
           <div className="absolute inset-0 rounded-full bg-[#38BDF8]/20 blur-3xl pointer-events-none" />
 
-          {/* 1. Transparent Pirate Wheel Image (Rotates on scroll) */}
+          {/* Clean Transparent Pirate Wheel Image */}
           <img
             ref={wheelImgRef}
             src="/pirate-wheel-transparent.png"
             alt="Nautical Wheel"
             className="w-full h-full object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] drop-shadow-[0_0_50px_rgba(56,189,248,0.45)] select-none pointer-events-none will-change-transform overflow-visible"
           />
-
-          {/* 2. Rotating Compass / Pirate Clock Hour-Hand Needle Overlay */}
-          <div
-            ref={clockHandRef}
-            className="absolute inset-0 flex items-center justify-center pointer-events-none will-change-transform z-20"
-          >
-            <svg
-              viewBox="0 0 400 400"
-              className="w-full h-full filter drop-shadow-[0_0_20px_rgba(56,189,248,0.9)]"
-            >
-              <defs>
-                <linearGradient id="needleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#38BDF8" />
-                  <stop offset="50%" stopColor="#38BDF8" />
-                  <stop offset="100%" stopColor="#0284C7" />
-                </linearGradient>
-              </defs>
-
-              {/* Glowing Hour Hand Needle (Pointing Upwards at 0°) */}
-              <polygon
-                points="200,30 210,195 200,205 190,195"
-                fill="url(#needleGradient)"
-                stroke="#38BDF8"
-                strokeWidth="1.5"
-              />
-
-              {/* Compass Center Pivot Orb */}
-              <circle cx="200" cy="200" r="16" fill="#020610" stroke="#38BDF8" strokeWidth="3" />
-              <circle cx="200" cy="200" r="7" fill="#38BDF8" />
-            </svg>
-          </div>
-
-          {/* 3. Event Hour Dial Badges around Wheel Perimeter */}
-          <div className="absolute inset-0 pointer-events-none z-30">
-            {/* Event 01 Hour (Top 0°) */}
-            <div className={`absolute top-6 left-1/2 -translate-x-1/2 transition-all duration-300 ${activeEventIdx === 0 ? "scale-110 opacity-100" : "opacity-50"}`}>
-              <div className="px-3 py-1 rounded-full border border-[#38BDF8]/60 bg-[#040f21]/90 text-[#38BDF8] font-mono text-[10px] font-bold shadow-[0_0_15px_rgba(56,189,248,0.4)]">
-                01: HACKATHON
-              </div>
-            </div>
-
-            {/* Event 02 Hour (Bottom Right 120°) */}
-            <div className={`absolute bottom-20 right-16 transition-all duration-300 ${activeEventIdx === 1 ? "scale-110 opacity-100" : "opacity-50"}`}>
-              <div className="px-3 py-1 rounded-full border border-[#38BDF8]/60 bg-[#040f21]/90 text-[#38BDF8] font-mono text-[10px] font-bold shadow-[0_0_15px_rgba(56,189,248,0.4)]">
-                02: PITCHERS
-              </div>
-            </div>
-
-            {/* Event 03 Hour (Bottom Left 240°) */}
-            <div className={`absolute bottom-20 left-16 transition-all duration-300 ${activeEventIdx === 2 ? "scale-110 opacity-100" : "opacity-50"}`}>
-              <div className="px-3 py-1 rounded-full border border-[#38BDF8]/60 bg-[#040f21]/90 text-[#38BDF8] font-mono text-[10px] font-bold shadow-[0_0_15px_rgba(56,189,248,0.4)]">
-                03: ODYSSEY
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Right Half Container: Section Header & Event Card */}
+        {/* Right Half Container: Section Header & Radial Clock Event Stream */}
         <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
-          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-4">
+          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-5">
 
-            {/* Clean Section Header (Right Aligned above Card) */}
+            {/* Clean Section Header (Right Aligned) */}
             <div
               ref={sponsorsHeaderRef}
-              className="w-full flex items-end justify-between pb-1"
+              className="w-full flex items-end justify-between pb-1 border-b border-white/10"
             >
               <div>
                 <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold flex items-center gap-1.5">
                   <Compass className="w-3.5 h-3.5 text-[#38BDF8]" />
-                  <span>Pirate Clock Dial</span>
+                  <span>Summit Flagships</span>
                 </span>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
                   Featured Events
@@ -405,125 +324,95 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-2 bg-[#030914]/90 px-3.5 py-1.5 rounded-xl border border-[#38BDF8]/40 font-mono text-xs shadow-lg">
-                <span className="text-[#94A3B8]">Clock Step:</span>
+                <span className="text-[#94A3B8]">Event:</span>
                 <span className="text-[#38BDF8] font-bold text-sm">
-                  {String(activeSubStep + 1).padStart(2, "0")} / 06
+                  {String(activeEventIdx + 1).padStart(2, "0")} / 03
                 </span>
               </div>
             </div>
 
-            {/* Event Showcase Card (Multi-Sub-Step Dynamic Container) */}
+            {/* Radial Clock Rotation Container */}
             <div
               ref={sponsorCardRef}
-              className="w-full p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
+              className="w-full flex flex-col gap-4 bg-transparent p-0 border-none transition-all duration-300 relative will-change-transform"
             >
-              {/* Card Header */}
-              <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
-                    EVENT {activeEvent.id} / 03
+              {/* Event Main Badge (Always Visible, Framed Image + Title) */}
+              <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-5 p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-xl shadow-[0_0_35px_rgba(56,189,248,0.25)] shadow-[0_15px_35px_rgba(0,0,0,0.8)]">
+                {/* '?' Mystery Badge Image Frame */}
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
+                  <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
+                  <span className="text-3xl sm:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
+                    ?
                   </span>
-                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-white/10 bg-white/5 text-[#94A3B8] uppercase font-semibold">
-                    {isDeepDive ? "Layer 2: Timeline & Rules" : "Layer 1: Overview"}
+                  <span className="text-[8px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-0.5 z-10 font-bold">
+                    FLAGSHIP
                   </span>
                 </div>
 
-                <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
-                  {activeEvent.category}
-                </span>
+                {/* Title & Prize */}
+                <div className="flex flex-col text-center sm:text-left flex-1">
+                  <span className="text-[10px] font-mono font-semibold text-[#38BDF8] uppercase tracking-widest mb-1">
+                    {activeEvent.category}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                    {activeEvent.name}
+                  </h3>
+                  <span className="text-xs font-mono text-[#38BDF8] font-bold tracking-wider mt-1">
+                    {activeEvent.prize}
+                  </span>
+                </div>
+
+                {/* Dropdown State Cue */}
+                <div className="flex items-center gap-1 text-[11px] font-mono text-[#38BDF8]/90 bg-[#38BDF8]/10 px-3 py-1.5 rounded-full border border-[#38BDF8]/30 shrink-0">
+                  <span>{isDeepDive ? "Details Unrolled" : "Scroll for Details"}</span>
+                  <ChevronRight className={`w-3.5 h-3.5 transform transition-transform duration-300 ${isDeepDive ? "rotate-90" : ""}`} />
+                </div>
               </div>
 
-              {/* Layer 1: Overview (Sub-step A) */}
-              {!isDeepDive ? (
-                <div className="w-full my-4 p-5 sm:p-6 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left shadow-inner relative group min-h-[210px]">
-                  {/* '?' Placeholder Image Frame */}
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border border-[#38BDF8]/40 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_25px_rgba(56,189,248,0.25)] overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
-                    
-                    <span className="text-4xl sm:text-5xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_15px_rgba(56,189,248,0.9)] z-10 font-mono">
-                      ?
-                    </span>
-
-                    <span className="text-[9px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-1 z-10 font-bold">
-                      FLAGSHIP
-                    </span>
-                  </div>
-
-                  {/* Details Next to Image */}
-                  <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
-                      {activeEvent.name}
-                    </h3>
-
-                    <span className="text-xs font-mono text-[#38BDF8] mt-1 font-semibold tracking-wider">
-                      {activeEvent.prize}
-                    </span>
-
-                    <p className="text-xs text-[#CBD5E1] font-mono mt-2 leading-relaxed max-w-xs sm:max-w-sm">
-                      {activeEvent.desc}
-                    </p>
-
-                    <div className="mt-3 text-[11px] font-mono text-[#38BDF8]/80 flex items-center gap-1.5 animate-pulse">
-                      <span>Scroll down for clock timeline & details</span>
-                      <ChevronRight className="w-3.5 h-3.5 rotate-90" />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                /* Layer 2: Deep Dive Timeline & Rules (Sub-step B) */
-                <div className="w-full my-4 p-5 sm:p-6 bg-[#020610] rounded-2xl border border-[#38BDF8]/40 flex flex-col gap-4 text-left shadow-inner relative min-h-[210px]">
+              {/* Animated Accordion Dropdown Drawer (Unrolls below card on scroll) */}
+              <div
+                className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${
+                  isDeepDive ? "max-h-[300px] opacity-100 mt-1" : "max-h-0 opacity-0 mt-0 pointer-events-none"
+                }`}
+              >
+                <div className="p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/40 bg-[#020610]/95 backdrop-blur-2xl shadow-inner flex flex-col gap-4">
+                  {/* Time Badge */}
                   <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                    <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] uppercase font-bold tracking-wider">
+                    <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] font-bold uppercase tracking-wider">
                       <Clock className="w-4 h-4 text-[#38BDF8]" />
-                      <span>Event Timeline & Structure</span>
+                      <span>{activeEvent.time}</span>
                     </div>
+
                     <span className="text-[10px] font-mono text-amber-400 border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 rounded-full font-semibold">
-                      {activeEvent.name}
+                      Phase 2 Active
                     </span>
                   </div>
 
-                  {/* Timeline Phases Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {activeEvent.timeline.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="p-3 rounded-xl border border-white/10 bg-[#040f21]/80 flex flex-col justify-between"
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-[10px] font-mono font-bold text-[#38BDF8] uppercase">
-                            {item.phase}
-                          </span>
-                          <span className="text-[9px] font-mono text-[#64748B]">
-                            {item.date}
-                          </span>
-                        </div>
-                        <p className="text-xs font-semibold text-white leading-tight">
-                          {item.title}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                  {/* Overview Description */}
+                  <p className="text-xs sm:text-sm text-[#CBD5E1] font-mono leading-relaxed">
+                    {activeEvent.desc}
+                  </p>
 
-                  {/* Rules & Register CTA Bar */}
-                  <div className="pt-2 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  {/* Action CTA Bar */}
+                  <div className="pt-2 border-t border-white/10 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-xs text-[#CBD5E1] font-mono">
-                      <FileText className="w-4 h-4 text-[#38BDF8] shrink-0" />
-                      <span className="text-[11px] leading-tight">{activeEvent.rules}</span>
+                      <FileText className="w-4 h-4 text-[#38BDF8]" />
+                      <span>Official Summit Rulebook Applies</span>
                     </div>
 
                     <Link
                       to="/register"
-                      className="group relative flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_25px_rgba(56,189,248,0.7)] transition-all transform hover:scale-[1.03] shrink-0 cursor-pointer"
+                      className="group relative flex items-center justify-center gap-2.5 px-7 py-2.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_25px_rgba(56,189,248,0.7)] transition-all transform hover:scale-[1.03] cursor-pointer"
                     >
                       <UserCheck className="w-4 h-4 text-[#020610]" />
                       <span>Register For Event</span>
                     </Link>
                   </div>
                 </div>
-              )}
+              </div>
 
-              {/* Sub-step Dots Progress Indicator */}
-              <div className="w-full pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+              {/* Sub-step Progress Dots */}
+              <div className="w-full pt-2 flex items-center justify-between text-xs font-mono">
                 <div className="flex items-center gap-1.5">
                   {[0, 1, 2, 3, 4, 5].map((step) => {
                     const isCurrent = activeSubStep === step;
@@ -547,6 +436,7 @@ export default function Home() {
                   View Full Schedule →
                 </Link>
               </div>
+
             </div>
 
           </div>
@@ -557,7 +447,7 @@ export default function Home() {
           ref={sponsorsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          <span className="text-[#38BDF8]/80">Scroll to rotate clock hand and explore events</span>
+          <span className="text-[#38BDF8]/80">Scroll to rotate events along clock arc & unroll details</span>
           <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>
@@ -569,33 +459,31 @@ export default function Home() {
         ref={transitionWrapperRef}
         className="relative w-full h-screen overflow-hidden"
       >
-        {/* Section 3: About Renaissance (RESTORED FIRE DARK GLASS BACKDROP FOR 100% TEXT READABILITY) */}
+        {/* Section 3: About Renaissance (BOUNDARYLESS INTENSE BACKDROP BLUR WITH DEEP MARINE TYPOGRAPHY) */}
         <section className="absolute inset-0 w-full h-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent">
           <div
             ref={aboutTextRef}
-            className="max-w-4xl mx-auto p-8 sm:p-12 rounded-3xl border border-[#38BDF8]/50 bg-[#020610]/92 backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_50px_rgba(56,189,248,0.25)] flex flex-col items-center justify-center text-center"
+            className="max-w-3xl mx-auto flex flex-col items-center justify-center text-center p-6 sm:p-10 rounded-[40px] bg-[#020610]/40 backdrop-blur-3xl shadow-[0_0_80px_rgba(2,6,16,0.6)]"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest shadow-md">
-              <Wind className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#0284C7]/60 bg-[#0284C7]/20 text-[#0284C7] text-xs font-mono mb-6 uppercase tracking-widest font-extrabold shadow-sm">
+              <Wind className="w-3.5 h-3.5 text-[#0284C7]" />
               <span>The Odyssey • Genesis</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6">
+            <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-[#020610] mb-6 drop-shadow-[0_1px_3px_rgba(255,255,255,0.7)]">
               About{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-sky-300 to-white">
+              <span className="text-[#0284C7] underline decoration-[#0284C7]/50 underline-offset-8">
                 Renaissance
               </span>
             </h2>
 
-            <p className="text-sm sm:text-base text-[#CBD5E1] leading-relaxed font-normal mb-6 max-w-2xl">
+            <p className="text-base sm:text-xl text-[#011627] font-extrabold leading-relaxed mb-6 max-w-2xl drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]">
               Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
             </p>
 
-            <div className="pt-4 border-t border-white/10 w-full flex items-center justify-center">
-              <p className="text-xs text-[#38BDF8] font-mono tracking-widest uppercase font-semibold">
-                Keep scrolling to descend into the abyss of our keynote voyagers ↓
-              </p>
-            </div>
+            <p className="text-xs text-[#0284C7] font-mono tracking-widest uppercase font-black">
+              Keep scrolling to descend into the abyss of our keynote voyagers ↓
+            </p>
           </div>
         </section>
 
@@ -640,7 +528,7 @@ export default function Home() {
                   <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-widest mb-1">
                     {speaker.org}
                   </span>
-                  <h3 className="text-base font-semibold text-white group-hover:text-[#38BDF8] transition-colors mb-2">
+                  <h3 className="text-base font-semibold text-[#FFFFFF] group-hover:text-[#38BDF8] transition-colors mb-2">
                     {speaker.role}
                   </h3>
                   <p className="text-xs text-[#94A3B8] font-light leading-relaxed">

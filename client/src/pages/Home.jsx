@@ -6,7 +6,9 @@ import {
   ShieldCheck,
   UserCheck,
   Clock,
+  ChevronRight,
   Compass,
+  FileText,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -21,24 +23,24 @@ const EVENTS = [
     id: "01",
     name: "E-Summit Hackathon",
     category: "Flagship 36-Hour Sprint",
-    time: "Day 1 • 09:00 AM • 36 Hours",
-    desc: "Build autonomous subsea systems, AI agents, and deep-tech prototypes in a 36-hour continuous build sprint.",
+    time: "Day 1 • 09:00 AM • 36 Hours Continuous",
+    desc: "Build autonomous subsea systems, AI agents, and deep-tech prototypes in a 36-hour continuous build sprint evaluated by industry leaders.",
     prize: "₹2,50,000 Pool",
   },
   {
     id: "02",
     name: "Pitchers 10.0",
     category: "Venture Capital Arena",
-    time: "Summit Day 1 • 02:00 PM",
-    desc: "Present your high-impact startup to top syndicate investors, angel funds, and tier-1 venture cartographers.",
+    time: "Summit Day 1 • 02:00 PM • VC Closed Pitch",
+    desc: "Present your high-impact startup to top syndicate investors, angel funds, and tier-1 venture cartographers for direct term sheet funding.",
     prize: "₹5,00,000 Pool",
   },
   {
     id: "03",
     name: "Case Odyssey",
     category: "Corporate Strategy Battle",
-    time: "Day 1 • 10:00 AM • Boardroom Pitch",
-    desc: "Solve high-stakes strategic challenges and market disruption problems presented by global industry leaders.",
+    time: "Day 1 • 10:00 AM • Boardroom Presentation",
+    desc: "Solve high-stakes strategic challenges and market disruption problems presented by global corporate leadership teams.",
     prize: "₹1,50,000 Pool",
   },
 ];
@@ -69,7 +71,7 @@ const SPEAKERS = [
 ];
 
 export default function Home() {
-  const [activeEventIdx, setActiveEventIdx] = useState(0);
+  const [activeSubStep, setActiveSubStep] = useState(0);
   const smoothScroll = useSmoothScroll();
 
   const heroSectionRef = useRef(null);
@@ -86,10 +88,10 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Flagship Events Wheel (Smooth 3-Event Pinned Scroll)
+      // Section 2: Flagship Events Clock Arc Rotation & Unrolling Dropdown
       // -------------------------------------------------------------
       if (sponsorsSectionRef.current) {
-        const totalEvents = EVENTS.length; // 3 events
+        const totalSubSteps = 6; // 6 sub-steps across 3 events
 
         // Entrance Animation
         const entranceTargets = [
@@ -118,41 +120,62 @@ export default function Home() {
           );
         }
 
-        // Pinned ScrollTrigger for 3 Events
+        // Pinned ScrollTrigger with Clock Arc Sweep (4500px distance)
         ScrollTrigger.create({
           trigger: sponsorsSectionRef.current,
           start: "top top",
-          end: "+=3200",
+          end: "+=4500",
           pin: true,
-          scrub: 0.4,
+          scrub: 0.5,
           onUpdate: (self) => {
             const rawProgress = self.progress;
 
-            // Rotate transparent pirate wheel smoothly
+            // Rotate transparent pirate wheel smoothly (2 full rotations across scroll)
             if (wheelImgRef.current) {
               gsap.set(wheelImgRef.current, {
-                rotation: rawProgress * 360 * 2,
+                rotation: rawProgress * 720,
               });
             }
 
-            // Map progress to active event index (0, 1, 2)
-            const currentIdx = Math.min(
-              totalEvents - 1,
-              Math.floor(rawProgress * totalEvents)
+            // Entrance Hold Buffer (12% buffer)
+            const holdThreshold = 0.12;
+            let normalizedProgress = 0;
+            if (rawProgress > holdThreshold) {
+              normalizedProgress = (rawProgress - holdThreshold) / (1 - holdThreshold);
+            }
+
+            const newSubStep = Math.min(
+              totalSubSteps - 1,
+              Math.floor(normalizedProgress * totalSubSteps)
             );
 
-            setActiveEventIdx((prevIdx) => {
-              if (prevIdx !== currentIdx) {
+            setActiveSubStep((prevSubStep) => {
+              if (prevSubStep !== newSubStep) {
                 if (sponsorCardRef.current) {
+                  // Clock Arc Rotation Sweep Animation on Right Side
                   gsap.fromTo(
                     sponsorCardRef.current,
-                    { opacity: 0, y: 25, scale: 0.96, filter: "blur(6px)" },
-                    { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power2.out" }
+                    {
+                      opacity: 0,
+                      rotation: -22,
+                      transformOrigin: "-40% 50%",
+                      scale: 0.94,
+                      filter: "blur(12px)",
+                    },
+                    {
+                      opacity: 1,
+                      rotation: 0,
+                      transformOrigin: "-40% 50%",
+                      scale: 1,
+                      filter: "blur(0px)",
+                      duration: 0.45,
+                      ease: "power2.out",
+                    }
                   );
                 }
-                return currentIdx;
+                return newSubStep;
               }
-              return prevIdx;
+              return prevSubStep;
             });
           },
         });
@@ -194,6 +217,8 @@ export default function Home() {
     };
   }, []);
 
+  const activeEventIdx = Math.floor(activeSubStep / 2);
+  const isDeepDive = activeSubStep % 2 === 1;
   const activeEvent = EVENTS[activeEventIdx] || EVENTS[0];
 
   return (
@@ -267,7 +292,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (CLEAN 3-EVENT SCROLL)     */}
+      {/* SECTION 2: FLAGSHIP EVENTS WHEEL + CLOCK ARC & UNROLLING DRAWER*/}
       {/* ============================================================ */}
       <section
         id="sponsors"
@@ -294,7 +319,7 @@ export default function Home() {
           />
         </div>
 
-        {/* Right Half Container: Section Header & Event Card */}
+        {/* Right Half Container: Section Header & Clock Arc Event Stream */}
         <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
           <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-5">
 
@@ -313,36 +338,25 @@ export default function Home() {
                 </h2>
               </div>
 
-              {/* Exact Event Counter (01 / 03) */}
               <div className="flex items-center gap-2 bg-[#030914]/90 px-3.5 py-1.5 rounded-xl border border-[#38BDF8]/40 font-mono text-xs shadow-lg">
-                <span className="text-[#94A3B8]">Event:</span>
+                <span className="text-[#94A3B8]">Clock Step:</span>
                 <span className="text-[#38BDF8] font-bold text-sm">
-                  {String(activeEventIdx + 1).padStart(2, "0")} / 03
+                  {String(activeSubStep + 1).padStart(2, "0")} / 06
                 </span>
               </div>
             </div>
 
-            {/* High-Contrast Glass Event Showcase Card */}
+            {/* Clock Arc Rotated Event Card Stream */}
             <div
               ref={sponsorCardRef}
-              className="w-full p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col gap-6 transition-all duration-300 relative overflow-hidden"
+              className="w-full flex flex-col gap-4 bg-transparent p-0 border-none transition-all duration-300 relative will-change-transform"
             >
-              {/* Card Header: Event ID & Category */}
-              <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
-                <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
-                  EVENT {activeEvent.id} / 03
-                </span>
-                <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
-                  {activeEvent.category}
-                </span>
-              </div>
-
-              {/* Inner Frame: Mystery '?' Image Badge + Title + Prize */}
-              <div className="w-full p-5 sm:p-6 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center gap-6 shadow-inner relative">
-                {/* Mystery '?' Image Badge */}
-                <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_25px_rgba(56,189,248,0.25)] overflow-hidden">
+              {/* Event Main Title Card (Always Visible, Framed Image + Title) */}
+              <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-5 p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-xl shadow-[0_0_35px_rgba(56,189,248,0.25)] shadow-[0_15px_35px_rgba(0,0,0,0.8)]">
+                {/* '?' Mystery Badge Image Frame */}
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
                   <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
-                  <span className="text-4xl sm:text-5xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_15px_rgba(56,189,248,0.9)] z-10 font-mono">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
                     ?
                   </span>
                   <span className="text-[8px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-0.5 z-10 font-bold">
@@ -350,8 +364,11 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* Event Name & Prize */}
-                <div className="flex flex-col text-center sm:text-left">
+                {/* Title & Prize */}
+                <div className="flex flex-col text-center sm:text-left flex-1">
+                  <span className="text-[10px] font-mono font-semibold text-[#38BDF8] uppercase tracking-widest mb-1">
+                    {activeEvent.category}
+                  </span>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
                     {activeEvent.name}
                   </h3>
@@ -359,33 +376,82 @@ export default function Home() {
                     {activeEvent.prize}
                   </span>
                 </div>
+
+                {/* Dropdown Drawer Trigger Cue */}
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#38BDF8]/90 bg-[#38BDF8]/10 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/30 shrink-0">
+                  <span>{isDeepDive ? "Details Unrolled" : "Scroll for Details"}</span>
+                  <ChevronRight className={`w-3.5 h-3.5 transform transition-transform duration-300 ${isDeepDive ? "rotate-90" : ""}`} />
+                </div>
               </div>
 
-              {/* Time & Schedule Badge */}
-              <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] font-semibold bg-[#020610] px-4 py-2 rounded-xl border border-white/10 w-fit">
-                <Clock className="w-4 h-4 text-[#38BDF8]" />
-                <span>{activeEvent.time}</span>
+              {/* Animated Accordion Dropdown Drawer (Unrolls below card on scroll) */}
+              <div
+                className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${
+                  isDeepDive ? "max-h-[320px] opacity-100 mt-2" : "max-h-0 opacity-0 mt-0 pointer-events-none"
+                }`}
+              >
+                <div className="p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/40 bg-[#020610]/95 backdrop-blur-2xl shadow-inner flex flex-col gap-4">
+                  {/* Time Badge */}
+                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                    <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] font-bold uppercase tracking-wider">
+                      <Clock className="w-4 h-4 text-[#38BDF8]" />
+                      <span>{activeEvent.time}</span>
+                    </div>
+
+                    <span className="text-[10px] font-mono text-amber-400 border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 rounded-full font-semibold">
+                      Phase 2 Active
+                    </span>
+                  </div>
+
+                  {/* Detailed Description */}
+                  <p className="text-xs sm:text-sm text-[#CBD5E1] font-mono leading-relaxed">
+                    {activeEvent.desc}
+                  </p>
+
+                  {/* Action CTA Bar */}
+                  <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs text-[#CBD5E1] font-mono">
+                      <FileText className="w-4 h-4 text-[#38BDF8]" />
+                      <span>Official Summit Rulebook Applies</span>
+                    </div>
+
+                    <Link
+                      to="/register"
+                      className="group relative flex items-center justify-center gap-2.5 px-7 py-2.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_25px_rgba(56,189,248,0.7)] transition-all transform hover:scale-[1.03] cursor-pointer"
+                    >
+                      <UserCheck className="w-4 h-4 text-[#020610]" />
+                      <span>Register For Event</span>
+                    </Link>
+                  </div>
+                </div>
               </div>
 
-              {/* Description */}
-              <p className="text-xs sm:text-sm text-[#CBD5E1] font-mono leading-relaxed">
-                {activeEvent.desc}
-              </p>
+              {/* Sub-step Progress Indicator */}
+              <div className="w-full pt-2 flex items-center justify-between text-xs font-mono">
+                <div className="flex items-center gap-1.5">
+                  {[0, 1, 2, 3, 4, 5].map((step) => {
+                    const isCurrent = activeSubStep === step;
+                    const isPast = activeSubStep > step;
+                    return (
+                      <div
+                        key={step}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          isCurrent
+                            ? "w-6 bg-[#38BDF8] shadow-[0_0_10px_#38BDF8]"
+                            : isPast
+                            ? "w-3 bg-[#38BDF8]/50"
+                            : "w-3 bg-white/20"
+                        }`}
+                      />
+                    );
+                  })}
+                </div>
 
-              {/* Action Bar: Register Button */}
-              <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-                <Link
-                  to="/register"
-                  className="group relative flex items-center justify-center gap-2.5 px-8 py-3 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition-all duration-300 transform hover:scale-[1.03] cursor-pointer"
-                >
-                  <UserCheck className="w-4 h-4 text-[#020610]" />
-                  <span>Register For Event</span>
-                </Link>
-
-                <Link to="/events" className="text-xs font-mono text-[#38BDF8] font-bold hover:underline">
+                <Link to="/events" className="text-[#38BDF8] font-bold hover:underline text-xs">
                   View Full Schedule →
                 </Link>
               </div>
+
             </div>
 
           </div>
@@ -396,7 +462,7 @@ export default function Home() {
           ref={sponsorsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          <span className="text-[#38BDF8]/80">Scroll to explore flagship summit events</span>
+          <span className="text-[#38BDF8]/80">Scroll to rotate events along clock arc & unroll details</span>
           <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>
@@ -408,33 +474,31 @@ export default function Home() {
         ref={transitionWrapperRef}
         className="relative w-full h-screen overflow-hidden"
       >
-        {/* Section 3: About Renaissance (HIGH CONTRAST DARK GLASS CARD - 100% READABLE TEXT) */}
+        {/* Section 3: About Renaissance (BORDERLESS INTENSE BACKDROP BLUR - 100% READABLE TEXT) */}
         <section className="absolute inset-0 w-full h-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent">
           <div
             ref={aboutTextRef}
-            className="max-w-4xl mx-auto p-8 sm:p-12 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col items-center justify-center text-center"
+            className="max-w-3xl mx-auto flex flex-col items-center justify-center text-center p-8 sm:p-12 rounded-[40px] bg-[#020610]/40 backdrop-blur-3xl shadow-[0_0_90px_rgba(2,6,16,0.8)]"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest shadow-md">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/80 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest font-extrabold shadow-sm">
               <Wind className="w-3.5 h-3.5 text-[#38BDF8]" />
               <span>The Odyssey • Genesis</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6">
+            <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
               About{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-sky-300 to-white">
                 Renaissance
               </span>
             </h2>
 
-            <p className="text-sm sm:text-base text-[#CBD5E1] leading-relaxed font-normal mb-6 max-w-2xl">
+            <p className="text-base sm:text-lg text-white font-semibold leading-relaxed mb-6 max-w-2xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
               Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
             </p>
 
-            <div className="pt-4 border-t border-white/10 w-full flex items-center justify-center">
-              <p className="text-xs text-[#38BDF8] font-mono tracking-widest uppercase font-semibold">
-                Keep scrolling to descend into the abyss of our keynote voyagers ↓
-              </p>
-            </div>
+            <p className="text-xs text-[#38BDF8] font-mono tracking-widest uppercase font-extrabold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+              Keep scrolling to descend into the abyss of our keynote voyagers ↓
+            </p>
           </div>
         </section>
 

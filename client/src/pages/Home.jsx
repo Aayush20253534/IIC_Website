@@ -773,15 +773,12 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 5: FEATURED SPEAKERS (GRADUAL OCEAN BLEND SHOWCASE)  */}
+      {/* SECTION 5: FEATURED SPEAKERS (FULL-SCREEN MARIANA ABYSS)    */}
       {/* ============================================================ */}
       <section
         ref={speakersSectionRef}
-        className="relative min-h-screen w-full bg-gradient-to-b from-transparent via-[#020610]/95 to-[#020610] flex flex-col items-center justify-center px-6 py-24 overflow-hidden select-none z-20"
+        className="relative min-h-screen w-full bg-[#020610] border-t border-[#38BDF8]/20 flex flex-col items-center justify-center px-6 py-20 overflow-hidden select-none z-20"
       >
-        {/* Seamless Top Backdrop Blur Gradient Blend Mask */}
-        <div className="absolute top-0 left-0 right-0 h-40 sm:h-56 bg-gradient-to-b from-transparent via-[#020610]/60 to-[#020610] backdrop-blur-md pointer-events-none z-10" />
-
         {/* Dual Mariana Blue Background Blur Auras */}
         <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
@@ -806,21 +803,23 @@ export default function Home() {
 
           {/* Silhouette Grid of Voyager Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-            {SPEAKERS.map((speaker) => (
+            {SPEAKERS.map((speaker, sIdx) => (
               <div
                 key={speaker.id}
                 className="speaker-card group relative rounded-3xl border border-[#38BDF8]/30 bg-[#040f21]/80 backdrop-blur-xl p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#38BDF8] hover:bg-[#05142b]/95 shadow-[0_15px_40px_rgba(0,0,0,0.8)] hover:shadow-[0_0_35px_rgba(56,189,248,0.35)] hover:-translate-y-1.5 cursor-pointer"
               >
                 {/* Silhouette Frame with Compass Emblem Overlay */}
                 <div className="relative w-28 h-28 rounded-full border border-[#38BDF8]/40 bg-[#030914] flex items-center justify-center mb-6 overflow-hidden group-hover:border-[#38BDF8] transition-colors shadow-inner">
-                  <svg
-                    className="w-20 h-20 text-[#38BDF8]/40 group-hover:text-[#38BDF8]/80 transition-colors"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                  </svg>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#020610]/90 to-transparent pointer-events-none" />
+                  {sIdx === 0 ? (
+                    <Compass className="w-12 h-12 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
+                  ) : sIdx === 1 ? (
+                    <Navigation className="w-12 h-12 text-[#38BDF8] -rotate-45 group-hover:scale-110 transition-all duration-500" />
+                  ) : sIdx === 2 ? (
+                    <ShieldCheck className="w-12 h-12 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
+                  ) : (
+                    <UserCheck className="w-12 h-12 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#020610]/80 to-transparent pointer-events-none" />
                 </div>
 
                 <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-widest mb-1 font-semibold">

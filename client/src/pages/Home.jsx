@@ -333,52 +333,50 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 5: Keynote Speakers (Fast & Responsive Pinned Showcase)
+      // Section 5: Keynote Speakers (Smooth Scroll Reveal Showcase)
       // -------------------------------------------------------------
       if (speakersSectionRef.current) {
         const speakersHeaderEl = speakersSectionRef.current.querySelector(".speakers-header");
         const speakerCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card");
 
-        const speakersTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: speakersSectionRef.current,
-            start: "top top",
-            end: "+=1600",
-            pin: true,
-            scrub: 0.5,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        // 1. Entrance (0% - 25%): Fast & responsive reveal of header & speaker cards
         if (speakersHeaderEl) {
-          speakersTl.fromTo(
+          gsap.fromTo(
             speakersHeaderEl,
             { opacity: 0, y: -30, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.out" },
-            0
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: speakersSectionRef.current,
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              },
+            }
           );
         }
 
         if (speakerCardEls.length > 0) {
-          speakersTl.fromTo(
+          gsap.fromTo(
             speakerCardEls,
-            { opacity: 0, y: 40, scale: 0.9, filter: "blur(8px)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.2, stagger: 0.15, ease: "power2.out" },
-            0.3
+            { opacity: 0, y: 50, scale: 0.9 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.7,
+              stagger: 0.12,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: speakersSectionRef.current,
+                start: "top 75%",
+                toggleActions: "play none none reverse",
+              },
+            }
           );
         }
-
-        // 2. Hold Showcase (25% - 75%): Brief pinned hold in deep ocean abyss glow
-        speakersTl.to(speakerCardEls, { opacity: 1, duration: 2 });
-
-        // 3. Fast Exit (75% - 100%): Cards & Header unpin cleanly into footer
-        speakersTl.to(
-          [speakersHeaderEl, ...Array.from(speakerCardEls)].filter(Boolean),
-          { opacity: 0, y: -30, scale: 0.95, filter: "blur(6px)", duration: 1, ease: "power2.in" },
-          4.5
-        );
       }
     });
 

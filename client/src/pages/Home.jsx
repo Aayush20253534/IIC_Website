@@ -114,83 +114,103 @@ export default function Home() {
           );
         }
 
-        // Single Pinned GSAP Timeline with 4000px distance
+        // Set explicit center transform origin on pirate wheel
+        if (wheelImgRef.current) {
+          gsap.set(wheelImgRef.current, { transformOrigin: "50% 50%" });
+        }
+
+        // Single Pinned GSAP Timeline with generous 7000px distance & smooth 1s scrub dampening
         const mainTl = gsap.timeline({
           scrollTrigger: {
             trigger: sponsorsSectionRef.current,
             start: "top top",
-            end: "+=4000",
+            end: "+=7000",
             pin: true,
-            scrub: 0.5,
+            scrub: 1,
           },
         });
 
-        // 1. Scrub Left Wheel Rotation independently on the main timeline
-        if (wheelImgRef.current) {
-          mainTl.to(
-            wheelImgRef.current,
-            { rotation: 720, ease: "none" },
-            0
-          );
-        }
-
-        // 2. Loop through Event Visuals & Floating Details Panels
+        // Loop through Event Visuals & Floating Details Panels with Synchronized Wheel Rotation
         EVENTS.forEach((_, idx) => {
           const visualEl = visualsRef.current[idx];
           const detailsEl = detailsRef.current[idx];
           if (!visualEl || !detailsEl) return;
 
-          // PHASE 1: Event Visual Fades In & Zooms In (Details panel remains hidden)
+          const targetAngle = idx * 240 + 180;
+
+          // PHASE 1: Event Visual Fades In & Zooms In + Wheel rotates to match event tab entrance
           mainTl.fromTo(
             visualEl,
-            { opacity: 0, scale: 0.85, filter: "blur(10px)", pointerEvents: "none" },
-            { opacity: 1, scale: 1.0, filter: "blur(0px)", pointerEvents: "auto", duration: 1, ease: "power2.out" }
+            { opacity: 0, scale: 0.8, filter: "blur(12px)", pointerEvents: "none" },
+            { opacity: 1, scale: 1.0, filter: "blur(0px)", pointerEvents: "auto", duration: 1.5, ease: "power2.out" }
           );
 
-          mainTl.to(visualEl, { scale: 1.05, duration: 1.2, ease: "none" });
+          if (wheelImgRef.current) {
+            mainTl.to(
+              wheelImgRef.current,
+              { rotation: targetAngle, ease: "power2.out", duration: 1.5 },
+              "<"
+            );
+          }
 
-          // PHASE 2: Floating Sapphire Details Panel Animates In (Slides up AFTER Visual zoom completes)
+          // PHASE 2: Floating Sapphire Details Panel Slides Up (Reveals AFTER Visual zoom)
           mainTl.fromTo(
             detailsEl,
-            { opacity: 0, y: 40, scale: 0.95, pointerEvents: "none" },
-            { opacity: 1, y: 0, scale: 1.0, pointerEvents: "auto", duration: 0.9, ease: "power2.out" },
-            "-=0.4"
+            { opacity: 0, y: 50, scale: 0.92, pointerEvents: "none" },
+            { opacity: 1, y: 0, scale: 1.0, pointerEvents: "auto", duration: 1.2, ease: "power2.out" },
+            "-=0.6"
           );
 
-          // Brief hold interval to comfortably read details
-          mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 0.8 });
+          // Generous Hold Interval so the event stays on screen for reading while scrolling
+          mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 2.2 });
 
-          // PHASE 3: Exit - Both Visual and Details fade out & scale up to clear stage for next event
+          if (wheelImgRef.current) {
+            mainTl.to(
+              wheelImgRef.current,
+              { rotation: targetAngle + 45, ease: "none", duration: 2.2 },
+              "<"
+            );
+          }
+
+          // PHASE 3: Exit - Visual and Details fade out & wheel preps for next event spin
           if (idx < EVENTS.length - 1) {
             mainTl.to(
               [visualEl, detailsEl],
               {
                 opacity: 0,
-                scale: 1.15,
+                scale: 1.1,
                 y: -30,
-                filter: "blur(8px)",
+                filter: "blur(10px)",
                 pointerEvents: "none",
-                duration: 0.8,
+                duration: 1.2,
                 ease: "power2.in",
               }
             );
+
+            if (wheelImgRef.current) {
+              mainTl.to(
+                wheelImgRef.current,
+                { rotation: (idx + 1) * 240, ease: "power2.inOut", duration: 1.2 },
+                "<"
+              );
+            }
           }
         });
       }
 
       // -------------------------------------------------------------
-      // Section 4 (About) Entrance Reveal
+      // Section 4 (About) Restored Entrance & Card Reveal Animation
       // -------------------------------------------------------------
       if (aboutTextRef.current) {
         gsap.fromTo(
           aboutTextRef.current,
-          { opacity: 0, y: 50, scale: 0.95 },
+          { opacity: 0, y: 80, scale: 0.9 },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.6,
-            ease: "power2.out",
+            duration: 0.8,
+            ease: "power3.out",
             scrollTrigger: {
               trigger: aboutTextRef.current,
               start: "top 80%",
@@ -198,6 +218,26 @@ export default function Home() {
             },
           }
         );
+
+        const aboutItems = aboutTextRef.current.querySelectorAll(".about-animate");
+        if (aboutItems.length > 0) {
+          gsap.fromTo(
+            aboutItems,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              stagger: 0.15,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: aboutTextRef.current,
+                start: "top 75%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        }
       }
 
       // -------------------------------------------------------------
@@ -516,30 +556,41 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 4: ABOUT RENAISSANCE (BORDER-FREE TEXT BACKDROP BLUR)*/}
+      {/* SECTION 4: ABOUT RENAISSANCE (RESTORED GLASS CARD & GSAP REVEAL) */}
       {/* ============================================================ */}
-      <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-[#020610] py-20">
+      <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-[#020610] py-20 overflow-hidden">
+        {/* Deep Mariana Ambient Glow Auras */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#0284C7]/20 rounded-full blur-[140px] pointer-events-none animate-pulse" />
+
         <div
           ref={aboutTextRef}
-          className="max-w-3xl mx-auto flex flex-col items-center justify-center text-center p-8 sm:p-12 rounded-[40px] bg-[#020610]/40 backdrop-blur-3xl shadow-[0_0_100px_rgba(2,6,16,0.9)]"
+          className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center p-8 sm:p-14 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_50px_rgba(56,189,248,0.25)] overflow-hidden"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/80 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest font-extrabold shadow-sm">
+          {/* Inner Cyan Ambient Radial Glows */}
+          <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#0284C7]/30 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#38BDF8]/20 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Badge */}
+          <div className="about-animate inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest font-bold shadow-md z-10">
             <Wind className="w-3.5 h-3.5 text-[#38BDF8]" />
             <span>The Odyssey • Genesis</span>
           </div>
 
-          <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          {/* Title */}
+          <h2 className="about-animate text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 z-10">
             About{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-sky-300 to-white">
               Renaissance
             </span>
           </h2>
 
-          <p className="text-base sm:text-xl text-white font-extrabold leading-relaxed mb-6 max-w-2xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+          {/* Description */}
+          <p className="about-animate text-base sm:text-lg text-[#CBD5E1] font-mono leading-relaxed mb-6 max-w-2xl z-10">
             Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
           </p>
 
-          <p className="text-xs text-[#38BDF8] font-mono tracking-widest uppercase font-black drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+          {/* Scroll CTA */}
+          <p className="about-animate text-xs text-[#38BDF8] font-mono tracking-widest uppercase font-bold z-10">
             Keep scrolling to descend into the abyss of our keynote voyagers ↓
           </p>
         </div>

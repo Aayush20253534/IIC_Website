@@ -198,47 +198,70 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 3: Sponsors Pinned Cyan Showcase & Fast Dual Marquee
+      // Section 3: Sponsors Pinned Cyan Showcase (Smooth Lock + Animate In & Out)
       // -------------------------------------------------------------
       if (sponsorsPinnedSectionRef.current) {
         const sponsorsTl = gsap.timeline({
           scrollTrigger: {
             trigger: sponsorsPinnedSectionRef.current,
             start: "top top",
-            end: "+=2500",
+            end: "+=4000",
             pin: true,
-            scrub: 0.8,
+            scrub: 1,
             invalidateOnRefresh: true,
           },
         });
 
-        // 1. Expanding Cyan Glow Aura
-        if (sponsorsCyanAuraRef.current) {
+        // 1. ANIMATE IN: Header & Sponsor Rows fade in and slide up into view
+        const animateInTargets = [
+          sponsorsHeaderRef.current,
+          sponsorsRow1Ref.current,
+          sponsorsRow2Ref.current,
+        ].filter(Boolean);
+
+        if (animateInTargets.length > 0) {
           sponsorsTl.fromTo(
-            sponsorsCyanAuraRef.current,
-            { scale: 0.6, opacity: 0.3 },
-            { scale: 1.6, opacity: 0.95, ease: "none" },
+            animateInTargets,
+            { opacity: 0, y: 60, scale: 0.9 },
+            { opacity: 1, y: 0, scale: 1, duration: 1.5, stagger: 0.2, ease: "power2.out" },
             0
           );
         }
 
-        // 2. Row 1: Fast Left-to-Right scroll sweep
+        if (sponsorsCyanAuraRef.current) {
+          sponsorsTl.fromTo(
+            sponsorsCyanAuraRef.current,
+            { scale: 0.5, opacity: 0.2 },
+            { scale: 1.6, opacity: 0.95, duration: 8, ease: "none" },
+            0
+          );
+        }
+
+        // 2. DUAL MARQUEE SWEEPS: Row 1 moves Right-to-Left, Row 2 moves Left-to-Right
         if (sponsorsRow1Ref.current) {
           sponsorsTl.fromTo(
             sponsorsRow1Ref.current,
             { xPercent: 0 },
-            { xPercent: -50, ease: "none" },
-            0
+            { xPercent: -65, duration: 5, ease: "none" },
+            1.5
           );
         }
 
-        // 3. Row 2: Fast Right-to-Left scroll sweep in opposite direction
         if (sponsorsRow2Ref.current) {
           sponsorsTl.fromTo(
             sponsorsRow2Ref.current,
-            { xPercent: -50 },
-            { xPercent: 0, ease: "none" },
-            0
+            { xPercent: -65 },
+            { xPercent: 0, duration: 5, ease: "none" },
+            1.5
+          );
+        }
+
+        // 3. ANIMATE OUT: Header & Sponsor Rows fade out and scale down to clear stage for About section
+        if (animateInTargets.length > 0) {
+          sponsorsTl.to(
+            animateInTargets,
+            { opacity: 0, y: -50, scale: 0.95, filter: "blur(8px)", duration: 1.5, ease: "power2.in" },
+            6.5
           );
         }
       }
@@ -677,7 +700,7 @@ export default function Home() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[#0284C7]/25 rounded-full blur-[150px] pointer-events-none"
         />
 
-        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center p-8 sm:p-12 rounded-3xl bg-[#020610]/40 backdrop-blur-2xl shadow-[0_0_100px_rgba(2,6,16,0.9)] border border-white/10">
+        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center">
           {/* Badge */}
           <div
             ref={aboutBadgeRef}
@@ -690,7 +713,7 @@ export default function Home() {
           {/* Title */}
           <h2
             ref={aboutTitleRef}
-            className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white mb-8 z-10 drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
+            className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white mb-8 z-10 drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] drop-shadow-[0_0_20px_rgba(2,6,16,0.95)]"
           >
             About{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-sky-300 to-white">
@@ -701,7 +724,7 @@ export default function Home() {
           {/* Description */}
           <p
             ref={aboutDescRef}
-            className="text-base sm:text-2xl text-white font-extrabold leading-relaxed mb-8 max-w-3xl z-10 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]"
+            className="text-base sm:text-2xl text-white font-extrabold leading-relaxed mb-8 max-w-3xl z-10 drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] drop-shadow-[0_0_15px_rgba(2,6,16,0.95)]"
           >
             Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
           </p>

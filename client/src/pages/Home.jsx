@@ -333,50 +333,56 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 5: Keynote Speakers (Smooth Scroll Reveal Showcase)
+      // Section 5: Keynote Speakers (Pinned 2-Top 2-Bottom Sequential Showcase)
       // -------------------------------------------------------------
       if (speakersSectionRef.current) {
         const speakersHeaderEl = speakersSectionRef.current.querySelector(".speakers-header");
-        const speakerCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card");
+        const topCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card-top");
+        const bottomCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card-bottom");
 
+        const speakersTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: speakersSectionRef.current,
+            start: "top top",
+            end: "+=2200",
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        // 1. Phase 1: Header & Top 2 Speaker Cards animate in
         if (speakersHeaderEl) {
-          gsap.fromTo(
+          speakersTl.fromTo(
             speakersHeaderEl,
             { opacity: 0, y: -30, scale: 0.95 },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.8,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: speakersSectionRef.current,
-                start: "top 80%",
-                toggleActions: "play none none reverse",
-              },
-            }
+            { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
+            0
           );
         }
 
-        if (speakerCardEls.length > 0) {
-          gsap.fromTo(
-            speakerCardEls,
-            { opacity: 0, y: 50, scale: 0.9 },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.7,
-              stagger: 0.12,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: speakersSectionRef.current,
-                start: "top 75%",
-                toggleActions: "play none none reverse",
-              },
-            }
+        if (topCardEls.length > 0) {
+          speakersTl.fromTo(
+            topCardEls,
+            { opacity: 0, y: 50, scale: 0.88, filter: "blur(10px)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.5, stagger: 0.2, ease: "power2.out" },
+            0.4
           );
         }
+
+        // 2. Phase 2: Bottom 2 Speaker Cards animate in right below
+        if (bottomCardEls.length > 0) {
+          speakersTl.fromTo(
+            bottomCardEls,
+            { opacity: 0, y: 50, scale: 0.88, filter: "blur(10px)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.5, stagger: 0.2, ease: "power2.out" },
+            1.5
+          );
+        }
+
+        // 3. Phase 3: Hold phase - all 4 cards remain 100% visible on screen
+        speakersTl.to([...topCardEls, ...bottomCardEls], { opacity: 1, duration: 2.5 });
       }
     });
 
@@ -777,7 +783,7 @@ export default function Home() {
       {/* ============================================================ */}
       <section
         ref={speakersSectionRef}
-        className="relative min-h-screen w-full bg-[#020610] border-t border-[#38BDF8]/20 flex flex-col items-center justify-center px-6 py-20 overflow-hidden select-none z-20"
+        className="relative h-screen w-full bg-[#020610] border-t border-[#38BDF8]/20 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
       >
         {/* Dual Mariana Blue Background Blur Auras */}
         <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
@@ -786,38 +792,40 @@ export default function Home() {
         {/* Animated Sonar Radar Pulse Ring */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] border border-[#38BDF8]/15 rounded-full animate-ping pointer-events-none opacity-20" />
 
-        <div className="max-w-6xl w-full mx-auto flex flex-col items-center relative z-10">
+        <div className="max-w-4xl w-full mx-auto flex flex-col items-center relative z-10">
           {/* Header */}
-          <div className="speakers-header text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-3 uppercase tracking-widest shadow-md">
+          <div className="speakers-header text-center mb-8 sm:mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-2 uppercase tracking-widest shadow-md">
               <Navigation className="w-3.5 h-3.5 -rotate-45 text-[#38BDF8]" />
               <span>Eminent Voyagers</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
               Featured Keynote Speakers
             </h2>
-            <p className="text-xs sm:text-sm font-mono text-[#38BDF8]/80 mt-2">
+            <p className="text-xs sm:text-sm font-mono text-[#38BDF8]/80 mt-1.5">
               Voices emerging from the deepest depths of the ocean
             </p>
           </div>
 
-          {/* Silhouette Grid of Voyager Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          {/* 2x2 Grid of Voyager Cards (2 Top, 2 Bottom) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 w-full">
             {SPEAKERS.map((speaker, sIdx) => (
               <div
                 key={speaker.id}
-                className="speaker-card group relative rounded-3xl border border-[#38BDF8]/30 bg-[#040f21]/80 backdrop-blur-xl p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#38BDF8] hover:bg-[#05142b]/95 shadow-[0_15px_40px_rgba(0,0,0,0.8)] hover:shadow-[0_0_35px_rgba(56,189,248,0.35)] hover:-translate-y-1.5 cursor-pointer"
+                className={`${
+                  sIdx < 2 ? "speaker-card-top" : "speaker-card-bottom"
+                } group relative rounded-2xl border border-[#38BDF8]/30 bg-[#040f21]/80 backdrop-blur-xl p-5 sm:p-6 flex flex-col items-center text-center transition-all duration-500 hover:border-[#38BDF8] hover:bg-[#05142b]/95 shadow-[0_15px_40px_rgba(0,0,0,0.8)] hover:shadow-[0_0_35px_rgba(56,189,248,0.35)] hover:-translate-y-1 cursor-pointer`}
               >
                 {/* Silhouette Frame with Compass Emblem Overlay */}
-                <div className="relative w-28 h-28 rounded-full border border-[#38BDF8]/40 bg-[#030914] flex items-center justify-center mb-6 overflow-hidden group-hover:border-[#38BDF8] transition-colors shadow-inner">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#38BDF8]/40 bg-[#030914] flex items-center justify-center mb-3 sm:mb-4 overflow-hidden group-hover:border-[#38BDF8] transition-colors shadow-inner">
                   {sIdx === 0 ? (
-                    <Compass className="w-12 h-12 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
+                    <Compass className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
                   ) : sIdx === 1 ? (
-                    <Navigation className="w-12 h-12 text-[#38BDF8] -rotate-45 group-hover:scale-110 transition-all duration-500" />
+                    <Navigation className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] -rotate-45 group-hover:scale-110 transition-all duration-500" />
                   ) : sIdx === 2 ? (
-                    <ShieldCheck className="w-12 h-12 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
+                    <ShieldCheck className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
                   ) : (
-                    <UserCheck className="w-12 h-12 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
+                    <UserCheck className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#020610]/80 to-transparent pointer-events-none" />
                 </div>
@@ -825,7 +833,7 @@ export default function Home() {
                 <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-widest mb-1 font-semibold">
                   {speaker.org}
                 </span>
-                <h3 className="text-lg font-bold text-white group-hover:text-[#38BDF8] transition-colors mb-2">
+                <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-[#38BDF8] transition-colors mb-1">
                   {speaker.role}
                 </h3>
                 <p className="text-xs text-[#94A3B8] font-light leading-relaxed">

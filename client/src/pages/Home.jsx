@@ -73,7 +73,6 @@ export default function Home() {
 
   const heroSectionRef = useRef(null);
   const sponsorsSectionRef = useRef(null);
-  const transitionWrapperRef = useRef(null);
   const wheelContainerRef = useRef(null);
   const wheelImgRef = useRef(null);
   const sponsorsHeaderRef = useRef(null);
@@ -81,7 +80,7 @@ export default function Home() {
   const detailsRef = useRef([]);
   const sponsorsFooterRef = useRef(null);
   const aboutTextRef = useRef(null);
-  const speakersPanelRef = useRef(null);
+  const speakersSectionRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -180,31 +179,47 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 3 (About) & Section 4 (Speakers Abyss Slide-up)
+      // Section 4 (About) Entrance Reveal
       // -------------------------------------------------------------
-      if (transitionWrapperRef.current && speakersPanelRef.current) {
-        const transitionTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: transitionWrapperRef.current,
-            start: "top top",
-            end: "+=150%",
-            pin: true,
-            scrub: 1,
-          },
-        });
+      if (aboutTextRef.current) {
+        gsap.fromTo(
+          aboutTextRef.current,
+          { opacity: 0, y: 50, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: aboutTextRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
 
-        if (aboutTextRef.current) {
-          transitionTl.fromTo(
-            aboutTextRef.current,
-            { opacity: 0, y: 40 },
-            { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
-          );
-        }
-
-        transitionTl.fromTo(
-          speakersPanelRef.current,
-          { yPercent: 100 },
-          { yPercent: 0, duration: 0.6, ease: "power2.inOut" }
+      // -------------------------------------------------------------
+      // Section 5 (Keynote Speakers) Entrance Reveal
+      // -------------------------------------------------------------
+      if (speakersSectionRef.current) {
+        gsap.fromTo(
+          speakersSectionRef.current.querySelectorAll(".speaker-card"),
+          { opacity: 0, y: 40, scale: 0.92 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: speakersSectionRef.current,
+              start: "top 70%",
+              toggleActions: "play none none reverse",
+            },
+          }
         );
       }
     });
@@ -355,7 +370,7 @@ export default function Home() {
                       </span>
                     </div>
 
-                    {/* Mystery '?' Image Badge Showcase */}
+                    {/* Mystery '?' Showcase Badge */}
                     <div className="w-full p-4 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center gap-5 shadow-inner">
                       <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
                         <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
@@ -433,100 +448,9 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* TRANSITION WRAPPER: SECTION 3 (ABOUT) & SECTION 4 (SPEAKERS) */}
+      {/* SECTION 3: SPONSORS (MOVED DIRECTLY AFTER EVENTS WHEEL)      */}
       {/* ============================================================ */}
-      <div
-        ref={transitionWrapperRef}
-        className="relative w-full h-screen overflow-hidden"
-      >
-        {/* Section 3: About Renaissance (HIGH CONTRAST GLASS CARD CONTAINER) */}
-        <section className="absolute inset-0 w-full h-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent">
-          <div
-            ref={aboutTextRef}
-            className="max-w-4xl mx-auto p-8 sm:p-12 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col items-center justify-center text-center"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest shadow-md">
-              <Wind className="w-3.5 h-3.5 text-[#38BDF8]" />
-              <span>The Odyssey • Genesis</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6">
-              About{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-sky-300 to-white">
-                Renaissance
-              </span>
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#CBD5E1] leading-relaxed font-normal mb-6 max-w-2xl">
-              Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
-            </p>
-
-            <div className="pt-4 border-t border-white/10 w-full flex items-center justify-center">
-              <p className="text-xs text-[#38BDF8] font-mono tracking-widest uppercase font-semibold">
-                Keep scrolling to descend into the abyss of our keynote voyagers ↓
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 4: Speakers Transition (Sliding up from the Abyss) */}
-        <section
-          ref={speakersPanelRef}
-          className="absolute inset-0 w-full h-full bg-[#020610]/95 backdrop-blur-2xl border-t-2 border-[#38BDF8]/40 flex flex-col items-center justify-center px-6 z-20"
-        >
-          <div className="max-w-6xl w-full mx-auto flex flex-col items-center">
-            {/* Header */}
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#38BDF8]/30 bg-[#040e1d]/80 text-[#38BDF8] text-xs font-mono mb-3 uppercase tracking-widest">
-                <Navigation className="w-3.5 h-3.5 -rotate-45" />
-                <span>Eminent Voyagers</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Featured Keynote Speakers
-              </h2>
-              <p className="text-xs sm:text-sm font-mono text-[#38BDF8]/70 mt-2">
-                Voices emerging from the deepest depths of the ocean
-              </p>
-            </div>
-
-            {/* Silhouette Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-              {SPEAKERS.map((speaker) => (
-                <div
-                  key={speaker.id}
-                  className="group relative rounded-2xl border border-white/10 bg-[#040f21]/70 p-6 flex flex-col items-center text-center transition-all duration-300 hover:border-[#38BDF8]/60 hover:bg-[#05142b]/90 shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
-                >
-                  <div className="relative w-24 h-24 rounded-full border border-[#38BDF8]/30 bg-[#030914] flex items-center justify-center mb-5 overflow-hidden group-hover:border-[#38BDF8] transition-colors shadow-inner">
-                    <svg
-                      className="w-16 h-16 text-[#38BDF8]/40 group-hover:text-[#38BDF8]/80 transition-colors"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                    </svg>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#020610]/90 to-transparent pointer-events-none" />
-                  </div>
-
-                  <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-widest mb-1">
-                    {speaker.org}
-                  </span>
-                  <h3 className="text-base font-semibold text-white group-hover:text-[#38BDF8] transition-colors mb-2">
-                    {speaker.role}
-                  </h3>
-                  <p className="text-xs text-[#94A3B8] font-light leading-relaxed">
-                    {speaker.topic}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* ============================================================ */}
-      {/* SECTION 5: SPONSORS (DEDICATED QUICK HORIZONTAL TICKER)       */}
-      {/* ============================================================ */}
-      <section className="relative w-full bg-[#020610] border-t border-[#38BDF8]/20 py-16 px-6 overflow-hidden select-none z-20">
+      <section className="relative w-full bg-[#020610] border-t border-[#38BDF8]/20 py-20 px-6 overflow-hidden select-none z-20">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-[#0284C7]/20 rounded-full blur-[100px] pointer-events-none animate-pulse" />
 
         <div className="max-w-7xl mx-auto flex flex-col items-center mb-10 text-center relative z-10">
@@ -585,6 +509,99 @@ export default function Home() {
                     {sponsor.tier}
                   </span>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* SECTION 4: ABOUT RENAISSANCE (BORDER-FREE TEXT BACKDROP BLUR)*/}
+      {/* ============================================================ */}
+      <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-[#020610] py-20">
+        <div
+          ref={aboutTextRef}
+          className="max-w-3xl mx-auto flex flex-col items-center justify-center text-center p-8 sm:p-12 rounded-[40px] bg-[#020610]/40 backdrop-blur-3xl shadow-[0_0_100px_rgba(2,6,16,0.9)]"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/80 text-[#38BDF8] text-xs font-mono mb-6 uppercase tracking-widest font-extrabold shadow-sm">
+            <Wind className="w-3.5 h-3.5 text-[#38BDF8]" />
+            <span>The Odyssey • Genesis</span>
+          </div>
+
+          <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+            About{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-sky-300 to-white">
+              Renaissance
+            </span>
+          </h2>
+
+          <p className="text-base sm:text-xl text-white font-extrabold leading-relaxed mb-6 max-w-2xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+            Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
+          </p>
+
+          <p className="text-xs text-[#38BDF8] font-mono tracking-widest uppercase font-black drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+            Keep scrolling to descend into the abyss of our keynote voyagers ↓
+          </p>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* SECTION 5: FEATURED SPEAKERS (FULL-SCREEN 100VH MARIANA ABYSS) */}
+      {/* ============================================================ */}
+      <section
+        ref={speakersSectionRef}
+        className="relative min-h-screen w-full bg-[#020610] border-t border-[#38BDF8]/20 flex flex-col items-center justify-center px-6 py-20 overflow-hidden select-none z-20"
+      >
+        {/* Dual Mariana Blue Background Blur Auras */}
+        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
+
+        {/* Animated Sonar Radar Pulse Ring */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] border border-[#38BDF8]/15 rounded-full animate-ping pointer-events-none opacity-20" />
+
+        <div className="max-w-6xl w-full mx-auto flex flex-col items-center relative z-10">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-3 uppercase tracking-widest shadow-md">
+              <Navigation className="w-3.5 h-3.5 -rotate-45 text-[#38BDF8]" />
+              <span>Eminent Voyagers</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Featured Keynote Speakers
+            </h2>
+            <p className="text-xs sm:text-sm font-mono text-[#38BDF8]/80 mt-2">
+              Voices emerging from the deepest depths of the ocean
+            </p>
+          </div>
+
+          {/* Silhouette Grid of Voyager Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            {SPEAKERS.map((speaker) => (
+              <div
+                key={speaker.id}
+                className="speaker-card group relative rounded-3xl border border-[#38BDF8]/30 bg-[#040f21]/80 backdrop-blur-xl p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#38BDF8] hover:bg-[#05142b]/95 shadow-[0_15px_40px_rgba(0,0,0,0.8)] hover:shadow-[0_0_35px_rgba(56,189,248,0.35)] hover:-translate-y-1.5 cursor-pointer"
+              >
+                {/* Silhouette Frame with Compass Emblem Overlay */}
+                <div className="relative w-28 h-28 rounded-full border border-[#38BDF8]/40 bg-[#030914] flex items-center justify-center mb-6 overflow-hidden group-hover:border-[#38BDF8] transition-colors shadow-inner">
+                  <svg
+                    className="w-20 h-20 text-[#38BDF8]/40 group-hover:text-[#38BDF8]/80 transition-colors"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#020610]/90 to-transparent pointer-events-none" />
+                </div>
+
+                <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-widest mb-1 font-semibold">
+                  {speaker.org}
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-[#38BDF8] transition-colors mb-2">
+                  {speaker.role}
+                </h3>
+                <p className="text-xs text-[#94A3B8] font-light leading-relaxed">
+                  {speaker.topic}
+                </p>
               </div>
             ))}
           </div>

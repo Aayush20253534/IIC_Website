@@ -77,7 +77,8 @@ export default function Home() {
   const wheelContainerRef = useRef(null);
   const wheelImgRef = useRef(null);
   const sponsorsHeaderRef = useRef(null);
-  const cardsRef = useRef([]);
+  const visualsRef = useRef([]);
+  const detailsRef = useRef([]);
   const sponsorsFooterRef = useRef(null);
   const aboutTextRef = useRef(null);
   const speakersPanelRef = useRef(null);
@@ -85,10 +86,10 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Flagship Events Single Chained GSAP Timeline
+      // Section 2: Flagship Events 3-Phase Chained GSAP Timeline
       // -------------------------------------------------------------
       if (sponsorsSectionRef.current) {
-        // Entrance Trigger for Section Elements
+        // Entrance Animation for Static Section Elements
         const entranceTargets = [
           sponsorsHeaderRef.current,
           wheelContainerRef.current,
@@ -114,12 +115,12 @@ export default function Home() {
           );
         }
 
-        // Single Pinned GSAP Timeline for Right-Side Stacked Events
+        // Single Pinned GSAP Timeline with 4000px distance
         const mainTl = gsap.timeline({
           scrollTrigger: {
             trigger: sponsorsSectionRef.current,
             start: "top top",
-            end: "+=3500",
+            end: "+=4000",
             pin: true,
             scrub: 0.5,
           },
@@ -134,40 +135,46 @@ export default function Home() {
           );
         }
 
-        // 2. Loop through Card DOM References and Chain Animations Sequentially
-        cardsRef.current.forEach((cardNode, idx) => {
-          if (!cardNode) return;
+        // 2. Loop through Event Visuals & Floating Details Panels
+        EVENTS.forEach((_, idx) => {
+          const visualEl = visualsRef.current[idx];
+          const detailsEl = detailsRef.current[idx];
+          if (!visualEl || !detailsEl) return;
 
-          const detailsNode = cardNode.querySelector(".event-details-body");
-
-          // Step 1: Card comes into view (fade in & scale 0.85 -> 1.0)
+          // PHASE 1: Event Visual Fades In & Zooms In (Details panel remains hidden)
           mainTl.fromTo(
-            cardNode,
+            visualEl,
             { opacity: 0, scale: 0.85, filter: "blur(10px)", pointerEvents: "none" },
             { opacity: 1, scale: 1.0, filter: "blur(0px)", pointerEvents: "auto", duration: 1, ease: "power2.out" }
           );
 
-          // Step 2: Card zooms in (scale 1.0 -> 1.08) while detailed info fades in
-          mainTl.to(cardNode, { scale: 1.08, duration: 1.2, ease: "none" }, "<");
-          if (detailsNode) {
-            mainTl.fromTo(
-              detailsNode,
-              { opacity: 0, y: 15 },
-              { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-              "<+=0.3"
-            );
-          }
+          mainTl.to(visualEl, { scale: 1.05, duration: 1.2, ease: "none" });
 
-          // Step 3: Card fades out & scales up (1.08 -> 1.15) to reveal next event (if not last)
+          // PHASE 2: Floating Sapphire Details Panel Animates In (Slides up AFTER Visual zoom completes)
+          mainTl.fromTo(
+            detailsEl,
+            { opacity: 0, y: 40, scale: 0.95, pointerEvents: "none" },
+            { opacity: 1, y: 0, scale: 1.0, pointerEvents: "auto", duration: 0.9, ease: "power2.out" },
+            "-=0.4"
+          );
+
+          // Brief hold interval to comfortably read details
+          mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 0.8 });
+
+          // PHASE 3: Exit - Both Visual and Details fade out & scale up to clear stage for next event
           if (idx < EVENTS.length - 1) {
-            mainTl.to(cardNode, {
-              opacity: 0,
-              scale: 1.15,
-              filter: "blur(8px)",
-              pointerEvents: "none",
-              duration: 0.8,
-              ease: "power2.in",
-            });
+            mainTl.to(
+              [visualEl, detailsEl],
+              {
+                opacity: 0,
+                scale: 1.15,
+                y: -30,
+                filter: "blur(8px)",
+                pointerEvents: "none",
+                duration: 0.8,
+                ease: "power2.in",
+              }
+            );
           }
         });
       }
@@ -279,7 +286,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (RIGHT SIDE STACKED CARDS)  */}
+      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (SEPARATE VISUAL & DETAILS) */}
       {/* ============================================================ */}
       <section
         id="sponsors"
@@ -306,7 +313,7 @@ export default function Home() {
           />
         </div>
 
-        {/* Right Half Container: Section Header & Stacked Absolute Cards */}
+        {/* Right Half Container: Section Header & Stacked Absolute Event Containers */}
         <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
           <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-4">
 
@@ -326,58 +333,69 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Stacked Absolute Cards Container */}
-            <div className="relative w-full h-[420px] sm:h-[450px]">
+            {/* Stacked Absolute Containers for Event Visual & Floating Sapphire Details Panel */}
+            <div className="relative w-full h-[480px] sm:h-[510px]">
               {EVENTS.map((event, idx) => (
                 <div
                   key={event.id}
-                  ref={(el) => (cardsRef.current[idx] = el)}
-                  className="absolute inset-0 w-full h-full p-6 sm:p-8 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col justify-between overflow-hidden will-change-transform"
+                  className="absolute inset-0 w-full h-full flex flex-col gap-4 pointer-events-none"
                 >
-                  {/* Card Header: Event ID & Category */}
-                  <div className="w-full flex items-center justify-between pb-3.5 border-b border-white/10">
-                    <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
-                      EVENT {event.id} / 03
-                    </span>
-                    <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
-                      {event.category}
-                    </span>
-                  </div>
-
-                  {/* Title & Mystery '?' Showcase Badge */}
-                  <div className="event-title-badge w-full my-2 p-5 sm:p-6 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center gap-6 shadow-inner">
-                    {/* Mystery '?' Image Frame */}
-                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
-                      <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
-                      <span className="text-3xl sm:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
-                        ?
+                  {/* 1. Event Visual Card (Phase 1 Zoom) */}
+                  <div
+                    ref={(el) => (visualsRef.current[idx] = el)}
+                    className="w-full p-5 sm:p-6 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
+                  >
+                    {/* Header Bar */}
+                    <div className="w-full flex items-center justify-between pb-2.5 border-b border-white/10">
+                      <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
+                        EVENT {event.id} / 03
                       </span>
-                      <span className="text-[8px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-0.5 z-10 font-bold">
-                        FLAGSHIP
+                      <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
+                        {event.category}
                       </span>
                     </div>
 
-                    {/* Event Name & Prize */}
-                    <div className="flex flex-col text-center sm:text-left">
-                      <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
-                        {event.name}
-                      </h3>
-                      <span className="text-xs font-mono text-[#38BDF8] font-bold tracking-wider mt-1">
-                        {event.prize}
-                      </span>
+                    {/* Mystery '?' Image Badge Showcase */}
+                    <div className="w-full p-4 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center gap-5 shadow-inner">
+                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
+                        <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
+                        <span className="text-3xl sm:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
+                          ?
+                        </span>
+                        <span className="text-[8px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-0.5 z-10 font-bold">
+                          FLAGSHIP
+                        </span>
+                      </div>
+
+                      <div className="flex flex-col text-center sm:text-left">
+                        <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                          {event.name}
+                        </h3>
+                        <span className="text-xs font-mono text-[#38BDF8] font-bold tracking-wider mt-1">
+                          {event.prize}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Detailed Info Body (Fades in on Zoom) */}
-                  <div className="event-details-body w-full flex flex-col gap-3">
+                  {/* 2. Distinct Floating Sapphire Blue Event Details Panel (Phase 2 Slide-Up) */}
+                  <div
+                    ref={(el) => (detailsRef.current[idx] = el)}
+                    className="w-full p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/60 bg-[#03152d]/95 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] shadow-[0_0_35px_rgba(56,189,248,0.3)] flex flex-col gap-3.5 will-change-transform pointer-events-auto z-30"
+                  >
                     {/* Time & Schedule Badge */}
-                    <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] font-semibold bg-[#020610] px-3.5 py-1.5 rounded-xl border border-white/10 w-fit">
-                      <Clock className="w-4 h-4 text-[#38BDF8]" />
-                      <span>{event.time}</span>
+                    <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                      <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] font-bold uppercase tracking-wider">
+                        <Clock className="w-4 h-4 text-[#38BDF8]" />
+                        <span>{event.time}</span>
+                      </div>
+                      <span className="text-[10px] font-mono text-amber-400 border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 rounded-full font-semibold">
+                        Phase 2 Active
+                      </span>
                     </div>
 
-                    {/* Description */}
-                    <p className="text-xs sm:text-sm text-[#CBD5E1] font-mono leading-relaxed line-clamp-2">
+                    {/* Overview Description */}
+                    <p className="text-xs sm:text-sm text-[#CBD5E1] font-mono leading-relaxed">
                       {event.desc}
                     </p>
 
@@ -385,7 +403,7 @@ export default function Home() {
                     <div className="pt-2 border-t border-white/10 flex items-center justify-between">
                       <Link
                         to="/register"
-                        className="group relative flex items-center justify-center gap-2.5 px-7 py-3 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition-all duration-300 transform hover:scale-[1.03] cursor-pointer"
+                        className="group relative flex items-center justify-center gap-2.5 px-7 py-2.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(56,189,248,0.7)] transition-all duration-300 transform hover:scale-[1.03] cursor-pointer"
                       >
                         <UserCheck className="w-4 h-4 text-[#020610]" />
                         <span>Register Now</span>
@@ -409,7 +427,7 @@ export default function Home() {
           ref={sponsorsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          <span className="text-[#38BDF8]/80">Scroll to explore flagship summit events</span>
+          <span className="text-[#38BDF8]/80">Scroll to zoom event visual & reveal details panel</span>
           <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>

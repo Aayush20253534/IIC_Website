@@ -208,6 +208,7 @@ export default function Home() {
             end: "+=2500",
             pin: true,
             scrub: 0.8,
+            invalidateOnRefresh: true,
           },
         });
 
@@ -215,8 +216,8 @@ export default function Home() {
         if (sponsorsCyanAuraRef.current) {
           sponsorsTl.fromTo(
             sponsorsCyanAuraRef.current,
-            { scale: 0.7, opacity: 0.3 },
-            { scale: 1.5, opacity: 0.9, ease: "none" },
+            { scale: 0.6, opacity: 0.3 },
+            { scale: 1.6, opacity: 0.95, ease: "none" },
             0
           );
         }
@@ -225,8 +226,8 @@ export default function Home() {
         if (sponsorsRow1Ref.current) {
           sponsorsTl.fromTo(
             sponsorsRow1Ref.current,
-            { x: "0%" },
-            { x: "-45%", ease: "none" },
+            { xPercent: 0 },
+            { xPercent: -50, ease: "none" },
             0
           );
         }
@@ -235,8 +236,8 @@ export default function Home() {
         if (sponsorsRow2Ref.current) {
           sponsorsTl.fromTo(
             sponsorsRow2Ref.current,
-            { x: "-45%" },
-            { x: "0%", ease: "none" },
+            { xPercent: -50 },
+            { xPercent: 0, ease: "none" },
             0
           );
         }
@@ -567,10 +568,6 @@ export default function Home() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-[#0284C7]/30 rounded-full blur-[150px] pointer-events-none"
         />
 
-        {/* Left & Right Edge Gradual Blur Overlays for Maximum Readability */}
-        <div className="absolute top-0 bottom-0 left-0 w-32 sm:w-60 bg-gradient-to-r from-[#020610] via-[#020610]/85 to-transparent backdrop-blur-md pointer-events-none z-20" />
-        <div className="absolute top-0 bottom-0 right-0 w-32 sm:w-60 bg-gradient-to-l from-[#020610] via-[#020610]/85 to-transparent backdrop-blur-md pointer-events-none z-20" />
-
         {/* Header */}
         <div className="max-w-7xl mx-auto flex flex-col items-center mb-12 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#38BDF8]/50 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono uppercase tracking-widest mb-3 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
@@ -586,13 +583,26 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Fast Left-to-Right Row 1 (Current Sponsors) */}
-        <div className="w-full overflow-hidden mb-8 relative z-10">
+        {/* Fast Left-to-Right Row 1 (Current Sponsors) with Hardware Edge Blur Mask */}
+        <div
+          className="w-full overflow-hidden mb-8 relative z-10 max-w-7xl mx-auto"
+          style={{
+            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+          }}
+        >
           <div
             ref={sponsorsRow1Ref}
             className="flex gap-6 whitespace-nowrap min-w-max will-change-transform"
           >
-            {[...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS].map((sponsor, idx) => (
+            {[
+              ...CURRENT_SPONSORS,
+              ...CURRENT_SPONSORS,
+              ...CURRENT_SPONSORS,
+              ...CURRENT_SPONSORS,
+              ...CURRENT_SPONSORS,
+              ...CURRENT_SPONSORS,
+            ].map((sponsor, idx) => (
               <div
                 key={`curr-${idx}`}
                 className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#38BDF8]/50 bg-[#04152e]/95 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] shadow-[0_0_20px_rgba(56,189,248,0.25)] group hover:border-[#38BDF8] transition-all cursor-pointer"
@@ -613,13 +623,26 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Fast Right-to-Left Row 2 (Past Sponsors) */}
-        <div className="w-full overflow-hidden relative z-10">
+        {/* Fast Right-to-Left Row 2 (Past Sponsors) with Hardware Edge Blur Mask */}
+        <div
+          className="w-full overflow-hidden relative z-10 max-w-7xl mx-auto"
+          style={{
+            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+          }}
+        >
           <div
             ref={sponsorsRow2Ref}
             className="flex gap-6 whitespace-nowrap min-w-max will-change-transform"
           >
-            {[...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS].map((sponsor, idx) => (
+            {[
+              ...PAST_SPONSORS,
+              ...PAST_SPONSORS,
+              ...PAST_SPONSORS,
+              ...PAST_SPONSORS,
+              ...PAST_SPONSORS,
+              ...PAST_SPONSORS,
+            ].map((sponsor, idx) => (
               <div
                 key={`past-${idx}`}
                 className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-white/20 bg-[#031024]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] group hover:border-[#38BDF8]/70 transition-all cursor-pointer"
@@ -642,19 +665,19 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 4: ABOUT RENAISSANCE (BORDER-FREE DEEP BLUE OCEAN PARALLAX) */}
+      {/* SECTION 4: ABOUT RENAISSANCE (HOMEPAGE OCEAN SKY BG + PARALLAX) */}
       {/* ============================================================ */}
       <section
         ref={aboutSectionRef}
-        className="relative min-h-screen w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-[#020610] py-20 overflow-hidden"
+        className="relative min-h-screen w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent py-20 overflow-hidden"
       >
         {/* Expanding Deep Mariana Ambient Glow Aura (Animates with Scroll) */}
         <div
           ref={aboutAuraRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[#0284C7]/30 rounded-full blur-[150px] pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[#0284C7]/25 rounded-full blur-[150px] pointer-events-none"
         />
 
-        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center">
+        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center p-8 sm:p-12 rounded-3xl bg-[#020610]/40 backdrop-blur-2xl shadow-[0_0_100px_rgba(2,6,16,0.9)] border border-white/10">
           {/* Badge */}
           <div
             ref={aboutBadgeRef}

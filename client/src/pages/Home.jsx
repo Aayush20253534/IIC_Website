@@ -198,7 +198,7 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 3: Sponsors Pinned Cartographer Vault (Smooth Lock + Animate In & Out)
+      // Section 3: Sponsors Pinned Cartographer Vault (Ultra-Smooth In & Out)
       // -------------------------------------------------------------
       if (sponsorsPinnedSectionRef.current) {
         const sponsorsTl = gsap.timeline({
@@ -213,7 +213,7 @@ export default function Home() {
           },
         });
 
-        // 1. ANIMATE IN: Header & Sponsor Rows fade in and slide up into view
+        // 1. ANIMATE IN: Header & Sponsor Rows fade in, zoom, and slide up into view
         const animateInTargets = [
           sponsorsHeaderRef.current,
           sponsorsRow1Ref.current,
@@ -223,8 +223,8 @@ export default function Home() {
         if (animateInTargets.length > 0) {
           sponsorsTl.fromTo(
             animateInTargets,
-            { opacity: 0, y: 60, scale: 0.9 },
-            { opacity: 1, y: 0, scale: 1, duration: 1.5, stagger: 0.2, ease: "power2.out" },
+            { opacity: 0, y: 70, scale: 0.88, filter: "blur(12px)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 2, stagger: 0.25, ease: "power2.out" },
             0
           );
         }
@@ -232,7 +232,7 @@ export default function Home() {
         if (sponsorsCyanAuraRef.current) {
           sponsorsTl.fromTo(
             sponsorsCyanAuraRef.current,
-            { scale: 0.5, opacity: 0.2 },
+            { scale: 0.4, opacity: 0.1 },
             { scale: 1.6, opacity: 0.95, duration: 8, ease: "none" },
             0
           );
@@ -261,7 +261,7 @@ export default function Home() {
         if (animateInTargets.length > 0) {
           sponsorsTl.to(
             animateInTargets,
-            { opacity: 0, y: -50, scale: 0.95, filter: "blur(8px)", duration: 1.5, ease: "power2.in" },
+            { opacity: 0, y: -60, scale: 0.92, filter: "blur(10px)", duration: 2, ease: "power2.inOut" },
             6.5
           );
         }
@@ -333,25 +333,51 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 5 (Keynote Speakers) Entrance Reveal
+      // Section 5: Keynote Speakers (Pinned Deep Mariana Abyss Showcase)
       // -------------------------------------------------------------
       if (speakersSectionRef.current) {
-        gsap.fromTo(
-          speakersSectionRef.current.querySelectorAll(".speaker-card"),
-          { opacity: 0, y: 40, scale: 0.92 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: speakersSectionRef.current,
-              start: "top 70%",
-              toggleActions: "play none none reverse",
-            },
-          }
+        const speakersHeaderEl = speakersSectionRef.current.querySelector(".speakers-header");
+        const speakerCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card");
+
+        const speakersTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: speakersSectionRef.current,
+            start: "top top",
+            end: "+=3000",
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        // 1. Entrance (0% - 20%): Header slides down, cards stagger-fade into view with scale
+        if (speakersHeaderEl) {
+          speakersTl.fromTo(
+            speakersHeaderEl,
+            { opacity: 0, y: -40, scale: 0.9 },
+            { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
+            0
+          );
+        }
+
+        if (speakerCardEls.length > 0) {
+          speakersTl.fromTo(
+            speakerCardEls,
+            { opacity: 0, y: 60, scale: 0.85, filter: "blur(10px)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 2, stagger: 0.3, ease: "power2.out" },
+            0.5
+          );
+        }
+
+        // 2. Hold Phase (20% - 80%): Cards remain pinned & floating in deep ocean abyss glow
+        speakersTl.to(speakerCardEls, { opacity: 1, duration: 3 });
+
+        // 3. Exit (80% - 100%): Cards & Header fade out gently before unpinning into footer
+        speakersTl.to(
+          [speakersHeaderEl, ...Array.from(speakerCardEls)].filter(Boolean),
+          { opacity: 0, y: -40, scale: 0.95, filter: "blur(8px)", duration: 1.5, ease: "power2.in" },
+          7
         );
       }
     });
@@ -764,7 +790,7 @@ export default function Home() {
 
         <div className="max-w-6xl w-full mx-auto flex flex-col items-center relative z-10">
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="speakers-header text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-3 uppercase tracking-widest shadow-md">
               <Navigation className="w-3.5 h-3.5 -rotate-45 text-[#38BDF8]" />
               <span>Eminent Voyagers</span>

@@ -198,16 +198,17 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 3: Sponsors Pinned Cyan Showcase (Smooth Lock + Animate In & Out)
+      // Section 3: Sponsors Pinned Cartographer Vault (Smooth Lock + Animate In & Out)
       // -------------------------------------------------------------
       if (sponsorsPinnedSectionRef.current) {
         const sponsorsTl = gsap.timeline({
           scrollTrigger: {
             trigger: sponsorsPinnedSectionRef.current,
             start: "top top",
-            end: "+=4000",
+            end: "+=4500",
             pin: true,
             scrub: 1,
+            anticipatePin: 1,
             invalidateOnRefresh: true,
           },
         });
@@ -579,34 +580,41 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 3: SPONSORS (PINNED CYAN SHOWCASE & FAST DUAL MARQUEE)*/}
+      {/* SECTION 3: SPONSORS (PINNED CARTOGRAPHER BRASS VAULT)      */}
       {/* ============================================================ */}
       <section
         ref={sponsorsPinnedSectionRef}
-        className="relative min-h-screen w-full bg-gradient-to-b from-[#020610] via-[#031730] to-[#020610] border-t border-[#38BDF8]/30 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
+        className="relative min-h-screen w-full bg-[#020610] border-t border-amber-400/20 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
       >
-        {/* Cyan Animated Background Glow Aura */}
+        {/* Dual Cartographer Glow Auras (Amber Astrolabe + Mariana Blue) */}
         <div
           ref={sponsorsCyanAuraRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-[#0284C7]/30 rounded-full blur-[150px] pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-amber-500/15 rounded-full blur-[160px] pointer-events-none"
         />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-[#0284C7]/20 rounded-full blur-[140px] pointer-events-none animate-pulse" />
 
         {/* Header */}
-        <div className="max-w-7xl mx-auto flex flex-col items-center mb-12 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#38BDF8]/50 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono uppercase tracking-widest mb-3 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
-            <ShieldCheck className="w-4 h-4 text-[#38BDF8]" />
+        <div
+          ref={sponsorsHeaderRef}
+          className="max-w-7xl mx-auto flex flex-col items-center mb-12 text-center relative z-10"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-400/40 bg-[#040e1d]/90 text-amber-400 text-xs font-mono uppercase tracking-widest mb-3 shadow-[0_0_20px_rgba(245,158,11,0.25)]">
+            <ShieldCheck className="w-4 h-4 text-amber-400" />
             <span>Summit Strategic Partners</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
-            Current & Past Sponsors
+            Current & Past{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-[#38BDF8]">
+              Sponsors
+            </span>
           </h2>
-          <p className="text-xs sm:text-sm font-mono text-[#38BDF8]/90 mt-2 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2">
+          <p className="text-xs sm:text-sm font-mono text-amber-400/90 mt-2 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2">
             <span>Scroll to accelerate partner voyager streams</span>
             <span className="animate-bounce">↓</span>
           </p>
         </div>
 
-        {/* Fast Left-to-Right Row 1 (Current Sponsors) with Hardware Edge Blur Mask */}
+        {/* Fast Left-to-Right Row 1 (Current Sponsors - Polished Brass Cards) */}
         <div
           className="w-full overflow-hidden mb-8 relative z-10 max-w-7xl mx-auto"
           style={{
@@ -628,16 +636,16 @@ export default function Home() {
             ].map((sponsor, idx) => (
               <div
                 key={`curr-${idx}`}
-                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#38BDF8]/50 bg-[#04152e]/95 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] shadow-[0_0_20px_rgba(56,189,248,0.25)] group hover:border-[#38BDF8] transition-all cursor-pointer"
+                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-amber-400/35 bg-[#030d1e]/95 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] shadow-[0_0_20px_rgba(245,158,11,0.15)] group hover:border-amber-400 transition-all cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-xl border border-[#38BDF8]/40 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-base group-hover:scale-110 transition-transform shadow-inner">
+                <div className="w-9 h-9 rounded-xl border border-amber-400/40 bg-[#020610] flex items-center justify-center font-mono font-bold text-amber-400 text-base group-hover:scale-110 transition-transform shadow-inner">
                   ★
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-base font-extrabold text-white group-hover:text-[#38BDF8] transition-colors tracking-wide">
+                  <span className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors tracking-wide">
                     {sponsor.name}
                   </span>
-                  <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-wider font-extrabold">
+                  <span className="text-[10px] font-mono text-amber-400 uppercase tracking-wider font-extrabold">
                     {sponsor.tier}
                   </span>
                 </div>
@@ -646,7 +654,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Fast Right-to-Left Row 2 (Past Sponsors) with Hardware Edge Blur Mask */}
+        {/* Fast Right-to-Left Row 2 (Past Sponsors - Silver Steel Cards) */}
         <div
           className="w-full overflow-hidden relative z-10 max-w-7xl mx-auto"
           style={{
@@ -668,16 +676,16 @@ export default function Home() {
             ].map((sponsor, idx) => (
               <div
                 key={`past-${idx}`}
-                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-white/20 bg-[#031024]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] group hover:border-[#38BDF8]/70 transition-all cursor-pointer"
+                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#38BDF8]/30 bg-[#030a17]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] group hover:border-[#38BDF8] transition-all cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-xl border border-white/20 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#94A3B8] text-base group-hover:text-[#38BDF8] transition-colors shadow-inner">
+                <div className="w-9 h-9 rounded-xl border border-[#38BDF8]/30 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-base group-hover:scale-110 transition-transform shadow-inner">
                   ✦
                 </div>
                 <div className="flex flex-col text-left">
                   <span className="text-base font-bold text-[#CBD5E1] group-hover:text-white transition-colors tracking-wide">
                     {sponsor.name}
                   </span>
-                  <span className="text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider font-bold">
+                  <span className="text-[10px] font-mono text-[#38BDF8]/80 uppercase tracking-wider font-bold">
                     {sponsor.tier}
                   </span>
                 </div>

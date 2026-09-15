@@ -88,7 +88,7 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Flagship Events Clock Arc Rotation & Unrolling Dropdown
+      // Section 2: Flagship Events Spinning Wheel + Paused Dropdown Scroll
       // -------------------------------------------------------------
       if (sponsorsSectionRef.current) {
         const totalSubSteps = 6; // 6 sub-steps across 3 events
@@ -120,7 +120,7 @@ export default function Home() {
           );
         }
 
-        // Pinned ScrollTrigger with Clock Arc Sweep (4500px distance)
+        // Pinned ScrollTrigger (4500px distance)
         ScrollTrigger.create({
           trigger: sponsorsSectionRef.current,
           start: "top top",
@@ -130,13 +130,6 @@ export default function Home() {
           onUpdate: (self) => {
             const rawProgress = self.progress;
 
-            // Rotate transparent pirate wheel smoothly (2 full rotations across scroll)
-            if (wheelImgRef.current) {
-              gsap.set(wheelImgRef.current, {
-                rotation: rawProgress * 720,
-              });
-            }
-
             // Entrance Hold Buffer (12% buffer)
             const holdThreshold = 0.12;
             let normalizedProgress = 0;
@@ -144,33 +137,51 @@ export default function Home() {
               normalizedProgress = (rawProgress - holdThreshold) / (1 - holdThreshold);
             }
 
+            const stepFraction = normalizedProgress * totalSubSteps;
             const newSubStep = Math.min(
               totalSubSteps - 1,
-              Math.floor(normalizedProgress * totalSubSteps)
+              Math.floor(stepFraction)
             );
+            const stepSubProgress = stepFraction - newSubStep;
+
+            // Wheel Spin Towards Screen (Spins during Event entry, PAUSES during Dropdown reveal)
+            let wheelRotation = 0;
+            let wheelScale = 1;
+
+            if (newSubStep === 0) {
+              wheelRotation = stepSubProgress * 120;
+              wheelScale = 1 + Math.sin(stepSubProgress * Math.PI) * 0.06;
+            } else if (newSubStep === 1) {
+              wheelRotation = 120; // PAUSED for Dropdown unroll
+              wheelScale = 1;
+            } else if (newSubStep === 2) {
+              wheelRotation = 120 + stepSubProgress * 120;
+              wheelScale = 1 + Math.sin(stepSubProgress * Math.PI) * 0.06;
+            } else if (newSubStep === 3) {
+              wheelRotation = 240; // PAUSED for Dropdown unroll
+              wheelScale = 1;
+            } else if (newSubStep === 4) {
+              wheelRotation = 240 + stepSubProgress * 120;
+              wheelScale = 1 + Math.sin(stepSubProgress * Math.PI) * 0.06;
+            } else if (newSubStep === 5) {
+              wheelRotation = 360; // PAUSED for Dropdown unroll
+              wheelScale = 1;
+            }
+
+            if (wheelImgRef.current) {
+              gsap.set(wheelImgRef.current, {
+                rotation: wheelRotation,
+                scale: wheelScale,
+              });
+            }
 
             setActiveSubStep((prevSubStep) => {
               if (prevSubStep !== newSubStep) {
                 if (sponsorCardRef.current) {
-                  // Clock Arc Rotation Sweep Animation on Right Side
                   gsap.fromTo(
                     sponsorCardRef.current,
-                    {
-                      opacity: 0,
-                      rotation: -22,
-                      transformOrigin: "-40% 50%",
-                      scale: 0.94,
-                      filter: "blur(12px)",
-                    },
-                    {
-                      opacity: 1,
-                      rotation: 0,
-                      transformOrigin: "-40% 50%",
-                      scale: 1,
-                      filter: "blur(0px)",
-                      duration: 0.45,
-                      ease: "power2.out",
-                    }
+                    { opacity: 0, y: 25, scale: 0.96, filter: "blur(6px)" },
+                    { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power2.out" }
                   );
                 }
                 return newSubStep;
@@ -292,7 +303,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: FLAGSHIP EVENTS WHEEL + CLOCK ARC & UNROLLING DRAWER*/}
+      {/* SECTION 2: FLAGSHIP EVENTS WHEEL + PAUSED DROPDOWN SCROLL   */}
       {/* ============================================================ */}
       <section
         id="sponsors"
@@ -319,7 +330,7 @@ export default function Home() {
           />
         </div>
 
-        {/* Right Half Container: Section Header & Clock Arc Event Stream */}
+        {/* Right Half Container: Section Header & Event Card */}
         <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
           <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-5">
 
@@ -339,19 +350,19 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-2 bg-[#030914]/90 px-3.5 py-1.5 rounded-xl border border-[#38BDF8]/40 font-mono text-xs shadow-lg">
-                <span className="text-[#94A3B8]">Clock Step:</span>
+                <span className="text-[#94A3B8]">Event:</span>
                 <span className="text-[#38BDF8] font-bold text-sm">
-                  {String(activeSubStep + 1).padStart(2, "0")} / 06
+                  {String(activeEventIdx + 1).padStart(2, "0")} / 03
                 </span>
               </div>
             </div>
 
-            {/* Clock Arc Rotated Event Card Stream */}
+            {/* Event Display Container */}
             <div
               ref={sponsorCardRef}
               className="w-full flex flex-col gap-4 bg-transparent p-0 border-none transition-all duration-300 relative will-change-transform"
             >
-              {/* Event Main Title Card (Always Visible, Framed Image + Title) */}
+              {/* Event Main Title Card (Framed Mystery Badge + Title) */}
               <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-5 p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/40 bg-[#040f21]/90 backdrop-blur-xl shadow-[0_0_35px_rgba(56,189,248,0.25)] shadow-[0_15px_35px_rgba(0,0,0,0.8)]">
                 {/* '?' Mystery Badge Image Frame */}
                 <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
@@ -377,14 +388,14 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* Dropdown Drawer Trigger Cue */}
+                {/* Dropdown State Cue */}
                 <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#38BDF8]/90 bg-[#38BDF8]/10 px-3.5 py-1.5 rounded-full border border-[#38BDF8]/30 shrink-0">
                   <span>{isDeepDive ? "Details Unrolled" : "Scroll for Details"}</span>
                   <ChevronRight className={`w-3.5 h-3.5 transform transition-transform duration-300 ${isDeepDive ? "rotate-90" : ""}`} />
                 </div>
               </div>
 
-              {/* Animated Accordion Dropdown Drawer (Unrolls below card on scroll) */}
+              {/* Animated Accordion Dropdown Drawer (Unrolls below card while wheel is paused) */}
               <div
                 className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${
                   isDeepDive ? "max-h-[320px] opacity-100 mt-2" : "max-h-0 opacity-0 mt-0 pointer-events-none"
@@ -403,7 +414,7 @@ export default function Home() {
                     </span>
                   </div>
 
-                  {/* Detailed Description */}
+                  {/* Overview Description */}
                   <p className="text-xs sm:text-sm text-[#CBD5E1] font-mono leading-relaxed">
                     {activeEvent.desc}
                   </p>
@@ -462,7 +473,7 @@ export default function Home() {
           ref={sponsorsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          <span className="text-[#38BDF8]/80">Scroll to rotate events along clock arc & unroll details</span>
+          <span className="text-[#38BDF8]/80">Scroll to spin wheel towards event & unroll details</span>
           <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>
@@ -474,7 +485,7 @@ export default function Home() {
         ref={transitionWrapperRef}
         className="relative w-full h-screen overflow-hidden"
       >
-        {/* Section 3: About Renaissance (BORDERLESS INTENSE BACKDROP BLUR - 100% READABLE TEXT) */}
+        {/* Section 3: About Renaissance (BORDERLESS INTENSE BACKDROP BLUR WITH HIGH CONTRAST TYPOGRAPHY) */}
         <section className="absolute inset-0 w-full h-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent">
           <div
             ref={aboutTextRef}

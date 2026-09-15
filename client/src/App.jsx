@@ -11,7 +11,7 @@ import {
 import RenaissanceIntro from "./components/RenaissanceIntro";
 import Navbar from "./components/Navbar";
 import PirateCursor from "./components/PirateCursor";
-import ThreeBackground from "./pages/background";
+import AdisyonShader from "./components/ui/adisyon-shader";
 import SmoothScroll from "./components/SmoothScroll";
 import PageTransitionShimmer from "./components/PageTransitionShimmer";
 
@@ -62,8 +62,8 @@ export default function App() {
         {/* Interactive Custom Pirate Hook Cursor */}
         <PirateCursor />
 
-        {/* Persistent visual layer shared by every route */}
-        <ThreeBackground />
+        {/* Full-screen Fixed WebGL Ocean Adventure Background Shader */}
+        <AdisyonShader className="fixed inset-0 z-0 opacity-90 mix-blend-screen pointer-events-none" />
 
         {/* Cinematic Splash Screen */}
         {showIntro && (

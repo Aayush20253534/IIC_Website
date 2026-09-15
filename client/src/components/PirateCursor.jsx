@@ -29,11 +29,11 @@ export default function PirateCursor() {
 
     const updateIconTransform = () => {
       if (isMouseDown) {
-        iconEl.style.transform = "scale(0.9) rotate(-7deg)";
+        iconEl.style.transform = "scale(0.9)";
       } else if (isHovered) {
-        iconEl.style.transform = "scale(1.14) rotate(-4deg)";
+        iconEl.style.transform = "scale(1.2)";
       } else {
-        iconEl.style.transform = "scale(1) rotate(0deg)";
+        iconEl.style.transform = "scale(1)";
       }
     };
 

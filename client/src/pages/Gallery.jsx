@@ -1,61 +1,343 @@
-import React from "react";
-import ContactFooter from "../components/ContactFooter";
-import WaterButton from "../components/WaterButton";
+import React, { useState, useRef, useEffect } from "react";
+import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 
-export default function Gallery({ embedded = false }) {
+const EVENTS = [
+  { 
+    id: 1, title: "INAUGURAL", date: "APR 12, 2026", 
+    img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600", 
+    category: "Flagship",
+    images: [
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 2, title: "HACKATHON", date: "APR 13, 2026", 
+    img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1600", 
+    category: "Competition",
+    images: [
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 3, title: "PITCH DESK", date: "APR 14, 2026", 
+    img: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600", 
+    category: "Workshop",
+    images: [
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 4, title: "CLOSING", date: "APR 15, 2026", 
+    img: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80&w=1600", 
+    category: "Ceremony",
+    images: [
+      "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1533174000243-7826359f1c7d?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 5, title: "NETWORKING", date: "APR 16, 2026", 
+    img: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1600", 
+    category: "Networking",
+    images: [
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+  { 
+    id: 6, title: "WORKSHOP", date: "APR 17, 2026", 
+    img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600", 
+    category: "Learning",
+    images: [
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1600",
+      "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1600"
+    ]
+  },
+];
+
+function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredIndex }) {
+  const ref = useRef(null);
+  
+  // Viewport scroll progress for this specific project section
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  // Image parallax and scale effect
+  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.15]);
+  
+  // Title reveal effect
+  const titleY = useTransform(scrollYProgress, [0.1, 0.4], ["120%", "0%"]);
+  const titleOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
+
+  const isHovered = hoveredIndex === index;
+  const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
+
   return (
-    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#F4EBD9] flex flex-col justify-between`}>
-      <div className="max-w-4xl mx-auto px-6 w-full mb-16 text-center">
-        <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-[#020610]/80 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl">
-          <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#041021] border border-[#C5A25F]/30 uppercase mb-3 font-semibold">
-            Media & Event Gallery
-          </span>
-          <h1 className="font-cinzel text-3xl sm:text-5xl font-bold mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            Renaissance Gallery
-          </h1>
-          <div className="w-16 h-[2px] bg-[#C5A25F] mx-auto mb-4" />
-          <p className="font-montserrat text-xs text-[#E2E8F0] max-w-lg mx-auto drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-            Official photos and keynote recordings from Renaissance 2026.
-          </p>
-        </div>
+    <div 
+      ref={ref}
+      className="relative min-h-[120vh] w-full flex items-center justify-center py-32 px-4 sm:px-12 lg:px-24"
+      onMouseEnter={() => setHoveredIndex(index)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <div className="relative w-full max-w-[1400px] flex flex-col justify-center">
+        
+        {/* Massive Background Number */}
+        <motion.div 
+          className="absolute -top-32 -left-12 lg:-left-24 text-[20vw] font-cinzel font-bold text-[#0A2239] opacity-5 pointer-events-none select-none leading-none z-0"
+          style={{ y: useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]) }}
+        >
+          0{index + 1}
+        </motion.div>
 
-        {/* Clean Empty Placeholder State */}
-        <div className="p-12 sm:p-16 rounded-3xl bg-[#041021]/85 backdrop-blur-xl border border-[#C5A25F]/30 flex flex-col items-center justify-center max-w-xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-          <div className="w-16 h-16 rounded-full bg-[#050B14] border border-[#C5A25F]/30 flex items-center justify-center mb-5 text-[#C5A25F]">
-            <svg
-              className="w-8 h-8"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        {/* Project Content */}
+        <div className="relative z-10 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+          
+          {/* Title Area */}
+          <div className={`w-full lg:w-1/2 flex flex-col mt-8 lg:mt-0 ${index % 2 === 0 ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
+            <div className="flex items-center gap-4 mb-6 overflow-hidden">
+              <motion.span 
+                className="font-mono text-xs tracking-[0.3em] text-[#B47A32] uppercase"
+                style={{ y: titleY }}
+              >
+                {event.category}
+              </motion.span>
+              <motion.div 
+                className="h-px bg-[#C89B53] flex-1 opacity-40 origin-left"
+                style={{ scaleX: useTransform(scrollYProgress, [0.2, 0.4], [0, 1]) }}
+              />
+              <motion.span 
+                className="font-mono text-xs text-[#4A6B7C]"
+                style={{ y: titleY }}
+              >
+                {event.date}
+              </motion.span>
+            </div>
+            
+            <div className="overflow-hidden pb-4">
+              <motion.h2 
+                className={`font-cinzel text-5xl sm:text-7xl lg:text-[7vw] font-bold text-[#0A2239] leading-[0.9] uppercase tracking-tight transition-all duration-700 ${isOtherHovered ? 'opacity-30 blur-sm' : 'opacity-100'} ${isHovered ? 'text-[#B47A32]' : ''}`}
+                style={{ y: titleY, opacity: titleOpacity }}
+              >
+                {event.title}
+              </motion.h2>
+            </div>
+          </div>
+
+          {/* Image Area */}
+          <div className={`w-full lg:w-1/2 flex ${index % 2 === 0 ? 'order-1 lg:order-2 justify-end' : 'order-1 lg:order-1 justify-start'}`}>
+            <motion.div 
+              className={`group relative w-full lg:w-[85%] aspect-[4/5] overflow-hidden cursor-pointer gallery-image-hover transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${isHovered ? 'scale-[1.03] shadow-2xl' : 'scale-100 shadow-lg'} ${isOtherHovered ? 'opacity-40 scale-[0.98]' : 'opacity-100'} hover:scale-[1.06] hover:shadow-2xl`}
+              onClick={() => setSelectedImage(event)}
+              layoutId={`project-image-${event.id}`}
             >
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <polyline points="21 15 16 10 5 21" />
-            </svg>
+              <motion.div
+                className="absolute -inset-[10%] w-[120%] h-[120%]"
+                style={{ y, scale }}
+              >
+                <img 
+                  src={event.img} 
+                  alt={event.title}
+                  className="w-full h-full object-cover filter contrast-[1.05] brightness-[1.02]"
+                />
+                {/* Subtle overlay */}
+                <div className="absolute inset-0 bg-[#0A2239] opacity-[0.05] mix-blend-overlay pointer-events-none" />
+              </motion.div>
+            </motion.div>
           </div>
-
-          <h3 className="font-cinzel font-bold text-lg text-[#F4EBD9] mb-2">
-            Photo & Video Gallery
-          </h3>
-          <p className="font-montserrat text-xs text-[#94A3B8] max-w-md mb-8 leading-relaxed">
-            Event photographs, keynote session recordings, and competition highlights will be published here during the summit.
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <WaterButton to="/events" variant="primary" className="!px-6 !py-2.5 text-xs">
-              Explore Events
-            </WaterButton>
-            <WaterButton to="/" variant="secondary" className="!px-6 !py-2.5 text-xs">
-              Return Home
-            </WaterButton>
-          </div>
+          
         </div>
       </div>
-
-      {!embedded && <ContactFooter />}
     </div>
+  );
+}
+
+export default function Gallery() {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = "hidden";
+      setCurrentImageIndex(0);
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedImage]);
+
+  return (
+    <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0A2239] overflow-x-hidden font-montserrat">
+      
+      {/* Intro Header */}
+      <section className="relative w-full h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24">
+        <div className="overflow-hidden">
+          <motion.h1 
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
+            className="font-cinzel text-6xl md:text-[8vw] font-bold text-[#0A2239] leading-none uppercase tracking-tight"
+          >
+            Archive
+          </motion.h1>
+        </div>
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
+          className="mt-8 flex items-center gap-6"
+        >
+          <div className="h-px w-24 sm:w-48 bg-[#C89B53] opacity-60"></div>
+          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-[#B47A32] uppercase">
+            A visual documentation of past expeditions
+          </p>
+        </motion.div>
+      </section>
+
+      {/* Projects List */}
+      <section className="relative w-full flex flex-col pb-32">
+        {EVENTS.map((event, index) => (
+          <ProjectItem 
+            key={event.id}
+            event={event}
+            index={index}
+            setSelectedImage={setSelectedImage}
+            hoveredIndex={hoveredIndex}
+            setHoveredIndex={setHoveredIndex}
+          />
+        ))}
+      </section>
+
+      {/* Elegant Modal Transition */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F4EBD9] overflow-y-auto"
+          >
+            <div className="min-h-screen w-full flex flex-col">
+              {/* Close Button */}
+              <motion.button
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ delay: 0.4 }}
+                onClick={() => setSelectedImage(null)}
+                className="fixed top-24 right-6 sm:top-28 sm:right-8 z-[110] flex items-center gap-3 text-[#0A2239] hover:text-[#B47A32] transition-colors group cursor-pointer"
+              >
+                <span className="font-mono text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity bg-[#F4EBD9]/80 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm">Close</span>
+                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center bg-[#F4EBD9]/80 backdrop-blur-sm shadow-lg">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M13 1L1 13M1 1L13 13" />
+                  </svg>
+                </div>
+              </motion.button>
+
+              {/* Massive Layout Image with Slider */}
+              <div className="relative w-full h-[70vh] sm:h-[85vh] group/slider">
+                <motion.div 
+                  layoutId={`project-image-${selectedImage.id}`}
+                  className="absolute inset-0 w-full h-full overflow-hidden"
+                >
+                  <AnimatePresence mode="popLayout">
+                    <motion.img 
+                      key={currentImageIndex}
+                      src={selectedImage.images[currentImageIndex]} 
+                      alt={`${selectedImage.title} ${currentImageIndex + 1}`}
+                      initial={{ opacity: 0, scale: 1.02 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6 }}
+                      className="absolute inset-0 w-full h-full object-cover filter contrast-[1.05]"
+                    />
+                  </AnimatePresence>
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#F4EBD9]/0 via-[#F4EBD9]/0 to-[#F4EBD9] pointer-events-none z-10" />
+                </motion.div>
+
+                {/* Slider Controls */}
+                {selectedImage.images.length > 1 && (
+                  <>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : selectedImage.images.length - 1));
+                      }}
+                      className="absolute left-6 sm:left-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-[#F4EBD9]/80 backdrop-blur-md text-[#0A2239] hover:bg-[#F4EBD9] transition-all opacity-0 group-hover/slider:opacity-100 shadow-xl z-50 cursor-pointer"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((prev) => (prev < selectedImage.images.length - 1 ? prev + 1 : 0));
+                      }}
+                      className="absolute right-6 sm:right-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-[#F4EBD9]/80 backdrop-blur-md text-[#0A2239] hover:bg-[#F4EBD9] transition-all opacity-0 group-hover/slider:opacity-100 shadow-xl z-50 cursor-pointer"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                    
+                    {/* Dots indicator */}
+                    <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-3 z-50">
+                      {selectedImage.images.map((_, i) => (
+                        <button 
+                          key={i} 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentImageIndex(i);
+                          }}
+                          className={`h-2 rounded-full transition-all duration-300 cursor-pointer shadow-sm ${i === currentImageIndex ? 'bg-[#B47A32] w-8' : 'bg-[#F4EBD9]/60 hover:bg-[#F4EBD9] w-2'}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Detailed Project Info */}
+              <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-12 -mt-24 pb-32">
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
+                  className="flex flex-col md:flex-row md:items-end justify-between gap-8"
+                >
+                  <div>
+                    <span className="mb-4 inline-block font-mono text-xs tracking-[0.2em] text-[#B47A32] uppercase">
+                      {selectedImage.category} // {selectedImage.date}
+                    </span>
+                    <h1 className="font-cinzel text-5xl sm:text-7xl lg:text-8xl font-bold text-[#0A2239] leading-none uppercase tracking-tight">
+                      {selectedImage.title}
+                    </h1>
+                  </div>
+                  
+                  <div className="max-w-sm text-sm sm:text-base text-[#4A6B7C] leading-relaxed">
+                    A defining moment captured during our {selectedImage.category.toLowerCase()} event. This photograph represents the spirit of innovation and collaboration that drives our community forward.
+                  </div>
+                </motion.div>
+              </div>
+
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import Lenis from "lenis";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SmoothScrollContext } from "../lib/smoothScroll";
 
 export default function SmoothScroll({ children }) {
@@ -20,28 +20,48 @@ export default function SmoothScroll({ children }) {
   }, []);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reducedMotion.matches) return undefined;
-
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (time) => Math.min(1, 1.001 - 2 ** (-10 * time)),
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.15,
-      autoResize: true,
-    });
-    lenisRef.current = lenis;
+    if (reducedMotion.matches) return;
 
     let frameId;
-    const animate = (time) => {
-      lenis.raf(time);
-      frameId = requestAnimationFrame(animate);
-    };
-    frameId = requestAnimationFrame(animate);
+    let lenisInstance = null;
+    let isMounted = true;
+
+    import("lenis")
+      .then((mod) => {
+        if (!isMounted) return;
+        const LenisClass = mod.default || mod.Lenis || mod;
+        if (!LenisClass) return;
+
+        const lenis = new LenisClass({
+          duration: 1.15,
+          easing: (time) => Math.min(1, 1.001 - 2 ** (-10 * time)),
+          wheelMultiplier: 0.95,
+          touchMultiplier: 1.15,
+          autoResize: true,
+        });
+        lenisInstance = lenis;
+        lenisRef.current = lenis;
+        window.__lenis = lenis;
+        lenis.on("scroll", () => ScrollTrigger.update());
+
+        const animate = (time) => {
+          lenis.raf(time);
+          frameId = requestAnimationFrame(animate);
+        };
+        frameId = requestAnimationFrame(animate);
+      })
+      .catch((err) => {
+        console.warn("Smooth scroll initialization skipped:", err);
+      });
 
     return () => {
-      cancelAnimationFrame(frameId);
-      lenis.destroy();
+      isMounted = false;
+      if (frameId) cancelAnimationFrame(frameId);
+      if (lenisInstance) {
+        lenisInstance.destroy();
+      }
       lenisRef.current = null;
     };
   }, []);

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import {
   Navigation,
   Wind,
-  ShieldCheck,
   UserCheck,
   Clock,
   Compass,
+  Sparkles,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -62,29 +62,23 @@ const PAST_SPONSORS = [
 ];
 
 const SPEAKERS = [
-  { id: 1, role: "Keynote Navigator", topic: "Venturing Beyond The Digital Continental Shelf", org: "Deep Mariana Research" },
-  { id: 2, role: "Expedition Captain", topic: "Autonomous Fleets & High-Seas Venture Architecture", org: "Oceanic AI Labs" },
-  { id: 3, role: "Chief Cartographer", topic: "Mapping Decentralized Liquidity in Uncharted Waters", org: "Abyss Capital" },
-  { id: 4, role: "Voyage Engineer", topic: "Next-Gen Propulsion Systems for Deep-Tech Horizons", org: "Vanguard Marine Labs" },
+  { id: 1, label: "Speaker 01" },
+  { id: 2, label: "Speaker 02" },
+  { id: 3, label: "Speaker 03" },
+  { id: 4, label: "Speaker 04" },
 ];
 
 export default function Home() {
   const smoothScroll = useSmoothScroll();
 
   const heroSectionRef = useRef(null);
-  const sponsorsSectionRef = useRef(null);
+  const eventsSectionRef = useRef(null);
   const wheelContainerRef = useRef(null);
   const wheelImgRef = useRef(null);
-  const sponsorsHeaderRef = useRef(null);
+  const eventsHeaderRef = useRef(null);
   const visualsRef = useRef([]);
   const detailsRef = useRef([]);
-  const sponsorsFooterRef = useRef(null);
-
-  // Sponsors Section Refs
-  const sponsorsPinnedSectionRef = useRef(null);
-  const sponsorsCyanAuraRef = useRef(null);
-  const sponsorsRow1Ref = useRef(null);
-  const sponsorsRow2Ref = useRef(null);
+  const eventsFooterRef = useRef(null);
 
   // About Section Refs
   const aboutSectionRef = useRef(null);
@@ -102,183 +96,16 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: Flagship Events 3-Phase Chained GSAP Timeline
-      // -------------------------------------------------------------
-      if (sponsorsSectionRef.current) {
-        // Entrance Animation for Static Section Elements
-        const entranceTargets = [
-          sponsorsHeaderRef.current,
-          sponsorsFooterRef.current,
-        ].filter(Boolean);
-
-        if (entranceTargets.length > 0) {
-          gsap.fromTo(
-            entranceTargets,
-            { opacity: 0, y: 20 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.4,
-              stagger: 0.04,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sponsorsSectionRef.current,
-                start: "top 70%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
-        }
-
-        // Dedicated Continuous Scrubbed Rotation for Pirate Wheel
-        if (wheelImgRef.current) {
-          gsap.set(wheelImgRef.current, { transformOrigin: "50% 50%" });
-          gsap.to(wheelImgRef.current, {
-            rotation: 1440,
-            ease: "none",
-            scrollTrigger: {
-              trigger: sponsorsSectionRef.current,
-              start: "top top",
-              end: "+=7000",
-              scrub: 1,
-              invalidateOnRefresh: true,
-            },
-          });
-        }
-
-        // Single Pinned GSAP Timeline with 7000px distance for Event Cards
-        const mainTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sponsorsSectionRef.current,
-            start: "top top",
-            end: "+=7000",
-            pin: true,
-            scrub: 1,
-          },
-        });
-
-        // Loop through Event Visuals & Floating Details Panels
-        EVENTS.forEach((_, idx) => {
-          const visualEl = visualsRef.current[idx];
-          const detailsEl = detailsRef.current[idx];
-          if (!visualEl || !detailsEl) return;
-
-          // PHASE 1: Event Visual Fades In & Zooms In
-          mainTl.fromTo(
-            visualEl,
-            { opacity: 0, scale: 0.8, pointerEvents: "none" },
-            { opacity: 1, scale: 1.0, pointerEvents: "auto", duration: 1.5, ease: "power2.out" }
-          );
-
-          // PHASE 2: Floating Sapphire Details Panel Slides Up (Reveals AFTER Visual zoom)
-          mainTl.fromTo(
-            detailsEl,
-            { opacity: 0, y: 50, scale: 0.92, pointerEvents: "none" },
-            { opacity: 1, y: 0, scale: 1.0, pointerEvents: "auto", duration: 1.2, ease: "power2.out" },
-            "-=0.6"
-          );
-
-          // Pinned Hold Interval so the event stays on screen comfortably while scrolling
-          mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 2.2 });
-
-          // PHASE 3: Exit - Visual and Details fade out for next event
-          if (idx < EVENTS.length - 1) {
-            mainTl.to(
-              [visualEl, detailsEl],
-              {
-                opacity: 0,
-                scale: 1.05,
-                y: -30,
-                pointerEvents: "none",
-                duration: 1.2,
-                ease: "power2.in",
-              }
-            );
-          }
-        });
-      }
-
-      // -------------------------------------------------------------
-      // Section 3: Sponsors Pinned Cartographer Vault (Ultra-Smooth In & Out)
-      // -------------------------------------------------------------
-      if (sponsorsPinnedSectionRef.current) {
-        const sponsorsTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sponsorsPinnedSectionRef.current,
-            start: "top top",
-            end: "+=3500",
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        // 1. ANIMATE IN: Header & Sponsor Rows fade in, zoom, and slide up into view
-        const animateInTargets = [
-          sponsorsHeaderRef.current,
-          sponsorsRow1Ref.current,
-          sponsorsRow2Ref.current,
-        ].filter(Boolean);
-
-        if (animateInTargets.length > 0) {
-          sponsorsTl.fromTo(
-            animateInTargets,
-            { opacity: 0, y: 60, scale: 0.92 },
-            { opacity: 1, y: 0, scale: 1, duration: 2, stagger: 0.25, ease: "power2.out" },
-            0
-          );
-        }
-
-        if (sponsorsCyanAuraRef.current) {
-          sponsorsTl.fromTo(
-            sponsorsCyanAuraRef.current,
-            { scale: 0.4, opacity: 0.1 },
-            { scale: 1.5, opacity: 0.85, duration: 8, ease: "none" },
-            0
-          );
-        }
-
-        // 2. DUAL MARQUEE SWEEPS: Row 1 moves Right-to-Left, Row 2 moves Left-to-Right
-        if (sponsorsRow1Ref.current) {
-          sponsorsTl.fromTo(
-            sponsorsRow1Ref.current,
-            { xPercent: 0 },
-            { xPercent: -65, duration: 5, ease: "none" },
-            1.5
-          );
-        }
-
-        if (sponsorsRow2Ref.current) {
-          sponsorsTl.fromTo(
-            sponsorsRow2Ref.current,
-            { xPercent: -65 },
-            { xPercent: 0, duration: 5, ease: "none" },
-            1.5
-          );
-        }
-
-        // 3. ANIMATE OUT: Header & Sponsor Rows fade out and scale down to clear stage for About section
-        if (animateInTargets.length > 0) {
-          sponsorsTl.to(
-            animateInTargets,
-            { opacity: 0, y: -50, scale: 0.95, duration: 2, ease: "power2.inOut" },
-            6.5
-          );
-        }
-      }
-
-      // -------------------------------------------------------------
-      // Section 4: About Renaissance (Pinned Parallax Scroll Animation)
+      // Section 2: About Renaissance (Shorter Pinned Parallax Timeline +=1500)
       // -------------------------------------------------------------
       if (aboutSectionRef.current) {
         const aboutTl = gsap.timeline({
           scrollTrigger: {
             trigger: aboutSectionRef.current,
             start: "top top",
-            end: "+=2400",
+            end: "+=1500",
             pin: true,
-            scrub: 1,
+            scrub: 0.8,
           },
         });
 
@@ -286,13 +113,13 @@ export default function Home() {
         if (aboutAuraRef.current) {
           aboutTl.fromTo(
             aboutAuraRef.current,
-            { scale: 0.6, opacity: 0.2 },
-            { scale: 1.6, opacity: 0.85, ease: "none" },
+            { scale: 0.7, opacity: 0.2 },
+            { scale: 1.25, opacity: 0.75, ease: "none" },
             0
           );
         }
 
-        // 2. Giant "About Renaissance" Title reveals with hardware-accelerated zoom
+        // 2. Giant "About Renaissance" Title reveals
         if (aboutTitleRef.current) {
           aboutTl.fromTo(
             aboutTitleRef.current,
@@ -302,7 +129,7 @@ export default function Home() {
           );
         }
 
-        // 3. Detailed Description text floats up smoothly
+        // 3. Detailed Description text floats up
         if (aboutDescRef.current) {
           aboutTl.fromTo(
             aboutDescRef.current,
@@ -312,7 +139,7 @@ export default function Home() {
           );
         }
 
-        // 5. Stat Card 1 (Footfall) drops down
+        // 4. Stat Cards drop down sequentially
         if (statCard1Ref.current) {
           aboutTl.fromTo(
             statCard1Ref.current,
@@ -322,7 +149,6 @@ export default function Home() {
           );
         }
 
-        // 6. Stat Card 2 (Prize Pool) drops down
         if (statCard2Ref.current) {
           aboutTl.fromTo(
             statCard2Ref.current,
@@ -332,7 +158,6 @@ export default function Home() {
           );
         }
 
-        // 7. Stat Card 3 (Startups & VCs) drops down
         if (statCard3Ref.current) {
           aboutTl.fromTo(
             statCard3Ref.current,
@@ -342,7 +167,6 @@ export default function Home() {
           );
         }
 
-        // 8. Stat Card 4 (Edition) drops down
         if (statCard4Ref.current) {
           aboutTl.fromTo(
             statCard4Ref.current,
@@ -352,68 +176,126 @@ export default function Home() {
           );
         }
 
-        // 9. Scroll CTA prompt slides in
         if (aboutCtaRef.current) {
           aboutTl.fromTo(
             aboutCtaRef.current,
             { opacity: 0, y: 25 },
             { opacity: 1, y: 0, ease: "power2.out" },
-            0.88
+            0.82
           );
         }
+
+        // 5. Comfortable hold phase so full view stays pinned before unlocking
+        aboutTl.to({}, { duration: 0.4 });
       }
 
       // -------------------------------------------------------------
-      // Section 5: Keynote Speakers (Pinned 2-Top 2-Bottom Sequential Showcase)
+      // Section 4: Featured Events (Unified Pinned Parallax Timeline +=3000)
       // -------------------------------------------------------------
-      if (speakersSectionRef.current) {
-        const speakersHeaderEl = speakersSectionRef.current.querySelector(".speakers-header");
-        const topCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card-top");
-        const bottomCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card-bottom");
+      if (eventsSectionRef.current) {
+        if (wheelImgRef.current) {
+          gsap.set(wheelImgRef.current, { transformOrigin: "50% 50%" });
+        }
 
-        const speakersTl = gsap.timeline({
+        const mainTl = gsap.timeline({
           scrollTrigger: {
-            trigger: speakersSectionRef.current,
+            trigger: eventsSectionRef.current,
             start: "top top",
-            end: "+=2200",
+            end: "+=3000",
             pin: true,
-            scrub: 1,
             anticipatePin: 1,
+            pinSpacing: true,
+            scrub: 0.8,
             invalidateOnRefresh: true,
           },
         });
 
-        // 1. Phase 1: Header & Top 2 Speaker Cards animate in
-        if (speakersHeaderEl) {
-          speakersTl.fromTo(
-            speakersHeaderEl,
-            { opacity: 0, y: -30, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
+        // Rotate pirate wheel smoothly across entire pin duration
+        if (wheelImgRef.current) {
+          mainTl.to(
+            wheelImgRef.current,
+            { rotation: 720, ease: "none", duration: 10 },
             0
           );
         }
 
-        if (topCardEls.length > 0) {
+        const totalEvents = EVENTS.length;
+        const stepDuration = 3.0;
+
+        EVENTS.forEach((_, idx) => {
+          const visualEl = visualsRef.current[idx];
+          const detailsEl = detailsRef.current[idx];
+          if (!visualEl || !detailsEl) return;
+
+          const startTime = idx * stepDuration;
+
+          // Event Visual Fades In
+          mainTl.fromTo(
+            visualEl,
+            { opacity: 0, scale: 0.9, pointerEvents: "none" },
+            { opacity: 1, scale: 1.0, pointerEvents: "auto", duration: 0.6, ease: "power2.out" },
+            startTime
+          );
+
+          // Details Panel Slides Up
+          mainTl.fromTo(
+            detailsEl,
+            { opacity: 0, y: 30, pointerEvents: "none" },
+            { opacity: 1, y: 0, pointerEvents: "auto", duration: 0.6, ease: "power2.out" },
+            startTime + 0.2
+          );
+
+          // Solid Hold phase so user can view/interact with the event card
+          mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 1.2 }, startTime + 0.8);
+
+          // Exit transition for next event (if not last)
+          if (idx < totalEvents - 1) {
+            mainTl.to(
+              [visualEl, detailsEl],
+              {
+                opacity: 0,
+                y: -25,
+                pointerEvents: "none",
+                duration: 0.6,
+                ease: "power2.in",
+              },
+              startTime + 2.2
+            );
+          }
+        });
+      }
+
+      // -------------------------------------------------------------
+      // Section 6: Keynote Speakers (Automatic Scroll Trigger Entrance)
+      // -------------------------------------------------------------
+      if (speakersSectionRef.current) {
+        const speakersHeaderEl = speakersSectionRef.current.querySelector(".speakers-header");
+        const speakerCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card-item");
+
+        const speakersTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: speakersSectionRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        if (speakersHeaderEl) {
           speakersTl.fromTo(
-            topCardEls,
-            { opacity: 0, y: 50, scale: 0.88, filter: "blur(10px)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.5, stagger: 0.2, ease: "power2.out" },
-            0.4
+            speakersHeaderEl,
+            { opacity: 0, y: 35, scale: 0.95 },
+            { opacity: 1, y: 0, scale: 1.0, duration: 0.6, ease: "power2.out" }
           );
         }
 
-        // 2. Phase 2: Bottom 2 Speaker Cards animate in right below
-        if (bottomCardEls.length > 0) {
+        if (speakerCardEls.length > 0) {
           speakersTl.fromTo(
-            bottomCardEls,
-            { opacity: 0, y: 50, scale: 0.88, filter: "blur(10px)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.5, stagger: 0.2, ease: "power2.out" },
-            1.5
+            speakerCardEls,
+            { opacity: 0, y: 50, scale: 0.92 },
+            { opacity: 1, y: 0, scale: 1.0, duration: 0.5, stagger: 0.12, ease: "power2.out" },
+            "-=0.3"
           );
         }
-
-        // 3. Phase 3: Hold phase - all 4 cards remain 100% visible on screen
-        speakersTl.to([...topCardEls, ...bottomCardEls], { opacity: 1, duration: 2.5 });
       }
     });
 
@@ -426,7 +308,7 @@ export default function Home() {
   return (
     <div className="relative z-10 w-full text-white selection:bg-[#38BDF8] selection:text-[#020610]">
       {/* ============================================================ */}
-      {/* SECTION 1: HERO (100vh) - PERFECTLY CENTERED LOGO & CTAs    */}
+      {/* 1. HERO SECTION (100vh)                                      */}
       {/* ============================================================ */}
       <section
         ref={heroSectionRef}
@@ -449,7 +331,7 @@ export default function Home() {
             E-Cell MNNIT Allahabad • Annual Entrepreneurship Summit
           </p>
 
-          {/* Action CTAs: Register Now + Begin Voyage */}
+          {/* Action CTAs: Register Now + Explore Events */}
           <div className="overflow-visible flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full max-w-xs sm:max-w-none mx-auto">
             <Link
               to="/register"
@@ -460,13 +342,13 @@ export default function Home() {
             </Link>
 
             <a
-              href="#sponsors"
+              href="#events"
               onClick={(e) => {
                 e.preventDefault();
-                if (smoothScroll?.scrollTo && sponsorsSectionRef.current) {
-                  smoothScroll.scrollTo(sponsorsSectionRef.current, { duration: 1.2 });
+                if (smoothScroll?.scrollTo && eventsSectionRef.current) {
+                  smoothScroll.scrollTo(eventsSectionRef.current, { duration: 1.2 });
                 } else {
-                  sponsorsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                  eventsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
               className="group relative flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#38BDF8]/50 bg-[#031d33]/80 backdrop-blur-md text-[#CBD5E1] hover:text-white hover:border-[#38BDF8] hover:bg-[#042542]/90 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.45)] overflow-visible cursor-pointer w-full sm:w-auto"
@@ -494,24 +376,221 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (GRADIENT BRIDGE TO NAVY)   */}
+      {/* 2. ABOUT RENAISSANCE SECTION (PINNED PARALLAX SCROLL)       */}
       {/* ============================================================ */}
       <section
-        id="sponsors"
-        ref={sponsorsSectionRef}
-        className="relative w-full min-h-screen sm:h-screen bg-gradient-to-b from-[#020610]/95 via-[#04192d]/90 to-[#072545]/90 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-28 sm:pt-32 pb-6 px-4 sm:px-12 overflow-hidden select-none"
+        ref={aboutSectionRef}
+        className="relative min-h-[85vh] w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent pt-24 pb-8 sm:pt-32 sm:pb-12"
       >
-        {/* Dynamic Mariana Blue Gaussian Blur Aura */}
+        {/* Ambient Glow Aura */}
+        <div
+          ref={aboutAuraRef}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] sm:w-[650px] sm:h-[650px] bg-[radial-gradient(ellipse_at_center,rgba(197,162,95,0.14)_0%,rgba(2,132,199,0.12)_45%,transparent_70%)] rounded-full blur-[90px] pointer-events-none"
+        />
+
+        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center z-10 px-4">
+          <h2
+            ref={aboutTitleRef}
+            className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white mb-6 z-10 drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
+          >
+            About{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F4EBD9] to-[#C5A25F]">
+              Renaissance
+            </span>
+          </h2>
+
+          <p
+            ref={aboutDescRef}
+            className="text-base sm:text-xl text-[#F4EBD9] font-light leading-relaxed mb-10 max-w-3xl z-10 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]"
+          >
+            The Institution’s Innovation Council and Entrepreneurship Cell at MNNIT Allahabad present the 10th edition of Renaissance. The summit brings together students, founders, and leaders to foster entrepreneurship and innovation across diverse disciplines.
+          </p>
+
+          {/* Summit Statistics Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full my-6 z-10">
+            <div
+              ref={statCard1Ref}
+              className="flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl bg-[#040f21]/60 border border-[#C5A25F]/30 backdrop-blur-md"
+            >
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#C5A25F] tracking-tight">
+                15,000+
+              </span>
+              <span className="text-[10px] sm:text-xs font-mono text-[#CBD5E1] uppercase tracking-wider font-semibold mt-1.5">
+                Footfall
+              </span>
+            </div>
+
+            <div
+              ref={statCard2Ref}
+              className="flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl bg-[#040f21]/60 border border-[#C5A25F]/30 backdrop-blur-md"
+            >
+              <span className="text-xl sm:text-3xl font-extrabold font-mono text-[#C5A25F] tracking-tight">
+                ₹5,00,000+
+              </span>
+              <span className="text-[10px] sm:text-xs font-mono text-[#CBD5E1] uppercase tracking-wider font-semibold mt-1.5">
+                Prize Pool
+              </span>
+            </div>
+
+            <div
+              ref={statCard3Ref}
+              className="flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl bg-[#040f21]/60 border border-[#C5A25F]/30 backdrop-blur-md"
+            >
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#C5A25F] tracking-tight">
+                40+
+              </span>
+              <span className="text-[10px] sm:text-xs font-mono text-[#CBD5E1] uppercase tracking-wider font-semibold mt-1.5">
+                Startups & VCs
+              </span>
+            </div>
+
+            <div
+              ref={statCard4Ref}
+              className="flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl bg-[#040f21]/60 border border-[#C5A25F]/30 backdrop-blur-md"
+            >
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#C5A25F] tracking-tight">
+                10th
+              </span>
+              <span className="text-[10px] sm:text-xs font-mono text-[#CBD5E1] uppercase tracking-wider font-semibold mt-1.5">
+                Edition
+              </span>
+            </div>
+          </div>
+
+          <p
+            ref={aboutCtaRef}
+            className="text-xs sm:text-sm text-[#C5A25F] font-mono tracking-widest uppercase font-bold z-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2 mt-4"
+          >
+            <span>Scroll down for current sponsors</span>
+            <span className="animate-bounce">↓</span>
+          </p>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 3. CURRENT SPONSORS SECTION (NAUTICAL GOLD & WOOD MARQUEE)   */}
+      {/* ============================================================ */}
+      <section className="relative py-12 sm:py-16 w-full bg-[#040f21]/92 shadow-[inset_0_0_60px_rgba(197,162,95,0.18)] backdrop-blur-md select-none z-20 mt-36 mb-64 sm:mt-52 sm:mb-96">
+        {/* TOP LOGO-THEMED MAHOGANY WOOD & GOLD BEVEL BORDER BAR */}
+        <div className="absolute top-0 left-0 right-0 h-3.5 sm:h-4 bg-[linear-gradient(90deg,#1c1007_0%,#3a2210_20%,#4e2e15_50%,#3a2210_80%,#1c1007_100%)] border-t-2 border-b border-[#C5A25F] shadow-[0_4px_15px_rgba(0,0,0,0.8)] z-20 flex items-center justify-between px-4 sm:px-12 pointer-events-none overflow-hidden">
+          {/* Simulated Wood-Grain Divider Lines & Brass Rivets */}
+          <div className="w-full flex justify-between items-center opacity-60">
+            <div className="flex gap-8 sm:gap-16 items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A25F] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)]" />
+              <span className="w-1 h-3 bg-[#C5A25F]/20" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A25F] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)] hidden sm:inline-block" />
+              <span className="w-1 h-3 bg-[#C5A25F]/20 hidden sm:inline-block" />
+            </div>
+            <div className="flex gap-8 sm:gap-16 items-center">
+              <span className="w-1 h-3 bg-[#C5A25F]/20 hidden sm:inline-block" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A25F] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)] hidden sm:inline-block" />
+              <span className="w-1 h-3 bg-[#C5A25F]/20" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A25F] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)]" />
+            </div>
+          </div>
+        </div>
+
+        {/* TOP CENTRAL RENAISSANCE LOGO COMPASS EMBLEM MEDALLION */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center pointer-events-none">
+          <div className="relative group">
+            {/* Ambient Gold Glow Behind Emblem */}
+            <div className="absolute inset-0 rounded-xl bg-[#C5A25F] blur-md opacity-60" />
+            
+            {/* Logo Emblem Diamond Shield */}
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#1c1007] via-[#040f21] to-[#3a2210] border-2 border-[#C5A25F] shadow-[0_0_20px_rgba(197,162,95,0.7)] flex items-center justify-center rotate-45 p-1">
+              <img
+                src="/renaissance-logo-clean.png"
+                alt="Renaissance Emblem"
+                className="-rotate-45 w-6 h-6 sm:w-7 sm:h-7 object-contain filter drop-shadow-[0_2px_6px_rgba(197,162,95,0.9)]"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM LOGO-THEMED MAHOGANY WOOD & GOLD BEVEL BORDER BAR */}
+        <div className="absolute bottom-0 left-0 right-0 h-3.5 sm:h-4 bg-[linear-gradient(90deg,#1c1007_0%,#3a2210_20%,#4e2e15_50%,#3a2210_80%,#1c1007_100%)] border-b-2 border-t border-[#C5A25F] shadow-[0_-4px_15px_rgba(0,0,0,0.8)] z-20 flex items-center justify-between px-4 sm:px-12 pointer-events-none overflow-hidden">
+          <div className="w-full flex justify-between items-center opacity-60">
+            <div className="flex gap-8 sm:gap-16 items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A25F] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)]" />
+              <span className="w-1 h-3 bg-[#C5A25F]/20" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A25F] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)] hidden sm:inline-block" />
+            </div>
+            <div className="flex gap-8 sm:gap-16 items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A25F] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)] hidden sm:inline-block" />
+              <span className="w-1 h-3 bg-[#C5A25F]/20" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A25F] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)]" />
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM CENTRAL RENAISSANCE LOGO COMPASS EMBLEM MEDALLION */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-30 flex items-center justify-center pointer-events-none">
+          <div className="relative group">
+            <div className="absolute inset-0 rounded-xl bg-[#C5A25F] blur-md opacity-60" />
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#1c1007] via-[#040f21] to-[#3a2210] border-2 border-[#C5A25F] shadow-[0_0_20px_rgba(197,162,95,0.7)] flex items-center justify-center rotate-45 p-1">
+              <img
+                src="/renaissance-logo-clean.png"
+                alt="Renaissance Emblem"
+                className="-rotate-45 w-6 h-6 sm:w-7 sm:h-7 object-contain filter drop-shadow-[0_2px_6px_rgba(197,162,95,0.9)]"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Soft top & bottom gradient vignettes for seamless edge blending */}
+        <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-[#020610] to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#020610] to-transparent pointer-events-none z-10" />
+
+        {/* Ambient Glowing Rich Gold Backing Aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[240px] bg-[radial-gradient(ellipse_at_center,rgba(197,162,95,0.4)_0%,rgba(217,119,6,0.25)_40%,transparent_80%)] rounded-full blur-[110px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 mb-6 text-center relative z-10">
+          <span className="text-[10px] font-mono text-[#C5A25F] uppercase tracking-[0.25em] font-semibold block mb-1">
+            Industry & Innovation Partners
+          </span>
+          <h2 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight drop-shadow-[0_4px_15px_rgba(0,0,0,0.8)]">
+            Current Sponsors
+          </h2>
+        </div>
+
+        {/* Clean Marquee with Logo-Themed Square Containers */}
+        <div className="w-full overflow-hidden relative z-10">
+          <div className="animate-marquee flex items-center gap-12 sm:gap-20 whitespace-nowrap min-w-max py-4 px-4">
+            {[...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS].map((sponsor, idx) => (
+              <div
+                key={`curr-${idx}`}
+                className="inline-flex items-center gap-3.5 sm:gap-5 text-[#F4EBD9] hover:text-[#C5A25F] transition-colors cursor-pointer group"
+              >
+                {/* Logo-Themed Nautical Gold Square Container */}
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl border-2 border-[#C5A25F]/50 bg-gradient-to-br from-[#0c2b3d] via-[#040f21] to-[#12364c] backdrop-blur-md flex items-center justify-center shrink-0 group-hover:border-[#C5A25F] group-hover:shadow-[0_0_20px_rgba(197,162,95,0.45)] transition-all">
+                  <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm border border-[#C5A25F]/60 bg-[#C5A25F]/30 rotate-45 group-hover:rotate-90 group-hover:bg-[#C5A25F]/80 transition-transform duration-500" />
+                </div>
+                <span className="text-xl sm:text-3xl font-extrabold tracking-wide font-montserrat drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                  {sponsor.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 4. FEATURED EVENTS SECTION (SHORTENED PIN DISTANCE +=2200)   */}
+      {/* ============================================================ */}
+      <section
+        id="events"
+        ref={eventsSectionRef}
+        className="relative w-full min-h-screen sm:h-screen bg-gradient-to-b from-[#020610]/95 via-[#04192d]/90 to-[#072545]/90 border-b border-[#38BDF8]/20 flex flex-col justify-between pt-28 sm:pt-32 pb-6 px-4 sm:px-12 overflow-hidden select-none"
+      >
+        {/* Dynamic Blue Blur Aura */}
         <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-[#0284C7]/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
 
-        {/* Giant Rotating Nautical Wheel (Behind cards on mobile/tablets, side wheel on desktop) */}
+        {/* Giant Rotating Nautical Wheel */}
         <div
           ref={wheelContainerRef}
           className="absolute left-1/2 md:left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[65vh] h-[65vh] sm:w-[85vh] sm:h-[85vh] md:w-[100vh] md:h-[100vh] pointer-events-none z-0 md:z-10 flex items-center justify-center opacity-25 md:opacity-100 overflow-visible"
         >
-          {/* Subtle Astrolabe Gold & Cyan Radial Glow Aura */}
           <div className="absolute w-[68%] h-[68%] rounded-full bg-[radial-gradient(circle_at_center,rgba(197,162,95,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
-
           <img
             ref={wheelImgRef}
             src="/pirate-wheel-transparent.png"
@@ -520,13 +599,13 @@ export default function Home() {
           />
         </div>
 
-        {/* Right Half Container: Section Header & Stacked Absolute Event Containers */}
+        {/* Right Half Container: Events Header & Event Showcase */}
         <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
           <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-3 sm:gap-4">
 
-            {/* Clean Section Header (Right Aligned) */}
+            {/* Header */}
             <div
-              ref={sponsorsHeaderRef}
+              ref={eventsHeaderRef}
               className="w-full flex items-end justify-between pb-2 border-b border-white/10"
             >
               <div>
@@ -540,89 +619,67 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Stacked Absolute Containers for Event Visual & Floating Details Panel */}
+            {/* Event Showcase Cards */}
             <div className="relative w-full h-[410px] sm:h-[450px] md:h-[480px]">
               {EVENTS.map((event, idx) => (
                 <div
                   key={event.id}
                   className="absolute inset-0 w-full h-full flex flex-col gap-3 sm:gap-4 pointer-events-none"
                 >
-                  {/* 1. Event Visual Card (Harmonized Sand Parchment Panel) */}
+                  {/* Event Main Banner Card */}
                   <div
                     ref={(el) => (visualsRef.current[idx] = el)}
-                    className="w-full p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl border border-[#C5A25F]/50 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] shadow-[0_0_30px_rgba(197,162,95,0.25)] flex flex-col gap-2.5 sm:gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
+                    className="w-full p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#C5A25F]/50 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
                   >
-                    {/* Header Bar */}
                     <div className="w-full flex items-center justify-between pb-2 border-b border-[#0C2B3D]/15">
-                      <span className="text-[10px] sm:text-xs font-mono font-bold text-[#0C2B3D] tracking-widest uppercase">
-                        EVENT {event.id} / 03
+                      <span className="text-xs font-mono font-extrabold text-[#0C2B3D] tracking-widest uppercase">
+                        CHALLENGE {event.id} / 03
                       </span>
-                      <span className="text-[10px] sm:text-xs font-mono px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full border border-[#C5A25F]/60 bg-[#C5A25F]/20 text-[#0C2B3D] uppercase tracking-wider font-extrabold">
+                      <span className="text-xs font-mono px-3 py-1 rounded-full border border-[#C5A25F]/60 bg-[#C5A25F]/20 text-[#0C2B3D] uppercase tracking-wider font-extrabold">
                         {event.category}
                       </span>
                     </div>
 
-                    {/* Mystery '?' Showcase Badge */}
-                    <div className="w-full p-3 sm:p-4 bg-[#EBDDC8] rounded-xl sm:rounded-2xl border border-[#C5A25F]/40 flex flex-row items-center gap-3 sm:gap-5 shadow-inner">
-                      <div className="relative w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl sm:rounded-2xl border border-[#C5A25F]/70 bg-gradient-to-br from-[#0C2B3D] via-[#081f2d] to-[#040e17] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(197,162,95,0.4)] overflow-hidden">
-                        <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-25 pointer-events-none" />
-                        <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
-                          ?
-                        </span>
-                        <span className="text-[7px] sm:text-[8px] font-mono text-[#C5A25F] uppercase tracking-widest mt-0.5 z-10 font-bold">
-                          FLAGSHIP
-                        </span>
-                      </div>
-
-                      <div className="flex flex-col text-left">
-                        <h3 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-[#0C2B3D] tracking-wide">
-                          {event.name}
-                        </h3>
-                        <span className="text-[11px] sm:text-xs font-mono text-[#9A7432] font-extrabold tracking-wider mt-0.5">
-                          {event.prize}
-                        </span>
-                      </div>
+                    <div className="flex flex-col text-left py-2">
+                      <h3 className="text-xl sm:text-3xl font-extrabold text-[#0C2B3D] tracking-wide">
+                        {event.name}
+                      </h3>
+                      <span className="text-xs font-mono text-[#9A7432] font-extrabold tracking-wider mt-1">
+                        Prize Pool: {event.prize}
+                      </span>
                     </div>
                   </div>
 
-                  {/* 2. Floating Deep Nautical Navy Details Panel */}
+                  {/* Event Details Panel (Clean, Phase 2 badge removed) */}
                   <div
                     ref={(el) => (detailsRef.current[idx] = el)}
-                    className="w-full p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border border-[#38BDF8]/60 bg-[#0C2B3D]/95 text-white backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] shadow-[0_0_35px_rgba(56,189,248,0.35)] flex flex-col gap-2.5 sm:gap-3.5 will-change-transform pointer-events-auto z-30"
+                    className="w-full p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-[#38BDF8]/60 bg-[#0C2B3D]/95 text-white backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col gap-3.5 will-change-transform pointer-events-auto z-30"
                   >
-                    {/* Time & Schedule Badge */}
-                    <div className="flex items-center justify-between pb-1.5 sm:pb-2 border-b border-white/10">
-                      <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-mono text-[#38BDF8] font-bold uppercase tracking-wider">
-                        <Clock className="w-3.5 h-3.5 text-[#38BDF8]" />
+                    <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                      <div className="flex items-center gap-1.5 text-xs font-mono text-[#38BDF8] font-bold uppercase tracking-wider">
+                        <Clock className="w-4 h-4 text-[#38BDF8]" />
                         <span>{event.time}</span>
                       </div>
-                      <span className="text-[9px] sm:text-[10px] font-mono text-[#C5A25F] border border-[#C5A25F]/40 bg-[#C5A25F]/15 px-2 sm:px-2.5 py-0.5 rounded-full font-semibold">
-                        Phase 2 Active
-                      </span>
                     </div>
 
-                    {/* Overview Description */}
-                    <p className="text-[11px] sm:text-xs md:text-sm text-[#CBD5E1] font-mono leading-relaxed line-clamp-3 sm:line-clamp-none">
+                    <p className="text-xs sm:text-sm text-[#CBD5E1] font-mono leading-relaxed">
                       {event.desc}
                     </p>
 
-                    {/* Action Bar with 'Register' CTA Button */}
-                    <div className="pt-2 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-4">
+                    <div className="pt-2 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
                       <Link
                         to="/register"
-                        className="group relative flex items-center justify-center gap-2 px-5 sm:px-7 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F] text-[#0C2B3D] font-extrabold text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-widest hover:shadow-[0_0_30px_rgba(197,162,95,0.7)] transition-all duration-300 transform hover:scale-[1.02] cursor-pointer border border-[#C5A25F]/60 w-full sm:w-auto whitespace-nowrap shrink-0"
+                        className="group relative flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F] text-[#0C2B3D] font-extrabold text-xs uppercase tracking-widest hover:shadow-[0_0_25px_rgba(197,162,95,0.7)] transition-all duration-300 transform hover:scale-[1.02] cursor-pointer border border-[#C5A25F]/60 w-full sm:w-auto shrink-0"
                       >
-                        <UserCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0C2B3D] shrink-0" />
+                        <UserCheck className="w-4 h-4 text-[#0C2B3D] shrink-0" />
                         <span>Register Now</span>
                       </Link>
 
-                      <Link to="/events" className="text-[11px] sm:text-xs font-mono text-[#38BDF8] font-bold hover:underline whitespace-nowrap py-0.5">
+                      <Link to="/events" className="text-xs font-mono text-[#38BDF8] font-bold hover:underline whitespace-nowrap">
                         View Schedule →
                       </Link>
                     </div>
-
                   </div>
-
                 </div>
               ))}
             </div>
@@ -630,117 +687,111 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Clean Bottom Status Bar */}
+        {/* Footer Info */}
         <div
-          ref={sponsorsFooterRef}
+          ref={eventsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          <span className="text-[#38BDF8]/80">Scroll to zoom event visual & reveal details panel</span>
+          <span className="text-[#38BDF8]/80">Scroll to reveal featured summit challenges</span>
           <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
         </div>
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 3: SPONSORS (EXPOSED WEBGL WATER CANVAS + GOLD AURA) */}
+      {/* 5. PAST SPONSORS SECTION (NAUTICAL CYAN & DRIFTWOOD MARQUEE)  */}
       {/* ============================================================ */}
-      <section
-        ref={sponsorsPinnedSectionRef}
-        className="relative min-h-screen w-full bg-transparent border-t border-[#C5A25F]/30 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
-      >
-        {/* Dynamic Cartographer Gold & Cyan Animated Color Aura */}
-        <div
-          ref={sponsorsCyanAuraRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-[radial-gradient(ellipse_at_center,rgba(197,162,95,0.14)_0%,rgba(245,158,11,0.08)_35%,rgba(56,189,248,0.08)_65%,transparent_85%)] rounded-full blur-[160px] pointer-events-none animate-pulse"
-        />
-
-        {/* Header (No top pill badge; re-formatted vertical spacing) */}
-        <div
-          ref={sponsorsHeaderRef}
-          className="max-w-7xl mx-auto flex flex-col items-center mb-6 sm:mb-8 text-center relative z-10"
-        >
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
-            Current & Past{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-[#C5A25F] to-[#38BDF8]">
-              Sponsors
-            </span>
-          </h2>
-        </div>
-
-        {/* Fast Left-to-Right Row 1 (Current Sponsors - Warm Beige Cards) */}
-        <div
-          className="w-full overflow-hidden mb-8 relative z-10 max-w-7xl mx-auto"
-          style={{
-            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-          }}
-        >
-          <div
-            ref={sponsorsRow1Ref}
-            className="flex gap-6 whitespace-nowrap min-w-max will-change-transform"
-          >
-            {[
-              ...CURRENT_SPONSORS,
-              ...CURRENT_SPONSORS,
-              ...CURRENT_SPONSORS,
-              ...CURRENT_SPONSORS,
-              ...CURRENT_SPONSORS,
-              ...CURRENT_SPONSORS,
-            ].map((sponsor, idx) => (
-              <div
-                key={`curr-${idx}`}
-                className="inline-flex items-center gap-3 sm:gap-4 px-5 sm:px-7 py-3 sm:py-4 rounded-2xl border border-[#C5A25F]/50 bg-[#F4EBD9] text-[#0C2B3D] shadow-[0_4px_15px_rgba(0,0,0,0.22)] group hover:border-[#C5A25F] hover:shadow-[0_0_25px_rgba(197,162,95,0.45)] transition-all cursor-pointer"
-              >
-                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center font-mono font-bold text-[#C5A25F] text-xs sm:text-base group-hover:scale-110 transition-transform shadow-inner">
-                  ★
-                </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-sm sm:text-base font-extrabold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors tracking-wide">
-                    {sponsor.name}
-                  </span>
-                  <span className="text-[9px] sm:text-[10px] font-mono text-[#9A7432] uppercase tracking-wider font-extrabold">
-                    {sponsor.tier}
-                  </span>
-                </div>
-              </div>
-            ))}
+      <section className="relative py-12 sm:py-16 w-full bg-[#040f21]/92 shadow-[inset_0_0_60px_rgba(56,189,248,0.15)] backdrop-blur-md select-none z-20 mt-36 mb-64 sm:mt-52 sm:mb-96">
+        {/* TOP LOGO-THEMED DRIFTWOOD & CYAN BEVEL BORDER BAR */}
+        <div className="absolute top-0 left-0 right-0 h-3.5 sm:h-4 bg-[linear-gradient(90deg,#0a1622_0%,#13283a_20%,#1c3850_50%,#13283a_80%,#0a1622_100%)] border-t-2 border-b border-[#38BDF8] shadow-[0_4px_15px_rgba(0,0,0,0.8)] z-20 flex items-center justify-between px-4 sm:px-12 pointer-events-none overflow-hidden">
+          <div className="w-full flex justify-between items-center opacity-60">
+            <div className="flex gap-8 sm:gap-16 items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)]" />
+              <span className="w-1 h-3 bg-[#38BDF8]/20" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)] hidden sm:inline-block" />
+            </div>
+            <div className="flex gap-8 sm:gap-16 items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)] hidden sm:inline-block" />
+              <span className="w-1 h-3 bg-[#38BDF8]/20" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)]" />
+            </div>
           </div>
         </div>
 
-        {/* Fast Right-to-Left Row 2 (Past Sponsors - Light Blue Steel Cards) */}
-        <div
-          className="w-full overflow-hidden relative z-10 max-w-7xl mx-auto"
-          style={{
-            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-          }}
-        >
-          <div
-            ref={sponsorsRow2Ref}
-            className="flex gap-6 whitespace-nowrap min-w-max will-change-transform"
-          >
-            {[
-              ...PAST_SPONSORS,
-              ...PAST_SPONSORS,
-              ...PAST_SPONSORS,
-              ...PAST_SPONSORS,
-              ...PAST_SPONSORS,
-              ...PAST_SPONSORS,
-            ].map((sponsor, idx) => (
+        {/* TOP CENTRAL RENAISSANCE LOGO CYAN MEDALLION */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center pointer-events-none">
+          <div className="relative group">
+            <div className="absolute inset-0 rounded-xl bg-[#38BDF8] blur-md opacity-60" />
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#0a1622] via-[#040f21] to-[#1c3850] border-2 border-[#38BDF8] shadow-[0_0_20px_rgba(56,189,248,0.7)] flex items-center justify-center rotate-45 p-1">
+              <img
+                src="/renaissance-logo-clean.png"
+                alt="Renaissance Emblem"
+                className="-rotate-45 w-6 h-6 sm:w-7 sm:h-7 object-contain filter drop-shadow-[0_2px_6px_rgba(56,189,248,0.9)]"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM LOGO-THEMED DRIFTWOOD & CYAN BEVEL BORDER BAR */}
+        <div className="absolute bottom-0 left-0 right-0 h-3.5 sm:h-4 bg-[linear-gradient(90deg,#0a1622_0%,#13283a_20%,#1c3850_50%,#13283a_80%,#0a1622_100%)] border-b-2 border-t border-[#38BDF8] shadow-[0_-4px_15px_rgba(0,0,0,0.8)] z-20 flex items-center justify-between px-4 sm:px-12 pointer-events-none overflow-hidden">
+          <div className="w-full flex justify-between items-center opacity-60">
+            <div className="flex gap-8 sm:gap-16 items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)]" />
+              <span className="w-1 h-3 bg-[#38BDF8]/20" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)] hidden sm:inline-block" />
+            </div>
+            <div className="flex gap-8 sm:gap-16 items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)] hidden sm:inline-block" />
+              <span className="w-1 h-3 bg-[#38BDF8]/20" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] shadow-[inset_0_1px_1px_rgba(0,0,0,0.8)]" />
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM CENTRAL RENAISSANCE LOGO CYAN MEDALLION */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-30 flex items-center justify-center pointer-events-none">
+          <div className="relative group">
+            <div className="absolute inset-0 rounded-xl bg-[#38BDF8] blur-md opacity-60" />
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#0a1622] via-[#040f21] to-[#1c3850] border-2 border-[#38BDF8] shadow-[0_0_20px_rgba(56,189,248,0.7)] flex items-center justify-center rotate-45 p-1">
+              <img
+                src="/renaissance-logo-clean.png"
+                alt="Renaissance Emblem"
+                className="-rotate-45 w-6 h-6 sm:w-7 sm:h-7 object-contain filter drop-shadow-[0_2px_6px_rgba(56,189,248,0.9)]"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Soft top & bottom gradient vignettes for seamless edge blending */}
+        <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-[#020610] to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#020610] to-transparent pointer-events-none z-10" />
+
+        {/* Ambient Glowing Cyan Backing Aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[240px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.25)_0%,rgba(2,132,199,0.15)_50%,transparent_80%)] rounded-full blur-[110px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 mb-6 text-center relative z-10">
+          <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold block mb-1">
+            Pioneers & Legacy Partners
+          </span>
+          <h2 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight drop-shadow-[0_4px_15px_rgba(0,0,0,0.8)]">
+            Past Sponsors
+          </h2>
+        </div>
+
+        {/* Clean Reverse Logo Marquee */}
+        <div className="w-full overflow-hidden relative z-10">
+          <div className="animate-marquee-reverse flex items-center gap-12 sm:gap-20 whitespace-nowrap min-w-max py-4 px-4">
+            {[...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS].map((sponsor, idx) => (
               <div
                 key={`past-${idx}`}
-                className="inline-flex items-center gap-3 sm:gap-4 px-5 sm:px-7 py-3 sm:py-4 rounded-2xl border border-[#166E94]/45 bg-[#D8ECEE] text-[#0C2B3D] shadow-[0_4px_15px_rgba(0,0,0,0.22)] group hover:border-[#166E94] hover:shadow-[0_0_25px_rgba(56,189,248,0.45)] transition-all cursor-pointer"
+                className="inline-flex items-center gap-3.5 sm:gap-5 text-[#CBD5E1] hover:text-[#38BDF8] transition-colors cursor-pointer group"
               >
-                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl border border-[#166E94]/50 bg-[#0C2B3D] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-xs sm:text-base group-hover:scale-110 transition-transform shadow-inner">
-                  ✦
+                {/* Logo-Themed Nautical Cyan Square Container */}
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl border-2 border-[#38BDF8]/50 bg-gradient-to-br from-[#0c2b3d] via-[#040f21] to-[#041a2e] backdrop-blur-md flex items-center justify-center shrink-0 group-hover:border-[#38BDF8] group-hover:shadow-[0_0_20px_rgba(56,189,248,0.45)] transition-all">
+                  <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm border border-[#38BDF8]/60 bg-[#38BDF8]/30 rotate-45 group-hover:rotate-90 group-hover:bg-[#38BDF8]/80 transition-transform duration-500" />
                 </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-base font-extrabold text-[#0C2B3D] group-hover:text-[#166E94] transition-colors tracking-wide">
-                    {sponsor.name}
-                  </span>
-                  <span className="text-[10px] font-mono text-[#166E94] uppercase tracking-wider font-extrabold">
-                    {sponsor.tier}
-                  </span>
-                </div>
+                <span className="text-xl sm:text-3xl font-extrabold tracking-wide font-montserrat drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                  {sponsor.name}
+                </span>
               </div>
             ))}
           </div>
@@ -748,172 +799,51 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 4: ABOUT RENAISSANCE (WEBGL BG + FROSTED BACKDROP)  */}
+      {/* 6. KEYNOTE SPEAKERS SECTION (FULL SCREEN UNPINNED SCRUB GRID)*/}
       {/* ============================================================ */}
-      <section
-        ref={aboutSectionRef}
-        className="relative min-h-screen w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent py-20 overflow-hidden"
-      >
-        {/* Expanding Deep Mariana Ambient Glow Aura (Animates with Scroll) */}
-        <div
-          ref={aboutAuraRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[radial-gradient(ellipse_at_center,rgba(197,162,95,0.12)_0%,rgba(2,132,199,0.18)_50%,transparent_80%)] rounded-full blur-[150px] pointer-events-none"
-        />
-
-        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center z-10 px-4">
-          {/* Title */}
-          <h2
-            ref={aboutTitleRef}
-            className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white mb-6 z-10 drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] drop-shadow-[0_0_35px_rgba(0,0,0,0.95)]"
-          >
-            About{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F4EBD9] to-[#C5A25F]">
-              Renaissance
-            </span>
-          </h2>
-
-          {/* Original Description from About.jsx */}
-          <p
-            ref={aboutDescRef}
-            className="text-base sm:text-xl text-[#F4EBD9] font-light leading-relaxed mb-8 max-w-3xl z-10 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] drop-shadow-[0_0_15px_rgba(0,0,0,0.9)]"
-          >
-            The Institution’s Innovation Council and Entrepreneurship Cell at MNNIT Allahabad present the 10th edition of Renaissance. The summit brings together students, founders, and leaders to foster entrepreneurship and innovation across diverse disciplines.
-          </p>
-
-          {/* Original Summit Statistics Grid from About.jsx (Each card animates sequentially on scroll) */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 w-full my-6 z-10">
-            {/* Card 1: Footfall */}
-            <div
-              ref={statCard1Ref}
-              className="flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-[#020610]/85 to-[#041021]/90 border border-[#C5A25F]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-sm min-w-0 w-full overflow-hidden"
-            >
-              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-[#C5A25F] drop-shadow-[0_0_12px_rgba(197,162,95,0.5)] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
-                15,000+
-              </span>
-              <span className="text-[10px] sm:text-xs font-mono text-[#E2E8F0] uppercase tracking-wider font-semibold mt-1.5 whitespace-nowrap">
-                Footfall
-              </span>
-            </div>
-
-            {/* Card 2: Prize Pool (Fixed Overflow with tracking-tighter & responsive text sizing) */}
-            <div
-              ref={statCard2Ref}
-              className="flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-[#020610]/85 to-[#041021]/90 border border-[#C5A25F]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-sm min-w-0 w-full overflow-hidden"
-            >
-              <span className="text-lg sm:text-2xl md:text-3xl font-extrabold font-mono text-[#C5A25F] drop-shadow-[0_0_12px_rgba(197,162,95,0.5)] tracking-tighter sm:tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
-                ₹5,00,000+
-              </span>
-              <span className="text-[10px] sm:text-xs font-mono text-[#E2E8F0] uppercase tracking-wider font-semibold mt-1.5 whitespace-nowrap">
-                Prize Pool
-              </span>
-            </div>
-
-            {/* Card 3: Startups & VCs */}
-            <div
-              ref={statCard3Ref}
-              className="flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-[#020610]/85 to-[#041021]/90 border border-[#C5A25F]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-sm min-w-0 w-full overflow-hidden"
-            >
-              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-[#C5A25F] drop-shadow-[0_0_12px_rgba(197,162,95,0.5)] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
-                40+
-              </span>
-              <span className="text-[10px] sm:text-xs font-mono text-[#E2E8F0] uppercase tracking-wider font-semibold mt-1.5 whitespace-nowrap">
-                Startups & VCs
-              </span>
-            </div>
-
-            {/* Card 4: Edition */}
-            <div
-              ref={statCard4Ref}
-              className="flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-[#020610]/85 to-[#041021]/90 border border-[#C5A25F]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-sm min-w-0 w-full overflow-hidden"
-            >
-              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-[#C5A25F] drop-shadow-[0_0_12px_rgba(197,162,95,0.5)] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
-                10th
-              </span>
-              <span className="text-[10px] sm:text-xs font-mono text-[#E2E8F0] uppercase tracking-wider font-semibold mt-1.5 whitespace-nowrap">
-                Edition
-              </span>
-            </div>
-          </div>
-
-          {/* Scroll CTA */}
-          <p
-            ref={aboutCtaRef}
-            className="text-xs sm:text-sm text-[#C5A25F] font-mono tracking-widest uppercase font-bold z-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2 mt-4"
-          >
-            <span>Descend into the keynote voyagers abyss</span>
-            <span className="animate-bounce">↓</span>
-          </p>
-        </div>
-      </section>
-
       {/* ============================================================ */}
-      {/* SECTION 5: FEATURED SPEAKERS (FULL-SCREEN MARIANA ABYSS)    */}
+      {/* 6. KEYNOTE SPEAKERS SECTION (RICH DARK UNPINNED GRID)       */}
       {/* ============================================================ */}
       <section
         ref={speakersSectionRef}
-        className="relative min-h-screen sm:h-screen w-full bg-gradient-to-b from-[#062038]/90 via-[#082947]/85 to-[#031324]/95 border-t border-[#C5A25F]/30 flex flex-col items-center justify-between pt-28 sm:pt-32 pb-8 px-4 sm:px-8 overflow-hidden select-none z-20"
+        className="relative min-h-screen w-full bg-[#020914]/92 backdrop-blur-md flex flex-col items-center justify-center px-6 sm:px-12 py-24 sm:py-36 overflow-hidden select-none z-20"
       >
-        {/* Dual Mariana Blue Background Blur Auras */}
-        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
+        {/* Soft top & bottom gradient vignettes for seamless blending into adjacent dark sections */}
+        <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-[#020610] to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#020610] via-[#020610]/80 to-transparent pointer-events-none z-10" />
 
-        {/* Animated Sonar Radar Pulse Ring */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] border border-[#38BDF8]/15 rounded-full animate-ping pointer-events-none opacity-20" />
+        {/* Ambient Backing Aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(197,162,95,0.18)_0%,rgba(56,189,248,0.14)_50%,transparent_80%)] rounded-full blur-[140px] pointer-events-none" />
 
-        <div className="max-w-4xl w-full mx-auto flex flex-col items-center my-auto relative z-10">
-          {/* Header */}
-          <div className="speakers-header text-center mb-4 sm:mb-8">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full border border-[#C5A25F]/50 bg-[#C5A25F]/15 text-[#C5A25F] text-[10px] sm:text-xs font-mono mb-1.5 sm:mb-2 uppercase tracking-widest shadow-md">
-              <Navigation className="w-3 h-3 sm:w-3.5 sm:h-3.5 -rotate-45 text-[#C5A25F]" />
-              <span>Eminent Voyagers</span>
-            </div>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+        <div className="max-w-5xl w-full mx-auto flex flex-col items-center justify-center relative z-10 my-auto">
+          <div className="speakers-header text-center mb-12 sm:mb-16">
+            <span className="text-xs font-mono text-[#C5A25F] uppercase tracking-[0.25em] font-semibold block mb-2">
+              Eminent Voyagers
+            </span>
+            <h2 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
               Featured Keynote Speakers
             </h2>
-            <p className="text-[11px] sm:text-xs md:text-sm font-mono text-[#38BDF8]/80 mt-1">
-              Voices emerging from the deepest depths of the ocean
-            </p>
           </div>
 
-          {/* 2x2 Grid of Voyager Cards (2 Top, 2 Bottom on both Mobile & Desktop) */}
-          <div className="grid grid-cols-2 gap-2.5 sm:gap-6 w-full">
-            {SPEAKERS.map((speaker, sIdx) => (
+          {/* Expanded 2x2 Grid of Spacious Speaker Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 w-full max-w-4xl">
+            {SPEAKERS.map((speaker) => (
               <div
                 key={speaker.id}
-                className={`${
-                  sIdx < 2 ? "speaker-card-top" : "speaker-card-bottom"
-                } group relative rounded-xl sm:rounded-2xl border border-[#C5A25F]/40 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-xl p-3 sm:p-5 md:p-6 flex flex-col items-center text-center transition-all duration-500 hover:border-[#C5A25F] hover:shadow-[0_0_35px_rgba(197,162,95,0.35)] hover:-translate-y-1 cursor-pointer`}
+                className="speaker-card-item group relative rounded-3xl border border-[#C5A25F]/35 bg-[#040f21]/85 backdrop-blur-xl p-10 sm:p-14 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-[#C5A25F] hover:shadow-[0_0_35px_rgba(197,162,95,0.3)] hover:-translate-y-1.5 cursor-pointer min-h-[180px] sm:min-h-[240px]"
               >
-                {/* Silhouette Frame with Compass Emblem Overlay */}
-                <div className="relative w-10 h-10 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center mb-1.5 sm:mb-4 overflow-hidden group-hover:border-[#C5A25F] transition-colors shadow-inner shrink-0">
-                  {sIdx === 0 ? (
-                    <Compass className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
-                  ) : sIdx === 1 ? (
-                    <Navigation className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] -rotate-45 group-hover:scale-110 transition-all duration-500" />
-                  ) : sIdx === 2 ? (
-                    <ShieldCheck className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
-                  ) : (
-                    <UserCheck className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C2B3D]/80 to-transparent pointer-events-none" />
-                </div>
-
-                <span className="text-[8px] sm:text-[10px] font-mono text-[#9A7432] uppercase tracking-widest mb-0.5 font-bold line-clamp-1">
-                  {speaker.org}
+                <span className="text-xl sm:text-3xl font-extrabold font-mono text-[#F4EBD9] group-hover:text-[#C5A25F] transition-colors tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                  {speaker.label}
                 </span>
-                <h3 className="text-xs sm:text-base md:text-lg font-bold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors mb-0.5 sm:mb-1 leading-snug">
-                  {speaker.role}
-                </h3>
-                <p className="text-[10px] sm:text-xs text-[#334155] font-light leading-tight line-clamp-2 sm:line-clamp-none">
-                  {speaker.topic}
-                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Global Summit Footer */}
+      {/* ============================================================ */}
+      {/* 7. GLOBAL SUMMIT FOOTER                                      */}
+      {/* ============================================================ */}
       <ContactFooter />
     </div>
   );

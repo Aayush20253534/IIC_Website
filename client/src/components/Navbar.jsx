@@ -8,42 +8,18 @@ export default function Navbar() {
   const location = useLocation();
 
   const navLinks = [
-    {
-      name: "Home",
-      path: "/",
-      icon: Compass,
-    },
-    {
-      name: "Sponsors",
-      path: "/sponsors",
-      icon: Anchor,
-    },
-    {
-      name: "Events",
-      path: "/events",
-    },
-    {
-      name: "Teams",
-      path: "/teams",
-    },
-    {
-      name: "Gallery",
-      path: "/gallery",
-    },
+    { name: "Home", path: "/", icon: Compass },
+    { name: "Sponsors", path: "/sponsors", icon: Anchor },
+    { name: "Events", path: "/events" },
+    { name: "Teams", path: "/teams" },
+    { name: "Gallery", path: "/gallery" },
   ];
 
   const isActive = (path) => {
     if (path === "/") {
-      return (
-        location.pathname === "/" ||
-        location.pathname === "/udbhav"
-      );
+      return location.pathname === "/" || location.pathname === "/udbhav";
     }
-
-    return (
-      location.pathname.startsWith(path) ||
-      location.pathname.startsWith(`/udbhav${path}`)
-    );
+    return location.pathname.startsWith(path) || location.pathname.startsWith(`/udbhav${path}`);
   };
 
   return (
@@ -51,370 +27,88 @@ export default function Navbar() {
       {/* Top Edge Ambient Marine Vignette Guard - Seamless Alpha Blend */}
       <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#020610]/50 via-[#020610]/15 to-transparent pointer-events-none -z-10" />
 
-      <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-[#F4EBD9]/90 via-[#F4EBD9]/50 to-transparent pointer-events-none" />
-
-      <div className="relative z-10 mx-auto flex max-w-[1400px] items-center justify-between">
-        {/* ============================================================
-            LOGO
-        ============================================================ */}
-
-        <Link
-          to="/"
-          className="group relative flex items-center gap-3 pointer-events-auto"
-          onClick={() => setIsOpen(false)}
-        >
-          {/* Soft glow */}
-          <div className="absolute inset-0 rounded-full bg-[#F4EBD9]/40 blur-xl opacity-60 transition-opacity duration-300 group-hover:opacity-100" />
-
-          <div
-            className="
-              relative
-              flex
-              items-center
-              justify-center
-              rounded-xl
-              border
-              border-[#C5A25F]/40
-              bg-[#F4EBD9]/95
-              px-4
-              py-2
-              shadow-lg
-              transition-all
-              duration-300
-              group-hover:-translate-y-0.5
-              group-hover:border-[#C5A25F]/60
-              group-hover:shadow-[0_10px_30px_rgba(197,162,95,0.22)]
-              sm:rounded-2xl
-            "
-          >
-            <img
-              src="/renaissance-logo-clean.png"
-              alt="Renaissance Logo"
-              onError={(event) => {
-                const image = event.currentTarget;
-
-                if (!image.src.includes("renaissance-logo-transparent.png")) {
-                  image.src = "/renaissance-logo-transparent.png";
-                }
-              }}
-              className="
-                h-8
-                w-auto
-                object-contain
-                drop-shadow-[0_2px_6px_rgba(18,59,82,0.12)]
-                md:h-10
-              "
-            />
-          </div>
+      <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
+        {/* 10th Edition Logo */}
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src="/renaissance-logo-clean.png"
+            alt="Renaissance Logo"
+            onError={(e) => {
+              e.currentTarget.src = "/renaissance-logo-transparent.png";
+            }}
+            className="h-9 sm:h-10 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(56,189,248,0.3)]"
+          />
         </Link>
 
-        {/* ============================================================
-            DESKTOP NAVIGATION
-        ============================================================ */}
-
-        <div
-          className="
-            hidden
-            items-center
-            gap-7
-            rounded-full
-            border
-            border-[#C5A25F]/20
-            bg-[#F4EBD9]/80
-            px-8
-            py-3
-            shadow-lg
-            shadow-[#0A2239]/5
-            backdrop-blur-md
-            pointer-events-auto
-            md:flex
-          "
-        >
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-6 px-6 py-2.5 rounded-full backdrop-blur-xl bg-[#030d1c]/80 border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.6)] font-light text-xs tracking-widest">
           {navLinks.map((link) => {
             const current = isActive(link.path);
             const Icon = link.icon;
-
             return (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`
-                  group/nav
-                  relative
-                  inline-flex
-                  items-center
-                  gap-1.5
-                  font-mono
-                  text-xs
-                  uppercase
-                  tracking-widest
-                  transition-all
-                  duration-300
-                  ${
-                    current
-                      ? "font-bold text-[#0A2239]"
-                      : "text-[#4A6B7C] hover:text-[#B47A32]"
-                  }
-                `}
+                className={`transition-all duration-200 cursor-pointer font-bold inline-flex items-center gap-1.5 ${
+                  current
+                    ? "text-[#38BDF8] drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]"
+                    : "text-[#94A3B8] hover:text-[#F8FAFC]"
+                }`}
               >
-                {Icon && (
-                  <Icon
-                    className={`
-                      h-3.5
-                      w-3.5
-                      transition-all
-                      duration-300
-                      ${
-                        current
-                          ? "text-[#B47A32]"
-                          : "text-[#6F8790] group-hover/nav:text-[#B47A32]"
-                      }
-                    `}
-                    strokeWidth={1.6}
-                  />
-                )}
-
+                {Icon && <Icon className="w-3.5 h-3.5 opacity-90" />}
                 <span>{link.name}</span>
-
-                {current && (
-                  <span
-                    className="
-                      absolute
-                      -bottom-2
-                      left-1/2
-                      h-1.5
-                      w-1.5
-                      -translate-x-1/2
-                      rounded-full
-                      bg-[#C89B53]
-                      shadow-[0_0_8px_rgba(200,155,83,0.45)]
-                    "
-                  />
-                )}
               </Link>
             );
           })}
         </div>
 
-        {/* ============================================================
-            DESKTOP SIGN IN
-        ============================================================ */}
-
-        <div className="hidden items-center pointer-events-auto md:flex">
+        <div className="hidden md:flex items-center">
           <Link
             to="/register"
-            className="
-              group
-              flex
-              items-center
-              gap-2
-              rounded-full
-              border-2
-              border-[#0A2239]
-              px-6
-              py-2.5
-              font-mono
-              text-xs
-              font-bold
-              uppercase
-              tracking-widest
-              text-[#0A2239]
-              shadow-sm
-              transition-all
-              duration-300
-              hover:-translate-y-0.5
-              hover:bg-[#0A2239]
-              hover:text-[#F4EBD9]
-              hover:shadow-lg
-            "
+            className="flex items-center gap-2 px-5 py-2 rounded-full border border-white/20 bg-gradient-to-r from-white/10 to-transparent hover:border-[#38BDF8]/60 hover:shadow-[0_0_16px_rgba(56,189,248,0.3)] text-xs font-montserrat font-bold tracking-wider text-[#F8FAFC] transition-all duration-200"
           >
             <span>SIGN IN</span>
-
-            <span
-              className="
-                flex
-                h-5
-                w-5
-                items-center
-                justify-center
-                rounded-full
-                bg-[#0A2239]
-                p-1
-                text-[#F4EBD9]
-                transition-all
-                duration-300
-                group-hover:bg-[#F4EBD9]
-                group-hover:text-[#0A2239]
-              "
-            >
-              <FiArrowUpRight
-                size={12}
-                className="stroke-[3]"
-              />
+            <span className="bg-white text-black rounded-full p-1 flex items-center justify-center w-5 h-5 shadow-sm">
+              <FiArrowUpRight size={12} className="stroke-[3]" />
             </span>
           </Link>
         </div>
 
-        {/* ============================================================
-            MOBILE MENU BUTTON
-        ============================================================ */}
-
+        {/* Mobile Toggle */}
         <button
-          type="button"
-          onClick={() => setIsOpen((previous) => !previous)}
-          className="
-            rounded-full
-            border
-            border-[#C5A25F]/30
-            bg-[#F4EBD9]/90
-            p-2.5
-            text-[#0A2239]
-            shadow-md
-            backdrop-blur-md
-            transition-all
-            duration-300
-            hover:border-[#C5A25F]/60
-            hover:text-[#B47A32]
-            pointer-events-auto
-            md:hidden
-          "
-          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={isOpen}
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-[#F8FAFC] hover:text-[#38BDF8] p-2"
         >
-          {isOpen ? (
-            <FiX size={22} />
-          ) : (
-            <FiMenu size={22} />
-          )}
+          {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
         </button>
       </div>
 
-      {/* ============================================================
-          MOBILE NAVIGATION DRAWER
-      ============================================================ */}
-
+      {/* Mobile Drawer */}
       {isOpen && (
-        <div
-          className="
-            mx-auto
-            mt-4
-            flex
-            max-w-[calc(100%-2rem)]
-            flex-col
-            gap-2
-            rounded-3xl
-            border
-            border-[#C5A25F]/25
-            bg-[#F4EBD9]/95
-            p-5
-            shadow-[0_18px_55px_rgba(10,34,57,0.18)]
-            backdrop-blur-xl
-            pointer-events-auto
-            md:hidden
-          "
-        >
+        <div className="md:hidden pt-4 pb-2 border-t border-white/15 flex flex-col gap-3 bg-[#030d1c]/95 backdrop-blur-2xl mt-3 rounded-2xl p-4 border shadow-2xl">
           {navLinks.map((link) => {
             const current = isActive(link.path);
             const Icon = link.icon;
-
             return (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`
-                  relative
-                  flex
-                  items-center
-                  gap-3
-                  rounded-xl
-                  px-4
-                  py-3
-                  font-mono
-                  text-xs
-                  uppercase
-                  tracking-widest
-                  transition-all
-                  duration-300
-                  ${
-                    current
-                      ? "bg-[#0A2239]/5 font-bold text-[#0A2239]"
-                      : "text-[#4A6B7C] hover:bg-[#0A2239]/5 hover:text-[#B47A32]"
-                  }
-                `}
+                className={`px-4 py-2 font-montserrat text-xs uppercase tracking-wider cursor-pointer inline-flex items-center gap-2 ${
+                  current ? "text-[#38BDF8] font-bold" : "text-[#94A3B8] hover:text-[#F8FAFC]"
+                }`}
               >
-                {current && (
-                  <span
-                    className="
-                      absolute
-                      left-1.5
-                      h-1.5
-                      w-1.5
-                      rounded-full
-                      bg-[#C89B53]
-                    "
-                  />
-                )}
-
-                {Icon && (
-                  <Icon
-                    className={`
-                      h-4
-                      w-4
-                      shrink-0
-                      ${
-                        current
-                          ? "text-[#B47A32]"
-                          : "text-[#708590]"
-                      }
-                    `}
-                    strokeWidth={1.5}
-                  />
-                )}
-
+                {Icon && <Icon className="w-4 h-4 opacity-80" />}
                 <span>{link.name}</span>
               </Link>
             );
           })}
-
-          {/* Divider */}
-          <div className="my-2 h-px bg-gradient-to-r from-transparent via-[#C5A25F]/40 to-transparent" />
-
-          {/* Mobile Sign In */}
           <Link
             to="/register"
             onClick={() => setIsOpen(false)}
-            className="
-              group
-              mt-1
-              flex
-              items-center
-              justify-center
-              gap-2
-              rounded-full
-              border-2
-              border-[#0A2239]
-              bg-transparent
-              px-5
-              py-3
-              font-mono
-              text-xs
-              font-bold
-              uppercase
-              tracking-widest
-              text-[#0A2239]
-              transition-all
-              duration-300
-              hover:bg-[#0A2239]
-              hover:text-[#F4EBD9]
-            "
+            className="mt-2 text-center py-2.5 rounded-xl bg-[#38BDF8] text-[#020610] font-montserrat text-xs font-bold uppercase tracking-wider shadow-lg"
           >
-            <span>SIGN IN</span>
-
-            <FiArrowUpRight
-              size={14}
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
+            SIGN IN
           </Link>
         </div>
       )}

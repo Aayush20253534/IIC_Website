@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import udbhav from '../assets/udbhav image.png';
 import tedx from "../assets/WhatsApp Image 2026-03-21 at 1.09.44 AM.png";
 import renaissance from "../assets/WhatsApp Image 2026-03-21 at 1.08.30 AM.jpeg";
-import mnnit from "../assets/mnnit image.png";
+import iicLogo from "../assets/iic-logo.png"; 
+import mnnitLogo from "../assets/mnnit-logo.png";  
 import heroImg1 from '../assets/hero-section/academic building image.jpg';
 import heroImg2 from '../assets/hero-section/front image.jpeg';
 import heroImg3 from '../assets/hero-section/hostels.png';
@@ -47,6 +48,23 @@ const IICPage = () => {
 
 {/* Overlay */}
 <div className="absolute inset-0 bg-black/60 z-0"></div>
+
+        {/* Fixed Top Corner Logos */}
+        <div className="absolute top-6 left-6 z-20 md:top-8 md:left-8">
+          <img 
+            src={mnnitLogo} 
+            alt="MNNIT Logo" 
+            className="h-24 md:h-36 w-auto object-contain]"
+          />
+        </div>
+
+        <div className="absolute top-0 right-6 z-20 md:top-0 md:right-4">
+          <img 
+            src={iicLogo} 
+            alt="IIC Logo" 
+            className="h-36 md:h-54 w-auto object-contain]"
+          />
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -135,9 +153,9 @@ const IICPage = () => {
         </div>
       </section>
 
-      <div className="pb-24">
+      {/* <div className="pb-24">
         <LiveBar />
-      </div>
+      </div> */}
 
       <IICFooter />
 
@@ -154,11 +172,11 @@ const LiveBar = () => (
           {[1,2,3,4].map(i => (
             <a
               key={i}
-              href="/udbhav"
+              href="/renaissance"
               className="mx-12 text-[#B8A18A] font-merriweather tracking-widest uppercase flex items-center gap-3 hover:text-[#fdfbf7] transition-colors"
             >
               <span className="animate-spin inline-block text-xs">◆</span>
-              ✨ Udbhav is <span className='text-[#fdfbf7] font-bold'>Live Now</span> — Register Today 🚀
+              ✨ Renaissance <span className='text-[#fdfbf7] font-bold'>is Live</span> — Register Today 🚀
               <span className="animate-spin inline-block text-xs">◆</span>
             </a>
           ))}

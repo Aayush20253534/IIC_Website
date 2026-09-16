@@ -6,8 +6,6 @@ import { Mail, MapPin, Compass } from "lucide-react";
 export default function ContactFooter() {
   return (
     <footer className="relative z-30 bg-[#020610] border-t border-[#38BDF8]/20 pt-16 pb-12 px-6 text-[#94A3B8] shadow-[0_-20px_60px_rgba(0,0,0,0.95)] select-none">
-      {/* Seamless Ocean Gradient Backdrop Guard */}
-      <div className="absolute -top-32 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-[#020610]/80 to-[#020610] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 mb-12 text-xs relative z-10">
         {/* Left Column (5 Cols): Logo, Description & Social Handles */}

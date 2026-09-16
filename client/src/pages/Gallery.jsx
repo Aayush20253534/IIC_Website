@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import ContactFooter from "../components/ContactFooter";
+
+
 
 const EVENTS = [
   { 
@@ -108,17 +111,17 @@ function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredI
           <div className={`w-full lg:w-1/2 flex flex-col mt-8 lg:mt-0 ${index % 2 === 0 ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
             <div className="flex items-center gap-4 mb-6 overflow-hidden">
               <motion.span 
-                className="font-mono text-xs tracking-[0.3em] text-[#B47A32] uppercase"
+                className="font-mono text-xs tracking-[0.3em] text-[#8E6422] uppercase font-bold"
                 style={{ y: titleY }}
               >
                 {event.category}
               </motion.span>
               <motion.div 
-                className="h-px bg-[#C89B53] flex-1 opacity-40 origin-left"
+                className="h-px bg-[#C5A25F] flex-1 opacity-60 origin-left"
                 style={{ scaleX: useTransform(scrollYProgress, [0.2, 0.4], [0, 1]) }}
               />
               <motion.span 
-                className="font-mono text-xs text-[#4A6B7C]"
+                className="font-mono text-xs text-[#125D73] font-bold"
                 style={{ y: titleY }}
               >
                 {event.date}
@@ -127,7 +130,7 @@ function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredI
             
             <div className="overflow-hidden pb-4">
               <motion.h2 
-                className={`font-cinzel text-5xl sm:text-7xl lg:text-[7vw] font-bold text-[#0A2239] leading-[0.9] uppercase tracking-tight transition-all duration-700 ${isOtherHovered ? 'opacity-30 blur-sm' : 'opacity-100'} ${isHovered ? 'text-[#B47A32]' : ''}`}
+                className={`font-cinzel text-5xl sm:text-7xl lg:text-[7vw] font-bold text-[#0C2B3D] leading-[0.9] uppercase tracking-tight transition-all duration-700 ${isOtherHovered ? 'opacity-30 blur-sm' : 'opacity-100'} ${isHovered ? 'text-[#8E6422]' : ''}`}
                 style={{ y: titleY, opacity: titleOpacity }}
               >
                 {event.title}
@@ -181,16 +184,27 @@ export default function Gallery() {
   }, [selectedImage]);
 
   return (
-    <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0A2239] overflow-x-hidden font-montserrat">
+    <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#C5A25F] selection:text-white">
       
       {/* Intro Header */}
-      <section className="relative w-full h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24">
+      <section className="relative z-10 w-full min-h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24 overflow-hidden">
+        
+        {/* Ocean Image Background fading into transparent */}
+        <div className="absolute inset-0 pointer-events-none -z-10 [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]">
+          <img
+            src="/bg_images/events.png"
+            alt="Renaissance Ocean Voyage"
+            aria-hidden="true"
+            className="h-full w-full object-cover object-top opacity-60 mix-blend-multiply"
+            draggable="false"
+          />
+        </div>
         <div className="overflow-hidden">
           <motion.h1 
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
-            className="font-cinzel text-6xl md:text-[8vw] font-bold text-[#0A2239] leading-none uppercase tracking-tight"
+            className="font-cinzel text-6xl md:text-[8vw] font-extrabold text-[#0C2B3D] leading-none uppercase tracking-tight"
           >
             Archive
           </motion.h1>
@@ -201,15 +215,15 @@ export default function Gallery() {
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
           className="mt-8 flex items-center gap-6"
         >
-          <div className="h-px w-24 sm:w-48 bg-[#C89B53] opacity-60"></div>
-          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-[#B47A32] uppercase">
+          <div className="h-px w-24 sm:w-48 bg-[#C5A25F] opacity-60"></div>
+          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-[#8E6422] uppercase font-bold">
             A visual documentation of past expeditions
           </p>
         </motion.div>
       </section>
 
       {/* Projects List */}
-      <section className="relative w-full flex flex-col pb-32">
+      <section className="relative z-10 w-full flex flex-col pb-32">
         {EVENTS.map((event, index) => (
           <ProjectItem 
             key={event.id}
@@ -232,7 +246,7 @@ export default function Gallery() {
             transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F4EBD9] overflow-y-auto"
           >
-            <div className="min-h-screen w-full flex flex-col">
+            <div className="relative min-h-screen w-full flex flex-col">
               {/* Close Button */}
               <motion.button
                 initial={{ opacity: 0, y: -20 }}
@@ -320,15 +334,15 @@ export default function Gallery() {
                   className="flex flex-col md:flex-row md:items-end justify-between gap-8"
                 >
                   <div>
-                    <span className="mb-4 inline-block font-mono text-xs tracking-[0.2em] text-[#B47A32] uppercase">
+                    <span className="mb-4 inline-block font-mono text-xs tracking-[0.2em] text-[#8E6422] uppercase font-bold">
                       {selectedImage.category} // {selectedImage.date}
                     </span>
-                    <h1 className="font-cinzel text-5xl sm:text-7xl lg:text-8xl font-bold text-[#0A2239] leading-none uppercase tracking-tight">
+                    <h1 className="font-cinzel text-5xl sm:text-7xl lg:text-8xl font-extrabold text-[#0C2B3D] leading-none uppercase tracking-tight">
                       {selectedImage.title}
                     </h1>
                   </div>
                   
-                  <div className="max-w-sm text-sm sm:text-base text-[#4A6B7C] leading-relaxed">
+                  <div className="max-w-sm text-sm sm:text-base text-[#125D73] leading-relaxed font-semibold">
                     A defining moment captured during our {selectedImage.category.toLowerCase()} event. This photograph represents the spirit of innovation and collaboration that drives our community forward.
                   </div>
                 </motion.div>
@@ -338,6 +352,7 @@ export default function Gallery() {
           </motion.div>
         )}
       </AnimatePresence>
+      <ContactFooter />
     </main>
   );
 }

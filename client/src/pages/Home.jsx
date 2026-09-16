@@ -8,14 +8,62 @@ import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
 const SPONSORS = [
-  { id: "01", name: "Sponsor 01", tier: "Anchor Title Partner", desc: "Deep Sea Oceanography & Autonomous Navigation", image: "/sponsors/sponsor1.png" },
-  { id: "02", name: "Sponsor 02", tier: "Voyage Lead Partner", desc: "Algorithmic Navigation & Quantitative Labs", image: "/sponsors/sponsor2.png" },
-  { id: "03", name: "Sponsor 03", tier: "Helm Strategic Partner", desc: "Subsea Energy Systems & Power Networks", image: "/sponsors/sponsor3.png" },
-  { id: "04", name: "Sponsor 04", tier: "Horizon Capital", desc: "Deepwater Venture Syndicate & Capital", image: "/sponsors/sponsor4.png" },
-  { id: "05", name: "Sponsor 05", tier: "Abyss Infrastructure", desc: "High-Frequency Oceanic Fiber Networks", image: "/sponsors/sponsor5.png" },
-  { id: "06", name: "Sponsor 06", tier: "Nautical Cloud", desc: "Offshore Cloud & Maritime Supercomputing", image: "/sponsors/sponsor6.png" },
-  { id: "07", name: "Sponsor 07", tier: "Compass Robotics", desc: "Unmanned Submersible Fleets & AI Drones", image: "/sponsors/sponsor7.png" },
-  { id: "08", name: "Sponsor 08", tier: "Vanguard Marine", desc: "Decentralized Maritime Logistics & Commerce", image: "/sponsors/sponsor8.png" },
+  {
+    id: "01",
+    name: "Blackbeard Cartography",
+    tier: "Anchor Title Partner",
+    desc: "Ancient Sea Charts & Navigational Cartography",
+    image: "/sponsors/dummy-blackbeard-map.svg",
+  },
+  {
+    id: "02",
+    name: "Kraken Deep Sea Maritime",
+    tier: "Voyage Lead Partner",
+    desc: "Abyssal Deepwater Exploration & Submersible Fleets",
+    image: "/sponsors/dummy-kraken-voyage.svg",
+  },
+  {
+    id: "03",
+    name: "Corsair Astrolabes",
+    tier: "Helm Strategic Partner",
+    desc: "Starlight Navigation & Magnetic Lodestones",
+    image: "/sponsors/dummy-corsair-compass.svg",
+  },
+  {
+    id: "04",
+    name: "Buccaneer Armada",
+    tier: "Horizon Galleon Fleet",
+    desc: "Flagship Trans-Oceanic Expeditions & Fleet Logistics",
+    image: "/sponsors/dummy-galleon-fleet.svg",
+  },
+  {
+    id: "05",
+    name: "Isle of Skulls Haven",
+    tier: "Abyss Trade Guild",
+    desc: "Decentralized Pirate Coves & Smuggler Outposts",
+    image: "/sponsors/dummy-skull-cove.svg",
+  },
+  {
+    id: "06",
+    name: "Sunken Vault Treasury",
+    tier: "Sovereign Mint Partner",
+    desc: "Gold Doubloon Reserves & Deepwater Capital",
+    image: "/sponsors/dummy-treasure-chest.svg",
+  },
+  {
+    id: "07",
+    name: "Siren Sound & Signals",
+    tier: "Compass Acoustic Partner",
+    desc: "Subsea Acoustic Sonar & Maritime Foghorns",
+    image: "/sponsors/dummy-siren-sextant.svg",
+  },
+  {
+    id: "08",
+    name: "Port Royal Harbour Guild",
+    tier: "Vanguard Harbour Partner",
+    desc: "Fortified Haven Anchorage & Voyage Provisions",
+    image: "/sponsors/dummy-port-royal.svg",
+  },
 ];
 
 const SPEAKERS = [
@@ -262,26 +310,25 @@ export default function Home() {
               </div>
 
               {/* Inner Dark Showcase Container */}
-              <div className="w-full my-6 p-8 sm:p-12 bg-[#020610] rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center shadow-inner relative group min-h-[220px]">
+              <div className="w-full my-6 p-6 sm:p-8 bg-[#020610] rounded-2xl border border-white/10 flex flex-col items-center justify-center text-center shadow-inner relative group min-h-[240px]">
+                {/* Dummy Sponsor Emblem */}
+                <div className="w-full max-w-[280px] h-[130px] sm:h-[150px] flex items-center justify-center mb-3">
+                  <img
+                    src={activeSponsor.image}
+                    alt={activeSponsor.name}
+                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_4px_16px_rgba(56,189,248,0.2)] transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+
                 {/* Big White Title */}
-                <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-wide">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
                   {activeSponsor.name}
                 </h3>
 
                 {/* Subtitle */}
-                <span className="text-xs sm:text-sm font-mono text-[#38BDF8] mt-2 font-semibold tracking-wider">
-                  Official Summit Partner
+                <span className="text-xs sm:text-sm font-mono text-[#38BDF8] mt-1.5 font-semibold tracking-wider">
+                  Official Summit Fleet Ally
                 </span>
-
-                {/* Hook Icon */}
-                <img
-                  src="/hook.png"
-                  alt="Nautical Hook"
-                  onError={(e) => {
-                    e.currentTarget.src = "/hook-cursor.png";
-                  }}
-                  className="w-7 h-7 sm:w-8 sm:h-8 mt-4 object-contain filter drop-shadow-[0_0_10px_rgba(56,189,248,0.6)]"
-                />
               </div>
 
               {/* Bottom Details Section */}

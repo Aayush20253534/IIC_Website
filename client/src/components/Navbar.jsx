@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FiMenu, FiX, FiArrowUpRight } from "react-icons/fi";
-import { Compass, Anchor } from "lucide-react";
+import {
+  Anchor,
+  CalendarDays,
+  Compass,
+  Images,
+  Users,
+} from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,14 +27,17 @@ export default function Navbar() {
     {
       name: "Events",
       path: "/events",
+      icon: CalendarDays,
     },
     {
       name: "Teams",
       path: "/teams",
+      icon: Users,
     },
     {
       name: "Gallery",
       path: "/gallery",
+      icon: Images,
     },
   ];
 
@@ -162,13 +171,9 @@ export default function Navbar() {
                     className={`
                       h-3.5
                       w-3.5
+                      text-current
                       transition-all
                       duration-300
-                      ${
-                        current
-                          ? "text-[#B47A32]"
-                          : "text-[#6F8790] group-hover/nav:text-[#B47A32]"
-                      }
                     `}
                     strokeWidth={1.6}
                   />
@@ -362,11 +367,7 @@ export default function Navbar() {
                       h-4
                       w-4
                       shrink-0
-                      ${
-                        current
-                          ? "text-[#B47A32]"
-                          : "text-[#708590]"
-                      }
+                      text-current
                     `}
                     strokeWidth={1.5}
                   />

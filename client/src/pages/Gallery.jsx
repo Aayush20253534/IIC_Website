@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-
+import ContactFooter from "../components/ContactFooter";
 
 
 

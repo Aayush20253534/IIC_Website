@@ -65,10 +65,10 @@ export default function Navbar() {
         <div className="hidden md:flex items-center">
           <Link
             to="/register"
-            className="flex items-center gap-2 px-5 py-2 rounded-full border border-white/20 bg-gradient-to-r from-white/10 to-transparent hover:border-[#38BDF8]/60 hover:shadow-[0_0_16px_rgba(56,189,248,0.3)] text-xs font-montserrat font-bold tracking-wider text-[#F8FAFC] transition-all duration-200"
+            className="flex items-center gap-2 px-5 py-2 rounded-full border border-[#C5A25F]/60 bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F]/30 text-[#0C2B3D] hover:border-[#C5A25F] hover:shadow-[0_0_20px_rgba(197,162,95,0.45)] text-xs font-mono font-bold tracking-wider transition-all duration-300 transform hover:scale-[1.03]"
           >
             <span>SIGN IN</span>
-            <span className="bg-white text-black rounded-full p-1 flex items-center justify-center w-5 h-5 shadow-sm">
+            <span className="bg-[#0C2B3D] text-[#F4EBD9] rounded-full p-1 flex items-center justify-center w-5 h-5 shadow-sm">
               <FiArrowUpRight size={12} className="stroke-[3]" />
             </span>
           </Link>
@@ -106,7 +106,7 @@ export default function Navbar() {
           <Link
             to="/register"
             onClick={() => setIsOpen(false)}
-            className="mt-2 text-center py-2.5 rounded-xl bg-[#38BDF8] text-[#020610] font-montserrat text-xs font-bold uppercase tracking-wider shadow-lg"
+            className="mt-2 text-center py-2.5 rounded-xl bg-gradient-to-r from-[#F4EBD9] to-[#C5A25F] text-[#0C2B3D] font-mono text-xs font-bold uppercase tracking-wider shadow-lg"
           >
             SIGN IN
           </Link>

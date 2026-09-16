@@ -422,9 +422,9 @@ export default function Home() {
           <div className="overflow-visible flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <Link
               to="/register"
-              className="group relative flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition-all duration-300 transform hover:scale-[1.03] overflow-visible cursor-pointer"
+              className="group relative flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F] text-[#0C2B3D] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(197,162,95,0.6)] transition-all duration-300 transform hover:scale-[1.03] overflow-visible cursor-pointer border border-[#C5A25F]/60"
             >
-              <UserCheck className="w-4 h-4 text-[#020610] overflow-visible" />
+              <UserCheck className="w-4 h-4 text-[#0C2B3D] overflow-visible" />
               <span>Register Now</span>
             </Link>
 
@@ -438,7 +438,7 @@ export default function Home() {
                   sponsorsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group relative flex items-center justify-center gap-3 px-8 py-3.5 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/75 backdrop-blur-md text-[#CBD5E1] hover:text-white hover:border-[#38BDF8] hover:bg-[#040e1d]/90 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.45)] overflow-visible cursor-pointer"
+              className="group relative flex items-center justify-center gap-3 px-8 py-3.5 rounded-full border border-[#38BDF8]/50 bg-[#031d33]/80 backdrop-blur-md text-[#CBD5E1] hover:text-white hover:border-[#38BDF8] hover:bg-[#042542]/90 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.45)] overflow-visible cursor-pointer"
             >
               <div className="overflow-visible flex items-center justify-center">
                 <Navigation className="w-4 h-4 text-[#38BDF8] transform -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 overflow-visible" />
@@ -463,12 +463,12 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (SEPARATE VISUAL & DETAILS) */}
+      {/* SECTION 2: FLAGSHIP EVENTS WHEEL (GRADIENT BRIDGE TO NAVY)   */}
       {/* ============================================================ */}
       <section
         id="sponsors"
         ref={sponsorsSectionRef}
-        className="relative w-full h-screen bg-[#020610]/95 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-24 sm:pt-28 pb-6 px-6 sm:px-12 overflow-hidden select-none"
+        className="relative w-full h-screen bg-gradient-to-b from-[#020610]/95 via-[#04192d]/90 to-[#072545]/90 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-24 sm:pt-28 pb-6 px-6 sm:px-12 overflow-hidden select-none"
       >
         {/* Dynamic Mariana Blue Gaussian Blur Aura */}
         <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#0284C7]/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
@@ -517,48 +517,48 @@ export default function Home() {
                   key={event.id}
                   className="absolute inset-0 w-full h-full flex flex-col gap-4 pointer-events-none"
                 >
-                  {/* 1. Event Visual Card (Phase 1 Zoom) */}
+                  {/* 1. Event Visual Card (Harmonized Sand Parchment Panel) */}
                   <div
                     ref={(el) => (visualsRef.current[idx] = el)}
-                    className="w-full p-5 sm:p-6 rounded-3xl border border-[#38BDF8]/40 bg-[#040f21]/95 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] shadow-[0_0_40px_rgba(56,189,248,0.25)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
+                    className="w-full p-5 sm:p-6 rounded-3xl border border-[#C5A25F]/50 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] shadow-[0_0_30px_rgba(197,162,95,0.25)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
                   >
                     {/* Header Bar */}
-                    <div className="w-full flex items-center justify-between pb-2.5 border-b border-white/10">
-                      <span className="text-xs font-mono font-bold text-[#38BDF8] tracking-widest uppercase">
+                    <div className="w-full flex items-center justify-between pb-2.5 border-b border-[#0C2B3D]/15">
+                      <span className="text-xs font-mono font-bold text-[#0C2B3D] tracking-widest uppercase">
                         EVENT {event.id} / 03
                       </span>
-                      <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-[#38BDF8] uppercase tracking-wider font-semibold">
+                      <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#C5A25F]/60 bg-[#C5A25F]/20 text-[#0C2B3D] uppercase tracking-wider font-extrabold">
                         {event.category}
                       </span>
                     </div>
 
-                    {/* Mystery '?' Showcase Badge */}
-                    <div className="w-full p-4 bg-[#020610] rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center gap-5 shadow-inner">
-                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#38BDF8]/50 bg-gradient-to-b from-[#04152e] via-[#020914] to-[#020610] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
-                        <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-20 pointer-events-none" />
+                    {/* Mystery '?' Showcase Badge (Parchment & Astrolabe Gold Accent) */}
+                    <div className="w-full p-4 bg-[#EBDDC8] rounded-2xl border border-[#C5A25F]/40 flex flex-col sm:flex-row items-center gap-5 shadow-inner">
+                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#C5A25F]/70 bg-gradient-to-br from-[#0C2B3D] via-[#081f2d] to-[#040e17] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(197,162,95,0.4)] overflow-hidden">
+                        <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-25 pointer-events-none" />
                         <span className="text-3xl sm:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
                           ?
                         </span>
-                        <span className="text-[8px] font-mono text-[#38BDF8]/80 uppercase tracking-widest mt-0.5 z-10 font-bold">
+                        <span className="text-[8px] font-mono text-[#C5A25F] uppercase tracking-widest mt-0.5 z-10 font-bold">
                           FLAGSHIP
                         </span>
                       </div>
 
                       <div className="flex flex-col text-center sm:text-left">
-                        <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                        <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0C2B3D] tracking-wide">
                           {event.name}
                         </h3>
-                        <span className="text-xs font-mono text-[#38BDF8] font-bold tracking-wider mt-1">
+                        <span className="text-xs font-mono text-[#9A7432] font-extrabold tracking-wider mt-1">
                           {event.prize}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  {/* 2. Distinct Floating Sapphire Blue Event Details Panel (Phase 2 Slide-Up) */}
+                  {/* 2. Floating Deep Nautical Navy Details Panel */}
                   <div
                     ref={(el) => (detailsRef.current[idx] = el)}
-                    className="w-full p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/60 bg-[#03152d]/95 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] shadow-[0_0_35px_rgba(56,189,248,0.3)] flex flex-col gap-3.5 will-change-transform pointer-events-auto z-30"
+                    className="w-full p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/60 bg-[#0C2B3D]/95 text-white backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] shadow-[0_0_35px_rgba(56,189,248,0.35)] flex flex-col gap-3.5 will-change-transform pointer-events-auto z-30"
                   >
                     {/* Time & Schedule Badge */}
                     <div className="flex items-center justify-between pb-2 border-b border-white/10">
@@ -566,7 +566,7 @@ export default function Home() {
                         <Clock className="w-4 h-4 text-[#38BDF8]" />
                         <span>{event.time}</span>
                       </div>
-                      <span className="text-[10px] font-mono text-amber-400 border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 rounded-full font-semibold">
+                      <span className="text-[10px] font-mono text-[#C5A25F] border border-[#C5A25F]/40 bg-[#C5A25F]/15 px-2.5 py-0.5 rounded-full font-semibold">
                         Phase 2 Active
                       </span>
                     </div>
@@ -580,9 +580,9 @@ export default function Home() {
                     <div className="pt-2 border-t border-white/10 flex items-center justify-between">
                       <Link
                         to="/register"
-                        className="group relative flex items-center justify-center gap-2.5 px-7 py-2.5 rounded-full bg-gradient-to-r from-[#38BDF8] via-sky-400 to-[#38BDF8] text-[#020610] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(56,189,248,0.7)] transition-all duration-300 transform hover:scale-[1.03] cursor-pointer"
+                        className="group relative flex items-center justify-center gap-2.5 px-7 py-2.5 rounded-full bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F] text-[#0C2B3D] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(197,162,95,0.7)] transition-all duration-300 transform hover:scale-[1.03] cursor-pointer border border-[#C5A25F]/60"
                       >
-                        <UserCheck className="w-4 h-4 text-[#020610]" />
+                        <UserCheck className="w-4 h-4 text-[#0C2B3D]" />
                         <span>Register Now</span>
                       </Link>
 
@@ -590,6 +590,7 @@ export default function Home() {
                         View Schedule →
                       </Link>
                     </div>
+
                   </div>
 
                 </div>
@@ -610,11 +611,11 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 3: SPONSORS (PINNED CARTOGRAPHER BRASS VAULT)      */}
+      {/* SECTION 3: SPONSORS (PINNED CARTOGRAPHER VAULT)            */}
       {/* ============================================================ */}
       <section
         ref={sponsorsPinnedSectionRef}
-        className="relative min-h-screen w-full bg-[#020610] border-t border-amber-400/20 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
+        className="relative min-h-screen w-full bg-[#020610]/80 backdrop-blur-xl border-t border-[#C5A25F]/30 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
       >
         {/* Dual Cartographer Glow Auras (Amber Astrolabe + Mariana Blue) */}
         <div
@@ -628,23 +629,23 @@ export default function Home() {
           ref={sponsorsHeaderRef}
           className="max-w-7xl mx-auto flex flex-col items-center mb-12 text-center relative z-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-400/40 bg-[#040e1d]/90 text-amber-400 text-xs font-mono uppercase tracking-widest mb-3 shadow-[0_0_20px_rgba(245,158,11,0.25)]">
-            <ShieldCheck className="w-4 h-4 text-amber-400" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C5A25F]/50 bg-[#C5A25F]/15 text-[#C5A25F] text-xs font-mono uppercase tracking-widest mb-3 shadow-[0_0_20px_rgba(197,162,95,0.25)]">
+            <ShieldCheck className="w-4 h-4 text-[#C5A25F]" />
             <span>Summit Strategic Partners</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
             Current & Past{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-[#38BDF8]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-[#C5A25F] to-[#38BDF8]">
               Sponsors
             </span>
           </h2>
-          <p className="text-xs sm:text-sm font-mono text-amber-400/90 mt-2 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2">
+          <p className="text-xs sm:text-sm font-mono text-[#C5A25F] mt-2 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2">
             <span>Scroll to accelerate partner voyager streams</span>
             <span className="animate-bounce">↓</span>
           </p>
         </div>
 
-        {/* Fast Left-to-Right Row 1 (Current Sponsors - Polished Brass Cards) */}
+        {/* Fast Left-to-Right Row 1 (Current Sponsors - Warm Beige Cards) */}
         <div
           className="w-full overflow-hidden mb-8 relative z-10 max-w-7xl mx-auto"
           style={{
@@ -666,16 +667,16 @@ export default function Home() {
             ].map((sponsor, idx) => (
               <div
                 key={`curr-${idx}`}
-                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-amber-400/35 bg-[#030d1e]/95 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] shadow-[0_0_20px_rgba(245,158,11,0.15)] group hover:border-amber-400 transition-all cursor-pointer"
+                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#C5A25F]/45 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-[0_0_20px_rgba(197,162,95,0.2)] group hover:border-[#C5A25F] transition-all cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-xl border border-amber-400/40 bg-[#020610] flex items-center justify-center font-mono font-bold text-amber-400 text-base group-hover:scale-110 transition-transform shadow-inner">
+                <div className="w-9 h-9 rounded-xl border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center font-mono font-bold text-[#C5A25F] text-base group-hover:scale-110 transition-transform shadow-inner">
                   ★
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors tracking-wide">
+                  <span className="text-base font-extrabold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors tracking-wide">
                     {sponsor.name}
                   </span>
-                  <span className="text-[10px] font-mono text-amber-400 uppercase tracking-wider font-extrabold">
+                  <span className="text-[10px] font-mono text-[#9A7432] uppercase tracking-wider font-extrabold">
                     {sponsor.tier}
                   </span>
                 </div>
@@ -684,7 +685,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Fast Right-to-Left Row 2 (Past Sponsors - Silver Steel Cards) */}
+        {/* Fast Right-to-Left Row 2 (Past Sponsors - Light Blue Steel Cards) */}
         <div
           className="w-full overflow-hidden relative z-10 max-w-7xl mx-auto"
           style={{
@@ -706,16 +707,16 @@ export default function Home() {
             ].map((sponsor, idx) => (
               <div
                 key={`past-${idx}`}
-                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#38BDF8]/30 bg-[#030a17]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] group hover:border-[#38BDF8] transition-all cursor-pointer"
+                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#166E94]/40 bg-[#D8ECEE]/95 text-[#0C2B3D] backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-[0_0_20px_rgba(22,110,148,0.2)] group hover:border-[#166E94] transition-all cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-xl border border-[#38BDF8]/30 bg-[#020610] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-base group-hover:scale-110 transition-transform shadow-inner">
+                <div className="w-9 h-9 rounded-xl border border-[#166E94]/50 bg-[#0C2B3D] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-base group-hover:scale-110 transition-transform shadow-inner">
                   ✦
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-base font-bold text-[#CBD5E1] group-hover:text-white transition-colors tracking-wide">
+                  <span className="text-base font-extrabold text-[#0C2B3D] group-hover:text-[#166E94] transition-colors tracking-wide">
                     {sponsor.name}
                   </span>
-                  <span className="text-[10px] font-mono text-[#38BDF8]/80 uppercase tracking-wider font-bold">
+                  <span className="text-[10px] font-mono text-[#166E94] uppercase tracking-wider font-extrabold">
                     {sponsor.tier}
                   </span>
                 </div>
@@ -726,7 +727,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 4: ABOUT RENAISSANCE (HOMEPAGE OCEAN SKY BG + PARALLAX) */}
+      {/* SECTION 4: ABOUT RENAISSANCE (EXPOSED WEBGL WATER CANVAS BG) */}
       {/* ============================================================ */}
       <section
         ref={aboutSectionRef}
@@ -742,9 +743,9 @@ export default function Home() {
           {/* Badge */}
           <div
             ref={aboutBadgeRef}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#38BDF8]/50 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-8 uppercase tracking-widest font-extrabold shadow-[0_0_20px_rgba(56,189,248,0.3)] z-10"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C5A25F]/50 bg-[#C5A25F]/15 text-[#C5A25F] text-xs font-mono mb-8 uppercase tracking-widest font-extrabold shadow-[0_0_20px_rgba(197,162,95,0.3)] z-10"
           >
-            <Wind className="w-3.5 h-3.5 text-[#38BDF8]" />
+            <Wind className="w-3.5 h-3.5 text-[#C5A25F]" />
             <span>The Odyssey • Genesis</span>
           </div>
 
@@ -754,7 +755,7 @@ export default function Home() {
             className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white mb-8 z-10 drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] drop-shadow-[0_0_20px_rgba(2,6,16,0.95)]"
           >
             About{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-sky-300 to-white">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F4EBD9] to-[#C5A25F]">
               Renaissance
             </span>
           </h2>
@@ -762,7 +763,7 @@ export default function Home() {
           {/* Description */}
           <p
             ref={aboutDescRef}
-            className="text-base sm:text-2xl text-white font-extrabold leading-relaxed mb-8 max-w-3xl z-10 drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] drop-shadow-[0_0_15px_rgba(2,6,16,0.95)]"
+            className="text-base sm:text-2xl text-[#F4EBD9] font-extrabold leading-relaxed mb-8 max-w-3xl z-10 drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
           >
             Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
           </p>
@@ -770,7 +771,7 @@ export default function Home() {
           {/* Scroll CTA */}
           <p
             ref={aboutCtaRef}
-            className="text-xs sm:text-sm text-[#38BDF8] font-mono tracking-widest uppercase font-black z-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2"
+            className="text-xs sm:text-sm text-[#C5A25F] font-mono tracking-widest uppercase font-black z-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2"
           >
             <span>Descend into the keynote voyagers abyss</span>
             <span className="animate-bounce">↓</span>
@@ -783,7 +784,7 @@ export default function Home() {
       {/* ============================================================ */}
       <section
         ref={speakersSectionRef}
-        className="relative h-screen w-full bg-[#020610] border-t border-[#38BDF8]/20 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
+        className="relative h-screen w-full bg-gradient-to-b from-[#062038]/90 via-[#082947]/85 to-[#031324]/95 border-t border-[#C5A25F]/30 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
       >
         {/* Dual Mariana Blue Background Blur Auras */}
         <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
@@ -795,8 +796,8 @@ export default function Home() {
         <div className="max-w-4xl w-full mx-auto flex flex-col items-center relative z-10">
           {/* Header */}
           <div className="speakers-header text-center mb-8 sm:mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#38BDF8]/40 bg-[#040e1d]/90 text-[#38BDF8] text-xs font-mono mb-2 uppercase tracking-widest shadow-md">
-              <Navigation className="w-3.5 h-3.5 -rotate-45 text-[#38BDF8]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#C5A25F]/50 bg-[#C5A25F]/15 text-[#C5A25F] text-xs font-mono mb-2 uppercase tracking-widest shadow-md">
+              <Navigation className="w-3.5 h-3.5 -rotate-45 text-[#C5A25F]" />
               <span>Eminent Voyagers</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
@@ -814,10 +815,10 @@ export default function Home() {
                 key={speaker.id}
                 className={`${
                   sIdx < 2 ? "speaker-card-top" : "speaker-card-bottom"
-                } group relative rounded-2xl border border-[#38BDF8]/30 bg-[#040f21]/80 backdrop-blur-xl p-5 sm:p-6 flex flex-col items-center text-center transition-all duration-500 hover:border-[#38BDF8] hover:bg-[#05142b]/95 shadow-[0_15px_40px_rgba(0,0,0,0.8)] hover:shadow-[0_0_35px_rgba(56,189,248,0.35)] hover:-translate-y-1 cursor-pointer`}
+                } group relative rounded-2xl border border-[#C5A25F]/40 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-xl p-5 sm:p-6 flex flex-col items-center text-center transition-all duration-500 hover:border-[#C5A25F] hover:shadow-[0_0_35px_rgba(197,162,95,0.35)] hover:-translate-y-1 cursor-pointer`}
               >
                 {/* Silhouette Frame with Compass Emblem Overlay */}
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#38BDF8]/40 bg-[#030914] flex items-center justify-center mb-3 sm:mb-4 overflow-hidden group-hover:border-[#38BDF8] transition-colors shadow-inner">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center mb-3 sm:mb-4 overflow-hidden group-hover:border-[#C5A25F] transition-colors shadow-inner">
                   {sIdx === 0 ? (
                     <Compass className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
                   ) : sIdx === 1 ? (
@@ -827,16 +828,16 @@ export default function Home() {
                   ) : (
                     <UserCheck className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#020610]/80 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C2B3D]/80 to-transparent pointer-events-none" />
                 </div>
 
-                <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-widest mb-1 font-semibold">
+                <span className="text-[10px] font-mono text-[#9A7432] uppercase tracking-widest mb-1 font-bold">
                   {speaker.org}
                 </span>
-                <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-[#38BDF8] transition-colors mb-1">
+                <h3 className="text-base sm:text-lg font-bold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors mb-1">
                   {speaker.role}
                 </h3>
-                <p className="text-xs text-[#94A3B8] font-light leading-relaxed">
+                <p className="text-xs text-[#334155] font-light leading-relaxed">
                   {speaker.topic}
                 </p>
               </div>

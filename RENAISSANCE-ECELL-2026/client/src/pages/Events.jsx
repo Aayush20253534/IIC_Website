@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   AnimatePresence,
@@ -13,8 +13,6 @@ import {
 export default function Events({ embedded = false }) {
   const [activeDay, setActiveDay] = useState(1);
   const [selectedEventModal, setSelectedEventModal] = useState(null);
-  const [openingEventId, setOpeningEventId] = useState(null);
-  const openingTimerRef = useRef(null);
   const navigate = useNavigate();
   const heroRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
@@ -62,32 +60,8 @@ export default function Events({ embedded = false }) {
     heroPointerY.set(0);
   };
 
-  useEffect(() => {
-    return () => {
-      if (openingTimerRef.current) {
-        window.clearTimeout(openingTimerRef.current);
-      }
-    };
-  }, []);
-
   const openStandaloneEvent = (event) => {
-    if (openingEventId) return;
-
-    if (prefersReducedMotion) {
-      setSelectedEventModal(event);
-      return;
-    }
-
-    setOpeningEventId(event.id);
-    if (openingTimerRef.current) {
-      window.clearTimeout(openingTimerRef.current);
-    }
-
-    openingTimerRef.current = window.setTimeout(() => {
-      setSelectedEventModal(event);
-      setOpeningEventId(null);
-      openingTimerRef.current = null;
-    }, 1520);
+    setSelectedEventModal(event);
   };
 
   const [eventSearch, setEventSearch] = useState("");
@@ -504,23 +478,9 @@ export default function Events({ embedded = false }) {
                   <motion.button
                     type="button"
                     onClick={() => openStandaloneEvent(event)}
-                    disabled={Boolean(openingEventId)}
-                    animate={
-                      openingEventId === event.id && !prefersReducedMotion
-                        ? {
-                            rotateY: [0, 180, 0],
-                            rotateZ: [0, 0.65, 0],
-                            scale: [1, 0.965, 1],
-                          }
-                        : { rotateY: 0, rotateZ: 0, scale: 1 }
-                    }
-                    transition={{
-                      duration: openingEventId === event.id ? 1.46 : 0.18,
-                      times: openingEventId === event.id ? [0, 0.5, 1] : undefined,
-                      ease: openingEventId === event.id ? "easeInOut" : "easeOut",
-                    }}
-                    style={{ transformPerspective: 1100 }}
-                    className="relative flex h-full w-full flex-col text-left disabled:cursor-wait"
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.985 }}
+                    transition={{ duration: 0.12, ease: "easeOut" }}
+                    className="relative flex h-full w-full flex-col text-left"
                     aria-label={`View details for ${event.title}`}
                   >
                     <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px]">
@@ -661,7 +621,7 @@ export default function Events({ embedded = false }) {
                 initial={prefersReducedMotion ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.38, ease: "easeOut" }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
                 className="fixed inset-0 z-50 flex items-center justify-center bg-[#020b12]/80 p-3 sm:p-5"
                 onClick={() => setSelectedEventModal(null)}
               >
@@ -675,43 +635,10 @@ export default function Events({ embedded = false }) {
                 />
 
                 <motion.div
-                  initial={
-                    prefersReducedMotion
-                      ? false
-                      : {
-                          opacity: 0,
-                          scale: 0.08,
-                          rotate: 0,
-                          y: 0,
-                          borderRadius: "50%",
-                        }
-                  }
-                  animate={
-                    prefersReducedMotion
-                      ? { opacity: 1, scale: 1 }
-                      : {
-                          opacity: [0, 0.48, 0.68, 0.82, 0.94, 1, 1],
-                          scale: [0.04, 0.055, 0.075, 0.11, 0.5, 1.06, 1],
-                          rotate: [0, 360, 720, 1080, 1440, 1800, 1800],
-                          y: [0, -2, 2, -2, 3, -1, 0],
-                          borderRadius: ["50%", "50%", "50%", "48%", "40%", "24px", "18px"],
-                        }
-                  }
-                  exit={
-                    prefersReducedMotion
-                      ? { opacity: 0 }
-                      : { opacity: 0, scale: 0.9, rotate: 8, y: 18 }
-                  }
-                  transition={
-                    prefersReducedMotion
-                      ? { duration: 0.2 }
-                      : {
-                          duration: 2.75,
-                          times: [0, 0.16, 0.32, 0.48, 0.64, 0.78, 1],
-                          ease: [0.16, 0.84, 0.2, 1],
-                        }
-                  }
-                  style={{ transformPerspective: 1200, transformOrigin: "50% 50%" }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: 8 }}
+                  transition={{ duration: prefersReducedMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                   className="relative w-full max-w-[720px] overflow-hidden rounded-[18px] border border-[#d4ad58] bg-[#f4ead4] text-[#173f51] shadow-[0_28px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.2)_inset]"
                   onClick={(event) => event.stopPropagation()}
                   role="dialog"
@@ -744,13 +671,6 @@ export default function Events({ embedded = false }) {
                     >
                       ×
                     </button>
-                    {!prefersReducedMotion && (
-                      <motion.span
-                        className="pointer-events-none absolute bottom-0 left-0 h-px w-24 bg-gradient-to-r from-transparent via-[#f4d783] to-transparent"
-                        animate={{ x: [-100, 760] }}
-                        transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
-                      />
-                    )}
                   </div>
 
                   <div className="grid sm:grid-cols-[210px_minmax(0,1fr)]">

@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
+import OceanHeroBackground from "../components/OceanHeroBackground";
+
+
 
 const EVENTS = [
   { 
@@ -183,9 +186,13 @@ export default function Gallery() {
 
   return (
     <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0A2239] overflow-x-hidden font-montserrat">
-      
+      {/* Ship Background - Top Right */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] z-0 opacity-40 pointer-events-none mix-blend-luminosity [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] overflow-hidden">
+        <OceanHeroBackground />
+      </div>
+
       {/* Intro Header */}
-      <section className="relative w-full h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24">
+      <section className="relative z-10 w-full h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24">
         <div className="overflow-hidden">
           <motion.h1 
             initial={{ y: "100%" }}
@@ -210,7 +217,7 @@ export default function Gallery() {
       </section>
 
       {/* Projects List */}
-      <section className="relative w-full flex flex-col pb-32">
+      <section className="relative z-10 w-full flex flex-col pb-32">
         {EVENTS.map((event, index) => (
           <ProjectItem 
             key={event.id}
@@ -233,7 +240,7 @@ export default function Gallery() {
             transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F4EBD9] overflow-y-auto"
           >
-            <div className="min-h-screen w-full flex flex-col">
+            <div className="relative min-h-screen w-full flex flex-col">
               {/* Close Button */}
               <motion.button
                 initial={{ opacity: 0, y: -20 }}

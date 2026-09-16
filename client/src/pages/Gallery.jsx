@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
 
 const MASONRY_IMAGES = [
@@ -21,6 +21,19 @@ const MASONRY_IMAGES = [
 ];
 
 export default function Gallery() {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedImage]);
+
   return (
     <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#C5A25F] selection:text-white">
       
@@ -73,7 +86,9 @@ export default function Gallery() {
                 ease: [0.19, 1, 0.22, 1],
                 delay: img.delay 
               }}
-              className={`relative mb-4 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group`}
+              layoutId={`gallery-img-${img.id}`}
+              onClick={() => setSelectedImage(img)}
+              className={`relative mb-4 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer`}
             >
               <img
                 src={img.src}
@@ -82,13 +97,48 @@ export default function Gallery() {
                 loading="lazy"
               />
               {/* Subtle ambient overlay to blend with theme */}
-              <div className="absolute inset-0 bg-[#0A2239] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+              <div className="absolute inset-0 bg-[#0A2239] opacity-[0.03] mix-blend-overlay pointer-events-none group-hover:opacity-0 transition-opacity duration-500" />
             </motion.div>
           ))}
         </div>
       </section>
 
       <ContactFooter />
+
+      {/* Click-to-Zoom Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0C2B3D]/90 backdrop-blur-md p-4 sm:p-8 cursor-zoom-out"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-6 right-6 sm:top-8 sm:right-8 z-[110] flex items-center justify-center w-12 h-12 rounded-full bg-[#F4EBD9]/10 text-[#F4EBD9] hover:bg-[#F4EBD9]/20 transition-colors border border-[#F4EBD9]/20 shadow-lg cursor-pointer"
+            >
+              <svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M13 1L1 13M1 1L13 13" />
+              </svg>
+            </button>
+
+            <motion.div 
+              layoutId={`gallery-img-${selectedImage.id}`}
+              className="relative w-full max-w-5xl max-h-[90vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={selectedImage.src}
+                alt="Enlarged Archive Capture"
+                className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl filter contrast-[1.05]"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

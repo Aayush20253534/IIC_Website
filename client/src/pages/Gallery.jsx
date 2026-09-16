@@ -73,8 +73,8 @@ export default function Gallery() {
       </section>
 
       {/* Masonry Grid Layout */}
-      <section className="relative z-10 w-full px-4 sm:px-8 lg:px-24 pb-32">
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 sm:gap-6">
+      <section className="relative z-10 w-full px-3 sm:px-8 lg:px-24 pb-32">
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-6">
           {MASONRY_IMAGES.map((img, index) => (
             <motion.div
               key={img.id}
@@ -88,7 +88,7 @@ export default function Gallery() {
               }}
               layoutId={`gallery-img-${img.id}`}
               onClick={() => setSelectedImage(img)}
-              className={`relative mb-4 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer`}
+              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer`}
             >
               <img
                 src={img.src}

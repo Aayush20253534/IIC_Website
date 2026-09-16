@@ -500,15 +500,15 @@ export default function Home() {
       <section
         id="sponsors"
         ref={sponsorsSectionRef}
-        className="relative w-full h-screen bg-gradient-to-b from-[#020610]/95 via-[#04192d]/90 to-[#072545]/90 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-24 sm:pt-28 pb-6 px-6 sm:px-12 overflow-hidden select-none"
+        className="relative w-full min-h-screen sm:h-screen bg-gradient-to-b from-[#020610]/95 via-[#04192d]/90 to-[#072545]/90 border-y border-[#38BDF8]/20 flex flex-col justify-between pt-28 sm:pt-32 pb-6 px-4 sm:px-12 overflow-hidden select-none"
       >
         {/* Dynamic Mariana Blue Gaussian Blur Aura */}
-        <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#0284C7]/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
+        <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-[#0284C7]/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
 
-        {/* Giant Rotating Nautical Wheel */}
+        {/* Giant Rotating Nautical Wheel (Behind cards on mobile/tablets, side wheel on desktop) */}
         <div
           ref={wheelContainerRef}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible"
+          className="absolute left-1/2 md:left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[65vh] h-[65vh] sm:w-[85vh] sm:h-[85vh] md:w-[100vh] md:h-[100vh] pointer-events-none z-0 md:z-10 flex items-center justify-center opacity-25 md:opacity-100 overflow-visible"
         >
           {/* Subtle Astrolabe Gold & Cyan Radial Glow Aura */}
           <div className="absolute w-[68%] h-[68%] rounded-full bg-[radial-gradient(circle_at_center,rgba(197,162,95,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
@@ -523,7 +523,7 @@ export default function Home() {
 
         {/* Right Half Container: Section Header & Stacked Absolute Event Containers */}
         <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
-          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-4">
+          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-3 sm:gap-4">
 
             {/* Clean Section Header (Right Aligned) */}
             <div
@@ -531,55 +531,55 @@ export default function Home() {
               className="w-full flex items-end justify-between pb-2 border-b border-white/10"
             >
               <div>
-                <span className="text-[11px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold flex items-center gap-1.5">
+                <span className="text-[10px] sm:text-[11px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold flex items-center gap-1.5">
                   <Compass className="w-3.5 h-3.5 text-[#38BDF8]" />
                   <span>Summit Flagships</span>
                 </span>
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                <h2 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
                   Featured Events
                 </h2>
               </div>
             </div>
 
-            {/* Stacked Absolute Containers for Event Visual & Floating Sapphire Details Panel */}
-            <div className="relative w-full h-[480px] sm:h-[510px]">
+            {/* Stacked Absolute Containers for Event Visual & Floating Details Panel */}
+            <div className="relative w-full h-[410px] sm:h-[450px] md:h-[480px]">
               {EVENTS.map((event, idx) => (
                 <div
                   key={event.id}
-                  className="absolute inset-0 w-full h-full flex flex-col gap-4 pointer-events-none"
+                  className="absolute inset-0 w-full h-full flex flex-col gap-3 sm:gap-4 pointer-events-none"
                 >
                   {/* 1. Event Visual Card (Harmonized Sand Parchment Panel) */}
                   <div
                     ref={(el) => (visualsRef.current[idx] = el)}
-                    className="w-full p-5 sm:p-6 rounded-3xl border border-[#C5A25F]/50 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] shadow-[0_0_30px_rgba(197,162,95,0.25)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
+                    className="w-full p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl border border-[#C5A25F]/50 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] shadow-[0_0_30px_rgba(197,162,95,0.25)] flex flex-col gap-2.5 sm:gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
                   >
                     {/* Header Bar */}
-                    <div className="w-full flex items-center justify-between pb-2.5 border-b border-[#0C2B3D]/15">
-                      <span className="text-xs font-mono font-bold text-[#0C2B3D] tracking-widest uppercase">
+                    <div className="w-full flex items-center justify-between pb-2 border-b border-[#0C2B3D]/15">
+                      <span className="text-[10px] sm:text-xs font-mono font-bold text-[#0C2B3D] tracking-widest uppercase">
                         EVENT {event.id} / 03
                       </span>
-                      <span className="text-xs font-mono px-3.5 py-1 rounded-full border border-[#C5A25F]/60 bg-[#C5A25F]/20 text-[#0C2B3D] uppercase tracking-wider font-extrabold">
+                      <span className="text-[10px] sm:text-xs font-mono px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full border border-[#C5A25F]/60 bg-[#C5A25F]/20 text-[#0C2B3D] uppercase tracking-wider font-extrabold">
                         {event.category}
                       </span>
                     </div>
 
                     {/* Mystery '?' Showcase Badge */}
-                    <div className="w-full p-4 bg-[#EBDDC8] rounded-2xl border border-[#C5A25F]/40 flex flex-col sm:flex-row items-center gap-5 shadow-inner">
-                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#C5A25F]/70 bg-gradient-to-br from-[#0C2B3D] via-[#081f2d] to-[#040e17] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(197,162,95,0.4)] overflow-hidden">
+                    <div className="w-full p-3 sm:p-4 bg-[#EBDDC8] rounded-xl sm:rounded-2xl border border-[#C5A25F]/40 flex flex-row items-center gap-3 sm:gap-5 shadow-inner">
+                      <div className="relative w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl sm:rounded-2xl border border-[#C5A25F]/70 bg-gradient-to-br from-[#0C2B3D] via-[#081f2d] to-[#040e17] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(197,162,95,0.4)] overflow-hidden">
                         <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-25 pointer-events-none" />
-                        <span className="text-3xl sm:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
+                        <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#38BDF8] drop-shadow-[0_0_12px_rgba(56,189,248,0.9)] z-10 font-mono">
                           ?
                         </span>
-                        <span className="text-[8px] font-mono text-[#C5A25F] uppercase tracking-widest mt-0.5 z-10 font-bold">
+                        <span className="text-[7px] sm:text-[8px] font-mono text-[#C5A25F] uppercase tracking-widest mt-0.5 z-10 font-bold">
                           FLAGSHIP
                         </span>
                       </div>
 
-                      <div className="flex flex-col text-center sm:text-left">
-                        <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0C2B3D] tracking-wide">
+                      <div className="flex flex-col text-left">
+                        <h3 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-[#0C2B3D] tracking-wide">
                           {event.name}
                         </h3>
-                        <span className="text-xs font-mono text-[#9A7432] font-extrabold tracking-wider mt-1">
+                        <span className="text-[11px] sm:text-xs font-mono text-[#9A7432] font-extrabold tracking-wider mt-0.5">
                           {event.prize}
                         </span>
                       </div>
@@ -589,21 +589,21 @@ export default function Home() {
                   {/* 2. Floating Deep Nautical Navy Details Panel */}
                   <div
                     ref={(el) => (detailsRef.current[idx] = el)}
-                    className="w-full p-5 sm:p-6 rounded-2xl border border-[#38BDF8]/60 bg-[#0C2B3D]/95 text-white backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] shadow-[0_0_35px_rgba(56,189,248,0.35)] flex flex-col gap-3.5 will-change-transform pointer-events-auto z-30"
+                    className="w-full p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border border-[#38BDF8]/60 bg-[#0C2B3D]/95 text-white backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] shadow-[0_0_35px_rgba(56,189,248,0.35)] flex flex-col gap-2.5 sm:gap-3.5 will-change-transform pointer-events-auto z-30"
                   >
                     {/* Time & Schedule Badge */}
-                    <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                      <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] font-bold uppercase tracking-wider">
-                        <Clock className="w-4 h-4 text-[#38BDF8]" />
+                    <div className="flex items-center justify-between pb-1.5 sm:pb-2 border-b border-white/10">
+                      <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-mono text-[#38BDF8] font-bold uppercase tracking-wider">
+                        <Clock className="w-3.5 h-3.5 text-[#38BDF8]" />
                         <span>{event.time}</span>
                       </div>
-                      <span className="text-[10px] font-mono text-[#C5A25F] border border-[#C5A25F]/40 bg-[#C5A25F]/15 px-2.5 py-0.5 rounded-full font-semibold">
+                      <span className="text-[9px] sm:text-[10px] font-mono text-[#C5A25F] border border-[#C5A25F]/40 bg-[#C5A25F]/15 px-2 sm:px-2.5 py-0.5 rounded-full font-semibold">
                         Phase 2 Active
                       </span>
                     </div>
 
                     {/* Overview Description */}
-                    <p className="text-xs sm:text-sm text-[#CBD5E1] font-mono leading-relaxed">
+                    <p className="text-[11px] sm:text-xs md:text-sm text-[#CBD5E1] font-mono leading-relaxed line-clamp-3 sm:line-clamp-none">
                       {event.desc}
                     </p>
 
@@ -689,16 +689,16 @@ export default function Home() {
             ].map((sponsor, idx) => (
               <div
                 key={`curr-${idx}`}
-                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#C5A25F]/45 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] shadow-[0_0_20px_rgba(197,162,95,0.2)] group hover:border-[#C5A25F] transition-all cursor-pointer"
+                className="inline-flex items-center gap-3 sm:gap-4 px-5 sm:px-7 py-3 sm:py-4 rounded-2xl border border-[#C5A25F]/50 bg-[#F4EBD9] text-[#0C2B3D] shadow-[0_4px_15px_rgba(0,0,0,0.22)] group hover:border-[#C5A25F] hover:shadow-[0_0_25px_rgba(197,162,95,0.45)] transition-all cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-xl border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center font-mono font-bold text-[#C5A25F] text-base group-hover:scale-110 transition-transform shadow-inner">
+                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center font-mono font-bold text-[#C5A25F] text-xs sm:text-base group-hover:scale-110 transition-transform shadow-inner">
                   ★
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-base font-extrabold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors tracking-wide">
+                  <span className="text-sm sm:text-base font-extrabold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors tracking-wide">
                     {sponsor.name}
                   </span>
-                  <span className="text-[10px] font-mono text-[#9A7432] uppercase tracking-wider font-extrabold">
+                  <span className="text-[9px] sm:text-[10px] font-mono text-[#9A7432] uppercase tracking-wider font-extrabold">
                     {sponsor.tier}
                   </span>
                 </div>
@@ -729,9 +729,9 @@ export default function Home() {
             ].map((sponsor, idx) => (
               <div
                 key={`past-${idx}`}
-                className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl border border-[#166E94]/40 bg-[#D8ECEE]/95 text-[#0C2B3D] backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-[0_0_20px_rgba(22,110,148,0.2)] group hover:border-[#166E94] transition-all cursor-pointer"
+                className="inline-flex items-center gap-3 sm:gap-4 px-5 sm:px-7 py-3 sm:py-4 rounded-2xl border border-[#166E94]/45 bg-[#D8ECEE] text-[#0C2B3D] shadow-[0_4px_15px_rgba(0,0,0,0.22)] group hover:border-[#166E94] hover:shadow-[0_0_25px_rgba(56,189,248,0.45)] transition-all cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-xl border border-[#166E94]/50 bg-[#0C2B3D] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-base group-hover:scale-110 transition-transform shadow-inner">
+                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl border border-[#166E94]/50 bg-[#0C2B3D] flex items-center justify-center font-mono font-bold text-[#38BDF8] text-xs sm:text-base group-hover:scale-110 transition-transform shadow-inner">
                   ✦
                 </div>
                 <div className="flex flex-col text-left">
@@ -852,60 +852,60 @@ export default function Home() {
       {/* ============================================================ */}
       <section
         ref={speakersSectionRef}
-        className="relative h-screen w-full bg-gradient-to-b from-[#062038]/90 via-[#082947]/85 to-[#031324]/95 border-t border-[#C5A25F]/30 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
+        className="relative min-h-screen sm:h-screen w-full bg-gradient-to-b from-[#062038]/90 via-[#082947]/85 to-[#031324]/95 border-t border-[#C5A25F]/30 flex flex-col items-center justify-between pt-28 sm:pt-32 pb-8 px-4 sm:px-8 overflow-hidden select-none z-20"
       >
         {/* Dual Mariana Blue Background Blur Auras */}
-        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
+        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-[#0284C7]/20 rounded-full blur-[130px] pointer-events-none animate-pulse" />
 
         {/* Animated Sonar Radar Pulse Ring */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] border border-[#38BDF8]/15 rounded-full animate-ping pointer-events-none opacity-20" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] border border-[#38BDF8]/15 rounded-full animate-ping pointer-events-none opacity-20" />
 
-        <div className="max-w-4xl w-full mx-auto flex flex-col items-center relative z-10">
+        <div className="max-w-4xl w-full mx-auto flex flex-col items-center my-auto relative z-10">
           {/* Header */}
-          <div className="speakers-header text-center mb-8 sm:mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#C5A25F]/50 bg-[#C5A25F]/15 text-[#C5A25F] text-xs font-mono mb-2 uppercase tracking-widest shadow-md">
-              <Navigation className="w-3.5 h-3.5 -rotate-45 text-[#C5A25F]" />
+          <div className="speakers-header text-center mb-4 sm:mb-8">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-0.5 sm:py-1 rounded-full border border-[#C5A25F]/50 bg-[#C5A25F]/15 text-[#C5A25F] text-[10px] sm:text-xs font-mono mb-1.5 sm:mb-2 uppercase tracking-widest shadow-md">
+              <Navigation className="w-3 h-3 sm:w-3.5 sm:h-3.5 -rotate-45 text-[#C5A25F]" />
               <span>Eminent Voyagers</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               Featured Keynote Speakers
             </h2>
-            <p className="text-xs sm:text-sm font-mono text-[#38BDF8]/80 mt-1.5">
+            <p className="text-[11px] sm:text-xs md:text-sm font-mono text-[#38BDF8]/80 mt-1">
               Voices emerging from the deepest depths of the ocean
             </p>
           </div>
 
           {/* 2x2 Grid of Voyager Cards (2 Top, 2 Bottom) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-6 w-full">
             {SPEAKERS.map((speaker, sIdx) => (
               <div
                 key={speaker.id}
                 className={`${
                   sIdx < 2 ? "speaker-card-top" : "speaker-card-bottom"
-                } group relative rounded-2xl border border-[#C5A25F]/40 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-xl p-5 sm:p-6 flex flex-col items-center text-center transition-all duration-500 hover:border-[#C5A25F] hover:shadow-[0_0_35px_rgba(197,162,95,0.35)] hover:-translate-y-1 cursor-pointer`}
+                } group relative rounded-2xl border border-[#C5A25F]/40 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-xl p-4 sm:p-5 md:p-6 flex flex-col items-center text-center transition-all duration-500 hover:border-[#C5A25F] hover:shadow-[0_0_35px_rgba(197,162,95,0.35)] hover:-translate-y-1 cursor-pointer`}
               >
                 {/* Silhouette Frame with Compass Emblem Overlay */}
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center mb-3 sm:mb-4 overflow-hidden group-hover:border-[#C5A25F] transition-colors shadow-inner">
+                <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center mb-2 sm:mb-4 overflow-hidden group-hover:border-[#C5A25F] transition-colors shadow-inner">
                   {sIdx === 0 ? (
-                    <Compass className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
+                    <Compass className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
                   ) : sIdx === 1 ? (
-                    <Navigation className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] -rotate-45 group-hover:scale-110 transition-all duration-500" />
+                    <Navigation className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] -rotate-45 group-hover:scale-110 transition-all duration-500" />
                   ) : sIdx === 2 ? (
-                    <ShieldCheck className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
+                    <ShieldCheck className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
                   ) : (
-                    <UserCheck className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
+                    <UserCheck className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0C2B3D]/80 to-transparent pointer-events-none" />
                 </div>
 
-                <span className="text-[10px] font-mono text-[#9A7432] uppercase tracking-widest mb-1 font-bold">
+                <span className="text-[9px] sm:text-[10px] font-mono text-[#9A7432] uppercase tracking-widest mb-0.5 sm:mb-1 font-bold">
                   {speaker.org}
                 </span>
-                <h3 className="text-base sm:text-lg font-bold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors mb-1">
+                <h3 className="text-sm sm:text-base md:text-lg font-bold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors mb-0.5 sm:mb-1">
                   {speaker.role}
                 </h3>
-                <p className="text-xs text-[#334155] font-light leading-relaxed">
+                <p className="text-[11px] sm:text-xs text-[#334155] font-light leading-relaxed">
                   {speaker.topic}
                 </p>
               </div>

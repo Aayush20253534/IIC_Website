@@ -41,7 +41,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-6 px-6 py-2.5 rounded-full backdrop-blur-xl bg-[#030d1c]/80 border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.6)] font-light text-xs tracking-widest">
+        <div className="hidden md:flex items-center gap-4 px-5 py-2 rounded-full backdrop-blur-xl bg-[#030d1c]/80 border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.6)] font-light text-xs tracking-widest">
           {navLinks.map((link) => {
             const current = isActive(link.path);
             const Icon = link.icon;
@@ -49,13 +49,13 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`transition-all duration-200 cursor-pointer font-bold inline-flex items-center gap-1.5 ${
+                className={`transition-all duration-300 cursor-pointer inline-flex items-center gap-1.5 ${
                   current
-                    ? "text-[#38BDF8] drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]"
-                    : "text-[#94A3B8] hover:text-[#F8FAFC]"
+                    ? "text-[#F4EBD9] bg-[#C5A25F]/25 px-3.5 py-1 rounded-full border border-[#C5A25F]/60 shadow-[0_0_16px_rgba(197,162,95,0.4)] font-extrabold drop-shadow-[0_0_8px_rgba(197,162,95,0.5)]"
+                    : "text-[#94A3B8] hover:text-[#F8FAFC] px-2 py-1 font-semibold"
                 }`}
               >
-                {Icon && <Icon className="w-3.5 h-3.5 opacity-90" />}
+                {Icon && <Icon className={`w-3.5 h-3.5 ${current ? "text-[#C5A25F]" : "opacity-90"}`} />}
                 <span>{link.name}</span>
               </Link>
             );
@@ -94,11 +94,13 @@ export default function Navbar() {
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`px-4 py-2 font-montserrat text-xs uppercase tracking-wider cursor-pointer inline-flex items-center gap-2 ${
-                  current ? "text-[#38BDF8] font-bold" : "text-[#94A3B8] hover:text-[#F8FAFC]"
+                className={`px-4 py-2 font-mono text-xs uppercase tracking-wider cursor-pointer inline-flex items-center gap-2 rounded-xl transition-all ${
+                  current
+                    ? "text-[#F4EBD9] bg-[#C5A25F]/20 border border-[#C5A25F]/50 font-bold"
+                    : "text-[#94A3B8] hover:text-[#F8FAFC]"
                 }`}
               >
-                {Icon && <Icon className="w-4 h-4 opacity-80" />}
+                {Icon && <Icon className={`w-4 h-4 ${current ? "text-[#C5A25F]" : "opacity-80"}`} />}
                 <span>{link.name}</span>
               </Link>
             );

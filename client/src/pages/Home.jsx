@@ -89,9 +89,12 @@ export default function Home() {
   // About Section Refs
   const aboutSectionRef = useRef(null);
   const aboutAuraRef = useRef(null);
-  const aboutBadgeRef = useRef(null);
   const aboutTitleRef = useRef(null);
   const aboutDescRef = useRef(null);
+  const statCard1Ref = useRef(null);
+  const statCard2Ref = useRef(null);
+  const statCard3Ref = useRef(null);
+  const statCard4Ref = useRef(null);
   const aboutCtaRef = useRef(null);
 
   const speakersSectionRef = useRef(null);
@@ -164,8 +167,8 @@ export default function Home() {
           // PHASE 1: Event Visual Fades In & Zooms In
           mainTl.fromTo(
             visualEl,
-            { opacity: 0, scale: 0.8, filter: "blur(12px)", pointerEvents: "none" },
-            { opacity: 1, scale: 1.0, filter: "blur(0px)", pointerEvents: "auto", duration: 1.5, ease: "power2.out" }
+            { opacity: 0, scale: 0.8, pointerEvents: "none" },
+            { opacity: 1, scale: 1.0, pointerEvents: "auto", duration: 1.5, ease: "power2.out" }
           );
 
           // PHASE 2: Floating Sapphire Details Panel Slides Up (Reveals AFTER Visual zoom)
@@ -185,9 +188,8 @@ export default function Home() {
               [visualEl, detailsEl],
               {
                 opacity: 0,
-                scale: 1.1,
+                scale: 1.05,
                 y: -30,
-                filter: "blur(10px)",
                 pointerEvents: "none",
                 duration: 1.2,
                 ease: "power2.in",
@@ -205,7 +207,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: sponsorsPinnedSectionRef.current,
             start: "top top",
-            end: "+=4500",
+            end: "+=3500",
             pin: true,
             scrub: 1,
             anticipatePin: 1,
@@ -223,8 +225,8 @@ export default function Home() {
         if (animateInTargets.length > 0) {
           sponsorsTl.fromTo(
             animateInTargets,
-            { opacity: 0, y: 70, scale: 0.88, filter: "blur(12px)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 2, stagger: 0.25, ease: "power2.out" },
+            { opacity: 0, y: 60, scale: 0.92 },
+            { opacity: 1, y: 0, scale: 1, duration: 2, stagger: 0.25, ease: "power2.out" },
             0
           );
         }
@@ -233,7 +235,7 @@ export default function Home() {
           sponsorsTl.fromTo(
             sponsorsCyanAuraRef.current,
             { scale: 0.4, opacity: 0.1 },
-            { scale: 1.6, opacity: 0.95, duration: 8, ease: "none" },
+            { scale: 1.5, opacity: 0.85, duration: 8, ease: "none" },
             0
           );
         }
@@ -261,7 +263,7 @@ export default function Home() {
         if (animateInTargets.length > 0) {
           sponsorsTl.to(
             animateInTargets,
-            { opacity: 0, y: -60, scale: 0.92, filter: "blur(10px)", duration: 2, ease: "power2.inOut" },
+            { opacity: 0, y: -50, scale: 0.95, duration: 2, ease: "power2.inOut" },
             6.5
           );
         }
@@ -275,7 +277,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: aboutSectionRef.current,
             start: "top top",
-            end: "+=2500",
+            end: "+=2400",
             pin: true,
             scrub: 1,
           },
@@ -291,43 +293,73 @@ export default function Home() {
           );
         }
 
-        // 2. Badge slides down & fades in
-        if (aboutBadgeRef.current) {
-          aboutTl.fromTo(
-            aboutBadgeRef.current,
-            { opacity: 0, y: -40 },
-            { opacity: 1, y: 0, ease: "power2.out" },
-            0
-          );
-        }
-
-        // 3. Giant "About Renaissance" Title zooms in with cyan glow & blur reveal
+        // 2. Giant "About Renaissance" Title reveals with hardware-accelerated zoom
         if (aboutTitleRef.current) {
           aboutTl.fromTo(
             aboutTitleRef.current,
-            { opacity: 0, scale: 0.5, filter: "blur(20px)" },
-            { opacity: 1, scale: 1.15, filter: "blur(0px)", ease: "power2.out" },
-            0.15
+            { opacity: 0, scale: 0.7 },
+            { opacity: 1, scale: 1.15, ease: "power2.out" },
+            0.1
           );
         }
 
-        // 4. Detailed Description text floats up with high contrast
+        // 3. Detailed Description text floats up smoothly
         if (aboutDescRef.current) {
           aboutTl.fromTo(
             aboutDescRef.current,
-            { opacity: 0, y: 80, scale: 0.95 },
+            { opacity: 0, y: 50, scale: 0.95 },
             { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
-            0.35
+            0.25
           );
         }
 
-        // 5. Scroll CTA prompt slides in
+        // 5. Stat Card 1 (Footfall) drops down
+        if (statCard1Ref.current) {
+          aboutTl.fromTo(
+            statCard1Ref.current,
+            { opacity: 0, y: -60, scale: 0.88 },
+            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
+            0.48
+          );
+        }
+
+        // 6. Stat Card 2 (Prize Pool) drops down
+        if (statCard2Ref.current) {
+          aboutTl.fromTo(
+            statCard2Ref.current,
+            { opacity: 0, y: -60, scale: 0.88 },
+            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
+            0.58
+          );
+        }
+
+        // 7. Stat Card 3 (Startups & VCs) drops down
+        if (statCard3Ref.current) {
+          aboutTl.fromTo(
+            statCard3Ref.current,
+            { opacity: 0, y: -60, scale: 0.88 },
+            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
+            0.68
+          );
+        }
+
+        // 8. Stat Card 4 (Edition) drops down
+        if (statCard4Ref.current) {
+          aboutTl.fromTo(
+            statCard4Ref.current,
+            { opacity: 0, y: -60, scale: 0.88 },
+            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
+            0.78
+          );
+        }
+
+        // 9. Scroll CTA prompt slides in
         if (aboutCtaRef.current) {
           aboutTl.fromTo(
             aboutCtaRef.current,
-            { opacity: 0, y: 40 },
+            { opacity: 0, y: 25 },
             { opacity: 1, y: 0, ease: "power2.out" },
-            0.55
+            0.88
           );
         }
       }
@@ -473,15 +505,14 @@ export default function Home() {
         {/* Dynamic Mariana Blue Gaussian Blur Aura */}
         <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#0284C7]/25 rounded-full blur-[100px] pointer-events-none animate-pulse" />
 
-        {/* Giant Rotating Nautical Wheel (Anchored to exact left boundary) */}
+        {/* Giant Rotating Nautical Wheel */}
         <div
           ref={wheelContainerRef}
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[100vh] h-[100vh] sm:w-[105vh] sm:h-[105vh] pointer-events-none z-10 flex items-center justify-center overflow-visible"
         >
-          {/* Cyan Glow Aura */}
-          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/20 blur-3xl pointer-events-none" />
+          {/* Subtle Astrolabe Gold & Cyan Radial Glow Aura */}
+          <div className="absolute w-[68%] h-[68%] rounded-full bg-[radial-gradient(circle_at_center,rgba(197,162,95,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
 
-          {/* Clean Transparent Pirate Wheel Image */}
           <img
             ref={wheelImgRef}
             src="/pirate-wheel-transparent.png"
@@ -532,7 +563,7 @@ export default function Home() {
                       </span>
                     </div>
 
-                    {/* Mystery '?' Showcase Badge (Parchment & Astrolabe Gold Accent) */}
+                    {/* Mystery '?' Showcase Badge */}
                     <div className="w-full p-4 bg-[#EBDDC8] rounded-2xl border border-[#C5A25F]/40 flex flex-col sm:flex-row items-center gap-5 shadow-inner">
                       <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-[#C5A25F]/70 bg-gradient-to-br from-[#0C2B3D] via-[#081f2d] to-[#040e17] flex flex-col items-center justify-center shrink-0 shadow-[0_0_20px_rgba(197,162,95,0.4)] overflow-hidden">
                         <div className="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:10px_10px] opacity-25 pointer-events-none" />
@@ -611,38 +642,29 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 3: SPONSORS (PINNED CARTOGRAPHER VAULT)            */}
+      {/* SECTION 3: SPONSORS (EXPOSED WEBGL WATER CANVAS + GOLD AURA) */}
       {/* ============================================================ */}
       <section
         ref={sponsorsPinnedSectionRef}
-        className="relative min-h-screen w-full bg-[#020610]/80 backdrop-blur-xl border-t border-[#C5A25F]/30 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
+        className="relative min-h-screen w-full bg-transparent border-t border-[#C5A25F]/30 flex flex-col items-center justify-center px-6 overflow-hidden select-none z-20"
       >
-        {/* Dual Cartographer Glow Auras (Amber Astrolabe + Mariana Blue) */}
+        {/* Dynamic Cartographer Gold & Cyan Animated Color Aura */}
         <div
           ref={sponsorsCyanAuraRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-amber-500/15 rounded-full blur-[160px] pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-[radial-gradient(ellipse_at_center,rgba(197,162,95,0.14)_0%,rgba(245,158,11,0.08)_35%,rgba(56,189,248,0.08)_65%,transparent_85%)] rounded-full blur-[160px] pointer-events-none animate-pulse"
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-[#0284C7]/20 rounded-full blur-[140px] pointer-events-none animate-pulse" />
 
-        {/* Header */}
+        {/* Header (No top pill badge; re-formatted vertical spacing) */}
         <div
           ref={sponsorsHeaderRef}
-          className="max-w-7xl mx-auto flex flex-col items-center mb-12 text-center relative z-10"
+          className="max-w-7xl mx-auto flex flex-col items-center mb-6 sm:mb-8 text-center relative z-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C5A25F]/50 bg-[#C5A25F]/15 text-[#C5A25F] text-xs font-mono uppercase tracking-widest mb-3 shadow-[0_0_20px_rgba(197,162,95,0.25)]">
-            <ShieldCheck className="w-4 h-4 text-[#C5A25F]" />
-            <span>Summit Strategic Partners</span>
-          </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
             Current & Past{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-[#C5A25F] to-[#38BDF8]">
               Sponsors
             </span>
           </h2>
-          <p className="text-xs sm:text-sm font-mono text-[#C5A25F] mt-2 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2">
-            <span>Scroll to accelerate partner voyager streams</span>
-            <span className="animate-bounce">↓</span>
-          </p>
         </div>
 
         {/* Fast Left-to-Right Row 1 (Current Sponsors - Warm Beige Cards) */}
@@ -727,7 +749,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 4: ABOUT RENAISSANCE (EXPOSED WEBGL WATER CANVAS BG) */}
+      {/* SECTION 4: ABOUT RENAISSANCE (WEBGL BG + FROSTED BACKDROP)  */}
       {/* ============================================================ */}
       <section
         ref={aboutSectionRef}
@@ -736,23 +758,14 @@ export default function Home() {
         {/* Expanding Deep Mariana Ambient Glow Aura (Animates with Scroll) */}
         <div
           ref={aboutAuraRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[#0284C7]/25 rounded-full blur-[150px] pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[radial-gradient(ellipse_at_center,rgba(197,162,95,0.12)_0%,rgba(2,132,199,0.18)_50%,transparent_80%)] rounded-full blur-[150px] pointer-events-none"
         />
 
-        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center">
-          {/* Badge */}
-          <div
-            ref={aboutBadgeRef}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C5A25F]/50 bg-[#C5A25F]/15 text-[#C5A25F] text-xs font-mono mb-8 uppercase tracking-widest font-extrabold shadow-[0_0_20px_rgba(197,162,95,0.3)] z-10"
-          >
-            <Wind className="w-3.5 h-3.5 text-[#C5A25F]" />
-            <span>The Odyssey • Genesis</span>
-          </div>
-
+        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center z-10 px-4">
           {/* Title */}
           <h2
             ref={aboutTitleRef}
-            className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white mb-8 z-10 drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] drop-shadow-[0_0_20px_rgba(2,6,16,0.95)]"
+            className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white mb-6 z-10 drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)] drop-shadow-[0_0_35px_rgba(0,0,0,0.95)]"
           >
             About{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F4EBD9] to-[#C5A25F]">
@@ -760,18 +773,73 @@ export default function Home() {
             </span>
           </h2>
 
-          {/* Description */}
+          {/* Original Description from About.jsx */}
           <p
             ref={aboutDescRef}
-            className="text-base sm:text-2xl text-[#F4EBD9] font-extrabold leading-relaxed mb-8 max-w-3xl z-10 drop-shadow-[0_4px_25px_rgba(0,0,0,0.95)]"
+            className="text-base sm:text-xl text-[#F4EBD9] font-light leading-relaxed mb-8 max-w-3xl z-10 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] drop-shadow-[0_0_15px_rgba(0,0,0,0.9)]"
           >
-            Renaissance is the flagship annual entrepreneurship summit of MNNIT Allahabad. Over a decade of voyages, it has served as the launchpad for visionary founders, researchers, and creators charting uncharted waters in deep technology, decentralized systems, and high-impact enterprise.
+            The Institution’s Innovation Council and Entrepreneurship Cell at MNNIT Allahabad present the 10th edition of Renaissance. The summit brings together students, founders, and leaders to foster entrepreneurship and innovation across diverse disciplines.
           </p>
+
+          {/* Original Summit Statistics Grid from About.jsx (Each card animates sequentially on scroll) */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 w-full my-6 z-10">
+            {/* Card 1: Footfall */}
+            <div
+              ref={statCard1Ref}
+              className="flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-[#020610]/85 to-[#041021]/90 border border-[#C5A25F]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-sm min-w-0 w-full overflow-hidden"
+            >
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-[#C5A25F] drop-shadow-[0_0_12px_rgba(197,162,95,0.5)] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                15,000+
+              </span>
+              <span className="text-[10px] sm:text-xs font-mono text-[#E2E8F0] uppercase tracking-wider font-semibold mt-1.5 whitespace-nowrap">
+                Footfall
+              </span>
+            </div>
+
+            {/* Card 2: Prize Pool (Fixed Overflow with tracking-tighter & responsive text sizing) */}
+            <div
+              ref={statCard2Ref}
+              className="flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-[#020610]/85 to-[#041021]/90 border border-[#C5A25F]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-sm min-w-0 w-full overflow-hidden"
+            >
+              <span className="text-lg sm:text-2xl md:text-3xl font-extrabold font-mono text-[#C5A25F] drop-shadow-[0_0_12px_rgba(197,162,95,0.5)] tracking-tighter sm:tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                ₹5,00,000+
+              </span>
+              <span className="text-[10px] sm:text-xs font-mono text-[#E2E8F0] uppercase tracking-wider font-semibold mt-1.5 whitespace-nowrap">
+                Prize Pool
+              </span>
+            </div>
+
+            {/* Card 3: Startups & VCs */}
+            <div
+              ref={statCard3Ref}
+              className="flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-[#020610]/85 to-[#041021]/90 border border-[#C5A25F]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-sm min-w-0 w-full overflow-hidden"
+            >
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-[#C5A25F] drop-shadow-[0_0_12px_rgba(197,162,95,0.5)] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                40+
+              </span>
+              <span className="text-[10px] sm:text-xs font-mono text-[#E2E8F0] uppercase tracking-wider font-semibold mt-1.5 whitespace-nowrap">
+                Startups & VCs
+              </span>
+            </div>
+
+            {/* Card 4: Edition */}
+            <div
+              ref={statCard4Ref}
+              className="flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-[#020610]/85 to-[#041021]/90 border border-[#C5A25F]/35 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-sm min-w-0 w-full overflow-hidden"
+            >
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold font-mono text-[#C5A25F] drop-shadow-[0_0_12px_rgba(197,162,95,0.5)] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                10th
+              </span>
+              <span className="text-[10px] sm:text-xs font-mono text-[#E2E8F0] uppercase tracking-wider font-semibold mt-1.5 whitespace-nowrap">
+                Edition
+              </span>
+            </div>
+          </div>
 
           {/* Scroll CTA */}
           <p
             ref={aboutCtaRef}
-            className="text-xs sm:text-sm text-[#C5A25F] font-mono tracking-widest uppercase font-black z-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2"
+            className="text-xs sm:text-sm text-[#C5A25F] font-mono tracking-widest uppercase font-bold z-10 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] flex items-center gap-2 mt-4"
           >
             <span>Descend into the keynote voyagers abyss</span>
             <span className="animate-bounce">↓</span>

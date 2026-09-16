@@ -1,0 +1,108 @@
+[
+  {
+    "id": "TITLE",
+    "title": "Title Sponsor",
+    "description": "Primary entities funding the operation. Direct oversight of all project phases.",
+    "logos": [
+      { "name": "Central Bank of India", "fileName": "central bank.jpeg", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "ASSOCIATE",
+    "title": "Associate Sponsor",
+    "description": "Entities providing support to the operation.",
+    "logos": [
+      { "name": "Prayagraj Power Generation Company Limited", "fileName": "ppgcl.jpg", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "ACCESSORIES_PARTNER",
+    "title": "Accessories Partner",
+    "description": "Providing essential technological gear and accessories for the mission.",
+    "logos": [
+      { "name": "Zebronics", "fileName": "zebronics.jpeg", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "MEDIA_PARTNER",
+    "title": "Media Partner",
+    "description": "Amplifying reach and awareness through strategic media coverage.",
+    "logos": [
+      { "name": "Dainik Jagran", "fileName": "dainik jagran.png", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "PLATFORM_PARTNER",
+    "title": "Platform Partner",
+    "description": "Providing leading innovation platforms and cutting-edge 3D design solutions.",
+    "logos": [
+      { "name": "Unstop", "fileName": "unstop.png", "folder": "current sponsors" },
+      { "name": "SolidWorks", "fileName": "SolidWorks.jpg", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "SPORTING_PARTNER",
+    "title": "Sporting Partner",
+    "description": "Fueling the mission with high-performance sports gear and athletic excellence.",
+    "logos": [
+      { "name": "Decathlon", "fileName": "Decathlon.png", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "TRAVEL_PARTNER",
+    "title": "Travel Partner",
+    "description": "Making every journey seamless with unmatched travel solutions.",
+    "logos": [
+      { "name": "AbhiBus", "fileName": "abhiBus.jpeg", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "MERCHANDISE_PARTNER",
+    "title": "Merchandise Partner",
+    "description": "Providing premium gear and apparel for the mission.",
+    "logos": [
+      { "name": "Destiny", "fileName": "Destiny.png", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "DINING_PARTNER",
+    "title": "Exclusive Dining Partner",
+    "description": "Offering a premium, interactive culinary experience with signature grilled specialties.",
+    "logos": [
+      { "name": "Barbeque Nation", "fileName": "bbqnation.png", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "FOOD_PARTNER",
+    "title": "Food Partner",
+    "description": "Fueling the mission with premium provisions and delicious refreshments.",
+    "logos": [
+      { "name": "Pizza Galleria", "fileName": "Pizza-Galleria.png", "folder": "current sponsors" },
+      { "name": "Laal's Kitchen", "fileName": "Laals Kitchen.png", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "BEVERAGE_PARTNER",
+    "title": "Beverage Partner",
+    "description": "Delivering iconic refreshments for every moment.",
+    "logos": [
+      { "name": "Coca Cola", "fileName": "cocacola.png", "folder": "current sponsors" }
+    ]
+  },
+  {
+    "id": "ENERGY_DRINK_PARTNER",
+    "title": "Energy Drink Partner",
+    "description": "Providing energy needed to fuel the mission.",
+    "logos": [
+      { "name": "Hell Energy", "fileName": "Hell Energy.jpeg", "folder": "current sponsors" }
+    ]
+  },  
+  {
+    "id": "DESSERT_PARTNER",
+    "title": "Dessert Partner",
+    "description": "Sweetening the mission with delicious treats.",
+    "logos": [
+      { "name": "Gokul Ice Cream", "fileName": "gokul.png", "folder": "current sponsors" }
+    ]
+  }
+]

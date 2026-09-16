@@ -108,7 +108,6 @@ export default function Home() {
         // Entrance Animation for Static Section Elements
         const entranceTargets = [
           sponsorsHeaderRef.current,
-          wheelContainerRef.current,
           sponsorsFooterRef.current,
         ].filter(Boolean);
 
@@ -435,7 +434,7 @@ export default function Home() {
       >
         <div className="flex flex-col items-center justify-center max-w-4xl mx-auto overflow-visible my-auto">
           {/* Centered Transparent Emblem Logo */}
-          <div className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl mb-8 flex items-center justify-center overflow-visible">
+          <div className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl mb-6 sm:mb-8 flex items-center justify-center overflow-visible">
             <img
               src="/renaissance-logo-clean.png"
               alt="Renaissance 10th Edition Emblem"
@@ -447,14 +446,14 @@ export default function Home() {
           </div>
 
           <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.32em] text-[#38BDF8]/90 mb-8 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-            Venture Beyond Known • 10th Edition
+            E-Cell MNNIT Allahabad • Annual Entrepreneurship Summit
           </p>
 
           {/* Action CTAs: Register Now + Begin Voyage */}
-          <div className="overflow-visible flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          <div className="overflow-visible flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full max-w-xs sm:max-w-none mx-auto">
             <Link
               to="/register"
-              className="group relative flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F] text-[#0C2B3D] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(197,162,95,0.6)] transition-all duration-300 transform hover:scale-[1.03] overflow-visible cursor-pointer border border-[#C5A25F]/60"
+              className="group relative flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F] text-[#0C2B3D] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(197,162,95,0.6)] transition-all duration-300 transform hover:scale-[1.03] overflow-visible cursor-pointer border border-[#C5A25F]/60 w-full sm:w-auto"
             >
               <UserCheck className="w-4 h-4 text-[#0C2B3D] overflow-visible" />
               <span>Register Now</span>
@@ -470,7 +469,7 @@ export default function Home() {
                   sponsorsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group relative flex items-center justify-center gap-3 px-8 py-3.5 rounded-full border border-[#38BDF8]/50 bg-[#031d33]/80 backdrop-blur-md text-[#CBD5E1] hover:text-white hover:border-[#38BDF8] hover:bg-[#042542]/90 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.45)] overflow-visible cursor-pointer"
+              className="group relative flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#38BDF8]/50 bg-[#031d33]/80 backdrop-blur-md text-[#CBD5E1] hover:text-white hover:border-[#38BDF8] hover:bg-[#042542]/90 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.45)] overflow-visible cursor-pointer w-full sm:w-auto"
             >
               <div className="overflow-visible flex items-center justify-center">
                 <Navigation className="w-4 h-4 text-[#38BDF8] transform -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 overflow-visible" />
@@ -608,16 +607,16 @@ export default function Home() {
                     </p>
 
                     {/* Action Bar with 'Register' CTA Button */}
-                    <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                    <div className="pt-2 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-4">
                       <Link
                         to="/register"
-                        className="group relative flex items-center justify-center gap-2.5 px-7 py-2.5 rounded-full bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F] text-[#0C2B3D] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(197,162,95,0.7)] transition-all duration-300 transform hover:scale-[1.03] cursor-pointer border border-[#C5A25F]/60"
+                        className="group relative flex items-center justify-center gap-2 px-5 sm:px-7 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#F4EBD9] via-[#EBDDC8] to-[#C5A25F] text-[#0C2B3D] font-extrabold text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-widest hover:shadow-[0_0_30px_rgba(197,162,95,0.7)] transition-all duration-300 transform hover:scale-[1.02] cursor-pointer border border-[#C5A25F]/60 w-full sm:w-auto whitespace-nowrap shrink-0"
                       >
-                        <UserCheck className="w-4 h-4 text-[#0C2B3D]" />
+                        <UserCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0C2B3D] shrink-0" />
                         <span>Register Now</span>
                       </Link>
 
-                      <Link to="/events" className="text-xs font-mono text-[#38BDF8] font-bold hover:underline">
+                      <Link to="/events" className="text-[11px] sm:text-xs font-mono text-[#38BDF8] font-bold hover:underline whitespace-nowrap py-0.5">
                         View Schedule →
                       </Link>
                     </div>
@@ -876,36 +875,36 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 2x2 Grid of Voyager Cards (2 Top, 2 Bottom) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-6 w-full">
+          {/* 2x2 Grid of Voyager Cards (2 Top, 2 Bottom on both Mobile & Desktop) */}
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-6 w-full">
             {SPEAKERS.map((speaker, sIdx) => (
               <div
                 key={speaker.id}
                 className={`${
                   sIdx < 2 ? "speaker-card-top" : "speaker-card-bottom"
-                } group relative rounded-2xl border border-[#C5A25F]/40 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-xl p-4 sm:p-5 md:p-6 flex flex-col items-center text-center transition-all duration-500 hover:border-[#C5A25F] hover:shadow-[0_0_35px_rgba(197,162,95,0.35)] hover:-translate-y-1 cursor-pointer`}
+                } group relative rounded-xl sm:rounded-2xl border border-[#C5A25F]/40 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-xl p-3 sm:p-5 md:p-6 flex flex-col items-center text-center transition-all duration-500 hover:border-[#C5A25F] hover:shadow-[0_0_35px_rgba(197,162,95,0.35)] hover:-translate-y-1 cursor-pointer`}
               >
                 {/* Silhouette Frame with Compass Emblem Overlay */}
-                <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center mb-2 sm:mb-4 overflow-hidden group-hover:border-[#C5A25F] transition-colors shadow-inner">
+                <div className="relative w-10 h-10 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border border-[#C5A25F]/50 bg-[#0C2B3D] flex items-center justify-center mb-1.5 sm:mb-4 overflow-hidden group-hover:border-[#C5A25F] transition-colors shadow-inner shrink-0">
                   {sIdx === 0 ? (
-                    <Compass className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
+                    <Compass className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 group-hover:rotate-45 transition-all duration-500" />
                   ) : sIdx === 1 ? (
-                    <Navigation className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] -rotate-45 group-hover:scale-110 transition-all duration-500" />
+                    <Navigation className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] -rotate-45 group-hover:scale-110 transition-all duration-500" />
                   ) : sIdx === 2 ? (
-                    <ShieldCheck className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
+                    <ShieldCheck className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
                   ) : (
-                    <UserCheck className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
+                    <UserCheck className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#38BDF8] group-hover:scale-110 transition-all duration-500" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0C2B3D]/80 to-transparent pointer-events-none" />
                 </div>
 
-                <span className="text-[9px] sm:text-[10px] font-mono text-[#9A7432] uppercase tracking-widest mb-0.5 sm:mb-1 font-bold">
+                <span className="text-[8px] sm:text-[10px] font-mono text-[#9A7432] uppercase tracking-widest mb-0.5 font-bold line-clamp-1">
                   {speaker.org}
                 </span>
-                <h3 className="text-sm sm:text-base md:text-lg font-bold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors mb-0.5 sm:mb-1">
+                <h3 className="text-xs sm:text-base md:text-lg font-bold text-[#0C2B3D] group-hover:text-[#9A7432] transition-colors mb-0.5 sm:mb-1 leading-snug">
                   {speaker.role}
                 </h3>
-                <p className="text-[11px] sm:text-xs text-[#334155] font-light leading-relaxed">
+                <p className="text-[10px] sm:text-xs text-[#334155] font-light leading-tight line-clamp-2 sm:line-clamp-none">
                   {speaker.topic}
                 </p>
               </div>

@@ -113,12 +113,12 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0C2B3D]/90 backdrop-blur-md p-4 sm:p-8 cursor-zoom-out"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0C2B3D]/90 backdrop-blur-md p-4 sm:p-8 pt-24 cursor-zoom-out"
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-6 right-6 sm:top-8 sm:right-8 z-[110] flex items-center justify-center w-12 h-12 rounded-full bg-[#F4EBD9]/10 text-[#F4EBD9] hover:bg-[#F4EBD9]/20 transition-colors border border-[#F4EBD9]/20 shadow-lg cursor-pointer"
+              className="absolute top-24 right-6 sm:top-28 sm:right-8 lg:right-12 z-[110] flex items-center justify-center w-12 h-12 rounded-full bg-[#F4EBD9]/10 text-[#F4EBD9] hover:bg-[#F4EBD9]/20 transition-colors border border-[#F4EBD9]/20 shadow-lg cursor-pointer"
             >
               <svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M13 1L1 13M1 1L13 13" />
@@ -127,13 +127,13 @@ export default function Gallery() {
 
             <motion.div 
               layoutId={`gallery-img-${selectedImage.id}`}
-              className="relative w-full max-w-5xl max-h-[90vh] flex items-center justify-center"
+              className="relative w-full max-w-5xl max-h-[75vh] flex items-center justify-center mt-12"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={selectedImage.src}
                 alt="Enlarged Archive Capture"
-                className="w-auto h-auto max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl filter contrast-[1.05]"
+                className="w-auto h-auto max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl filter contrast-[1.05]"
               />
             </motion.div>
           </motion.div>

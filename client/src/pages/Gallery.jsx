@@ -1,7 +1,34 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
-import OceanHeroBackground from "../components/OceanHeroBackground";
+
+/* =================================================================
+   GLOBAL SANDY + OCEANIC ATMOSPHERE (No White, Warm Beach & Sea)
+================================================================= */
+function GalleryOceanAtmosphere() {
+  return (
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-gradient-to-b from-[#EBDDC8] via-[#D8ECEE] to-[#E6D4BC]">
+      {/* Soft Caribbean Blue Depth Wash */}
+      <div className="absolute right-[-10%] top-[16%] h-[600px] w-[600px] rounded-full bg-[#5FB0C3]/12 blur-[90px]" />
+      <div className="absolute left-[-10%] top-[50%] h-[550px] w-[550px] rounded-full bg-[#3F95A9]/10 blur-[90px]" />
+
+      {/* Warm sunlight sand glow */}
+      <div className="absolute left-[28%] top-[-5%] h-[500px] w-[500px] rounded-full bg-[#E8C87A]/15 blur-[100px]" />
+
+      {/* Fine sand parchment grain texture */}
+      <div
+        className="absolute inset-0 opacity-[0.08]"
+        style={{
+          backgroundImage: `
+            radial-gradient(circle at 20% 20%, rgba(20,65,80,.25) 0 1px, transparent 1px),
+            radial-gradient(circle at 75% 75%, rgba(165,120,45,.22) 0 1px, transparent 1px)
+          `,
+          backgroundSize: "44px 44px, 58px 58px",
+        }}
+      />
+    </div>
+  );
+}
 
 
 
@@ -112,17 +139,17 @@ function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredI
           <div className={`w-full lg:w-1/2 flex flex-col mt-8 lg:mt-0 ${index % 2 === 0 ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
             <div className="flex items-center gap-4 mb-6 overflow-hidden">
               <motion.span 
-                className="font-mono text-xs tracking-[0.3em] text-[#B47A32] uppercase"
+                className="font-mono text-xs tracking-[0.3em] text-[#8E6422] uppercase font-bold"
                 style={{ y: titleY }}
               >
                 {event.category}
               </motion.span>
               <motion.div 
-                className="h-px bg-[#C89B53] flex-1 opacity-40 origin-left"
+                className="h-px bg-[#C5A25F] flex-1 opacity-60 origin-left"
                 style={{ scaleX: useTransform(scrollYProgress, [0.2, 0.4], [0, 1]) }}
               />
               <motion.span 
-                className="font-mono text-xs text-[#4A6B7C]"
+                className="font-mono text-xs text-[#125D73] font-bold"
                 style={{ y: titleY }}
               >
                 {event.date}
@@ -131,7 +158,7 @@ function ProjectItem({ event, index, setSelectedImage, hoveredIndex, setHoveredI
             
             <div className="overflow-hidden pb-4">
               <motion.h2 
-                className={`font-cinzel text-5xl sm:text-7xl lg:text-[7vw] font-bold text-[#0A2239] leading-[0.9] uppercase tracking-tight transition-all duration-700 ${isOtherHovered ? 'opacity-30 blur-sm' : 'opacity-100'} ${isHovered ? 'text-[#B47A32]' : ''}`}
+                className={`font-cinzel text-5xl sm:text-7xl lg:text-[7vw] font-bold text-[#0C2B3D] leading-[0.9] uppercase tracking-tight transition-all duration-700 ${isOtherHovered ? 'opacity-30 blur-sm' : 'opacity-100'} ${isHovered ? 'text-[#8E6422]' : ''}`}
                 style={{ y: titleY, opacity: titleOpacity }}
               >
                 {event.title}
@@ -185,20 +212,36 @@ export default function Gallery() {
   }, [selectedImage]);
 
   return (
-    <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0A2239] overflow-x-hidden font-montserrat">
-      {/* Ship Background - Top Right */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] z-0 opacity-40 pointer-events-none mix-blend-luminosity [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] overflow-hidden">
-        <OceanHeroBackground />
-      </div>
-
+    <main className="relative w-full min-h-screen text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#C5A25F] selection:text-white">
+      <GalleryOceanAtmosphere />
+      
       {/* Intro Header */}
-      <section className="relative z-10 w-full h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24">
+      <section className="relative z-10 w-full min-h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24 overflow-hidden">
+        
+        {/* Ocean Image Background just like Sponsors */}
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <img
+            src="/bg_images/events.png"
+            alt="Renaissance Ocean Voyage"
+            aria-hidden="true"
+            className="sponsor-hero-raster h-full w-full object-cover object-top opacity-90"
+            draggable="false"
+          />
+          {/* Subtle marine depth tint */}
+          <div className="absolute inset-0 bg-[#062538]/20 mix-blend-multiply" />
+          {/* Bright oceanic sea wash */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#D2E9ED]/30 via-transparent to-[#EBDDC8]/95" />
+          {/* Warm morning sunlight sand wash */}
+          <div className="absolute left-0 top-0 h-full w-[72%] bg-gradient-to-r from-[#EBDDC8]/92 via-[#EBDDC8]/50 to-transparent" />
+          {/* Bottom sandy shoreline blend into the page */}
+          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#EBDDC8] via-[#EBDDC8]/85 to-transparent" />
+        </div>
         <div className="overflow-hidden">
           <motion.h1 
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
-            className="font-cinzel text-6xl md:text-[8vw] font-bold text-[#0A2239] leading-none uppercase tracking-tight"
+            className="font-cinzel text-6xl md:text-[8vw] font-extrabold text-[#0C2B3D] leading-none uppercase tracking-tight"
           >
             Archive
           </motion.h1>
@@ -209,8 +252,8 @@ export default function Gallery() {
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
           className="mt-8 flex items-center gap-6"
         >
-          <div className="h-px w-24 sm:w-48 bg-[#C89B53] opacity-60"></div>
-          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-[#B47A32] uppercase">
+          <div className="h-px w-24 sm:w-48 bg-[#C5A25F] opacity-60"></div>
+          <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-[#8E6422] uppercase font-bold">
             A visual documentation of past expeditions
           </p>
         </motion.div>
@@ -238,8 +281,20 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F4EBD9] overflow-y-auto"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-b from-[#EBDDC8] via-[#D8ECEE] to-[#E6D4BC] overflow-y-auto"
           >
+            {/* Modal Texture Base */}
+            <div
+              className="absolute inset-0 opacity-[0.1]"
+              style={{
+                backgroundImage: `
+                  radial-gradient(circle at 20% 20%, rgba(20,65,80,.3) 0 1px, transparent 1px),
+                  radial-gradient(circle at 75% 75%, rgba(165,120,45,.25) 0 1px, transparent 1px)
+                `,
+                backgroundSize: "44px 44px, 58px 58px",
+              }}
+            />
+
             <div className="relative min-h-screen w-full flex flex-col">
               {/* Close Button */}
               <motion.button
@@ -248,10 +303,10 @@ export default function Gallery() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: 0.4 }}
                 onClick={() => setSelectedImage(null)}
-                className="fixed top-24 right-6 sm:top-28 sm:right-8 z-[110] flex items-center gap-3 text-[#0A2239] hover:text-[#B47A32] transition-colors group cursor-pointer"
+                className="fixed top-24 right-6 sm:top-28 sm:right-8 z-[110] flex items-center gap-3 text-[#0C2B3D] hover:text-[#8E6422] transition-colors group cursor-pointer"
               >
-                <span className="font-mono text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity bg-[#F4EBD9]/80 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm">Close</span>
-                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center bg-[#F4EBD9]/80 backdrop-blur-sm shadow-lg">
+                <span className="font-mono text-xs tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity bg-[#EBDDC8]/80 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm font-bold">Close</span>
+                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center bg-[#EBDDC8]/80 backdrop-blur-sm shadow-lg">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M13 1L1 13M1 1L13 13" />
                   </svg>
@@ -276,7 +331,8 @@ export default function Gallery() {
                       className="absolute inset-0 w-full h-full object-cover filter contrast-[1.05]"
                     />
                   </AnimatePresence>
-                  <div className="absolute inset-0 bg-gradient-to-b from-[#F4EBD9]/0 via-[#F4EBD9]/0 to-[#F4EBD9] pointer-events-none z-10" />
+                  {/* Subtle vignette/fade into background */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#E6D4BC] pointer-events-none z-10 opacity-90" />
                 </motion.div>
 
                 {/* Slider Controls */}
@@ -287,7 +343,7 @@ export default function Gallery() {
                         e.stopPropagation();
                         setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : selectedImage.images.length - 1));
                       }}
-                      className="absolute left-6 sm:left-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-[#F4EBD9]/80 backdrop-blur-md text-[#0A2239] hover:bg-[#F4EBD9] transition-all opacity-0 group-hover/slider:opacity-100 shadow-xl z-50 cursor-pointer"
+                      className="absolute left-6 sm:left-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-[#EBDDC8]/80 border border-[#C2A169]/30 backdrop-blur-md text-[#0C2B3D] hover:bg-[#EBDDC8] hover:border-[#8E6422] transition-all opacity-0 group-hover/slider:opacity-100 shadow-[0_10px_30px_rgba(20,55,70,0.15)] z-50 cursor-pointer"
                     >
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                     </button>
@@ -296,7 +352,7 @@ export default function Gallery() {
                         e.stopPropagation();
                         setCurrentImageIndex((prev) => (prev < selectedImage.images.length - 1 ? prev + 1 : 0));
                       }}
-                      className="absolute right-6 sm:right-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-[#F4EBD9]/80 backdrop-blur-md text-[#0A2239] hover:bg-[#F4EBD9] transition-all opacity-0 group-hover/slider:opacity-100 shadow-xl z-50 cursor-pointer"
+                      className="absolute right-6 sm:right-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-[#EBDDC8]/80 border border-[#C2A169]/30 backdrop-blur-md text-[#0C2B3D] hover:bg-[#EBDDC8] hover:border-[#8E6422] transition-all opacity-0 group-hover/slider:opacity-100 shadow-[0_10px_30px_rgba(20,55,70,0.15)] z-50 cursor-pointer"
                     >
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                     </button>
@@ -310,7 +366,7 @@ export default function Gallery() {
                             e.stopPropagation();
                             setCurrentImageIndex(i);
                           }}
-                          className={`h-2 rounded-full transition-all duration-300 cursor-pointer shadow-sm ${i === currentImageIndex ? 'bg-[#B47A32] w-8' : 'bg-[#F4EBD9]/60 hover:bg-[#F4EBD9] w-2'}`}
+                          className={`h-2 rounded-full transition-all duration-300 cursor-pointer shadow-sm ${i === currentImageIndex ? 'bg-[#8E6422] w-8' : 'bg-[#EBDDC8]/60 hover:bg-[#EBDDC8] w-2'}`}
                         />
                       ))}
                     </div>
@@ -328,15 +384,15 @@ export default function Gallery() {
                   className="flex flex-col md:flex-row md:items-end justify-between gap-8"
                 >
                   <div>
-                    <span className="mb-4 inline-block font-mono text-xs tracking-[0.2em] text-[#B47A32] uppercase">
+                    <span className="mb-4 inline-block font-mono text-xs tracking-[0.2em] text-[#8E6422] uppercase font-bold">
                       {selectedImage.category} // {selectedImage.date}
                     </span>
-                    <h1 className="font-cinzel text-5xl sm:text-7xl lg:text-8xl font-bold text-[#0A2239] leading-none uppercase tracking-tight">
+                    <h1 className="font-cinzel text-5xl sm:text-7xl lg:text-8xl font-extrabold text-[#0C2B3D] leading-none uppercase tracking-tight">
                       {selectedImage.title}
                     </h1>
                   </div>
                   
-                  <div className="max-w-sm text-sm sm:text-base text-[#4A6B7C] leading-relaxed">
+                  <div className="max-w-sm text-sm sm:text-base text-[#125D73] leading-relaxed font-semibold">
                     A defining moment captured during our {selectedImage.category.toLowerCase()} event. This photograph represents the spirit of innovation and collaboration that drives our community forward.
                   </div>
                 </motion.div>

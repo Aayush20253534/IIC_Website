@@ -20,6 +20,14 @@ const MASONRY_IMAGES = [
   { id: 15, src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.25 }
 ];
 
+const PAST_SPEAKERS = [
+  { id: 1, name: "ALEXANDER WRIGHT", designation: "CHIEF INNOVATION OFFICER", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" },
+  { id: 2, name: "SARAH CHEN", designation: "AI RESEARCH LEAD", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800" },
+  { id: 3, name: "MARCUS JOHNSON", designation: "STARTUP VISIONARY", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800" },
+  { id: 4, name: "ELENA RODRIGUEZ", designation: "GLOBAL STRATEGY DIRECTOR", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800" },
+  { id: 5, name: "DAVID KIM", designation: "TECH ENTREPRENEUR", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800" },
+];
+
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -37,6 +45,21 @@ export default function Gallery() {
   return (
     <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#C5A25F] selection:text-white">
       
+      <style>{`
+        @keyframes marqueeLeftToRight {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0%); }
+        }
+        .animate-marquee-ltr {
+          display: flex;
+          width: max-content;
+          animation: marqueeLeftToRight 50s linear infinite;
+        }
+        .animate-marquee-ltr:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
       {/* Intro Header */}
       <section className="relative z-10 w-full min-h-[60vh] flex flex-col justify-end px-6 lg:px-24 pb-24 overflow-hidden">
         {/* Ocean Image Background fading into transparent */}
@@ -72,8 +95,84 @@ export default function Gallery() {
         </motion.div>
       </section>
 
-      {/* Masonry Grid Layout */}
+      {/* Past Speakers Section */}
+      <motion.section 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1 }}
+        className="relative z-10 w-full py-16 sm:py-24 overflow-hidden"
+      >
+        <div className="px-6 lg:px-24 mb-16 text-center sm:text-left">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="inline-block"
+          >
+            <h2 className="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0C2B3D] tracking-tight uppercase">
+              Past Speakers
+            </h2>
+            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#C5A25F] opacity-80 mt-4 mx-auto sm:mx-0"></div>
+          </motion.div>
+        </div>
+
+        {/* Infinite Marquee Left to Right */}
+        <div className="w-full overflow-hidden relative">
+          <div className="animate-marquee-ltr py-8">
+            {[...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS].map((speaker, idx) => (
+              <div key={`${speaker.id}-${idx}`} className="w-64 sm:w-80 flex-shrink-0 mx-4 sm:mx-8 group cursor-pointer">
+                
+                {/* Image Container with Offset Square */}
+                <div className="relative w-full aspect-square mb-6">
+                  {/* Solid background offset (Blue matching theme text color) */}
+                  <div className="absolute top-4 left-4 sm:top-6 sm:left-6 w-full h-full bg-[#0C2B3D] transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2" />
+                  
+                  {/* Portrait */}
+                  <div className="relative w-full h-full overflow-hidden bg-[#F4EBD9]">
+                    <img 
+                      src={speaker.img} 
+                      alt={speaker.name} 
+                      className="w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]" 
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-[#C5A25F]/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                </div>
+                
+                {/* Text Content */}
+                <div className="pl-4 sm:pl-5 border-l-2 border-[#C5A25F] group-hover:border-[#0C2B3D] transition-colors duration-500">
+                  <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#0C2B3D] uppercase tracking-wide leading-tight">
+                    {speaker.name}
+                  </h3>
+                  <p className="font-mono text-[10px] sm:text-xs text-[#8E6422] uppercase tracking-widest mt-1.5 font-bold">
+                    {speaker.designation}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Masonry Grid Layout (Archive) */}
       <section className="relative z-10 w-full px-3 sm:px-8 lg:px-24 pb-32">
+        <div className="px-3 sm:px-0 mb-12 sm:mb-16 text-center sm:text-left">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="inline-block"
+          >
+            <h2 className="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0C2B3D] tracking-tight uppercase">
+              Event Photos
+            </h2>
+            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#C5A25F] opacity-80 mt-4 mx-auto sm:mx-0"></div>
+          </motion.div>
+        </div>
+
         <div className="columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-6">
           {MASONRY_IMAGES.map((img, index) => (
             <motion.div

@@ -80,7 +80,19 @@ export default function PageTransitionShimmer() {
 
       e.preventDefault();
       e.stopPropagation();
-      startTransition(href);
+
+      // <BrowserRouter basename="/renaissance"> renders Link hrefs with the
+      // basename included. Strip it before passing the path back to navigate(),
+      // otherwise React Router applies the basename a second time.
+      const renaissanceBase = "/renaissance";
+      const routerTarget =
+        href === renaissanceBase
+          ? "/"
+          : href.startsWith(`${renaissanceBase}/`)
+            ? href.slice(renaissanceBase.length)
+            : href;
+
+      startTransition(routerTarget);
     };
 
     document.addEventListener("click", handleGlobalClick, true);

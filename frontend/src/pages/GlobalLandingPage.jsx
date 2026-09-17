@@ -21,7 +21,7 @@ const IICPage = () => {
       setCurrentImg((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, []);
+  }, [images.length]);
 
 
   return (
@@ -96,7 +96,7 @@ const IICPage = () => {
           >
             <h2 className="text-4xl md:text-5xl font-playfair font-black mb-8 text-center text-[#0E0E0E]">About IIC</h2>
             <p className="text-[#0E0E0E]/80 leading-loose text-lg md:text-xl text-center md:text-left">
-              ​The Institution’s Innovation Council (IIC) at Motilal Nehru National Institute of Technology (MNNIT) Allahabad was established under the mandate of the Ministry of Education’s Innovation Cell (MIC). Its primary objective is to systematically foster the culture of Innovation and Entrepreneurship (I&E) amongst students and faculty and promote innovations in fields like IoT, AI/ML, healthcare, and agritech.
+              The Institution’s Innovation Council (IIC) at Motilal Nehru National Institute of Technology (MNNIT) Allahabad was established under the mandate of the Ministry of Education’s Innovation Cell (MIC). Its primary objective is to systematically foster the culture of Innovation and Entrepreneurship (I&E) amongst students and faculty and promote innovations in fields like IoT, AI/ML, healthcare, and agritech.
             </p>
           </motion.div>
         </div>
@@ -117,7 +117,7 @@ const IICPage = () => {
           <GlassCard title="Initiatives of IIC" content={`
 - IIC focuses on the pre-incubation phase. It organizes the academic calendar of innovation activities prescribed by the MoE, ensuring students are equipped with Design Thinking, Critical Problem Solving, and Entrepreneurial skills.
 
-​Flagship Initiatives:
+Flagship Initiatives:
 - Udbhav (Annual Entrepreneurship & Financial Literacy Summit) is MNNIT’s premier event designed to bridge the gap between technical education and business acumen
 - Startup Sangam (The Startup Conclave) is an exclusive platform aimed at fostering Industry-Academia collaboration. It brings together investors, industry leaders, and budding entrepreneurs to explore funding opportunities, strategic partnerships, and market access for incubated startups.
           `} />
@@ -147,7 +147,7 @@ const IICPage = () => {
             image={renaissance} 
             title="Renaissance"
             description="The annual entrepreneurship summit fostering business acumen."
-            link="https://ecell-mnnit.vercel.app/" 
+            link="/renaissance"
           />
 
         </div>

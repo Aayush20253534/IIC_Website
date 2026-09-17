@@ -3,29 +3,36 @@ import { motion, AnimatePresence } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
 
 const MASONRY_IMAGES = [
-  { id: 1, src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.1 },
-  { id: 2, src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.2 },
-  { id: 3, src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/3]", delay: 0.15 },
-  { id: 4, src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.25 },
-  { id: 5, src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.1 },
-  { id: 6, src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[16/9]", delay: 0.2 },
-  { id: 7, src: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.3 },
-  { id: 8, src: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.15 },
-  { id: 9, src: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.25 },
-  { id: 10, src: "https://images.unsplash.com/photo-1533174000243-7826359f1c7d?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.1 },
-  { id: 11, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[16/9]", delay: 0.3 },
-  { id: 12, src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.15 },
-  { id: 13, src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.2 },
-  { id: 14, src: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.1 },
-  { id: 15, src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.25 }
+  { id: 1, src: "/past_events/Copy of REN.png", aspect: "aspect-[282/179]", delay: 0.1 },
+  { id: 2, src: "/past_events/Copy of REN (1).png", aspect: "aspect-[305/172]", delay: 0.2 },
+  { id: 3, src: "/past_events/Copy of REN (2).png", aspect: "aspect-[268/183]", delay: 0.15 },
+  { id: 4, src: "/past_events/Copy of REN (3).png", aspect: "aspect-[164/429]", delay: 0.25 },
+  { id: 5, src: "/past_events/Copy of REN (4).png", aspect: "aspect-[499/155]", delay: 0.1 },
+  { id: 6, src: "/past_events/Copy of REN (5).png", aspect: "aspect-[347/222]", delay: 0.2 },
+  { id: 7, src: "/past_events/Copy of REN (6).png", aspect: "aspect-[14/9]", delay: 0.3 },
+  { id: 8, src: "/past_events/Copy of REN (7).png", aspect: "aspect-[254/153]", delay: 0.15 },
+  { id: 9, src: "/past_events/Copy of REN (8).png", aspect: "aspect-[288/175]", delay: 0.25 },
+  { id: 10, src: "/past_events/Copy of REN (9).png", aspect: "aspect-[7/12]", delay: 0.1 },
+  { id: 11, src: "/past_events/Copy of REN (10).png", aspect: "aspect-[67/52]", delay: 0.3 },
+  { id: 12, src: "/past_events/Copy of REN (11).png", aspect: "aspect-[306/163]", delay: 0.15 },
+  { id: 13, src: "/past_events/Copy of REN (12).png", aspect: "aspect-[307/218]", delay: 0.2 },
+  { id: 14, src: "/past_events/Copy of REN (13).png", aspect: "aspect-[217/166]", delay: 0.1 },
+  { id: 15, src: "/past_events/Copy of REN (14).png", aspect: "aspect-[105/32]", delay: 0.25 },
+  { id: 16, src: "/past_events/Copy of REN (15).png", aspect: "aspect-[206/119]", delay: 0.15 },
+  { id: 17, src: "/past_events/Copy of REN (16).png", aspect: "aspect-[57/65]", delay: 0.2 }
 ];
 
 const PAST_SPEAKERS = [
-  { id: 1, name: "ALEXANDER WRIGHT", designation: "CHIEF INNOVATION OFFICER", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" },
-  { id: 2, name: "SARAH CHEN", designation: "AI RESEARCH LEAD", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800" },
-  { id: 3, name: "MARCUS JOHNSON", designation: "STARTUP VISIONARY", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800" },
-  { id: 4, name: "ELENA RODRIGUEZ", designation: "GLOBAL STRATEGY DIRECTOR", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800" },
-  { id: 5, name: "DAVID KIM", designation: "TECH ENTREPRENEUR", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800" },
+  { id: 1, name: "Brajesh Maheshwari", designation: "Director of Allen career institute", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlAt6fhjuH78w28TfoD4ig2YgoyJTITMGxl6kzuesfJB2l7kfxAVJn6UQ&s=10" },
+  { id: 2, name: "VIJENDER SINGH CHAUHAN", designation: "Interviewer,Communicator, Personality Evaluator, Teacher, Academic, Keynote Speaker- 13xTEDx", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNcip1fParP-JITOLDWfiQORJ35NfkpNC2jloxbBKXZQ&s=10" },
+  { id: 3, name: "anugrah agnihotri", designation: "Former Senior Software Engineer At Citrix And Bcg Consultant,Building DOT", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBa8BnWTP-p_jaixRc9UAp5fzuPm6Iu9YVuUtXr2NoQ&s=10" },
+  { id: 4, name: "jagriti kesarwani", designation: "former program  manager at google, digital strategist", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPzwGZznHyyCoJht9PNiYXvT54EGa6nPVXHO6IQhF_uQ&s=10" },
+  { id: 5, name: "acyuta mohan das", designation: "CSR Strategist,Value Edu Consultant", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmTlnZtU_Ts0npX5INpnpcb2UX54E8MYGGyN1icZVWUA&s=10" },
+  { id: 5, name: "akshay singh", designation: "India's only Paranormal Illusionist,  Indian Mentalist, Ethical Hacker", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9YpzAIpz6rk5ZFOPnu3SuKUPMhVI8bh1EAyR3qHP8Bw&s=10" },
+  { id: 5, name: "neha agarwal", designation: "Founder of mathematically inclined", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS36KANgvdTvmh1Yn3l9QZXTDwX73HVJHrUrcF0CmTgfQ&s=10" },
+  { id: 5, name: "NEELAM JAIN", designation: "FOUNDER & CEO,PERIFERRY & FORBES 30U30 2021", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfRdEsJIOlWf5obecfCFFTAqvsTl6zr9oPaJsb5_Enig&s=10" },
+  { id: 5, name: "Sandeep Jain", designation: "Founder & CEO,GeeksforGeeksCSR", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRzNak8wdLRti5FPCSyfzeI4zrMZUzDMBi6hHUBhupQ&s=10" },
+  { id: 5, name: "SHRIYA LUHIA", designation: "FIRST FEMALE F1 RACER", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzBypDaPXl4J1o6s_ccLJ-5Sfu5zs0pUl9ca58FPKQ3w&s=10" },
 ];
 
 export default function Gallery() {
@@ -187,12 +194,12 @@ export default function Gallery() {
               }}
               layoutId={`gallery-img-${img.id}`}
               onClick={() => setSelectedImage(img)}
-              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer`}
+              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer inline-block w-full`}
             >
               <img
                 src={img.src}
                 alt={`Archive capture ${index + 1}`}
-                className="w-full h-full object-cover filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
+                className="absolute inset-0 w-full h-full object-cover filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
                 loading="lazy"
               />
               {/* Subtle ambient overlay to blend with theme */}

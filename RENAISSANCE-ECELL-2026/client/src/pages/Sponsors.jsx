@@ -9,11 +9,14 @@ import {
 } from "lucide-react";
 
 import ContactFooter from "../components/ContactFooter";
+import SocialSideRail from "../components/SocialSideRail";
 import { SPONSOR_TIERS } from "../data/sponsorsData";
 
 /* ================================================================
    SPONSORS PAGE — RENAISSANCE OCEANIC EXPEDITION
-   Theme: Consistent Warm Beach Sand & Vintage Maritime Parchment
+   Theme: Consistent Warm Caribbean Oceanic Sea
+   Hero: Previous bg image kept with smooth drift animation
+   Boat: Boat thing completely removed!
 ================================================================ */
 
 export default function Sponsors({ embedded = false }) {
@@ -37,9 +40,9 @@ export default function Sponsors({ embedded = false }) {
         w-full
         overflow-hidden
         bg-gradient-to-b
-        from-[#EBDDC8]
-        via-[#E5D7C2]
-        to-[#DFCEB7]
+        from-[#DFECEE]
+        via-[#D4E8EA]
+        to-[#C8E1E5]
         text-[#0C2B3D]
         selection:bg-[#C5A25F]
         selection:text-white
@@ -49,6 +52,9 @@ export default function Sponsors({ embedded = false }) {
           GLOBAL SANDY + PARCHMENT ATMOSPHERE (Consistent Theme)
       ============================================================ */}
       <SandyOceanAtmosphere />
+      <FloatingStickers />
+
+      {!embedded && <SocialSideRail />}
 
       {/* ============================================================
           HERO: Previous bg image + background drift animation KEPT
@@ -67,16 +73,14 @@ export default function Sponsors({ embedded = false }) {
             />
 
             {/* Subtle marine depth tint */}
-            <div className="absolute inset-0 bg-[#062538]/20 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-[#062538]/20 mix-blend-multiply" />            {/* Bright oceanic sea wash */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#D2E9ED]/30 via-transparent to-[#DFECEE]/95" />
 
-            {/* Bright oceanic sea wash */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#D2E9ED]/30 via-transparent to-[#EBDDC8]/95" />
+            {/* Soft oceanic morning wash */}
+            <div className="absolute left-0 top-0 h-full w-[72%] bg-gradient-to-r from-[#DFECEE]/92 via-[#DFECEE]/50 to-transparent" />
 
-            {/* Warm morning sunlight sand wash */}
-            <div className="absolute left-0 top-0 h-full w-[72%] bg-gradient-to-r from-[#EBDDC8]/92 via-[#EBDDC8]/50 to-transparent" />
-
-            {/* Bottom sandy shoreline blend into the page */}
-            <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#EBDDC8] via-[#EBDDC8]/85 to-transparent" />
+            {/* Bottom oceanic blend into the page */}
+            <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#DFECEE] via-[#DFECEE]/85 to-transparent" />
           </div>
 
           {/* Decorative horizon line */}
@@ -106,7 +110,7 @@ export default function Sponsors({ embedded = false }) {
             <div className="max-w-3xl">
               {/* Eyebrow */}
               <div className="mb-7 flex items-center gap-4">
-                <span className="h-px w-12 bg-[#A37A32]" />
+                <span className="h-px w-12 bg-[#125D73]" />
                 <span
                   className="
                     font-mono
@@ -114,14 +118,14 @@ export default function Sponsors({ embedded = false }) {
                     font-bold
                     uppercase
                     tracking-[0.35em]
-                    text-[#8E6422]
+                    text-[#125D73]
                     sm:text-[10px]
                   "
                 >
                   Our Voyage Partners
                 </span>
                 <Compass
-                  className="h-5 w-5 text-[#A37A32]"
+                  className="h-5 w-5 text-[#125D73]"
                   strokeWidth={1.3}
                 />
               </div>
@@ -130,36 +134,32 @@ export default function Sponsors({ embedded = false }) {
               <h1
                 className="
                   font-cinzel
-                  text-[40px]
+                  text-5xl
                   font-extrabold
-                  uppercase
-                  leading-[1.02]
-                  tracking-[0.015em]
+                  leading-[1.1]
+                  tracking-wider
                   text-[#0C2B3D]
-                  sm:text-5xl
-                  md:text-6xl
-                  lg:text-[72px]
+                  sm:text-6xl
+                  lg:text-7xl
+                  xl:text-[80px]
                 "
               >
-                The Allies
+                THE ALLIES
                 <br />
-                <span className="text-[#165D73]">Behind The</span>
+                <span className="text-[#104252]">BEHIND THE</span>
                 <br />
-                <span className="text-[#9E6D1F]">Expedition</span>
+                <span className="text-[#1A6278]">EXPEDITION</span>
               </h1>
 
-              {/* Subtitle */}
               <p
                 className="
-                  mt-7
-                  max-w-2xl
+                  mt-8
+                  max-w-xl
                   font-montserrat
                   text-sm
-                  leading-7
-                  text-[#2C5263]
+                  leading-relaxed
+                  text-[#1D4A5E]
                   sm:text-base
-                  md:text-lg
-                  font-medium
                 "
               >
                 Great journeys are never sailed alone. Meet the organizations,
@@ -167,17 +167,17 @@ export default function Sponsors({ embedded = false }) {
                 known.
               </p>
 
-              {/* Navigation-style line */}
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <div className="h-px w-20 bg-[#B58B3E]/70" />
+              {/* Aesthetic secondary line */}
+              <div className="mt-12 flex items-center gap-5 opacity-70">
+                <div className="h-px w-24 bg-gradient-to-r from-transparent to-[#125D73]" />
                 <span
                   className="
                     font-mono
-                    text-[8px]
-                    font-semibold
+                    text-[7px]
+                    font-bold
                     uppercase
-                    tracking-[0.28em]
-                    text-[#855D1E]
+                    tracking-[0.4em]
+                    text-[#1A6278]
                   "
                 >
                   Different Minds · Same Destination
@@ -230,7 +230,7 @@ export default function Sponsors({ embedded = false }) {
       )}
 
       {/* ============================================================
-          PARTNER NAVIGATION BAR (Warm Sand + Lagoon Glass Strip)
+          PARTNER NAVIGATION BAR (Oceanic Glass Strip)
       ============================================================ */}
       <section className="relative z-30 mx-auto -mt-7 max-w-[1280px] px-5 sm:px-8">
         <div
@@ -238,8 +238,8 @@ export default function Sponsors({ embedded = false }) {
             overflow-hidden
             rounded-2xl
             border
-            border-[#C2A169]/55
-            bg-[#EBDDC8]/95
+            border-[#68A5B3]/55
+            bg-[#DFECEE]/95
             shadow-[0_14px_40px_rgba(20,50,65,0.12)]
             backdrop-blur-md
           "
@@ -667,11 +667,6 @@ function SectionHeading({ icon, eyebrow, title, subtitle }) {
         {subtitle}
       </p>
 
-      <div className="mx-auto mt-7 flex items-center justify-center gap-3">
-        <span className="h-px w-14 bg-[#C2A169]/50" />
-        <span className="h-1.5 w-1.5 rotate-45 border border-[#8E6422]" />
-        <span className="h-px w-14 bg-[#C2A169]/50" />
-      </div>
     </div>
   );
 }
@@ -694,17 +689,9 @@ function SponsorSection({
       className="
         relative
         z-10
-        border-t
-        border-[#C2A169]/35
-        bg-[#EADDC9]/50
       "
       style={{ contentVisibility: "auto", containIntrinsicSize: "400px" }}
     >
-      {/* Section horizon line */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C2A169]/50 to-transparent"
-      />
-
       <div className="mx-auto max-w-[1280px] px-5 py-24 sm:px-8 lg:py-28">
         <SectionHeading
           icon={<Compass className="h-5 w-5" />}
@@ -801,86 +788,23 @@ function SponsorCard({ sponsor, size = "medium" }) {
         className="
           absolute
           inset-0
-          left-[25%]
-          right-[7%]
-          top-[8%]
-          bottom-[12%]
+          left-[15%]
+          right-[10%]
+          top-[12%]
+          bottom-[16%]
           flex
-          flex-col
           items-center
-          justify-between
-          text-center
-          p-2.5
-          sm:p-3
+          justify-center
           z-10
         "
       >
-        {/* Tier badge (Captain's Ally / Golden Fleet / Voyage Ally) */}
-        <div className="flex items-center justify-center gap-1.5">
-          <span className="h-px w-3 bg-[#8E6422]/60" />
-          <span className="font-mono text-[7px] sm:text-[8px] font-bold uppercase tracking-[0.22em] text-[#7A4E15]">
-            {isLarge
-              ? "Captain's Ally"
-              : isSmall
-              ? "Voyage Ally"
-              : "Golden Fleet"}
-          </span>
-          <span className="h-px w-3 bg-[#8E6422]/60" />
-        </div>
-
-        {/* Sponsor Emblem / Logo with frosted parchment backing */}
-        <div
-          className="
-            relative
-            flex
-            h-[52px]
-            sm:h-[64px]
-            w-full
-            max-w-[190px]
-            items-center
-            justify-center
-            rounded-xl
-            bg-[#FAF2E3]/85
-            border
-            border-[#C5A25F]/50
-            px-3
-            py-1.5
-            shadow-[inset_0_1px_3px_rgba(0,0,0,0.06),0_3px_8px_rgba(20,45,60,0.08)]
-            backdrop-blur-[1px]
-            transition-transform
-            duration-300
-            group-hover:scale-105
-          "
-        >
+        <div className="relative flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-[1.03]">
           <img
             src={sponsor.image}
             alt={sponsor.name}
             loading="lazy"
-            className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_4px_rgba(15,35,45,0.12)]"
+            className="max-h-full max-w-full object-contain filter drop-shadow-[0_4px_12px_rgba(20,40,55,0.3)]"
           />
-        </div>
-
-        {/* Text Details Area */}
-        <div className="flex flex-col items-center justify-center text-center w-full px-1">
-          <h3 className="font-cinzel text-xs sm:text-sm md:text-base font-bold text-[#0C2B3D] leading-tight tracking-wide group-hover:text-[#8E6422] transition-colors line-clamp-1">
-            {sponsor.name}
-          </h3>
-
-          <span className="mt-0.5 inline-block font-mono text-[7.5px] sm:text-[8.5px] font-bold uppercase tracking-wider text-[#14556C] line-clamp-1">
-            {sponsor.category}
-          </span>
-
-          {sponsor.description && (
-            <p className="mt-1 font-montserrat text-[8.5px] sm:text-[9.5px] md:text-[10px] leading-tight sm:leading-snug text-[#2C4855] font-medium line-clamp-2 max-w-[240px]">
-              {sponsor.description}
-            </p>
-          )}
-        </div>
-
-        {/* Bottom Parchment Seal */}
-        <div className="flex items-center justify-center gap-1.5 border-t border-[#A87E35]/35 pt-1 w-full text-[7.5px] sm:text-[8.5px] font-mono font-bold text-[#8E6422]">
-          <Anchor className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-[#8E6422]" />
-          <span>Official Fleet Partner</span>
         </div>
       </div>
     </article>
@@ -910,6 +834,23 @@ function SandyOceanAtmosphere() {
           backgroundSize: "44px 44px, 58px 58px",
         }}
       />
+    </div>
+  );
+}
+
+/* =================================================================
+   DECORATIVE STICKERS
+================================================================= */
+function FloatingStickers() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
+      <img src="/sticker-compass.png" alt="compass" className="absolute top-[8%] left-[-2%] w-48 opacity-60 drop-shadow-xl" />
+      <img src="/sticker-anchor.png" alt="anchor" className="absolute top-[25%] right-[2%] w-56 opacity-60 drop-shadow-xl -rotate-12" />
+      <img src="/sticker-ship.png" alt="ship" className="absolute top-[45%] left-[-4%] w-72 opacity-60 drop-shadow-2xl" />
+      <img src="/sticker-wheel.png" alt="wheel" className="absolute top-[65%] right-[3%] w-44 opacity-60 drop-shadow-xl rotate-12" />
+      <img src="/sticker-watch.png" alt="watch" className="absolute top-[18%] right-[20%] w-32 opacity-40 drop-shadow-xl rotate-12" />
+      <img src="/sticker-bottle.png" alt="bottle" className="absolute top-[85%] left-[8%] w-64 opacity-60 drop-shadow-xl -rotate-6" />
+      <img src="/sticker-skull.png" alt="skull" className="absolute top-[35%] left-[45%] w-40 opacity-20 drop-shadow-lg" />
     </div>
   );
 }

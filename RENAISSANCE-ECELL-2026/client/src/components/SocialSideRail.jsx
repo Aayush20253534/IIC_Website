@@ -6,8 +6,6 @@ export default function SocialSideRail() {
     { icon: <FaFacebookF size={12} />, href: "https://facebook.com", label: "Facebook" },
     { icon: <FaLinkedinIn size={12} />, href: "https://linkedin.com", label: "LinkedIn" },
     { icon: <FaInstagram size={12} />, href: "https://instagram.com", label: "Instagram" },
-    { icon: <FaTwitter size={12} />, href: "https://x.com", label: "Twitter / X" },
-    { icon: <FaYoutube size={12} />, href: "https://youtube.com", label: "YouTube" },
   ];
 
   return (

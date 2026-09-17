@@ -147,7 +147,7 @@ export default function Events({ embedded = false }) {
   const standaloneEvents = [
     {
       id: "summit-keynote",
-      title: "B-plan",
+      title: "B-Plan",
       category: "Strategy & Planning",
       categories: [
         "Strategy & Planning",
@@ -156,40 +156,18 @@ export default function Events({ embedded = false }) {
       ],
       time: "09:30 AM",
       location: "Main Auditorium",
-      description: "Shape a venture idea into a credible business plan, then pitch it with clarity and conviction to an expert panel.",
-      eyebrow: "Opening Summit",
+      description: "Got a million-dollar idea? Prove it.",
+      eyebrow: "Flagship Business Plan",
       cardImage: "/b-plan-card.jpeg",
       compactModal: true,
-      registrationUrl: "https://unstop.com/competitions/b-plan-renaissance-100-motilal-nehru-national-institute-of-technology-1755448?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+      registrationUrl: "http://unstop.com/o/UL8OJ4R?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
       detailDescription: [
-        "Overview",
-        "Have a venture idea worth backing? Bring it to the table.",
-        "B-Plan invites you to turn a promising concept into a persuasive business case. Define the opportunity, shape a workable model, and show an expert panel why your idea can succeed beyond the drawing board.",
-        "As Renaissance 10.0’s Fish Tank business-plan challenge, it is a place for emerging founders to pitch with clarity, answer tough questions, and take the first meaningful step toward building their venture.",
+        "Got a million-dollar idea? Prove it.",
+        "B-Plan is the flagship business-plan showdown of Renaissance - India’s premier student entrepreneurship summit. This isn’t just about dreaming big; it’s about building smart. Present a rock-solid plan, defend it before expert judges, and turn your concept into a venture that investors notice.",
+        "All you need to know about B-Plan (Fish Tank-Business Plan) : Business plan pitching competetion at Renaissance 10.0",
+        "Reward & Prizes: Total prize pool worth ₹25,000 to winners.",
       ],
       visualPosition: "18% 58%",
-    },
-    {
-      id: "hackathon-sprint",
-      title: "Biz-War",
-      category: "Strategy & Planning",
-      categories: ["Strategy & Planning", "Quizzes & Treasure Hunt"],
-      label: "Strategy & Planning",
-      time: "11:30 AM",
-      location: "Innovation Hub",
-      description: "Navigate market challenges, build decisive business strategies, and defend every move in a high-pressure competition.",
-      eyebrow: "Innovation Lab",
-      cardImage: "/biz-war-card.jpeg",
-      cardImageFit: "cover",
-      cardImagePosition: "right center",
-      compactModal: true,
-      registrationUrl: "https://unstop.com/competitions/biz-wars-renaissance-100-motilal-nehru-national-institute-of-technology-1756444?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
-      detailDescription: [
-        "Think Fast. Strategize Better. Win the Market:",
-        "Business Wars is a high-pressure business strategy competition where teams step into the shoes of competing businesses and battle through real-world market scenarios. Analyse the situation, identify opportunities, build strategies, respond to challenges, and defend your decisions against the competition.",
-        "This is not just about knowing business. It is about thinking strategically, adapting quickly, and making decisions that create an edge.",
-      ],
-      visualPosition: "52% 48%",
     },
     {
       id: "product-masterclass",
@@ -199,19 +177,43 @@ export default function Events({ embedded = false }) {
       label: "Strategy & Planning",
       time: "02:00 PM",
       location: "Learning Deck",
-      description: "Read the market, design a standout launch plan, and turn sharp insight into a compelling go-to-market strategy.",
-      eyebrow: "Builder's Deck",
+      description: "From Product to Phenomenon: Architecting Iconic Launches",
+      eyebrow: "Ultimate Strategy Challenge",
       cardImage: "/strategy-wiz-card.jpeg",
       cardImageFit: "cover",
       compactModal: true,
-      registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423",
+      registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
       detailDescription: [
-        "Overview",
-        "Build the launch strategy that turns a strong product into a market moment.",
-        "Strategy-Wiz challenges teams to think beyond the product itself: read the market, identify the audience, and create a launch plan with a clear point of difference. Your task is to connect sharp insight with a campaign that can earn attention and drive adoption.",
-        "Bring a bold go-to-market vision, defend the choices behind it, and refine your approach under expert scrutiny. It is a strategic arena for future business leaders who can translate ideas into lasting brand impact.",
+        "“From Product to Phenomenon: Architecting Iconic Launches”",
+        "A great product can fail; a legendary launch builds an empire. The product is ready, the market is waiting. Do you have the masterplan to make it iconic?",
+        "Strategy-Wiz, the ultimate strategy challenge, is designed for future business leaders and innovators. Teams will craft the blueprint for market domination: analyse markets, design innovative launch plans, and compete to showcase the most impactful marketing strategy. Strategies will be scrutinised, creativity challenged, and ideas forged into a powerful GTM plan through direct feedback from industry experts.",
+        "Rewards & Prizes: Total prize pool worth ₹15,000 to winners.",
       ],
       visualPosition: "78% 50%",
+    },
+    {
+      id: "hackathon-sprint",
+      title: "Business Wars",
+      category: "Strategy & Planning",
+      categories: ["Strategy & Planning", "Quizzes & Treasure Hunt"],
+      label: "Strategy & Planning",
+      time: "11:30 AM",
+      location: "Innovation Hub",
+      description: "Think Fast. Strategize Better. Win the Market",
+      eyebrow: "Market Strategy Competition",
+      cardImage: "/biz-war-card.jpeg",
+      cardImageFit: "cover",
+      cardImagePosition: "right center",
+      compactModal: true,
+      registrationUrl: "https://unstop.com/competitions/biz-wars-renaissance-100-motilal-nehru-national-institute-of-technology-1756444?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+      detailDescription: [
+        "Think Fast. Strategize Better. Win the Market:",
+        "In business, having a good idea is only the beginning. The real challenge is making the right decisions when the stakes are high and your competitors are waiting for you to slip.",
+        "Business Wars is a high-pressure business strategy competition where teams step into the shoes of competing businesses and battle through real-world market scenarios. Analyse the situation, identify opportunities, build strategies, respond to challenges, and defend your decisions against the competition.",
+        "This is not just about knowing business. It is about thinking strategically, adapting quickly, and making decisions that create an edge.",
+        "Rewards & Prizes: Total prize pool worth ₹15,000 to winners.",
+      ],
+      visualPosition: "52% 48%",
     },
   ];
 
@@ -742,9 +744,12 @@ export default function Events({ embedded = false }) {
                           {selectedEventModal.registrationUrl ? (
                             <a
                               href={selectedEventModal.registrationUrl}
-                              className="rounded-xl border border-[#0c5870] bg-[#0c5870] px-4 py-3 text-center font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="rounded-xl border border-[#1C4ED8] bg-[#1C4ED8] px-4 py-3 text-center font-montserrat text-[11px] font-extrabold uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(28,78,216,.3)] transition hover:bg-[#1E40AF] flex items-center justify-center gap-2"
                             >
-                              Enter Event
+                              <span>Register on Unstop</span>
+                              <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
                           ) : (
                             <button

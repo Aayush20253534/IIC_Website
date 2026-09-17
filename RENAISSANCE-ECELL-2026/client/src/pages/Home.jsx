@@ -7,6 +7,7 @@ import {
   Clock,
   Compass,
   Sparkles,
+  ExternalLink,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -21,27 +22,30 @@ gsap.registerPlugin(ScrollTrigger, Draggable);
 const EVENTS = [
   {
     id: "01",
-    name: "Deep Sea Coding",
-    category: "Flagship 36-Hour Sprint",
-    time: "10:00 AM • Day 1",
-    desc: "Build autonomous subsea systems, AI agents, and deep-tech prototypes in a 36-hour continuous build sprint.",
-    prize: "₹2,50,000 Pool",
+    name: "B-Plan",
+    category: "Flagship Business Plan",
+    tagline: "Got a million-dollar idea? Prove it.",
+    desc: "B-Plan is the flagship business-plan showdown of Renaissance - India’s premier student entrepreneurship summit. This isn’t just about dreaming big; it’s about building smart. Present a rock-solid plan, defend it before expert judges, and turn your concept into a venture that investors notice.\n\nAll you need to know about B-Plan (Fish Tank-Business Plan) : Business plan pitching competetion at Renaissance 10.0",
+    prize: "₹25,000",
+    registrationUrl: "http://unstop.com/o/UL8OJ4R?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
   {
     id: "02",
-    name: "Pitchers 10.0",
-    category: "Venture Capital Arena",
-    time: "02:00 PM • Day 1",
-    desc: "Present your high-impact startup to top syndicate investors, angel funds, and tier-1 venture cartographers.",
-    prize: "₹5,00,000 Pool",
+    name: "Strategy-Wiz",
+    category: "Ultimate Strategy Challenge",
+    tagline: "From Product to Phenomenon: Architecting Iconic Launches",
+    desc: "A great product can fail; a legendary launch builds an empire. The product is ready, the market is waiting. Do you have the masterplan to make it iconic?\n\nStrategy-Wiz, the ultimate strategy challenge, is designed for future business leaders and innovators. Teams will craft the blueprint for market domination: analyse markets, design innovative launch plans, and compete to showcase the most impactful marketing strategy.",
+    prize: "₹15,000",
+    registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
   {
     id: "03",
-    name: "Case Odyssey",
-    category: "Corporate Strategy Battle",
-    time: "10:00 AM • Day 2",
-    desc: "Solve high-stakes strategic challenges and market disruption problems presented by global corporate leaders.",
-    prize: "₹1,50,000 Pool",
+    name: "Business Wars",
+    category: "Market Strategy Competition",
+    tagline: "Think Fast. Strategize Better. Win the Market",
+    desc: "In business, having a good idea is only the beginning. The real challenge is making the right decisions when the stakes are high and your competitors are waiting for you to slip.\n\nBusiness Wars is a high-pressure business strategy competition where teams step into the shoes of competing businesses and battle through real-world market scenarios.",
+    prize: "₹15,000",
+    registrationUrl: "https://unstop.com/competitions/biz-wars-renaissance-100-motilal-nehru-national-institute-of-technology-1756444?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
 ];
 
@@ -774,26 +778,34 @@ export default function Home() {
                     </div>
                     
                     <div>
-                      <h3 className="text-3xl sm:text-4xl font-extrabold font-sans tracking-tight mb-2">
+                      <h3 className="text-3xl sm:text-4xl font-extrabold font-sans tracking-tight mb-1">
                         {event.name}
                       </h3>
+                      {event.tagline && (
+                        <p className="text-xs sm:text-sm font-semibold italic opacity-85 mb-2 text-[#0C2B3D]">
+                          "{event.tagline}"
+                        </p>
+                      )}
                       <div className="text-sm sm:text-base font-mono font-bold opacity-80 text-[#d4af37]">
                         Prize Pool: {event.prize}
                       </div>
                     </div>
                     
-                    <p className="text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D]">
+                    <p className="text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-y-auto max-h-[140px] pr-1">
                       {event.desc}
                     </p>
                     
                     <div className="pt-4 mt-auto border-t border-[#0C2B3D]/10 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
-                      <Link
-                        to="/register"
-                        className="w-full sm:w-auto px-8 py-3 rounded-full bg-[#0C2B3D] text-[#f3e5ab] font-bold text-xs tracking-wider uppercase hover:shadow-[0_0_20px_rgba(12,43,61,0.4)] transition-all flex items-center justify-center gap-2"
+                      <a
+                        href={event.registrationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#1C4ED8] hover:bg-[#1E40AF] text-white font-bold text-xs tracking-wider uppercase shadow-[0_4px_16px_rgba(28,78,216,0.35)] hover:shadow-[0_6px_22px_rgba(28,78,216,0.55)] hover:scale-[1.03] transition-all flex items-center justify-center gap-2 group cursor-pointer"
                       >
-                        <UserCheck className="w-4 h-4 text-[#f3e5ab]" />
-                        Register Now
-                      </Link>
+                        <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
+                        <span>Register on Unstop</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-[#38BDF8] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </a>
                       <Link to="/events" className="text-xs font-bold uppercase tracking-widest cursor-pointer hover:opacity-70 transition-opacity">
                         View Schedule →
                       </Link>

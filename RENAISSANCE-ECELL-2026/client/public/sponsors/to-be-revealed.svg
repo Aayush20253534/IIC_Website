@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <!-- Outer border -->
+  <circle cx="250" cy="250" r="230" fill="none" stroke="#061824" stroke-width="6" stroke-dasharray="12,12"/>
+  <circle cx="250" cy="250" r="215" fill="none" stroke="#061824" stroke-width="2"/>
+  
+  <!-- Central Question Mark -->
+  <text x="250" y="270" font-family="'Cinzel', serif" font-size="160" font-weight="900" fill="#061824" text-anchor="middle">?</text>
+  
+  <!-- "To Be Revealed" Text -->
+  <text x="250" y="370" font-family="'Cinzel', serif" font-size="42" font-weight="800" fill="#061824" text-anchor="middle" letter-spacing="4">TO BE REVEALED</text>
+  
+  <!-- Subtitle -->
+  <text x="250" y="420" font-family="'Montserrat', sans-serif" font-size="18" font-weight="600" fill="#0E384D" text-anchor="middle" letter-spacing="6">STAY TUNED FOR UPDATES</text>
+
+  <!-- Decorative elements -->
+  <path d="M 120 250 L 170 250 M 330 250 L 380 250" stroke="#061824" stroke-width="4"/>
+  <circle cx="120" cy="250" r="6" fill="#061824"/>
+  <circle cx="380" cy="250" r="6" fill="#061824"/>
+</svg>

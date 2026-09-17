@@ -1721,18 +1721,31 @@ a, button, .cursor-pointer {
   animation: textShine 8s linear infinite;
 }
 
-.animate-whitegold-shine {
+@keyframes smoothWhiteGoldShine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 300% center;
+  }
+}
+
+.animate-whitegold-shine, .animate-pure-gold {
   background: linear-gradient(
     90deg, 
     #FFFFFF 0%, 
-    #F3E5AB 25%, 
-    #D4AF37 50%, 
-    #F3E5AB 75%, 
+    #F3E5AB 20%, 
+    #D4AF37 40%, 
+    #FFFFFF 60%, 
+    #F3E5AB 80%, 
     #FFFFFF 100%
   );
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: textShine 6s linear infinite;
+  background-size: 300% auto;
+  color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: smoothWhiteGoldShine 8s linear infinite;
+  display: inline-block;
+  will-change: background-position;
 }

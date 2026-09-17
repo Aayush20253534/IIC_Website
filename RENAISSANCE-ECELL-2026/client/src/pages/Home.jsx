@@ -199,7 +199,7 @@ function PremiumSponsorsGrid({ title, subtitle, sponsors }) {
           {subtitle}
         </span>
         
-        <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight animate-pure-gold">
+        <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight animate-whitegold-shine">
           {title}
         </h2>
       </div>

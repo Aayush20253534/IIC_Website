@@ -263,10 +263,7 @@ export default function Events({ embedded = false }) {
         onPointerMove={handleHeroPointerMove}
         onPointerLeave={resetHeroPointer}
       >
-        {/*
-          The supplied artwork already contains the event hero copy. Keep it clean and
-          let it do the visual work instead of layering a second giant heading on top.
-        */}
+        {/* The hero copy sits in the clear left side of the supplied artwork. */}
         <motion.div
           ref={heroRef}
           className="pointer-events-none absolute inset-x-0 top-0 h-[330px] overflow-hidden sm:h-[360px] lg:h-[390px]"
@@ -359,6 +356,24 @@ export default function Events({ embedded = false }) {
 
           <div className="absolute inset-0 bg-gradient-to-b from-[#071421]/10 via-transparent to-[#efe3cb]" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#efe3cb]" />
+
+          <motion.div
+            className="absolute left-10 top-[96px] max-w-[70vw] sm:left-20 sm:top-[110px] lg:left-[8.5vw] lg:top-[120px]"
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -24, y: 8 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+          >
+            <h1 className="font-cinzel text-5xl font-black leading-none tracking-[-0.015em] drop-shadow-[0_3px_12px_rgba(255,255,255,.75)] sm:text-7xl lg:text-[104px]">
+              <span className="relative inline-block pb-3 bg-gradient-to-b from-[#155d78] via-[#0b4259] to-[#062d40] bg-clip-text text-transparent after:absolute after:bottom-0 after:left-[6%] after:h-px after:w-[88%] after:bg-gradient-to-r after:from-transparent after:via-[#c99535] after:to-transparent">
+                Events
+              </span>
+            </h1>
+            <p className="mt-2 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#164f66] drop-shadow-[0_2px_8px_rgba(255,255,255,.9)] sm:text-xs lg:mt-3 lg:text-sm">
+              <span className="relative inline-block pb-2 after:absolute after:bottom-0 after:left-[8%] after:h-px after:w-[84%] after:bg-gradient-to-r after:from-transparent after:via-[#c99535] after:to-transparent">
+                Renaissance 10.0 — MNNIT Allahabad
+              </span>
+            </p>
+          </motion.div>
 
           <motion.div
             className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/45 bg-[#073b4d]/35 px-3.5 py-2 font-montserrat text-[9px] font-bold uppercase tracking-[0.18em] text-white/90 backdrop-blur-md sm:flex"

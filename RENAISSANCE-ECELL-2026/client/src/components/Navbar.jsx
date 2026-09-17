@@ -46,7 +46,7 @@ export default function Navbar() {
           <Link
             to="/"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-3.5 py-1.5 rounded-2xl bg-[#030d1c]/90 border border-[#C5A25F]/40 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.7)] hover:border-[#C5A25F] transition-all"
+            className="flex items-center"
           >
             <img
               src="/renaissance-logo-clean.png"
@@ -194,4 +194,3 @@ export default function Navbar() {
     </>
   );
 }
-

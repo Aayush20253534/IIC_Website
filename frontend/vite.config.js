@@ -36,6 +36,17 @@ export default defineConfig({
   // root IIC Vite process remains the only frontend server/build.
   publicDir: path.join(renaissanceClientRoot, 'public'),
   resolve: {
+    // Renaissance CSS lives outside /frontend. In production (Vercel), only
+    // /frontend/node_modules is installed, so resolve its Tailwind import from
+    // the root frontend explicitly instead of searching beside Renaissance.
+    alias: {
+      tailwindcss: path.join(
+        frontendRoot,
+        'node_modules',
+        'tailwindcss',
+        'index.css',
+      ),
+    },
     // External Renaissance source must use the root frontend's dependency
     // instances, especially React, to prevent duplicate-runtime hook errors.
     dedupe: sharedDependencies,

@@ -12,8 +12,11 @@ const titleLetters = "RENAISSANCE".split("");
 export default function RenaissanceIntro({ onComplete, onSkip }) {
   const onCompleteRef = useRef(onComplete);
   const onSkipRef = useRef(onSkip);
-  onCompleteRef.current = onComplete;
-  onSkipRef.current = onSkip;
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+    onSkipRef.current = onSkip;
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => onCompleteRef.current?.(), INTRO_TIMING.total * 1000);

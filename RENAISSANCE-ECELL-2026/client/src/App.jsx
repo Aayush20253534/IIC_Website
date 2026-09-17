@@ -54,8 +54,16 @@ export default function App() {
     typeof window !== "undefined" &&
     window.location.pathname.startsWith("/renaissance");
 
+  const viteBasename =
+    import.meta.env.BASE_URL === "/"
+      ? ""
+      : import.meta.env.BASE_URL.replace(/\/$/, "");
+
+  const routerBasename =
+    viteBasename || (hasRenaissanceBase ? "/renaissance" : "");
+
   return (
-    <BrowserRouter basename={hasRenaissanceBase ? "/renaissance" : ""}>
+    <BrowserRouter basename={routerBasename}>
       <SmoothScroll>
         {/* Reset smooth scroll position whenever route changes */}
         <ScrollToTop />

@@ -481,20 +481,32 @@ export default function Events({ embedded = false }) {
                     layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                   }}
                   whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.008 }}
-                  className="group relative isolate h-full overflow-hidden rounded-[6px] border border-[#dfd0b7] bg-[#fffdf9] shadow-[0_10px_28px_rgba(38,64,65,.11)] transition-[border-color,box-shadow] duration-300 hover:border-[#cdb47c] hover:shadow-[0_18px_40px_rgba(38,64,65,.16)]"
+                  className="group relative isolate h-full overflow-hidden rounded-[6px] border border-[#d3ba7d] bg-[#fffdf9] shadow-[0_10px_28px_rgba(38,64,65,.11),inset_0_0_0_1px_rgba(255,255,255,.55)] transition-[border-color,box-shadow] duration-300 hover:border-[#d6a640] hover:shadow-[0_18px_40px_rgba(38,64,65,.18),0_0_0_2px_rgba(214,166,64,.2),0_0_28px_rgba(20,111,137,.22)]"
                   style={{ contentVisibility: "auto", containIntrinsicSize: "350px" }}
                 >
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:radial-gradient(rgba(80,58,22,.22)_0.55px,transparent_0.7px)] [background-size:5px_5px]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-7 top-0 z-20 h-px origin-left scale-x-0 bg-gradient-to-r from-transparent via-[#d3a541] to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-10 top-[45%] z-20 h-24 w-24 rounded-full border border-[#d3a541]/0 transition-all duration-500 group-hover:-right-6 group-hover:border-[#d3a541]/35"
+                  />
                   <motion.button
                     type="button"
                     onClick={() => openStandaloneEvent(event)}
                     whileTap={prefersReducedMotion ? undefined : { scale: 0.985 }}
                     transition={{ duration: 0.12, ease: "easeOut" }}
-                    className="relative flex h-full w-full flex-col text-left"
+                    className="relative z-10 flex h-full w-full flex-col text-left"
                     aria-label={`View details for ${event.title}`}
                   >
                     <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px]">
                       <motion.div
-                        className={`absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 ${event.cardImage ? "" : "group-hover:scale-[1.055]"}`}
+                        className={`absolute -inset-3 bg-cover will-change-transform transition-[transform,filter] duration-700 group-hover:brightness-[1.035] ${event.cardImage ? "" : "group-hover:scale-[1.055]"}`}
                         style={{
                           backgroundImage: event.cardImage
                             ? `url('${event.cardImage}')`
@@ -527,6 +539,8 @@ export default function Events({ embedded = false }) {
                       {!event.cardImage && (
                         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,27,39,.12)_0%,rgba(2,27,39,.08)_48%,rgba(2,27,39,.68)_100%)]" />
                       )}
+
+                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(112deg,transparent_28%,rgba(255,255,255,.28)_48%,transparent_67%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                       {!prefersReducedMotion && (
                         <motion.div
@@ -573,7 +587,7 @@ export default function Events({ embedded = false }) {
                         <span className="font-montserrat text-[9px] font-bold uppercase tracking-[0.16em] text-[#a18f70]">
                           Explore the voyage
                         </span>
-                        <span className="inline-flex items-center gap-2 rounded-[7px] border border-[#0e6a84] bg-[#0a5269] px-3.5 py-2 font-montserrat text-[10px] font-extrabold text-white shadow-[0_5px_14px_rgba(10,82,105,.18)] transition-all duration-300 group-hover:bg-[#0b617c] group-hover:shadow-[0_7px_18px_rgba(10,82,105,.24)]">
+                        <span className="inline-flex items-center gap-2 rounded-[7px] border border-[#0e6a84] bg-[#0a5269] px-3.5 py-2 font-montserrat text-[10px] font-extrabold text-white shadow-[0_5px_14px_rgba(10,82,105,.18)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-[#0b617c] group-hover:shadow-[0_7px_18px_rgba(10,82,105,.24)]">
                           View details
                           <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                             <path d="M5 12h14" strokeLinecap="round" />
@@ -647,6 +661,12 @@ export default function Events({ embedded = false }) {
                   exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: 8 }}
                   transition={{ duration: prefersReducedMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                   className="relative w-full max-w-[720px] overflow-hidden rounded-[18px] border border-[#d4ad58] bg-[#f4ead4] text-[#173f51] shadow-[0_28px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.2)_inset]"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(rgba(244,234,212,.87), rgba(244,234,212,.87)), url('/event-modal-parchment-square.jpg')",
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                  }}
                   onClick={(event) => event.stopPropagation()}
                   role="dialog"
                   aria-modal="true"

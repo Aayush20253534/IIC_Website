@@ -44,21 +44,23 @@ const EVENTS = [
 ];
 
 const CURRENT_SPONSORS = [
-  { name: "Google Cloud", tier: "Title Partner" },
-  { name: "Mariana Labs", tier: "Powered By" },
-  { name: "Horizon Capital", tier: "Venture Partner" },
-  { name: "Vanguard Tech", tier: "Tech Partner" },
-  { name: "Abyss Systems", tier: "Infrastructure" },
-  { name: "Nautical AI", tier: "Innovation Partner" },
+  { name: "Bank of Baroda", image: "/sponsors/Bank-of-Baroda-logo.jpg" },
+  { name: "Royal Enfield", image: "/sponsors/Royal_Enfield_Logo_full.png" },
+  { name: "Campa Cola", image: "/sponsors/campacola.jpeg" },
+  { name: "D2D", image: "/sponsors/D2D LOGO (1).png" },
+  { name: "Summit Armada", image: "/sponsors/LOGO.png" },
+  { name: "Voyage Guild", image: "/sponsors/unnamed.png" },
 ];
 
 const PAST_SPONSORS = [
-  { name: "Microsoft", tier: "Past Partner" },
-  { name: "AWS", tier: "Past Sponsor" },
-  { name: "Polygon", tier: "Past Sponsor" },
-  { name: "Sequoia", tier: "Past Partner" },
-  { name: "Intel", tier: "Past Sponsor" },
-  { name: "Cisco", tier: "Past Partner" },
+  { name: "Sponsor 1", image: "/sponsors/832d34dc-25b4-4e44-a8a3-3fcd1edea9a6.png" },
+  { name: "Sponsor 2", image: "/sponsors/280276600_833963994673566_1134578587338969714_n.jpg" },
+  { name: "Sponsor 3", image: "/sponsors/download.jpeg" },
+  { name: "Sponsor 4", image: "/sponsors/images (2).jpeg" },
+  { name: "Sponsor 5", image: "/sponsors/images (3).png" },
+  { name: "Sponsor 6", image: "/sponsors/images (4).png" },
+  { name: "Sponsor 7", image: "/sponsors/images (5).png" },
+  { name: "Sponsor 8", image: "/sponsors/images (6).png" },
 ];
 
 const SPEAKERS = [
@@ -470,7 +472,7 @@ export default function Home() {
       {/* ============================================================ */}
       {/* 3. CURRENT SPONSORS SECTION (NAUTICAL GOLD & WOOD MARQUEE)   */}
       {/* ============================================================ */}
-      <section className="relative py-12 sm:py-16 w-full bg-[#040f21]/92 shadow-[inset_0_0_60px_rgba(197,162,95,0.18)] backdrop-blur-md select-none z-20 mt-36 mb-64 sm:mt-52 sm:mb-96">
+      <section className="relative py-6 sm:py-8 w-full bg-[#040f21]/92 shadow-[inset_0_0_60px_rgba(197,162,95,0.18)] backdrop-blur-md select-none z-20 my-6 sm:my-8">
         {/* TOP LOGO-THEMED MAHOGANY WOOD & GOLD BEVEL BORDER BAR */}
         <div className="absolute top-0 left-0 right-0 h-3.5 sm:h-4 bg-[linear-gradient(90deg,#1c1007_0%,#3a2210_20%,#4e2e15_50%,#3a2210_80%,#1c1007_100%)] border-t-2 border-b border-[#C5A25F] shadow-[0_4px_15px_rgba(0,0,0,0.8)] z-20 flex items-center justify-between px-4 sm:px-12 pointer-events-none overflow-hidden">
           {/* Simulated Wood-Grain Divider Lines & Brass Rivets */}
@@ -544,7 +546,7 @@ export default function Home() {
         {/* Ambient Glowing Rich Gold Backing Aura */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[240px] bg-[radial-gradient(ellipse_at_center,rgba(197,162,95,0.4)_0%,rgba(217,119,6,0.25)_40%,transparent_80%)] rounded-full blur-[110px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 mb-6 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 mb-4 text-center relative z-10">
           <span className="text-[10px] font-mono text-[#C5A25F] uppercase tracking-[0.25em] font-semibold block mb-1">
             Industry & Innovation Partners
           </span>
@@ -553,21 +555,23 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Clean Marquee with Logo-Themed Square Containers */}
+        {/* Clean Marquee with Logo-Only Cards */}
         <div className="w-full overflow-hidden relative z-10">
-          <div className="animate-marquee flex items-center gap-12 sm:gap-20 whitespace-nowrap min-w-max py-4 px-4">
+          <div className="animate-marquee flex items-center gap-8 sm:gap-14 whitespace-nowrap min-w-max py-2 px-4">
             {[...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS, ...CURRENT_SPONSORS].map((sponsor, idx) => (
               <div
                 key={`curr-${idx}`}
-                className="inline-flex items-center gap-3.5 sm:gap-5 text-[#F4EBD9] hover:text-[#C5A25F] transition-colors cursor-pointer group"
+                className="w-28 h-14 sm:w-40 sm:h-18 rounded-2xl border-2 border-[#C5A25F]/50 bg-gradient-to-br from-[#0c2b3d] via-[#040f21] to-[#12364c] backdrop-blur-md flex items-center justify-center p-2.5 sm:p-3.5 shrink-0 group hover:border-[#C5A25F] hover:shadow-[0_0_25px_rgba(197,162,95,0.5)] transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
-                {/* Logo-Themed Nautical Gold Square Container */}
-                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl border-2 border-[#C5A25F]/50 bg-gradient-to-br from-[#0c2b3d] via-[#040f21] to-[#12364c] backdrop-blur-md flex items-center justify-center shrink-0 group-hover:border-[#C5A25F] group-hover:shadow-[0_0_20px_rgba(197,162,95,0.45)] transition-all">
-                  <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm border border-[#C5A25F]/60 bg-[#C5A25F]/30 rotate-45 group-hover:rotate-90 group-hover:bg-[#C5A25F]/80 transition-transform duration-500" />
-                </div>
-                <span className="text-xl sm:text-3xl font-extrabold tracking-wide font-montserrat drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                  {sponsor.name}
-                </span>
+                {sponsor.image ? (
+                  <img
+                    src={sponsor.image}
+                    alt={sponsor.name}
+                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] brightness-110 group-hover:brightness-125 transition-all"
+                  />
+                ) : (
+                  <div className="w-4 h-4 rounded-sm border border-[#C5A25F]/60 bg-[#C5A25F]/30 rotate-45 group-hover:rotate-90 group-hover:bg-[#C5A25F]/80 transition-transform duration-500" />
+                )}
               </div>
             ))}
           </div>
@@ -700,7 +704,7 @@ export default function Home() {
       {/* ============================================================ */}
       {/* 5. PAST SPONSORS SECTION (NAUTICAL CYAN & DRIFTWOOD MARQUEE)  */}
       {/* ============================================================ */}
-      <section className="relative py-12 sm:py-16 w-full bg-[#040f21]/92 shadow-[inset_0_0_60px_rgba(56,189,248,0.15)] backdrop-blur-md select-none z-20 mt-36 mb-64 sm:mt-52 sm:mb-96">
+      <section className="relative py-6 sm:py-8 w-full bg-[#040f21]/92 shadow-[inset_0_0_60px_rgba(56,189,248,0.15)] backdrop-blur-md select-none z-20 my-6 sm:my-8">
         {/* TOP LOGO-THEMED DRIFTWOOD & CYAN BEVEL BORDER BAR */}
         <div className="absolute top-0 left-0 right-0 h-3.5 sm:h-4 bg-[linear-gradient(90deg,#0a1622_0%,#13283a_20%,#1c3850_50%,#13283a_80%,#0a1622_100%)] border-t-2 border-b border-[#38BDF8] shadow-[0_4px_15px_rgba(0,0,0,0.8)] z-20 flex items-center justify-between px-4 sm:px-12 pointer-events-none overflow-hidden">
           <div className="w-full flex justify-between items-center opacity-60">
@@ -768,7 +772,7 @@ export default function Home() {
         {/* Ambient Glowing Cyan Backing Aura */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[240px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.25)_0%,rgba(2,132,199,0.15)_50%,transparent_80%)] rounded-full blur-[110px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 mb-6 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 mb-4 text-center relative z-10">
           <span className="text-[10px] font-mono text-[#38BDF8] uppercase tracking-[0.25em] font-semibold block mb-1">
             Pioneers & Legacy Partners
           </span>
@@ -777,21 +781,23 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Clean Reverse Logo Marquee */}
+        {/* Clean Reverse Logo Marquee with Logo-Only Cards */}
         <div className="w-full overflow-hidden relative z-10">
-          <div className="animate-marquee-reverse flex items-center gap-12 sm:gap-20 whitespace-nowrap min-w-max py-4 px-4">
+          <div className="animate-marquee-reverse flex items-center gap-8 sm:gap-14 whitespace-nowrap min-w-max py-2 px-4">
             {[...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS, ...PAST_SPONSORS].map((sponsor, idx) => (
               <div
                 key={`past-${idx}`}
-                className="inline-flex items-center gap-3.5 sm:gap-5 text-[#CBD5E1] hover:text-[#38BDF8] transition-colors cursor-pointer group"
+                className="w-28 h-14 sm:w-40 sm:h-18 rounded-2xl border-2 border-[#38BDF8]/50 bg-gradient-to-br from-[#0c2b3d] via-[#040f21] to-[#041a2e] backdrop-blur-md flex items-center justify-center p-2.5 sm:p-3.5 shrink-0 group hover:border-[#38BDF8] hover:shadow-[0_0_25px_rgba(56,189,248,0.5)] transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
-                {/* Logo-Themed Nautical Cyan Square Container */}
-                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl border-2 border-[#38BDF8]/50 bg-gradient-to-br from-[#0c2b3d] via-[#040f21] to-[#041a2e] backdrop-blur-md flex items-center justify-center shrink-0 group-hover:border-[#38BDF8] group-hover:shadow-[0_0_20px_rgba(56,189,248,0.45)] transition-all">
-                  <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-sm border border-[#38BDF8]/60 bg-[#38BDF8]/30 rotate-45 group-hover:rotate-90 group-hover:bg-[#38BDF8]/80 transition-transform duration-500" />
-                </div>
-                <span className="text-xl sm:text-3xl font-extrabold tracking-wide font-montserrat drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                  {sponsor.name}
-                </span>
+                {sponsor.image ? (
+                  <img
+                    src={sponsor.image}
+                    alt={sponsor.name}
+                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] brightness-110 group-hover:brightness-125 transition-all"
+                  />
+                ) : (
+                  <div className="w-4 h-4 rounded-sm border border-[#38BDF8]/60 bg-[#38BDF8]/30 rotate-45 group-hover:rotate-90 group-hover:bg-[#38BDF8]/80 transition-transform duration-500" />
+                )}
               </div>
             ))}
           </div>

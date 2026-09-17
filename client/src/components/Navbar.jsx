@@ -43,14 +43,18 @@ export default function Navbar() {
 
         <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
           {/* 10th Edition Logo */}
-          <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
+          <Link
+            to="/"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 px-3.5 py-1.5 rounded-2xl bg-[#030d1c]/90 border border-[#C5A25F]/40 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.7)] hover:border-[#C5A25F] transition-all"
+          >
             <img
               src="/renaissance-logo-clean.png"
               alt="Renaissance Logo"
               onError={(e) => {
                 e.currentTarget.src = "/renaissance-logo-transparent.png";
               }}
-              className="h-9 sm:h-10 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(56,189,248,0.3)]"
+              className="h-7 sm:h-8 w-auto object-contain filter drop-shadow-[0_2px_10px_rgba(197,162,95,0.4)]"
             />
           </Link>
 

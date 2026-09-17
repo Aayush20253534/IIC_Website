@@ -419,11 +419,12 @@ export default function Sponsors({ embedded = false }) {
                     z-10
                     max-h-44
                     max-w-[82%]
+                    scale-[1.35]
                     object-contain
                     drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]
                     transition-transform
                     duration-500
-                    group-hover:scale-105
+                    group-hover:scale-[1.45]
                   "
                 />
               </div>
@@ -755,57 +756,53 @@ function SponsorCard({ sponsor, size = "medium" }) {
         sponsor-card
         group
         relative
+        flex
         w-full
-        aspect-[4/3]
-        min-h-[290px]
+        min-h-[200px]
+        sm:min-h-[250px]
+        items-center
+        justify-center
         overflow-hidden
         rounded-[18px]
-        border-2
-        border-[#A87E35]/65
-        bg-[#DCCBB4]
-        shadow-[0_14px_38px_rgba(12,38,50,0.20)]
+        border
+        border-[#BFA275]/60
+        bg-[#F2E5D4]
+        p-8
+        shadow-[0_14px_38px_rgba(12,38,50,0.10)]
         transition-all
         duration-400
-        hover:shadow-[0_22px_55px_rgba(12,38,50,0.32)]
         hover:-translate-y-1.5
-        hover:border-[#D5B66B]
+        hover:shadow-[0_22px_55px_rgba(12,38,50,0.18)]
+        hover:border-[#B58B3E]/80
       "
     >
-      {/* Authentic Pirate Parchment Background Image */}
-      <img
-        src="/sponsor-parchment-card.webp"
-        alt="Nautical Chart Frame"
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none select-none transition-transform duration-700 group-hover:scale-[1.025]"
-        loading="lazy"
-      />
-
-      {/* Subtle Warm Sheen on Hover */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-[#C5A25F]/0 to-[#C5A25F]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      {/* Central Parchment Content Area (Carefully framed between the compass, ship and sextant) */}
+      {/* Inner navigation frame */}
       <div
         className="
+          pointer-events-none
           absolute
-          inset-0
-          left-[15%]
-          right-[10%]
-          top-[12%]
-          bottom-[16%]
-          flex
-          items-center
-          justify-center
-          z-10
+          inset-3
+          sm:inset-4
+          rounded-xl
+          border
+          border-[#A87E35]/35
+          transition-colors
+          duration-400
+          group-hover:border-[#9E6D1F]/50
         "
-      >
-        <div className="relative flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-[1.03]">
-          <img
-            src={sponsor.image}
-            alt={sponsor.name}
-            loading="lazy"
-            className="max-h-full max-w-full object-contain filter drop-shadow-[0_4px_12px_rgba(20,40,55,0.3)]"
-          />
-        </div>
+      />
+
+      <div className="pointer-events-none absolute left-3 sm:left-4 top-3 sm:top-4 h-5 w-5 sm:h-6 sm:w-6 border-l border-t border-[#9E6D1F]/55" />
+      <div className="pointer-events-none absolute bottom-3 sm:bottom-4 right-3 sm:right-4 h-5 w-5 sm:h-6 sm:w-6 border-b border-r border-[#9E6D1F]/55" />
+
+      {/* Central Content Area */}
+      <div className="relative flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-[1.05] z-10">
+        <img
+          src={sponsor.image}
+          alt={sponsor.name}
+          loading="lazy"
+          className="max-h-full max-w-[85%] scale-[1.35] object-contain drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]"
+        />
       </div>
     </article>
   );

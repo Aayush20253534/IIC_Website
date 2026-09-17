@@ -51,7 +51,7 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter basename="/renaissance">
+    <BrowserRouter>
       <SmoothScroll>
         {/* Reset smooth scroll position whenever route changes */}
         <ScrollToTop />

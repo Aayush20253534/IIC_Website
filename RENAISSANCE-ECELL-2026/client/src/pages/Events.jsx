@@ -160,7 +160,7 @@ export default function Events({ embedded = false }) {
       eyebrow: "Flagship Business Plan",
       cardImage: "/b-plan-card.jpeg",
       compactModal: true,
-      registrationUrl: "https://unstop.com/competitions/b-plan-renaissance-100-motilal-nehru-national-institute-of-technology-1755448?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+      registrationUrl: "http://unstop.com/o/UL8OJ4R?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
       detailDescription: [
         "Got a million-dollar idea? Prove it.",
         "B-Plan is the flagship business-plan showdown of Renaissance - India’s premier student entrepreneurship summit. This isn’t just about dreaming big; it’s about building smart. Present a rock-solid plan, defend it before expert judges, and turn your concept into a venture that investors notice.",
@@ -182,7 +182,7 @@ export default function Events({ embedded = false }) {
       cardImage: "/strategy-wiz-card.jpeg",
       cardImageFit: "cover",
       compactModal: true,
-      registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423",
+      registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
       detailDescription: [
         "“From Product to Phenomenon: Architecting Iconic Launches”",
         "A great product can fail; a legendary launch builds an empire. The product is ready, the market is waiting. Do you have the masterplan to make it iconic?",
@@ -744,9 +744,12 @@ export default function Events({ embedded = false }) {
                           {selectedEventModal.registrationUrl ? (
                             <a
                               href={selectedEventModal.registrationUrl}
-                              className="rounded-xl border border-[#0c5870] bg-[#0c5870] px-4 py-3 text-center font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="rounded-xl border border-[#1C4ED8] bg-[#1C4ED8] px-4 py-3 text-center font-montserrat text-[11px] font-extrabold uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(28,78,216,.3)] transition hover:bg-[#1E40AF] flex items-center justify-center gap-2"
                             >
-                              Enter Event
+                              <span>Register on Unstop</span>
+                              <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             </a>
                           ) : (
                             <button

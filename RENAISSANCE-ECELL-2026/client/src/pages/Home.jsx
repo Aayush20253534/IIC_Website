@@ -26,7 +26,7 @@ const EVENTS = [
     tagline: "Got a million-dollar idea? Prove it.",
     desc: "B-Plan is the flagship business-plan showdown of Renaissance - India’s premier student entrepreneurship summit. This isn’t just about dreaming big; it’s about building smart. Present a rock-solid plan, defend it before expert judges, and turn your concept into a venture that investors notice.\n\nAll you need to know about B-Plan (Fish Tank-Business Plan) : Business plan pitching competetion at Renaissance 10.0",
     prize: "₹25,000",
-    registrationUrl: "https://unstop.com/competitions/b-plan-renaissance-100-motilal-nehru-national-institute-of-technology-1755448?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+    registrationUrl: "http://unstop.com/o/UL8OJ4R?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
   {
     id: "02",
@@ -35,7 +35,7 @@ const EVENTS = [
     tagline: "From Product to Phenomenon: Architecting Iconic Launches",
     desc: "A great product can fail; a legendary launch builds an empire. The product is ready, the market is waiting. Do you have the masterplan to make it iconic?\n\nStrategy-Wiz, the ultimate strategy challenge, is designed for future business leaders and innovators. Teams will craft the blueprint for market domination: analyse markets, design innovative launch plans, and compete to showcase the most impactful marketing strategy.",
     prize: "₹15,000",
-    registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423",
+    registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
   {
     id: "03",
@@ -799,10 +799,11 @@ export default function Home() {
                         href={event.registrationUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full sm:w-auto px-8 py-3 rounded-full bg-[#0C2B3D] text-[#f3e5ab] font-bold text-xs tracking-wider uppercase hover:shadow-[0_0_20px_rgba(12,43,61,0.4)] transition-all flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#1C4ED8] hover:bg-[#1E40AF] text-white font-bold text-xs tracking-wider uppercase shadow-[0_4px_16px_rgba(28,78,216,0.35)] hover:shadow-[0_6px_22px_rgba(28,78,216,0.55)] hover:scale-[1.03] transition-all flex items-center justify-center gap-2 group cursor-pointer"
                       >
-                        <UserCheck className="w-4 h-4 text-[#f3e5ab]" />
-                        Register Now
+                        <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
+                        <span>Register on Unstop</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-[#38BDF8] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </a>
                       <Link to="/events" className="text-xs font-bold uppercase tracking-widest cursor-pointer hover:opacity-70 transition-opacity">
                         View Schedule →

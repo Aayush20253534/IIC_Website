@@ -1,0 +1,119 @@
+diff --git a/RENAISSANCE-ECELL-2026/client/src/pages/Events.jsx b/RENAISSANCE-ECELL-2026/client/src/pages/Events.jsx
+--- a/RENAISSANCE-ECELL-2026/client/src/pages/Events.jsx
++++ b/RENAISSANCE-ECELL-2026/client/src/pages/Events.jsx
+@@ -372 +372 @@
+-            className="grid overflow-hidden rounded-[14px] border border-[#cfbd99]/80 bg-[#fbf5e9]/95 shadow-[0_16px_42px_rgba(31,64,70,.12)] backdrop-blur-xl md:grid-cols-[minmax(260px,.56fr)_minmax(0,1.44fr)] md:items-stretch"
++            className="grid overflow-hidden rounded-[12px] border border-[#cfbd99]/80 bg-[#fbf5e9]/95 shadow-[0_10px_28px_rgba(31,64,70,.10)] backdrop-blur-xl lg:grid-cols-[minmax(225px,.42fr)_minmax(0,1.58fr)] lg:items-stretch"
+@@ -374 +374 @@
+-            <label className="flex min-h-[68px] min-w-0 items-center gap-3 border-b border-[#dccdb3] bg-[#fffaf1]/70 px-5 md:border-b-0 md:border-r">
++            <label className="flex min-h-[52px] min-w-0 items-center gap-3 border-b border-[#dccdb3] bg-[#fffaf1]/72 px-4 sm:px-5 lg:border-b-0 lg:border-r">
+@@ -377 +377 @@
+-                className="h-[18px] w-[18px] shrink-0 text-[#165d73]"
++                className="h-4 w-4 shrink-0 text-[#165d73]"
+@@ -391 +391 @@
+-                className="min-w-0 flex-1 bg-transparent py-3 font-montserrat text-[13px] font-semibold tracking-[0.01em] text-[#173f51] outline-none placeholder:font-medium placeholder:text-[#84959b]"
++                className="min-w-0 flex-1 bg-transparent py-2.5 font-montserrat text-[12px] font-semibold tracking-[0.01em] text-[#173f51] outline-none placeholder:font-medium placeholder:text-[#84959b] sm:text-[13px]"
+@@ -395 +395 @@
+-            <div className="grid min-w-0 grid-cols-2 bg-transparent sm:grid-cols-3 lg:grid-cols-5">
++            <div className="flex min-w-0 overflow-x-auto bg-transparent [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-5 lg:overflow-visible">
+@@ -406 +406 @@
+-                    className={`group/filter relative flex min-h-[68px] min-w-0 items-center justify-center gap-2 border-b border-r border-[#e1d4bc] px-3 py-3 font-montserrat text-[10px] font-extrabold leading-tight transition-colors duration-200 lg:border-b-0 sm:text-[11px] ${
++                    className={`group/filter relative flex min-h-[52px] min-w-[142px] flex-1 items-center justify-center gap-2 border-r border-[#e1d4bc] px-3 py-2 font-montserrat text-[9px] font-extrabold leading-tight transition-colors duration-200 sm:min-w-[156px] sm:text-[10px] lg:min-w-0 ${
+@@ -413 +413 @@
+-                      className={`flex h-6 w-6 shrink-0 items-center justify-center transition-colors duration-200 ${
++                      className={`flex h-5 w-5 shrink-0 items-center justify-center transition-colors duration-200 ${
+@@ -423 +423 @@
+-                    <span className="max-w-[118px] text-center">{label}</span>
++                    <span className="max-w-[110px] text-center">{label}</span>
+@@ -468 +468 @@
+-            <motion.div layout className="relative z-10 mt-5 grid auto-rows-fr grid-cols-1 items-stretch gap-5 sm:grid-cols-2 md:grid-cols-3">
++            <motion.div layout className="relative z-10 mt-5 grid auto-rows-fr grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+@@ -500 +500 @@
+-                    <div className="relative h-[205px] overflow-hidden border-b border-[#cfbd99]/70 bg-[#ded0b5]">
++                    <div className="relative h-[176px] overflow-hidden border-b border-[#cfbd99]/70 bg-[#ded0b5] sm:h-[190px] lg:h-[205px]">
+@@ -547 +547 @@
+-                    <div className="relative flex flex-1 flex-col p-5 sm:p-6">
++                    <div className="relative flex flex-1 flex-col p-4 sm:p-5 lg:p-6">
+@@ -555 +555 @@
+-                      <h2 className="mt-3 font-cinzel text-[25px] font-bold leading-[1.08] tracking-[-0.02em] text-[#123f55] transition-colors duration-300 group-hover:text-[#81551b] sm:text-[27px]">
++                      <h2 className="mt-3 font-cinzel text-[23px] font-bold leading-[1.08] tracking-[-0.02em] text-[#123f55] transition-colors duration-300 group-hover:text-[#81551b] sm:text-[25px] lg:text-[27px]">
+@@ -642 +642 @@
+-                className="fixed inset-0 z-50 flex items-center justify-center bg-[#020b12]/80 p-3 sm:p-5"
++                className="fixed inset-0 z-[100] flex items-end justify-center bg-[#020b12]/82 p-0 backdrop-blur-[2px] sm:items-center sm:p-5"
+@@ -659 +659 @@
+-                  className="relative w-full max-w-[720px] overflow-hidden rounded-[18px] border border-[#d4ad58] bg-[#f4ead4] text-[#173f51] shadow-[0_28px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.2)_inset]"
++                  className="relative max-h-[92svh] w-full max-w-[760px] overflow-y-auto overscroll-contain rounded-t-[20px] border border-[#cfae68] bg-[#f7eedc] text-[#173f51] shadow-[0_26px_80px_rgba(0,0,0,.48),0_1px_0_rgba(255,255,255,.55)_inset] sm:max-h-[88svh] sm:rounded-[18px]"
+@@ -666,4 +666,4 @@
+-                  {/* Game-style notice masthead */}
+-                  <div className="relative flex min-h-[58px] items-center justify-between border-b border-[#d5b15e]/65 bg-[linear-gradient(180deg,#0d4257_0%,#082f40_100%)] px-4 sm:px-6">
+-                    <div className="flex items-center gap-3">
+-                      <span className="flex h-8 w-8 items-center justify-center border border-[#e5c26e]/60 bg-[#e1b957]/10 text-[#efca73]">
++                  {/* Compact event masthead */}
++                  <div className="sticky top-0 z-20 flex min-h-[50px] items-center justify-between border-b border-[#d5b15e]/55 bg-[linear-gradient(180deg,#0d4257_0%,#082f40_100%)] px-4 shadow-[0_8px_24px_rgba(2,24,34,.12)] sm:px-5">
++                    <div className="flex items-center gap-2.5">
++                      <span className="flex h-7 w-7 items-center justify-center border border-[#e5c26e]/55 bg-[#e1b957]/8 text-[#efca73]">
+@@ -675,6 +675,6 @@
+-                        <p className="font-montserrat text-[8px] font-bold uppercase tracking-[0.26em] text-[#d9b967]">
+-                          Renaissance // System Notice
++                        <p className="font-montserrat text-[7px] font-bold uppercase tracking-[0.24em] text-[#d9b967]">
++                          Renaissance 10.0 · Programme
+                         </p>
+-                        <p className="mt-0.5 font-cinzel text-sm font-black uppercase tracking-[0.11em] text-white sm:text-base">
+-                          Event Notice
++                        <p className="mt-0.5 font-cinzel text-[13px] font-black uppercase tracking-[0.1em] text-white sm:text-sm">
++                          Event details
+                         </p>
+@@ -714,10 +714,27 @@
+-                    <div className="relative p-5 sm:p-6">
+-                      <div className="absolute right-0 top-0 h-16 w-16 border-r border-t border-[#cba352]/35" />
+-                      <div className="absolute bottom-0 left-0 h-12 w-12 border-b border-l border-[#cba352]/25" />
++                    <div className="relative p-4 sm:p-6">
++                      <div className="absolute right-0 top-0 h-14 w-14 border-r border-t border-[#cba352]/28" />
++                      <div className="absolute bottom-0 left-0 h-10 w-10 border-b border-l border-[#cba352]/20" />
+ 
+-                      <p className="font-montserrat text-[8px] font-extrabold uppercase tracking-[0.24em] text-[#9d7a36]">
+-                        Voyage briefing
++                      <p className="font-montserrat text-[7px] font-extrabold uppercase tracking-[0.22em] text-[#9d7a36] sm:text-[8px]">
++                        Event brief
+                       </p>
+-                      <h2 className="mt-1 font-cinzel text-xl font-black leading-[1.16] text-[#123f55] sm:text-2xl">
++                      <h2 className="mt-1 font-cinzel text-[25px] font-black leading-[1.08] tracking-[-0.015em] text-[#123f55] sm:text-3xl">
+                         {selectedEventModal.title}
+                       </h2>
++
++                      {selectedEventModal.compactModal && (
++                        <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden border border-[#d8c7a7] bg-[#d8c7a7] font-montserrat text-[10px] sm:grid-cols-3">
++                          <div className="bg-[#fcf7ec] px-3 py-2.5">
++                            <span className="block text-[7px] font-black uppercase tracking-[0.16em] text-[#9b8a69]">Time</span>
++                            <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.time}</strong>
++                          </div>
++                          <div className="bg-[#fcf7ec] px-3 py-2.5">
++                            <span className="block text-[7px] font-black uppercase tracking-[0.16em] text-[#9b8a69]">Venue</span>
++                            <strong className="mt-1 block truncate text-[#234d5d]">{selectedEventModal.location}</strong>
++                          </div>
++                          <div className="col-span-2 bg-[#fcf7ec] px-3 py-2.5 sm:col-span-1">
++                            <span className="block text-[7px] font-black uppercase tracking-[0.16em] text-[#9b8a69]">Category</span>
++                            <strong className="mt-1 block truncate text-[#234d5d]">{selectedEventModal.category}</strong>
++                          </div>
++                        </div>
++                      )}
+@@ -742 +759 @@
+-                      <div className="mt-4 space-y-3 border-l-2 border-[#d1a64e] pl-3 font-montserrat text-xs leading-relaxed text-[#63777e] sm:text-[13px]">
++                      <div className="mt-4 space-y-3 border-l-2 border-[#cfa552] pl-3.5 pr-1 font-montserrat text-[11px] leading-[1.65] text-[#5f747c] sm:text-[13px]">
+@@ -750,2 +767,2 @@
+-                      <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
+-                        <div className="flex flex-1 flex-col gap-2.5">
++                      <div className="mt-5 grid gap-2.5 border-t border-[#d9c9ab] pt-4 sm:grid-cols-[minmax(0,1fr)_auto]">
++                        <div className="grid min-w-0 gap-2.5 sm:grid-cols-2">
+@@ -757 +774 @@
+-                              className="rounded-xl border border-[#1C4ED8] bg-[#1C4ED8] px-4 py-3 text-center font-montserrat text-[11px] font-extrabold uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(28,78,216,.3)] transition hover:bg-[#1E40AF] flex items-center justify-center gap-2"
++                              className="flex min-h-[44px] items-center justify-center gap-2 rounded-[10px] border border-[#0b5870] bg-[#0b5870] px-4 py-2.5 text-center font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_6px_16px_rgba(11,88,112,.18)] transition hover:bg-[#08495e]"
+@@ -769 +786 @@
+-                              className="rounded-xl border border-[#0c5870] bg-[#0c5870] px-4 py-3 font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
++                              className="min-h-[44px] rounded-[10px] border border-[#0c5870] bg-[#0c5870] px-4 py-2.5 font-cinzel text-[10px] font-black uppercase tracking-[0.13em] text-white shadow-[0_6px_16px_rgba(12,88,112,.18)] transition hover:bg-[#08485d]"
+@@ -778 +795 @@
+-                            className="flex items-center justify-center gap-2 rounded-xl border border-[#1dad59] bg-[#25d366] px-4 py-3 text-center font-montserrat text-[10px] font-extrabold uppercase tracking-[0.11em] text-white shadow-[0_7px_18px_rgba(37,211,102,.24)] transition hover:bg-[#1ebe5d]"
++                            className="flex min-h-[44px] items-center justify-center gap-2 rounded-[10px] border border-[#8db39a] bg-[#edf5ee] px-4 py-2.5 text-center font-montserrat text-[9px] font-extrabold uppercase tracking-[0.1em] text-[#1b6b3e] transition hover:border-[#63a179] hover:bg-[#e4f1e7]"
+@@ -790 +807 @@
+-                          className="rounded-xl border border-[#cfc1a5] bg-[#fffaf0] px-5 py-3 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#6e756f] transition hover:border-[#bfa364] hover:bg-white hover:text-[#173f51] sm:self-stretch"
++                          className="min-h-[44px] rounded-[10px] border border-[#cfc1a5] bg-[#fffaf0] px-5 py-2.5 font-montserrat text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#68716d] transition hover:border-[#bfa364] hover:bg-white hover:text-[#173f51]"

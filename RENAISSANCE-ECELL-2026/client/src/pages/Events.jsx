@@ -751,44 +751,43 @@ export default function Events({ embedded = false }) {
                         ))}
                       </div>
 
-                      <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
-                        <div className="flex flex-1 flex-col gap-2.5">
-                          {selectedEventModal.registrationUrl ? (
-                            <a
-                              href={selectedEventModal.registrationUrl}
-                              className="rounded-xl border border-[#0c5870] bg-[#0c5870] px-4 py-3 text-center font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
-                            >
-                              Enter Event
-                            </a>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setSelectedEventModal(null);
-                                navigate(`/events/${selectedEventModal.id}/register`);
-                              }}
-                              className="rounded-xl border border-[#0c5870] bg-[#0c5870] px-4 py-3 font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
-                            >
-                              Enter Event
-                            </button>
-                          )}
+                      <div className="mt-6 flex flex-wrap items-center gap-3">
+                        {selectedEventModal.registrationUrl ? (
                           <a
-                            href="https://chat.whatsapp.com/FBmy90Cekgu5Jd4MkxXGMO"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center justify-center gap-2 rounded-xl border border-[#1dad59] bg-[#25d366] px-4 py-3 text-center font-montserrat text-[10px] font-extrabold uppercase tracking-[0.11em] text-white shadow-[0_7px_18px_rgba(37,211,102,.24)] transition hover:bg-[#1ebe5d]"
+                            href={selectedEventModal.registrationUrl}
+                            className="flex-1 sm:flex-none rounded-sm border border-[#0c5870] bg-[#0c5870] px-6 py-2.5 text-center font-cinzel text-[11px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_4px_12px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
                           >
-                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                              <path d="M20.4 3.6A11.5 11.5 0 0 0 3.7 19.2L2.5 22l2.9-1.1A11.5 11.5 0 1 0 20.4 3.6Z" />
-                              <path d="M8.4 7.5c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.5.6c.7 1.4 1.8 2.5 3.2 3.2l.6-.5c.2-.2.4-.2.7-.1l1.8.8c.3.1.4.3.4.5v.5c0 .3-.1.5-.5.7-.5.2-1.3.4-2.2.1-1.2-.4-2.7-1.3-4.1-2.7-1.4-1.4-2.3-2.9-2.7-4.1-.3-.9-.1-1.7.1-2.2Z" />
-                            </svg>
-                            WhatsApp Community
+                            Enter Event
                           </a>
-                        </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSelectedEventModal(null);
+                              navigate(`/events/${selectedEventModal.id}/register`);
+                            }}
+                            className="flex-1 sm:flex-none rounded-sm border border-[#0c5870] bg-[#0c5870] px-6 py-2.5 font-cinzel text-[11px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_4px_12px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
+                          >
+                            Enter Event
+                          </button>
+                        )}
+                        <a
+                          href="https://chat.whatsapp.com/FBmy90Cekgu5Jd4MkxXGMO"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-sm border border-[#1dad59] bg-[#25d366] px-5 py-2.5 text-center font-montserrat text-[10px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_4px_12px_rgba(37,211,102,.2)] transition hover:bg-[#1ebe5d]"
+                        >
+                          <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M20.4 3.6A11.5 11.5 0 0 0 3.7 19.2L2.5 22l2.9-1.1A11.5 11.5 0 1 0 20.4 3.6Z" />
+                            <path d="M8.4 7.5c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.5.6c.7 1.4 1.8 2.5 3.2 3.2l.6-.5c.2-.2.4-.2.7-.1l1.8.8c.3.1.4.3.4.5v.5c0 .3-.1.5-.5.7-.5.2-1.3.4-2.2.1-1.2-.4-2.7-1.3-4.1-2.7-1.4-1.4-2.3-2.9-2.7-4.1-.3-.9-.1-1.7.1-2.2Z" />
+                          </svg>
+                          WhatsApp
+                        </a>
+                        
                         <button
                           type="button"
                           onClick={() => setSelectedEventModal(null)}
-                          className="rounded-xl border border-[#cfc1a5] bg-[#fffaf0] px-5 py-3 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#6e756f] transition hover:border-[#bfa364] hover:bg-white hover:text-[#173f51] sm:self-stretch"
+                          className="w-full sm:w-auto sm:ml-auto rounded-sm border border-[#cfc1a5] bg-transparent px-4 py-2.5 font-montserrat text-[10px] font-bold uppercase tracking-[0.12em] text-[#6e756f] transition hover:border-[#bfa364] hover:bg-white hover:text-[#173f51]"
                         >
                           Dismiss
                         </button>

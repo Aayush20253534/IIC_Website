@@ -248,10 +248,10 @@ export default function Events({ embedded = false }) {
               prefersReducedMotion
                 ? undefined
                 : {
-                    x: heroCombinedX,
-                    y: heroCombinedY,
-                    scale: heroScale,
-                  }
+                  x: heroCombinedX,
+                  y: heroCombinedY,
+                  scale: heroScale,
+                }
             }
           >
             <motion.img
@@ -405,19 +405,17 @@ export default function Events({ embedded = false }) {
                     }
                     whileTap={prefersReducedMotion ? undefined : { scale: 0.965 }}
                     transition={{ type: "spring", stiffness: 430, damping: 25 }}
-                    className={`group/filter relative flex min-h-[54px] min-w-0 items-center justify-center gap-2.5 overflow-hidden rounded-[13px] border px-3 py-2 font-montserrat text-[11px] font-extrabold tracking-[-0.01em] transition-[color,background-color,border-color,box-shadow] duration-200 sm:text-[13px] ${
-                      isActive
+                    className={`group/filter relative flex min-h-[54px] min-w-0 items-center justify-center gap-2.5 overflow-hidden rounded-[13px] border px-3 py-2 font-montserrat text-[11px] font-extrabold tracking-[-0.01em] transition-[color,background-color,border-color,box-shadow] duration-200 sm:text-[13px] ${isActive
                         ? "border-[#d8a642] bg-gradient-to-b from-[#12677f] to-[#0a526a] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_7px_18px_rgba(12,88,112,.22)]"
                         : "border-transparent bg-transparent text-[#2c5c6e] hover:border-[#dfd3bf] hover:bg-[#f5f3ec] hover:text-[#123f55] hover:shadow-[0_5px_14px_rgba(38,82,96,.08)]"
-                    }`}
+                      }`}
                     aria-pressed={isActive}
                   >
                     <span
-                      className={`relative flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border transition-all duration-200 ${
-                        isActive
+                      className={`relative flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] border transition-all duration-200 ${isActive
                           ? "border-[#f0cf82]/45 bg-[#f4c86a]/15 text-[#f6cf79] shadow-[0_0_14px_rgba(230,183,88,.15)]"
                           : "border-[#d8c8aa] bg-[#fbf5e9] text-[#c69335] group-hover/filter:border-[#d7b86f] group-hover/filter:bg-[#fff9ec] group-hover/filter:text-[#ad7822]"
-                      }`}
+                        }`}
                       aria-hidden="true"
                     >
                       {renderStandaloneCategoryIcon(label)}
@@ -462,143 +460,143 @@ export default function Events({ embedded = false }) {
           {visibleEvents.length > 0 ? (
             <motion.div layout className="relative z-10 mt-4 grid auto-rows-fr grid-cols-1 items-stretch gap-3 sm:grid-cols-2 md:grid-cols-3 lg:gap-4">
               <AnimatePresence mode="popLayout">
-              {visibleEvents.map((event, index) => (
-                <motion.article
-                  layout
-                  key={event.id}
-                  initial={
-                    prefersReducedMotion
-                      ? false
-                      : { opacity: 0, y: 42, x: index % 2 === 0 ? -10 : 10, scale: 0.975 }
-                  }
-                  whileInView={{ opacity: 1, y: 0, x: 0, scale: 1 }}
-                  exit={prefersReducedMotion ? undefined : { opacity: 0, y: 16, scale: 0.98 }}
-                  viewport={{ once: true, amount: 0.16 }}
-                  transition={{
-                    duration: 0.56,
-                    delay: prefersReducedMotion ? 0 : (index % 3) * 0.065,
-                    ease: [0.22, 1, 0.36, 1],
-                    layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
-                  }}
-                  whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.008 }}
-                  className="group relative isolate flex flex-col h-full overflow-hidden rounded-sm border-[1.5px] border-[#d8c8b0] bg-gradient-to-br from-[#fcfaf4] via-[#f7f2e5] to-[#f0e3ce] shadow-[0_8px_24px_rgba(25,40,45,.08),inset_0_0_0_1px_rgba(255,255,255,.6)] transition-all duration-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-[#c9a75d] hover:shadow-[0_14px_38px_rgba(25,40,45,.14),0_0_20px_rgba(201,167,93,.2),inset_0_0_0_1px_rgba(255,255,255,.8)]"
-                  style={{ contentVisibility: "auto", containIntrinsicSize: "350px" }}
-                >
-                  {/* Subtle inner parchment noise texture overlay */}
-                  <div className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-30" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}></div>
-
-                  {/* Corner Ornaments */}
-                  <svg className="absolute left-1 top-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round"/></svg>
-                  <svg className="absolute right-1 top-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round"/></svg>
-                  <svg className="absolute left-1 bottom-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round"/></svg>
-                  <svg className="absolute right-1 bottom-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round"/></svg>
-
-                  <motion.button
-                    type="button"
-                    onClick={() => openStandaloneEvent(event)}
-                    whileTap={prefersReducedMotion ? undefined : { scale: 0.985 }}
-                    transition={{ duration: 0.12, ease: "easeOut" }}
-                    className="relative flex h-full w-full flex-col text-left"
-                    aria-label={`View details for ${event.title}`}
+                {visibleEvents.map((event, index) => (
+                  <motion.article
+                    layout
+                    key={event.id}
+                    initial={
+                      prefersReducedMotion
+                        ? false
+                        : { opacity: 0, y: 42, x: index % 2 === 0 ? -10 : 10, scale: 0.975 }
+                    }
+                    whileInView={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+                    exit={prefersReducedMotion ? undefined : { opacity: 0, y: 16, scale: 0.98 }}
+                    viewport={{ once: true, amount: 0.16 }}
+                    transition={{
+                      duration: 0.56,
+                      delay: prefersReducedMotion ? 0 : (index % 3) * 0.065,
+                      ease: [0.22, 1, 0.36, 1],
+                      layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
+                    }}
+                    whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.008 }}
+                    className="group relative isolate flex flex-col h-full overflow-hidden rounded-sm border-[1.5px] border-[#d8c8b0] bg-gradient-to-br from-[#fcfaf4] via-[#f7f2e5] to-[#f0e3ce] shadow-[0_8px_24px_rgba(25,40,45,.08),inset_0_0_0_1px_rgba(255,255,255,.6)] transition-all duration-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-[#c9a75d] hover:shadow-[0_14px_38px_rgba(25,40,45,.14),0_0_20px_rgba(201,167,93,.2),inset_0_0_0_1px_rgba(255,255,255,.8)]"
+                    style={{ contentVisibility: "auto", containIntrinsicSize: "350px" }}
                   >
-                    <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px] border-b border-[#dfd0b7]/80 group-hover:border-[#c9a75d]/80 transition-colors duration-400">
-                      <motion.div
-                        className={`absolute -inset-3 bg-cover will-change-transform transition-[transform,filter] duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${event.cardImage ? "filter sepia-[0.35] brightness-95 group-hover:sepia-0 group-hover:brightness-105" : "group-hover:scale-[1.055]"}`}
-                        style={{
-                          backgroundImage: event.cardImage
-                            ? `url('${event.cardImage}')`
-                            : "linear-gradient(180deg, rgba(4,35,50,.08), rgba(4,35,50,.46)), url('/ship-map-hero.jpg')",
-                          backgroundPosition: event.cardImage
-                            ? (event.cardImagePosition ?? "center")
-                            : event.visualPosition,
-                          backgroundSize: event.cardImage ? (event.cardImageFit ?? "contain") : undefined,
-                          backgroundRepeat: event.cardImage ? "no-repeat" : undefined,
-                          backgroundColor: event.cardImage ? "#eee1c5" : undefined,
-                        }}
-                        initial={
-                          prefersReducedMotion || event.cardImage
-                            ? false
-                            : { x: 24, y: 3, scale: 1.075 }
-                        }
-                        whileInView={
-                          prefersReducedMotion || event.cardImage
-                            ? undefined
-                            : { x: -20, y: -3, scale: 1.1 }
-                        }
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{
-                          duration: 11.5 + (index % 3) * 0.9,
-                          ease: [0.2, 0.65, 0.24, 1],
-                          delay: index * 0.28,
-                        }}
-                      />
+                    {/* Subtle inner parchment noise texture overlay */}
+                    <div className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-30" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}></div>
 
-                      {!event.cardImage && (
-                        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,27,39,.12)_0%,rgba(2,27,39,.08)_48%,rgba(2,27,39,.68)_100%)]" />
-                      )}
+                    {/* Corner Ornaments */}
+                    <svg className="absolute left-1 top-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round" /></svg>
+                    <svg className="absolute right-1 top-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round" /></svg>
+                    <svg className="absolute left-1 bottom-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round" /></svg>
+                    <svg className="absolute right-1 bottom-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round" /></svg>
 
-                      {!prefersReducedMotion && (
+                    <motion.button
+                      type="button"
+                      onClick={() => openStandaloneEvent(event)}
+                      whileTap={prefersReducedMotion ? undefined : { scale: 0.985 }}
+                      transition={{ duration: 0.12, ease: "easeOut" }}
+                      className="relative flex h-full w-full flex-col text-left"
+                      aria-label={`View details for ${event.title}`}
+                    >
+                      <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px] border-b border-[#dfd0b7]/80 group-hover:border-[#c9a75d]/80 transition-colors duration-400">
                         <motion.div
-                          className="absolute -left-[35%] bottom-[18%] h-px w-[54%] bg-gradient-to-r from-transparent via-white/55 to-transparent"
-                          animate={{ x: [520, 0], opacity: [0, 0.48, 0] }}
+                          className={`absolute -inset-3 bg-cover will-change-transform transition-[transform,filter] duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${event.cardImage ? "filter sepia-[0.35] brightness-95 group-hover:sepia-0 group-hover:brightness-105" : "group-hover:scale-[1.055]"}`}
+                          style={{
+                            backgroundImage: event.cardImage
+                              ? `url('${event.cardImage}')`
+                              : "linear-gradient(180deg, rgba(4,35,50,.08), rgba(4,35,50,.46)), url('/ship-map-hero.jpg')",
+                            backgroundPosition: event.cardImage
+                              ? (event.cardImagePosition ?? "center")
+                              : event.visualPosition,
+                            backgroundSize: event.cardImage ? (event.cardImageFit ?? "contain") : undefined,
+                            backgroundRepeat: event.cardImage ? "no-repeat" : undefined,
+                            backgroundColor: event.cardImage ? "#eee1c5" : undefined,
+                          }}
+                          initial={
+                            prefersReducedMotion || event.cardImage
+                              ? false
+                              : { x: 24, y: 3, scale: 1.075 }
+                          }
+                          whileInView={
+                            prefersReducedMotion || event.cardImage
+                              ? undefined
+                              : { x: -20, y: -3, scale: 1.1 }
+                          }
+                          viewport={{ once: true, amount: 0.3 }}
                           transition={{
-                            duration: 10.5 + (index % 3) * 0.55,
-                            ease: "easeOut",
-                            delay: 0.8 + index * 0.24,
+                            duration: 11.5 + (index % 3) * 0.9,
+                            ease: [0.2, 0.65, 0.24, 1],
+                            delay: index * 0.28,
                           }}
                         />
-                      )}
 
-                      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent" />
-                    </div>
+                        {!event.cardImage && (
+                          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,27,39,.12)_0%,rgba(2,27,39,.08)_48%,rgba(2,27,39,.68)_100%)]" />
+                        )}
 
-                    <div className="relative flex flex-1 flex-col px-5 pb-5 pt-7 sm:px-6">
-                      <div className="absolute -top-[14px] left-5 flex flex-wrap gap-1.5 z-10">
-                        {(event.categories ?? [event.label]).map((label) => (
-                          <span
-                            key={label}
-                            className="rounded-[2px] border border-[#d8b55d] bg-gradient-to-b from-[#fae7b1] to-[#f3d683] px-2.5 py-[5px] font-montserrat text-[8px] font-black uppercase tracking-[0.14em] text-[#5c4008] shadow-[0_4px_10px_rgba(94,67,17,.2),inset_0_1px_0_rgba(255,255,255,.6)] sm:text-[9px]"
-                          >
-                            {label}
+                        {!prefersReducedMotion && (
+                          <motion.div
+                            className="absolute -left-[35%] bottom-[18%] h-px w-[54%] bg-gradient-to-r from-transparent via-white/55 to-transparent"
+                            animate={{ x: [520, 0], opacity: [0, 0.48, 0] }}
+                            transition={{
+                              duration: 10.5 + (index % 3) * 0.55,
+                              ease: "easeOut",
+                              delay: 0.8 + index * 0.24,
+                            }}
+                          />
+                        )}
+
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent" />
+                      </div>
+
+                      <div className="relative flex flex-1 flex-col px-5 pb-5 pt-7 sm:px-6">
+                        <div className="absolute -top-[14px] left-5 flex flex-wrap gap-1.5 z-10">
+                          {(event.categories ?? [event.label]).map((label) => (
+                            <span
+                              key={label}
+                              className="rounded-[2px] border border-[#d8b55d] bg-gradient-to-b from-[#fae7b1] to-[#f3d683] px-2.5 py-[5px] font-montserrat text-[8px] font-black uppercase tracking-[0.14em] text-[#5c4008] shadow-[0_4px_10px_rgba(94,67,17,.2),inset_0_1px_0_rgba(255,255,255,.6)] sm:text-[9px]"
+                            >
+                              {label}
+                            </span>
+                          ))}
+                        </div>
+
+                        <h2 className={`mt-2 flex items-start font-cinzel text-[20px] font-bold leading-[1.2] text-[#123f55] transition-colors duration-300 group-hover:text-[#8f5915] sm:text-[22px]`}>
+                          {event.title}
+                        </h2>
+
+                        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 font-montserrat text-[10px] font-bold text-[#627a85] sm:text-[11px]">
+                          <div className="flex items-center gap-1.5">
+                            <svg className="h-3.5 w-3.5 text-[#b2976b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+                            {event.time}
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <svg className="h-3.5 w-3.5 text-[#b2976b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                            <span className="truncate max-w-[150px]">{event.location}</span>
+                          </div>
+                        </div>
+
+                        <p className="mt-4 line-clamp-3 min-h-[38px] font-montserrat text-[11px] leading-[1.65] text-[#5a6e76] sm:text-xs relative z-10">
+                          {event.description}
+                        </p>
+
+                        <div className="mt-auto flex items-center justify-between border-t border-[#dfd0b7]/60 pt-4 group-hover:border-[#c9a75d]/40 transition-colors duration-400">
+                          <span className="font-montserrat text-[9px] font-black uppercase tracking-[0.2em] text-[#a18f70] group-hover:text-[#8f5915] transition-colors duration-300">
+                            Inspect Mission
                           </span>
-                        ))}
-                      </div>
-
-                      <h2 className={`mt-2 flex items-start font-cinzel text-[20px] font-bold leading-[1.2] text-[#123f55] transition-colors duration-300 group-hover:text-[#8f5915] sm:text-[22px]`}>
-                        {event.title}
-                      </h2>
-
-                      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 font-montserrat text-[10px] font-bold text-[#627a85] sm:text-[11px]">
-                        <div className="flex items-center gap-1.5">
-                          <svg className="h-3.5 w-3.5 text-[#b2976b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                          {event.time}
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <svg className="h-3.5 w-3.5 text-[#b2976b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                          <span className="truncate max-w-[150px]">{event.location}</span>
+                          <span className="inline-flex h-[34px] items-center justify-center gap-2 rounded-sm border-[1.5px] border-[#a18f70]/40 bg-transparent px-4 font-cinzel text-[10px] font-bold uppercase tracking-[0.12em] text-[#123f55] transition-all duration-300 group-hover:border-[#c9a75d] group-hover:bg-[#f6ebd4] group-hover:text-[#8f5915] shadow-[0_2px_8px_rgba(0,0,0,.04)] group-hover:shadow-[0_4px_12px_rgba(201,167,93,.2)]">
+                            Details
+                            <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                              <path d="M5 12h14" strokeLinecap="round" />
+                              <path d="m14 7 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </span>
                         </div>
                       </div>
-
-                      <p className="mt-4 line-clamp-3 min-h-[38px] font-montserrat text-[11px] leading-[1.65] text-[#5a6e76] sm:text-xs relative z-10">
-                        {event.description}
-                      </p>
-
-                      <div className="mt-auto flex items-center justify-between border-t border-[#dfd0b7]/60 pt-4 group-hover:border-[#c9a75d]/40 transition-colors duration-400">
-                        <span className="font-montserrat text-[9px] font-black uppercase tracking-[0.2em] text-[#a18f70] group-hover:text-[#8f5915] transition-colors duration-300">
-                          Inspect Mission
-                        </span>
-                        <span className="inline-flex h-[34px] items-center justify-center gap-2 rounded-sm border-[1.5px] border-[#a18f70]/40 bg-transparent px-4 font-cinzel text-[10px] font-bold uppercase tracking-[0.12em] text-[#123f55] transition-all duration-300 group-hover:border-[#c9a75d] group-hover:bg-[#f6ebd4] group-hover:text-[#8f5915] shadow-[0_2px_8px_rgba(0,0,0,.04)] group-hover:shadow-[0_4px_12px_rgba(201,167,93,.2)]">
-                          Details
-                          <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                            <path d="M5 12h14" strokeLinecap="round" />
-                            <path d="m14 7 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  </motion.button>
-                </motion.article>
-              ))}
+                    </motion.button>
+                  </motion.article>
+                ))}
               </AnimatePresence>
             </motion.div>
           ) : (
@@ -772,18 +770,18 @@ export default function Events({ embedded = false }) {
                           </button>
                         )}
                         <a
-                          href="https://chat.whatsapp.com/FBmy90Cekgu5Jd4MkxXGMO"
+                          href="https://whatsapp.com/channel/0029VbDqDCA8V0tjtrkBsT46"
                           target="_blank"
                           rel="noreferrer"
                           className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-sm border border-[#1dad59] bg-[#25d366] px-5 py-2.5 text-center font-montserrat text-[10px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_4px_12px_rgba(37,211,102,.2)] transition hover:bg-[#1ebe5d]"
                         >
-                          <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M20.4 3.6A11.5 11.5 0 0 0 3.7 19.2L2.5 22l2.9-1.1A11.5 11.5 0 1 0 20.4 3.6Z" />
-                            <path d="M8.4 7.5c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.5.6c.7 1.4 1.8 2.5 3.2 3.2l.6-.5c.2-.2.4-.2.7-.1l1.8.8c.3.1.4.3.4.5v.5c0 .3-.1.5-.5.7-.5.2-1.3.4-2.2.1-1.2-.4-2.7-1.3-4.1-2.7-1.4-1.4-2.3-2.9-2.7-4.1-.3-.9-.1-1.7.1-2.2Z" />
+                          <svg className="h-5 w-5 shrink-0" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M16 3.5a12.5 12.5 0 0 0-10.7 19l-1.45 5.15 5.25-1.4A12.5 12.5 0 1 0 16 3.5Z" />
+                            <path d="M12.1 9.6c.25-.55.55-.6.9-.6h.62c.3 0 .55.16.67.45l.95 2.18c.13.3.08.65-.13.9l-.7.82c.78 1.62 2.08 2.92 3.7 3.7l.82-.7c.25-.21.6-.26.9-.13l2.18.95c.29.12.45.37.45.67V18.5c0 .35-.05.65-.6.9-.67.3-1.7.5-2.82.15-1.46-.45-3.15-1.48-4.74-3.07-1.59-1.59-2.62-3.28-3.07-4.74-.35-1.12-.15-2.15.15-2.82Z" />
                           </svg>
-                          WhatsApp
+                          WhatsApp Community
                         </a>
-                        
+
                         <button
                           type="button"
                           onClick={() => setSelectedEventModal(null)}
@@ -992,9 +990,8 @@ export default function Events({ embedded = false }) {
 
   return (
     <div
-      className={`relative w-full min-h-screen text-slate-100 select-none ${
-        embedded ? "pt-2 pb-2" : "pt-24 sm:pt-28 pb-16"
-      } px-4 sm:px-6 flex flex-col justify-start items-center overflow-x-hidden`}
+      className={`relative w-full min-h-screen text-slate-100 select-none ${embedded ? "pt-2 pb-2" : "pt-24 sm:pt-28 pb-16"
+        } px-4 sm:px-6 flex flex-col justify-start items-center overflow-x-hidden`}
       style={{
         background:
           "radial-gradient(ellipse 95% 75% at 50% 18%, #030b17 0%, #020710 45%, #000205 100%)",
@@ -1028,18 +1025,16 @@ export default function Events({ embedded = false }) {
             <button
               key={d}
               onClick={() => setActiveDay(d)}
-              className={`px-4 sm:px-6 py-1 sm:py-1.5 rounded-xl font-cinzel text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer flex items-center gap-1.5 sm:gap-2 ${
-                activeDay === d
+              className={`px-4 sm:px-6 py-1 sm:py-1.5 rounded-xl font-cinzel text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer flex items-center gap-1.5 sm:gap-2 ${activeDay === d
                   ? "bg-gradient-to-r from-[#38BDF8]/25 to-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/60 shadow-[0_0_15px_rgba(56,189,248,0.35)] scale-105"
                   : "text-slate-400 hover:text-slate-200 hover:border-white/20 border border-transparent"
-              }`}
+                }`}
             >
               <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  activeDay === d
+                className={`w-1.5 h-1.5 rounded-full ${activeDay === d
                     ? "bg-[#38BDF8] shadow-[0_0_6px_#38BDF8]"
                     : "bg-slate-600"
-                }`}
+                  }`}
               />
               <span>Day {d}</span>
             </button>
@@ -1132,11 +1127,10 @@ export default function Events({ embedded = false }) {
             <div className="absolute -inset-3 rounded-full border border-[#38BDF8]/50 border-dashed animate-spin-slow pointer-events-none" />
           )}
           <div
-            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 backdrop-blur-md ${
-              activeDay === 1
+            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 backdrop-blur-md ${activeDay === 1
                 ? "bg-[#040e1f] border-[#38BDF8] shadow-[0_0_25px_rgba(56,189,248,0.7)] scale-110"
                 : "bg-[#020612]/90 border-white/30 group-hover:border-[#38BDF8] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.3)]"
-            }`}
+              }`}
           >
             <span className="font-cinzel text-xs font-black text-[#38BDF8]">
               01
@@ -1166,11 +1160,10 @@ export default function Events({ embedded = false }) {
             <div className="absolute -inset-3 rounded-full border border-[#38BDF8]/50 border-dashed animate-spin-slow pointer-events-none" />
           )}
           <div
-            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 backdrop-blur-md ${
-              activeDay === 2
+            className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 backdrop-blur-md ${activeDay === 2
                 ? "bg-[#040e1f] border-[#38BDF8] shadow-[0_0_25px_rgba(56,189,248,0.7)] scale-110"
                 : "bg-[#020612]/90 border-white/30 group-hover:border-[#38BDF8] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.3)]"
-            }`}
+              }`}
           >
             <span className="font-cinzel text-xs font-black text-[#38BDF8]">
               02

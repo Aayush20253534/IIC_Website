@@ -1,8 +1,9 @@
+import { useRef, useState } from "react";
 import { FaLinkedin } from "react-icons/fa";
 import ContactFooter from "../components/ContactFooter";
 
 // Replace this path with each member's photo when it is available.
-// const DUMMY_MEMBER_PHOTO = "/placeholder-speaker.svg";
+const DUMMY_MEMBER_PHOTO = "/placeholder-speaker.svg";
 const MAIN_SECTION_HEADING_CLASS =
   "group mx-auto mb-5 flex w-fit cursor-default flex-col items-center font-cinzel text-[1.65rem] font-bold leading-tight tracking-[0.04em] text-[#166E94] sm:mb-9 sm:text-5xl sm:tracking-[0.06em]";
 
@@ -21,7 +22,6 @@ const facultyIncharges = [
   },
 ];
 
-/* Temporarily hidden along with the Final, Third, and Second Year card sections.
 const finalYearMembers = Array.from({ length: 10 }, (_, index) => ({
   name: `Final Year Member ${index + 1}`,
   position: "Final Year",
@@ -63,9 +63,7 @@ const secondYearTeams = [
       .replace(/\s/g, "-")}-member-${index + 1}/`,
   })),
 }));
-*/
 
-/* Temporarily hidden along with the Final, Third, and Second Year card sections.
 const MemberCard = ({ member, compact = false }) => (
   <div className={`teams-member-card group relative rounded-2xl bg-[#FDF3DF] border border-[#78C8ED] hover:border-[#238BBB] shadow-[0_8px_22px_rgba(35,93,119,0.16)] hover:shadow-[0_12px_28px_rgba(35,93,119,0.22)] transition-all duration-300 flex flex-col items-center text-center overflow-hidden cursor-pointer ${compact ? "min-h-[210px] justify-center px-6 py-8" : "p-6"}`}>
 
@@ -119,7 +117,6 @@ const MemberCard = ({ member, compact = false }) => (
     )}
   </div>
 );
-*/
 
 const FacultyCard = ({ member }) => (
   <article className="teams-member-card teams-faculty-card group flex w-[calc((100vw-60px)/2)] shrink-0 flex-col rounded-xl border border-[#D8C4A8] bg-[#FDF3DF] p-2.5 text-center shadow-[0_10px_24px_rgba(84,64,43,0.2)] transition-all duration-300 sm:w-[232px] sm:rounded-2xl sm:p-4">
@@ -148,13 +145,7 @@ const FacultyCard = ({ member }) => (
   </article>
 );
 
-/* Temporarily hidden along with the Final, Third, and Second Year card sections.
-const ScrollingMemberRow = ({
-  members,
-  label,
-  compact = false,
-  reverse = false,
-}) => {
+const ScrollingMemberRow = ({ members, label, compact = false }) => {
   const [isPaused, setIsPaused] = useState(false);
   const carouselRef = useRef(null);
   const trackRef = useRef(null);
@@ -191,7 +182,7 @@ const ScrollingMemberRow = ({
         ref={trackRef}
         className="flex w-max"
         style={{
-          animation: `${reverse ? "teams-member-scroll-reverse" : "teams-member-scroll"} 36s linear infinite`,
+          animation: "teams-member-scroll 36s linear infinite",
           animationPlayState: isPaused ? "paused" : "running",
         }}
       >
@@ -211,7 +202,6 @@ const ScrollingMemberRow = ({
     </div>
   );
 };
-*/
 
 export default function Teams({ embedded = false }) {
   return (
@@ -220,11 +210,6 @@ export default function Teams({ embedded = false }) {
         @keyframes teams-member-scroll {
           from { transform: translateX(0); }
           to { transform: translateX(-33.333333%); }
-        }
-
-        @keyframes teams-member-scroll-reverse {
-          from { transform: translateX(-50%); }
-          to { transform: translateX(0); }
         }
 
         .teams-member-card {
@@ -367,7 +352,6 @@ export default function Teams({ embedded = false }) {
             </div>
           </section>
 
-          {/* Temporarily hidden: Final Year member cards.
           <section aria-labelledby="final-year-heading">
             <h2
               id="final-year-heading"
@@ -376,13 +360,9 @@ export default function Teams({ embedded = false }) {
               <span className="transition-transform duration-300 group-hover:scale-105">Final Year</span>
               <span className="mt-3 h-1 w-24 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
             </h2>
-            <ScrollingMemberRow
-              members={finalYearMembers}
-              label="final year"
-            />
-          </section> */}
+            <ScrollingMemberRow members={finalYearMembers} label="final year" />
+          </section>
 
-          {/* Temporarily hidden: Third Year team cards.
           <section aria-labelledby="third-year-heading">
             <h2
               id="third-year-heading"
@@ -392,23 +372,18 @@ export default function Teams({ embedded = false }) {
               <span className="mt-3 h-1 w-24 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
             </h2>
             <div className="space-y-10">
-              {thirdYearTeams.map(({ name, members }, index) => (
+              {thirdYearTeams.map(({ name, members }) => (
                 <div key={name}>
                   <h3 className="group mx-auto mb-14 flex w-fit cursor-default flex-col items-center font-cinzel text-lg font-bold uppercase tracking-[0.06em] text-[#173F56]">
                     <span className="transition-transform duration-300 group-hover:scale-105">{name}</span>
                     <span className="mt-2 h-0.5 w-12 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
                   </h3>
-                  <ScrollingMemberRow
-                    members={members}
-                    label={name}
-                    reverse={index % 2 === 0}
-                  />
+                  <ScrollingMemberRow members={members} label={name} />
                 </div>
               ))}
             </div>
-          </section> */}
+          </section>
 
-          {/* Temporarily hidden: Second Year team cards.
           <section aria-labelledby="second-year-heading">
             <h2
               id="second-year-heading"
@@ -418,22 +393,17 @@ export default function Teams({ embedded = false }) {
               <span className="mt-3 h-1 w-24 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
             </h2>
             <div className="space-y-10">
-              {secondYearTeams.map(({ name, members }, index) => (
+              {secondYearTeams.map(({ name, members }) => (
                 <div key={name}>
                   <h3 className="group mx-auto mb-14 flex w-fit cursor-default flex-col items-center font-cinzel text-lg font-bold uppercase tracking-[0.06em] text-[#173F56]">
                     <span className="transition-transform duration-300 group-hover:scale-105">{name}</span>
                     <span className="mt-2 h-0.5 w-12 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
                   </h3>
-                  <ScrollingMemberRow
-                    members={members}
-                    label={name}
-                    compact
-                    reverse={(thirdYearTeams.length + index + 1) % 2 === 1}
-                  />
+                  <ScrollingMemberRow members={members} label={name} compact />
                 </div>
               ))}
             </div>
-          </section> */}
+          </section>
         </div>
       </div>
 

@@ -33,7 +33,7 @@ export default function RenaissanceIntro({ onComplete, onSkip }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020610] text-[#F4EBD9] pointer-events-auto cursor-pointer select-none backdrop-blur-2xl"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020610] text-[#f3e5ab] pointer-events-auto cursor-pointer select-none backdrop-blur-2xl"
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={{ delay: INTRO_TIMING.outStart, duration: INTRO_TIMING.outDur, ease: "easeInOut" }}

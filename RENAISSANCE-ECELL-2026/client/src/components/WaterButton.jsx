@@ -208,8 +208,8 @@ export default function WaterButton({
         isHovered
           ? "border-2 border-[#8E5E32] bg-[#2E1A0F] shadow-[0_6px_20px_rgba(0,0,0,0.8)]"
           : variant === "primary"
-          ? "bg-[#C5A25F] text-[#050B14] border-2 border-[#C5A25F] hover:text-[#F4EBD9]"
-          : "bg-[#0A192F]/80 text-[#F4EBD9] border-2 border-[#C5A25F]/40 hover:border-[#C5A25F]"
+          ? "bg-[#d4af37] text-[#050B14] border-2 border-[#d4af37] hover:text-[#f3e5ab]"
+          : "bg-[#0A192F]/80 text-[#f3e5ab] border-2 border-[#d4af37]/40 hover:border-[#d4af37]"
       } ${className}`}
       {...props}
     >
@@ -227,16 +227,16 @@ export default function WaterButton({
         <div className="absolute inset-x-0 top-2/3 h-[1px] bg-[#1A0C04] opacity-70" />
 
         {/* Brass Corner Brackets & Rivets */}
-        <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-[#C5A25F]" />
-        <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-[#C5A25F]" />
-        <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-[#C5A25F]" />
-        <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-[#C5A25F]" />
+        <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-[#d4af37]" />
+        <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-[#d4af37]" />
+        <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-[#d4af37]" />
+        <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-[#d4af37]" />
         
         {/* Subtle Rivet Dots */}
-        <div className="absolute top-1.5 left-3 w-1 h-1 rounded-full bg-[#C5A25F]/80" />
-        <div className="absolute top-1.5 right-3 w-1 h-1 rounded-full bg-[#C5A25F]/80" />
-        <div className="absolute bottom-1.5 left-3 w-1 h-1 rounded-full bg-[#C5A25F]/80" />
-        <div className="absolute bottom-1.5 right-3 w-1 h-1 rounded-full bg-[#C5A25F]/80" />
+        <div className="absolute top-1.5 left-3 w-1 h-1 rounded-full bg-[#d4af37]/80" />
+        <div className="absolute top-1.5 right-3 w-1 h-1 rounded-full bg-[#d4af37]/80" />
+        <div className="absolute bottom-1.5 left-3 w-1 h-1 rounded-full bg-[#d4af37]/80" />
+        <div className="absolute bottom-1.5 right-3 w-1 h-1 rounded-full bg-[#d4af37]/80" />
       </div>
 
       {/* Realistic Physics Water Filling Canvas */}
@@ -248,7 +248,7 @@ export default function WaterButton({
       {/* Button Content Label (Sits above water with subtle floating depth) */}
       <span
         className={`relative z-20 px-8 py-3.5 flex items-center gap-2 transition-transform duration-300 ${
-          isHovered ? "text-[#F4EBD9] translate-y-[-1px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" : ""
+          isHovered ? "text-[#f3e5ab] translate-y-[-1px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" : ""
         }`}
       >
         {children}

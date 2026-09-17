@@ -24,7 +24,7 @@ export default function EventTimeline() {
     <section className="py-20 px-6 bg-[#050B14]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="font-cinzel text-3xl font-bold text-[#F4EBD9] mb-2">
+          <h2 className="font-cinzel text-3xl font-bold text-[#f3e5ab] mb-2">
             Timeline
           </h2>
           <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto" />
@@ -53,7 +53,7 @@ export default function EventTimeline() {
               className="p-4 rounded-xl bg-[#0A192F]/50 border border-[#D4AF37]/20 flex items-center justify-between"
             >
               <div>
-                <h4 className="font-montserrat font-bold text-sm text-[#F4EBD9]">
+                <h4 className="font-montserrat font-bold text-sm text-[#f3e5ab]">
                   {item.title}
                 </h4>
                 <span className="text-xs text-[#94A3B8] font-mono">{item.venue}</span>

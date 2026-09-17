@@ -1,4 +1,5 @@
 import { useEffect, useState, lazy, Suspense } from "react";
+
 import {
   BrowserRouter,
   Routes,
@@ -14,7 +15,6 @@ import PirateCursor from "./components/PirateCursor";
 import AdisyonShader from "./components/ui/adisyon-shader";
 import SmoothScroll from "./components/SmoothScroll";
 import PageTransitionShimmer from "./components/PageTransitionShimmer";
-
 import { useSmoothScroll } from "./lib/smoothScroll";
 
 // Home page is eagerly loaded for instant interactive entry
@@ -54,8 +54,16 @@ export default function App() {
     typeof window !== "undefined" &&
     window.location.pathname.startsWith("/renaissance");
 
+  const viteBasename =
+    import.meta.env.BASE_URL === "/"
+      ? ""
+      : import.meta.env.BASE_URL.replace(/\/$/, "");
+
+  const routerBasename =
+    viteBasename || (hasRenaissanceBase ? "/renaissance" : "");
+
   return (
-    <BrowserRouter basename={hasRenaissanceBase ? "/renaissance" : ""}>
+    <BrowserRouter basename={routerBasename}>
       <SmoothScroll>
         {/* Reset smooth scroll position whenever route changes */}
         <ScrollToTop />
@@ -66,10 +74,10 @@ export default function App() {
         {/* Interactive Custom Pirate Hook Cursor */}
         <PirateCursor />
 
-        {/* Full-screen Fixed WebGL Ocean Adventure Background Shader */}
+        {/* Full-screen fixed WebGL ocean background */}
         <AdisyonShader className="fixed inset-0 z-0 opacity-90 mix-blend-screen pointer-events-none" />
 
-        {/* Cinematic Splash Screen */}
+        {/* Cinematic splash screen */}
         {showIntro && (
           <RenaissanceIntro
             onComplete={handleIntroComplete}
@@ -77,19 +85,18 @@ export default function App() {
           />
         )}
 
-        {/* Global Navigation */}
+        {/* Global navigation */}
         <Navbar />
 
-        {/* Main Route Views */}
+        {/* Main route views */}
         <div className="relative z-10 min-h-screen bg-transparent text-[#F4EBD9]">
           <Suspense
-            fallback={
-              <div className="min-h-screen bg-transparent" />
-            }
+            fallback={<div className="min-h-screen bg-transparent" />}
           >
             <Routes>
-              {/* Home / Main Summit Portal */}
+              {/* Home */}
               <Route path="/" element={<Home />} />
+
               <Route
                 path="/udbhav"
                 element={<Navigate to="/" replace />}
@@ -97,6 +104,7 @@ export default function App() {
 
               {/* Sponsors */}
               <Route path="/sponsors" element={<Sponsors />} />
+
               <Route
                 path="/udbhav/sponsors"
                 element={<Sponsors />}
@@ -107,10 +115,12 @@ export default function App() {
                 path="/register"
                 element={<Registration />}
               />
+
               <Route
                 path="/events/:eventId/register"
                 element={<Registration />}
               />
+
               <Route
                 path="/udbhav/events/:eventId/register"
                 element={<Registration />}
@@ -118,6 +128,7 @@ export default function App() {
 
               {/* Events */}
               <Route path="/events" element={<Events />} />
+
               <Route
                 path="/udbhav/events"
                 element={<Events />}
@@ -128,30 +139,34 @@ export default function App() {
                 path="/dashboard"
                 element={<Dashboard />}
               />
+
               <Route
                 path="/udbhav/dashboard"
                 element={<Dashboard />}
               />
 
-              {/* Teams / Crew */}
+              {/* Teams */}
               <Route path="/teams" element={<Teams />} />
+
               <Route
                 path="/udbhav/teams"
                 element={<Teams />}
               />
 
-              {/* Gallery / Chronicles */}
+              {/* Gallery */}
               <Route path="/gallery" element={<Gallery />} />
+
               <Route
                 path="/udbhav/gallery"
                 element={<Gallery />}
               />
 
-              {/* Auth Callback */}
+              {/* Auth callback */}
               <Route
                 path="/login/success"
                 element={<LoginSuccess />}
               />
+
               <Route
                 path="/udbhav/login/success"
                 element={<LoginSuccess />}

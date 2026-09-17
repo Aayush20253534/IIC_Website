@@ -9,6 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
+import ContactFooter from "../components/ContactFooter";
 
 export default function Events({ embedded = false }) {
   const [activeDay, setActiveDay] = useState(1);
@@ -70,11 +71,10 @@ export default function Events({ embedded = false }) {
   // Standalone /events catalogue. The embedded homepage timeline below stays untouched.
   const standaloneCategories = [
     "All Events",
-    "Competitions",
-    "Workshops",
-    "Talks",
-    "Networking",
-    "Cultural",
+    "Quizzes & Treasure Hunt",
+    "Strategy & Planning",
+    "Finance",
+    "Business Development",
   ];
 
   const renderStandaloneCategoryIcon = (label) => {
@@ -91,51 +91,42 @@ export default function Events({ embedded = false }) {
     };
 
     switch (label) {
-      case "Competitions":
+      case "Quizzes & Treasure Hunt":
         return (
           <svg {...commonProps}>
-            <path d="m14.5 5.5 4-4 1.5 1.5-4 4" />
-            <path d="m10 10 6-6" />
-            <path d="m4 20 6.5-6.5" />
-            <path d="m3 15 6 6" />
-            <path d="m9.5 5.5-4-4L4 3l4 4" />
-            <path d="m14 10-6-6" />
-            <path d="m20 20-6.5-6.5" />
-            <path d="m15 21 6-6" />
+            <path d="m4 5 5-2 6 2 5-2v15l-5 2-6-2-5 2V5Z" />
+            <path d="M9 3v15" />
+            <path d="M15 5v15" />
+            <path d="M6.5 9.5c2.5-2 5.5 3 9-1" strokeDasharray="1.8 2.4" />
           </svg>
         );
-      case "Workshops":
+      case "Strategy & Planning":
         return (
           <svg {...commonProps}>
-            <path d="M14.7 6.3a4 4 0 0 0-5.5 5.5l-6.7 6.7a1.4 1.4 0 0 0 2 2l6.7-6.7a4 4 0 0 0 5.5-5.5l-2.3 2.3-2.7-.7-.7-2.7 2.3-2.3Z" />
-            <path d="m15 15 5 5" />
+            <circle cx="12" cy="12" r="8.5" />
+            <circle cx="12" cy="12" r="4.5" />
+            <circle cx="12" cy="12" r="1.2" />
+            <path d="m15.5 8.5 4-4" />
+            <path d="m16 4.5 3.5.5-.5 3.5" />
           </svg>
         );
-      case "Talks":
+      case "Finance":
         return (
           <svg {...commonProps}>
-            <rect x="9" y="2.5" width="6" height="12" rx="3" />
-            <path d="M5.5 10.5a6.5 6.5 0 0 0 13 0" />
-            <path d="M12 17v4" />
-            <path d="M9 21h6" />
+            <path d="M5 20V10" />
+            <path d="M10 20V5" />
+            <path d="M15 20v-7" />
+            <path d="M20 20H3" />
+            <path d="m5 7 4-3 4 3 6-4" />
+            <path d="M19 3v4h-4" />
           </svg>
         );
-      case "Networking":
+      case "Business Development":
         return (
           <svg {...commonProps}>
-            <circle cx="9" cy="8" r="3" />
-            <circle cx="17" cy="9" r="2.5" />
-            <path d="M3.5 19c.8-3.5 2.7-5.2 5.5-5.2s4.7 1.7 5.5 5.2" />
-            <path d="M14.5 14.8c2.8-.8 5 .6 6 3.7" />
-          </svg>
-        );
-      case "Cultural":
-        return (
-          <svg {...commonProps}>
-            <path d="M9 18V5l10-2v13" />
-            <ellipse cx="6.5" cy="18" rx="2.5" ry="2" />
-            <ellipse cx="16.5" cy="16" rx="2.5" ry="2" />
-            <path d="M9 9l10-2" />
+            <path d="M4 12.5 8.5 8l3 3 3-3 5.5 5.5" />
+            <path d="m4 12.5 3 3 2-2 3 3 2.5-2.5 2 2 3-3" />
+            <path d="M9.5 5.5 12 3l2.5 2.5" />
           </svg>
         );
       case "All Events":
@@ -156,69 +147,71 @@ export default function Events({ embedded = false }) {
   const standaloneEvents = [
     {
       id: "summit-keynote",
-      title: "Summit Keynote & Inaugural",
-      category: "Talks",
-      label: "Flagship",
+      title: "B-plan",
+      category: "Strategy & Planning",
+      categories: [
+        "Strategy & Planning",
+        "Business Development",
+        "Finance",
+      ],
       time: "09:30 AM",
       location: "Main Auditorium",
-      description: "Setting sail on a journey of ideas, innovation and impact.",
+      description: "Shape a venture idea into a credible business plan, then pitch it with clarity and conviction to an expert panel.",
       eyebrow: "Opening Summit",
+      cardImage: "/b-plan-card.jpeg",
+      compactModal: true,
+      registrationUrl: "https://unstop.com/competitions/b-plan-renaissance-100-motilal-nehru-national-institute-of-technology-1755448?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+      detailDescription: [
+        "Overview",
+        "Have a venture idea worth backing? Bring it to the table.",
+        "B-Plan invites you to turn a promising concept into a persuasive business case. Define the opportunity, shape a workable model, and show an expert panel why your idea can succeed beyond the drawing board.",
+        "As Renaissance 10.0’s Fish Tank business-plan challenge, it is a place for emerging founders to pitch with clarity, answer tough questions, and take the first meaningful step toward building their venture.",
+      ],
       visualPosition: "18% 58%",
     },
     {
       id: "hackathon-sprint",
-      title: "Hackathon Sprint: Round 1",
-      category: "Competitions",
-      label: "Competition",
+      title: "Biz-War",
+      category: "Strategy & Planning",
+      categories: ["Strategy & Planning", "Quizzes & Treasure Hunt"],
+      label: "Strategy & Planning",
       time: "11:30 AM",
       location: "Innovation Hub",
-      description: "Build. Collaborate. Conquer.",
+      description: "Navigate market challenges, build decisive business strategies, and defend every move in a high-pressure competition.",
       eyebrow: "Innovation Lab",
+      cardImage: "/biz-war-card.jpeg",
+      cardImageFit: "cover",
+      cardImagePosition: "right center",
+      compactModal: true,
+      registrationUrl: "https://unstop.com/competitions/biz-wars-renaissance-100-motilal-nehru-national-institute-of-technology-1756444?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+      detailDescription: [
+        "Think Fast. Strategize Better. Win the Market:",
+        "Business Wars is a high-pressure business strategy competition where teams step into the shoes of competing businesses and battle through real-world market scenarios. Analyse the situation, identify opportunities, build strategies, respond to challenges, and defend your decisions against the competition.",
+        "This is not just about knowing business. It is about thinking strategically, adapting quickly, and making decisions that create an edge.",
+      ],
       visualPosition: "52% 48%",
     },
     {
       id: "product-masterclass",
-      title: "Product Building Masterclass",
-      category: "Workshops",
-      label: "Workshop",
+      title: "Strategy-Wiz",
+      category: "Strategy & Planning",
+      categories: ["Strategy & Planning", "Quizzes & Treasure Hunt"],
+      label: "Strategy & Planning",
       time: "02:00 PM",
       location: "Learning Deck",
-      description: "From concept to reality with industry experts.",
+      description: "Read the market, design a standout launch plan, and turn sharp insight into a compelling go-to-market strategy.",
       eyebrow: "Builder's Deck",
+      cardImage: "/strategy-wiz-card.jpeg",
+      cardImageFit: "cover",
+      compactModal: true,
+      registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423",
+      detailDescription: [
+        "Overview",
+        "Build the launch strategy that turns a strong product into a market moment.",
+        "Strategy-Wiz challenges teams to think beyond the product itself: read the market, identify the audience, and create a launch plan with a clear point of difference. Your task is to connect sharp insight with a campaign that can earn attention and drive adoption.",
+        "Bring a bold go-to-market vision, defend the choices behind it, and refine your approach under expert scrutiny. It is a strategic arena for future business leaders who can translate ideas into lasting brand impact.",
+      ],
       visualPosition: "78% 50%",
-    },
-    {
-      id: "leadership-talk",
-      title: "Leadership in a Changing World",
-      category: "Talks",
-      label: "Talk",
-      time: "04:00 PM",
-      location: "Main Auditorium",
-      description: "Insights from visionaries shaping tomorrow.",
-      eyebrow: "Leadership Forum",
-      visualPosition: "26% 72%",
-    },
-    {
-      id: "voyagers-circle",
-      title: "Voyagers' Circle",
-      category: "Networking",
-      label: "Networking",
-      time: "06:00 PM",
-      location: "The Harbor Deck",
-      description: "Conversations. Connections. Opportunities.",
-      eyebrow: "Harbor Meetup",
-      visualPosition: "58% 72%",
-    },
-    {
-      id: "music-stars",
-      title: "Music Under the Stars",
-      category: "Cultural",
-      label: "Cultural",
-      time: "07:30 PM",
-      location: "Open Air Arena",
-      description: "Unwind. Celebrate. Create memories.",
-      eyebrow: "Night at Sea",
-      visualPosition: "88% 72%",
     },
   ];
 
@@ -226,10 +219,11 @@ export default function Events({ embedded = false }) {
     const normalizedSearch = eventSearch.trim().toLowerCase();
     const visibleEvents = standaloneEvents.filter((event) => {
       const matchesFilter =
-        eventFilter === "All Events" || event.category === eventFilter;
+        eventFilter === "All Events" ||
+        (event.categories ?? [event.category]).includes(eventFilter);
       const matchesSearch =
         !normalizedSearch ||
-        `${event.title} ${event.category} ${event.location} ${event.description}`
+        `${event.title} ${(event.categories ?? [event.category]).join(" ")} ${event.location} ${event.description}`
           .toLowerCase()
           .includes(normalizedSearch);
 
@@ -243,10 +237,7 @@ export default function Events({ embedded = false }) {
         onPointerMove={handleHeroPointerMove}
         onPointerLeave={resetHeroPointer}
       >
-        {/*
-          The supplied artwork already contains the event hero copy. Keep it clean and
-          let it do the visual work instead of layering a second giant heading on top.
-        */}
+        {/* The hero copy sits in the clear left side of the supplied artwork. */}
         <motion.div
           ref={heroRef}
           className="pointer-events-none absolute inset-x-0 top-0 h-[330px] overflow-hidden sm:h-[360px] lg:h-[390px]"
@@ -341,6 +332,24 @@ export default function Events({ embedded = false }) {
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#efe3cb]" />
 
           <motion.div
+            className="absolute left-10 top-[96px] max-w-[70vw] sm:left-20 sm:top-[110px] lg:left-[8.5vw] lg:top-[120px]"
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -24, y: 8 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+          >
+            <h1 className="font-cinzel text-5xl font-black leading-none tracking-[-0.015em] drop-shadow-[0_3px_12px_rgba(255,255,255,.75)] sm:text-7xl lg:text-[104px]">
+              <span className="relative inline-block pb-3 bg-gradient-to-b from-[#155d78] via-[#0b4259] to-[#062d40] bg-clip-text text-transparent after:absolute after:bottom-0 after:left-[6%] after:h-px after:w-[88%] after:bg-gradient-to-r after:from-transparent after:via-[#c99535] after:to-transparent">
+                Events
+              </span>
+            </h1>
+            <p className="mt-2 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#164f66] drop-shadow-[0_2px_8px_rgba(255,255,255,.9)] sm:text-xs lg:mt-3 lg:text-sm">
+              <span className="relative inline-block pb-2 after:absolute after:bottom-0 after:left-[8%] after:h-px after:w-[84%] after:bg-gradient-to-r after:from-transparent after:via-[#c99535] after:to-transparent">
+                Renaissance 10.0 — MNNIT Allahabad
+              </span>
+            </p>
+          </motion.div>
+
+          <motion.div
             className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/45 bg-[#073b4d]/35 px-3.5 py-2 font-montserrat text-[9px] font-bold uppercase tracking-[0.18em] text-white/90 backdrop-blur-md sm:flex"
             style={prefersReducedMotion ? undefined : { opacity: heroCueOpacity }}
             animate={prefersReducedMotion ? undefined : { y: [0, 5, 0] }}
@@ -358,7 +367,7 @@ export default function Events({ embedded = false }) {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.72 }}
             transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-            className="grid gap-2 rounded-[24px] border border-white/80 bg-[#fffdf7]/92 p-2.5 shadow-[0_18px_45px_rgba(35,57,61,.16)] backdrop-blur-xl md:grid-cols-[minmax(250px,.75fr)_minmax(0,1.25fr)] md:items-center md:gap-3 md:p-3"
+            className="grid gap-2 rounded-[24px] border border-white/80 bg-[#fffdf7]/92 p-2.5 shadow-[0_18px_45px_rgba(35,57,61,.16)] backdrop-blur-xl md:grid-cols-[minmax(220px,.55fr)_minmax(0,1.45fr)] md:items-center md:gap-3 md:p-3"
           >
             <label className="flex min-h-[54px] min-w-0 items-center gap-3 rounded-[17px] border border-[#d9ccb7] bg-white/95 px-4 shadow-[inset_0_1px_0_rgba(255,255,255,.9)]">
               <svg
@@ -381,7 +390,7 @@ export default function Events({ embedded = false }) {
               />
             </label>
 
-            <div className="grid min-w-0 grid-cols-2 gap-2 rounded-[18px] border border-[#d9ccb7] bg-white/95 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,.95)] sm:grid-cols-3 lg:grid-cols-6">
+            <div className="grid min-w-0 grid-cols-2 gap-2 rounded-[18px] border border-[#d9ccb7] bg-white/95 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,.95)] sm:grid-cols-3 lg:grid-cols-5">
               {standaloneCategories.map((label) => {
                 const isActive = eventFilter === label;
                 return (
@@ -396,7 +405,7 @@ export default function Events({ embedded = false }) {
                     }
                     whileTap={prefersReducedMotion ? undefined : { scale: 0.965 }}
                     transition={{ type: "spring", stiffness: 430, damping: 25 }}
-                    className={`group/filter relative flex min-h-[48px] min-w-0 items-center justify-center gap-2 overflow-hidden rounded-[13px] border px-2.5 py-2 font-montserrat text-[10px] font-extrabold tracking-[-0.01em] transition-[color,background-color,border-color,box-shadow] duration-200 sm:text-[11px] ${
+                    className={`group/filter relative flex min-h-[54px] min-w-0 items-center justify-center gap-2.5 overflow-hidden rounded-[13px] border px-3 py-2 font-montserrat text-[11px] font-extrabold tracking-[-0.01em] transition-[color,background-color,border-color,box-shadow] duration-200 sm:text-[13px] ${
                       isActive
                         ? "border-[#d8a642] bg-gradient-to-b from-[#12677f] to-[#0a526a] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_7px_18px_rgba(12,88,112,.22)]"
                         : "border-transparent bg-transparent text-[#2c5c6e] hover:border-[#dfd3bf] hover:bg-[#f5f3ec] hover:text-[#123f55] hover:shadow-[0_5px_14px_rgba(38,82,96,.08)]"
@@ -413,7 +422,7 @@ export default function Events({ embedded = false }) {
                     >
                       {renderStandaloneCategoryIcon(label)}
                     </span>
-                    <span className="min-w-0 truncate leading-none">{label}</span>
+                    <span className="min-w-0 text-center leading-tight">{label}</span>
                     {isActive && (
                       <motion.span
                         layoutId="events-filter-active-glow"
@@ -451,7 +460,7 @@ export default function Events({ embedded = false }) {
           </div>
 
           {visibleEvents.length > 0 ? (
-            <motion.div layout className="relative z-10 mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:gap-4">
+            <motion.div layout className="relative z-10 mt-4 grid auto-rows-fr grid-cols-1 items-stretch gap-3 sm:grid-cols-2 md:grid-cols-3 lg:gap-4">
               <AnimatePresence mode="popLayout">
               {visibleEvents.map((event, index) => (
                 <motion.article
@@ -485,19 +494,25 @@ export default function Events({ embedded = false }) {
                   >
                     <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px]">
                       <motion.div
-                        className="absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 group-hover:scale-[1.055]"
+                        className={`absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 ${event.cardImage ? "" : "group-hover:scale-[1.055]"}`}
                         style={{
-                          backgroundImage:
-                            "linear-gradient(180deg, rgba(4,35,50,.08), rgba(4,35,50,.46)), url('/ship-map-hero.jpg')",
-                          backgroundPosition: event.visualPosition,
+                          backgroundImage: event.cardImage
+                            ? `url('${event.cardImage}')`
+                            : "linear-gradient(180deg, rgba(4,35,50,.08), rgba(4,35,50,.46)), url('/ship-map-hero.jpg')",
+                          backgroundPosition: event.cardImage
+                            ? (event.cardImagePosition ?? "center")
+                            : event.visualPosition,
+                          backgroundSize: event.cardImage ? (event.cardImageFit ?? "contain") : undefined,
+                          backgroundRepeat: event.cardImage ? "no-repeat" : undefined,
+                          backgroundColor: event.cardImage ? "#eee1c5" : undefined,
                         }}
                         initial={
-                          prefersReducedMotion
+                          prefersReducedMotion || event.cardImage
                             ? false
                             : { x: 24, y: 3, scale: 1.075 }
                         }
                         whileInView={
-                          prefersReducedMotion
+                          prefersReducedMotion || event.cardImage
                             ? undefined
                             : { x: -20, y: -3, scale: 1.1 }
                         }
@@ -509,7 +524,9 @@ export default function Events({ embedded = false }) {
                         }}
                       />
 
-                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,27,39,.12)_0%,rgba(2,27,39,.08)_48%,rgba(2,27,39,.68)_100%)]" />
+                      {!event.cardImage && (
+                        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,27,39,.12)_0%,rgba(2,27,39,.08)_48%,rgba(2,27,39,.68)_100%)]" />
+                      )}
 
                       {!prefersReducedMotion && (
                         <motion.div
@@ -524,38 +541,28 @@ export default function Events({ embedded = false }) {
                       )}
 
                       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent" />
-                      <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-[#073b4d]/72 px-3 py-1.5 font-montserrat text-[9px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[0_5px_16px_rgba(0,0,0,.16)] backdrop-blur-md">
-                        {event.eyebrow}
-                      </div>
-
-                      <div className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-[#082f40]/72 px-2.5 py-1.5 font-mono text-[9px] font-bold tracking-wide text-white/95 backdrop-blur-md">
-                        <svg className="h-3.5 w-3.5 text-[#f2c768]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-                          <circle cx="12" cy="12" r="8.5" />
-                          <path d="M12 7v5l3 2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        {event.time}
-                      </div>
                     </div>
 
                     <div className="relative flex flex-1 flex-col px-5 pb-5 pt-6 sm:px-5">
-                      <span className="absolute -top-4 left-5 rounded-full border border-[#d8b55d] bg-[#f8df98] px-3.5 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.14em] text-[#65480e] shadow-[0_4px_12px_rgba(94,67,17,.12)]">
-                        {event.label}
-                      </span>
+                      <div className="absolute -top-4 left-5 right-5 flex flex-wrap gap-1.5">
+                        {(event.categories ?? [event.label]).map((label) => (
+                          <span
+                            key={label}
+                            className="rounded-full border border-[#d8b55d] bg-[#f8df98] px-2.5 py-1.5 font-montserrat text-[7px] font-black uppercase tracking-[0.1em] text-[#65480e] shadow-[0_4px_12px_rgba(94,67,17,.12)] sm:text-[8px]"
+                          >
+                            {label}
+                          </span>
+                        ))}
+                      </div>
 
-                      <h2 className="font-cinzel text-[16px] font-bold leading-[1.22] text-[#123f55] transition-colors duration-300 group-hover:text-[#8f5915] sm:text-[17px]">
+                      <h2 className={`${event.categories ? "mt-8" : ""} flex min-h-[52px] items-start font-cinzel text-[22px] font-bold leading-[1.18] text-[#123f55] transition-colors duration-300 group-hover:text-[#8f5915] sm:text-[24px]`}>
                         {event.title}
                       </h2>
 
-                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 font-montserrat text-[10px] font-semibold text-[#5d7781] sm:text-[11px]">
-                        <span className="inline-flex min-w-0 items-center gap-1.5">
-                          <svg className="h-3.5 w-3.5 shrink-0 text-[#c74247]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
-                            <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" strokeLinecap="round" strokeLinejoin="round" />
-                            <circle cx="12" cy="10" r="2.3" />
-                          </svg>
-                          <span className="truncate">{event.location}</span>
+                      <div className="mt-3 flex min-h-[42px] flex-wrap items-start gap-x-3 gap-y-2 font-montserrat text-[10px] font-semibold text-[#5d7781] sm:text-[11px]">
+                        <span className="uppercase tracking-[0.11em] text-[#87979d]">
+                          {(event.categories ?? [event.category]).join(" • ")}
                         </span>
-                        <span className="h-1 w-1 rounded-full bg-[#d5c4a4]" aria-hidden="true" />
-                        <span className="uppercase tracking-[0.11em] text-[#87979d]">{event.category}</span>
                       </div>
 
                       <p className="mt-3 line-clamp-2 min-h-[38px] font-montserrat text-[11px] leading-[1.65] text-[#6c7f86] sm:text-xs">
@@ -673,24 +680,26 @@ export default function Events({ embedded = false }) {
                     </button>
                   </div>
 
-                  <div className="grid sm:grid-cols-[210px_minmax(0,1fr)]">
-                    <div
-                      className="relative min-h-[185px] border-b border-[#d9c294] sm:min-h-full sm:border-b-0 sm:border-r"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(180deg, rgba(3,26,38,.05), rgba(3,26,38,.64)), url('/ship-map-hero.jpg')",
-                        backgroundSize: "cover",
-                        backgroundPosition: selectedEventModal.visualPosition,
-                      }}
-                    >
-                      <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_35%,rgba(239,202,116,.12)_100%)]" />
-                      <div className="absolute left-4 top-4 border border-white/25 bg-[#07384a]/80 px-2.5 py-1 font-montserrat text-[8px] font-black uppercase tracking-[0.15em] text-white backdrop-blur-sm">
-                        {selectedEventModal.eyebrow}
+                  <div className={selectedEventModal.compactModal ? "" : "grid sm:grid-cols-[210px_minmax(0,1fr)]"}>
+                    {!selectedEventModal.compactModal && (
+                      <div
+                        className="relative min-h-[185px] border-b border-[#d9c294] sm:min-h-full sm:border-b-0 sm:border-r"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(180deg, rgba(3,26,38,.05), rgba(3,26,38,.64)), url('/ship-map-hero.jpg')",
+                          backgroundSize: "cover",
+                          backgroundPosition: selectedEventModal.visualPosition,
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_35%,rgba(239,202,116,.12)_100%)]" />
+                        <div className="absolute left-4 top-4 border border-white/25 bg-[#07384a]/80 px-2.5 py-1 font-montserrat text-[8px] font-black uppercase tracking-[0.15em] text-white backdrop-blur-sm">
+                          {selectedEventModal.eyebrow}
+                        </div>
+                        <div className="absolute bottom-4 left-4 border border-[#d6ad4f] bg-[#f1d17d] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.14em] text-[#5d430e] shadow-[0_5px_14px_rgba(0,0,0,.16)]">
+                          {selectedEventModal.label}
+                        </div>
                       </div>
-                      <div className="absolute bottom-4 left-4 border border-[#d6ad4f] bg-[#f1d17d] px-3 py-1.5 font-montserrat text-[9px] font-black uppercase tracking-[0.14em] text-[#5d430e] shadow-[0_5px_14px_rgba(0,0,0,.16)]">
-                        {selectedEventModal.label}
-                      </div>
-                    </div>
+                    )}
 
                     <div className="relative p-5 sm:p-6">
                       <div className="absolute right-0 top-0 h-16 w-16 border-r border-t border-[#cba352]/35" />
@@ -703,40 +712,69 @@ export default function Events({ embedded = false }) {
                         {selectedEventModal.title}
                       </h2>
 
-                      <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden border border-[#d6c7aa] bg-[#d6c7aa] font-montserrat text-[10px] sm:grid-cols-3">
-                        <div className="bg-[#fbf6ea] px-3 py-2.5">
-                          <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Time</span>
-                          <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.time}</strong>
+                      {!selectedEventModal.compactModal && (
+                        <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden border border-[#d6c7aa] bg-[#d6c7aa] font-montserrat text-[10px] sm:grid-cols-3">
+                          <div className="bg-[#fbf6ea] px-3 py-2.5">
+                            <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Time</span>
+                            <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.time}</strong>
+                          </div>
+                          <div className="bg-[#fbf6ea] px-3 py-2.5">
+                            <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Location</span>
+                            <strong className="mt-1 block truncate text-[#234d5d]">{selectedEventModal.location}</strong>
+                          </div>
+                          <div className="col-span-2 bg-[#fbf6ea] px-3 py-2.5 sm:col-span-1">
+                            <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Class</span>
+                            <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.category}</strong>
+                          </div>
                         </div>
-                        <div className="bg-[#fbf6ea] px-3 py-2.5">
-                          <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Location</span>
-                          <strong className="mt-1 block truncate text-[#234d5d]">{selectedEventModal.location}</strong>
-                        </div>
-                        <div className="col-span-2 bg-[#fbf6ea] px-3 py-2.5 sm:col-span-1">
-                          <span className="block text-[7px] font-black uppercase tracking-[0.17em] text-[#9b8a69]">Class</span>
-                          <strong className="mt-1 block text-[#234d5d]">{selectedEventModal.category}</strong>
-                        </div>
+                      )}
+
+                      <div className="mt-4 space-y-3 border-l-2 border-[#d1a64e] pl-3 font-montserrat text-xs leading-relaxed text-[#63777e] sm:text-[13px]">
+                        {(selectedEventModal.detailDescription ?? [selectedEventModal.description]).map((paragraph, index) => (
+                          <p key={paragraph} className={index === 0 && selectedEventModal.detailDescription ? "font-bold text-[#234d5d]" : undefined}>
+                            {paragraph}
+                          </p>
+                        ))}
                       </div>
 
-                      <p className="mt-4 border-l-2 border-[#d1a64e] pl-3 font-montserrat text-xs leading-relaxed text-[#63777e] sm:text-[13px]">
-                        {selectedEventModal.description}
-                      </p>
-
                       <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedEventModal(null);
-                            navigate(`/events/${selectedEventModal.id}/register`);
-                          }}
-                          className="flex-1 border border-[#0c5870] bg-[#0c5870] px-4 py-3 font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
-                        >
-                          Enter Event
-                        </button>
+                        <div className="flex flex-1 flex-col gap-2.5">
+                          {selectedEventModal.registrationUrl ? (
+                            <a
+                              href={selectedEventModal.registrationUrl}
+                              className="rounded-xl border border-[#0c5870] bg-[#0c5870] px-4 py-3 text-center font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
+                            >
+                              Enter Event
+                            </a>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedEventModal(null);
+                                navigate(`/events/${selectedEventModal.id}/register`);
+                              }}
+                              className="rounded-xl border border-[#0c5870] bg-[#0c5870] px-4 py-3 font-cinzel text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-[0_7px_18px_rgba(12,88,112,.2)] transition hover:bg-[#08485d]"
+                            >
+                              Enter Event
+                            </button>
+                          )}
+                          <a
+                            href="https://chat.whatsapp.com/FBmy90Cekgu5Jd4MkxXGMO"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center justify-center gap-2 rounded-xl border border-[#1dad59] bg-[#25d366] px-4 py-3 text-center font-montserrat text-[10px] font-extrabold uppercase tracking-[0.11em] text-white shadow-[0_7px_18px_rgba(37,211,102,.24)] transition hover:bg-[#1ebe5d]"
+                          >
+                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M20.4 3.6A11.5 11.5 0 0 0 3.7 19.2L2.5 22l2.9-1.1A11.5 11.5 0 1 0 20.4 3.6Z" />
+                              <path d="M8.4 7.5c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.5.6c.7 1.4 1.8 2.5 3.2 3.2l.6-.5c.2-.2.4-.2.7-.1l1.8.8c.3.1.4.3.4.5v.5c0 .3-.1.5-.5.7-.5.2-1.3.4-2.2.1-1.2-.4-2.7-1.3-4.1-2.7-1.4-1.4-2.3-2.9-2.7-4.1-.3-.9-.1-1.7.1-2.2Z" />
+                            </svg>
+                            WhatsApp Community
+                          </a>
+                        </div>
                         <button
                           type="button"
                           onClick={() => setSelectedEventModal(null)}
-                          className="border border-[#cfc1a5] bg-[#fffaf0] px-5 py-3 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#6e756f] transition hover:border-[#bfa364] hover:bg-white hover:text-[#173f51]"
+                          className="rounded-xl border border-[#cfc1a5] bg-[#fffaf0] px-5 py-3 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#6e756f] transition hover:border-[#bfa364] hover:bg-white hover:text-[#173f51] sm:self-stretch"
                         >
                           Dismiss
                         </button>
@@ -747,6 +785,7 @@ export default function Events({ embedded = false }) {
               </motion.div>
             )}
         </AnimatePresence>
+        <ContactFooter />
       </main>
     );
   }

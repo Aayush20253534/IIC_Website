@@ -28,6 +28,10 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
   const isActive = (path) => {
     if (path === "/") {
       return location.pathname === "/" || location.pathname === "/udbhav";

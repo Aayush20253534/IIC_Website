@@ -264,13 +264,13 @@ export default function Gallery() {
 
             <motion.div 
               layoutId={`gallery-img-${selectedImage.id}`}
-              className="relative w-full max-w-5xl max-h-[75vh] flex items-center justify-center mt-12"
+              className="relative w-full h-full flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={selectedImage.src}
                 alt="Enlarged Archive Capture"
-                className="w-auto h-auto max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl filter contrast-[1.05]"
+                className="w-full h-full object-contain rounded-lg shadow-2xl filter contrast-[1.05]"
               />
             </motion.div>
           </motion.div>

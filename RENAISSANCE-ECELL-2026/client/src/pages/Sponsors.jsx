@@ -848,6 +848,12 @@ function FloatingStickers() {
       <img src="/sticker-watch.png" alt="watch" className="absolute top-[18%] right-[20%] w-32 opacity-40 drop-shadow-xl rotate-12" />
       <img src="/sticker-bottle.png" alt="bottle" className="absolute top-[85%] left-[12%] w-64 opacity-60 drop-shadow-xl -rotate-6" />
       <img src="/sticker-skull.png" alt="skull" className="absolute top-[35%] left-[45%] w-40 opacity-20 drop-shadow-lg" />
+      
+      {/* New Vintage Exploration Components from inspiration */}
+      <img src="/sticker-lighthouse.png" alt="lighthouse" className="absolute top-[75%] right-[15%] w-60 opacity-[0.65] drop-shadow-2xl mix-blend-multiply" />
+      <img src="/sticker-balloon.png" alt="balloon" className="absolute top-[10%] left-[10%] w-56 opacity-60 drop-shadow-xl rotate-6 mix-blend-multiply" />
+      <img src="/sticker-camera.png" alt="camera" className="absolute top-[35%] right-[8%] w-48 opacity-[0.55] drop-shadow-xl -rotate-6 mix-blend-multiply" />
+      <img src="/sticker-book.png" alt="book" className="absolute top-[55%] left-[8%] w-52 opacity-[0.55] drop-shadow-lg rotate-12 mix-blend-multiply" />
     </div>
   );
 }

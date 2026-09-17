@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+
+@source "./";
+@source "../../../frontend/src/RenaissanceEntry.jsx";
 
 /* Lenis owns interpolation; native smooth scrolling would otherwise compete with it. */
 html.lenis,

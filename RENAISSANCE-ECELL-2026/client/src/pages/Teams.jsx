@@ -145,12 +145,7 @@ const FacultyCard = ({ member }) => (
   </article>
 );
 
-const ScrollingMemberRow = ({
-  members,
-  label,
-  compact = false,
-  reverse = false,
-}) => {
+const ScrollingMemberRow = ({ members, label, compact = false }) => {
   const [isPaused, setIsPaused] = useState(false);
   const carouselRef = useRef(null);
   const trackRef = useRef(null);
@@ -187,7 +182,7 @@ const ScrollingMemberRow = ({
         ref={trackRef}
         className="flex w-max"
         style={{
-          animation: `${reverse ? "teams-member-scroll-reverse" : "teams-member-scroll"} 36s linear infinite`,
+          animation: "teams-member-scroll 36s linear infinite",
           animationPlayState: isPaused ? "paused" : "running",
         }}
       >
@@ -215,11 +210,6 @@ export default function Teams({ embedded = false }) {
         @keyframes teams-member-scroll {
           from { transform: translateX(0); }
           to { transform: translateX(-33.333333%); }
-        }
-
-        @keyframes teams-member-scroll-reverse {
-          from { transform: translateX(-50%); }
-          to { transform: translateX(0); }
         }
 
         .teams-member-card {
@@ -370,10 +360,7 @@ export default function Teams({ embedded = false }) {
               <span className="transition-transform duration-300 group-hover:scale-105">Final Year</span>
               <span className="mt-3 h-1 w-24 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
             </h2>
-            <ScrollingMemberRow
-              members={finalYearMembers}
-              label="final year"
-            />
+            <ScrollingMemberRow members={finalYearMembers} label="final year" />
           </section>
 
           <section aria-labelledby="third-year-heading">
@@ -385,17 +372,13 @@ export default function Teams({ embedded = false }) {
               <span className="mt-3 h-1 w-24 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
             </h2>
             <div className="space-y-10">
-              {thirdYearTeams.map(({ name, members }, index) => (
+              {thirdYearTeams.map(({ name, members }) => (
                 <div key={name}>
                   <h3 className="group mx-auto mb-14 flex w-fit cursor-default flex-col items-center font-cinzel text-lg font-bold uppercase tracking-[0.06em] text-[#173F56]">
                     <span className="transition-transform duration-300 group-hover:scale-105">{name}</span>
                     <span className="mt-2 h-0.5 w-12 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
                   </h3>
-                  <ScrollingMemberRow
-                    members={members}
-                    label={name}
-                    reverse={index % 2 === 0}
-                  />
+                  <ScrollingMemberRow members={members} label={name} />
                 </div>
               ))}
             </div>
@@ -410,18 +393,13 @@ export default function Teams({ embedded = false }) {
               <span className="mt-3 h-1 w-24 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
             </h2>
             <div className="space-y-10">
-              {secondYearTeams.map(({ name, members }, index) => (
+              {secondYearTeams.map(({ name, members }) => (
                 <div key={name}>
                   <h3 className="group mx-auto mb-14 flex w-fit cursor-default flex-col items-center font-cinzel text-lg font-bold uppercase tracking-[0.06em] text-[#173F56]">
                     <span className="transition-transform duration-300 group-hover:scale-105">{name}</span>
                     <span className="mt-2 h-0.5 w-12 rounded-full bg-[#78C8ED] transition-all duration-300 group-hover:w-[70%]" />
                   </h3>
-                  <ScrollingMemberRow
-                    members={members}
-                    label={name}
-                    compact
-                    reverse={(thirdYearTeams.length + index + 1) % 2 === 1}
-                  />
+                  <ScrollingMemberRow members={members} label={name} compact />
                 </div>
               ))}
             </div>

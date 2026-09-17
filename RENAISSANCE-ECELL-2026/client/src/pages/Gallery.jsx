@@ -3,36 +3,29 @@ import { motion, AnimatePresence } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
 
 const MASONRY_IMAGES = [
-  { id: 1, src: "/past_events/Copy of REN.png", aspect: "aspect-[282/179]", delay: 0.1 },
-  { id: 2, src: "/past_events/Copy of REN (1).png", aspect: "aspect-[305/172]", delay: 0.2 },
-  { id: 3, src: "/past_events/Copy of REN (2).png", aspect: "aspect-[268/183]", delay: 0.15 },
-  { id: 4, src: "/past_events/Copy of REN (3).png", aspect: "aspect-[164/429]", delay: 0.25 },
-  { id: 5, src: "/past_events/Copy of REN (4).png", aspect: "aspect-[499/155]", delay: 0.1 },
-  { id: 6, src: "/past_events/Copy of REN (5).png", aspect: "aspect-[347/222]", delay: 0.2 },
-  { id: 7, src: "/past_events/Copy of REN (6).png", aspect: "aspect-[14/9]", delay: 0.3 },
-  { id: 8, src: "/past_events/Copy of REN (7).png", aspect: "aspect-[254/153]", delay: 0.15 },
-  { id: 9, src: "/past_events/Copy of REN (8).png", aspect: "aspect-[288/175]", delay: 0.25 },
-  { id: 10, src: "/past_events/Copy of REN (9).png", aspect: "aspect-[7/12]", delay: 0.1 },
-  { id: 11, src: "/past_events/Copy of REN (10).png", aspect: "aspect-[67/52]", delay: 0.3 },
-  { id: 12, src: "/past_events/Copy of REN (11).png", aspect: "aspect-[306/163]", delay: 0.15 },
-  { id: 13, src: "/past_events/Copy of REN (12).png", aspect: "aspect-[307/218]", delay: 0.2 },
-  { id: 14, src: "/past_events/Copy of REN (13).png", aspect: "aspect-[217/166]", delay: 0.1 },
-  { id: 15, src: "/past_events/Copy of REN (14).png", aspect: "aspect-[105/32]", delay: 0.25 },
-  { id: 16, src: "/past_events/Copy of REN (15).png", aspect: "aspect-[206/119]", delay: 0.15 },
-  { id: 17, src: "/past_events/Copy of REN (16).png", aspect: "aspect-[57/65]", delay: 0.2 }
+  { id: 1, src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.1 },
+  { id: 2, src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.2 },
+  { id: 3, src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/3]", delay: 0.15 },
+  { id: 4, src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.25 },
+  { id: 5, src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.1 },
+  { id: 6, src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[16/9]", delay: 0.2 },
+  { id: 7, src: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.3 },
+  { id: 8, src: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.15 },
+  { id: 9, src: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.25 },
+  { id: 10, src: "https://images.unsplash.com/photo-1533174000243-7826359f1c7d?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.1 },
+  { id: 11, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[16/9]", delay: 0.3 },
+  { id: 12, src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.15 },
+  { id: 13, src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.2 },
+  { id: 14, src: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.1 },
+  { id: 15, src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.25 }
 ];
 
 const PAST_SPEAKERS = [
-  { id: 1, name: "Brajesh Maheshwari", designation: "Director of Allen career institute", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlAt6fhjuH78w28TfoD4ig2YgoyJTITMGxl6kzuesfJB2l7kfxAVJn6UQ&s=10" },
-  { id: 2, name: "VIJENDER SINGH CHAUHAN", designation: "Interviewer,Communicator, Personality Evaluator, Teacher, Academic, Keynote Speaker- 13xTEDx", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNcip1fParP-JITOLDWfiQORJ35NfkpNC2jloxbBKXZQ&s=10" },
-  { id: 3, name: "anugrah agnihotri", designation: "Former Senior Software Engineer At Citrix And Bcg Consultant,Building DOT", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBa8BnWTP-p_jaixRc9UAp5fzuPm6Iu9YVuUtXr2NoQ&s=10" },
-  { id: 4, name: "jagriti kesarwani", designation: "former program  manager at google, digital strategist", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPzwGZznHyyCoJht9PNiYXvT54EGa6nPVXHO6IQhF_uQ&s=10" },
-  { id: 5, name: "acyuta mohan das", designation: "CSR Strategist,Value Edu Consultant", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmTlnZtU_Ts0npX5INpnpcb2UX54E8MYGGyN1icZVWUA&s=10" },
-  { id: 5, name: "akshay singh", designation: "India's only Paranormal Illusionist,  Indian Mentalist, Ethical Hacker", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9YpzAIpz6rk5ZFOPnu3SuKUPMhVI8bh1EAyR3qHP8Bw&s=10" },
-  { id: 5, name: "neha agarwal", designation: "Founder of mathematically inclined", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS36KANgvdTvmh1Yn3l9QZXTDwX73HVJHrUrcF0CmTgfQ&s=10" },
-  { id: 5, name: "NEELAM JAIN", designation: "FOUNDER & CEO,PERIFERRY & FORBES 30U30 2021", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfRdEsJIOlWf5obecfCFFTAqvsTl6zr9oPaJsb5_Enig&s=10" },
-  { id: 5, name: "Sandeep Jain", designation: "Founder & CEO,GeeksforGeeksCSR", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRzNak8wdLRti5FPCSyfzeI4zrMZUzDMBi6hHUBhupQ&s=10" },
-  { id: 5, name: "SHRIYA LUHIA", designation: "FIRST FEMALE F1 RACER", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzBypDaPXl4J1o6s_ccLJ-5Sfu5zs0pUl9ca58FPKQ3w&s=10" },
+  { id: 1, name: "ALEXANDER WRIGHT", designation: "CHIEF INNOVATION OFFICER", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" },
+  { id: 2, name: "SARAH CHEN", designation: "AI RESEARCH LEAD", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800" },
+  { id: 3, name: "MARCUS JOHNSON", designation: "STARTUP VISIONARY", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800" },
+  { id: 4, name: "ELENA RODRIGUEZ", designation: "GLOBAL STRATEGY DIRECTOR", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800" },
+  { id: 5, name: "DAVID KIM", designation: "TECH ENTREPRENEUR", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800" },
 ];
 
 export default function Gallery() {
@@ -50,7 +43,7 @@ export default function Gallery() {
   }, [selectedImage]);
 
   return (
-    <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#C5A25F] selection:text-white">
+    <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#f3e5ab] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#d4af37] selection:text-white">
       
       <style>{`
         @keyframes marqueeLeftToRight {
@@ -95,7 +88,7 @@ export default function Gallery() {
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
           className="mt-8 flex items-center gap-6"
         >
-          <div className="h-px w-24 sm:w-48 bg-[#C5A25F] opacity-60"></div>
+          <div className="h-px w-24 sm:w-48 bg-[#d4af37] opacity-60"></div>
           <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-[#8E6422] uppercase font-bold">
             A visual documentation of past expeditions
           </p>
@@ -121,7 +114,7 @@ export default function Gallery() {
             <h2 className="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0C2B3D] tracking-tight uppercase">
               Past Speakers
             </h2>
-            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#C5A25F] opacity-80 mt-4 mx-auto sm:mx-0"></div>
+            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#d4af37] opacity-80 mt-4 mx-auto sm:mx-0"></div>
           </motion.div>
         </div>
 
@@ -137,19 +130,19 @@ export default function Gallery() {
                   <div className="absolute top-4 left-4 sm:top-6 sm:left-6 w-full h-full bg-[#0C2B3D] transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2" />
                   
                   {/* Portrait */}
-                  <div className="relative w-full h-full overflow-hidden bg-[#F4EBD9]">
+                  <div className="relative w-full h-full overflow-hidden bg-[#f3e5ab]">
                     <img 
                       src={speaker.img} 
                       alt={speaker.name} 
                       className="w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]" 
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-[#C5A25F]/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-[#d4af37]/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </div>
                 
                 {/* Text Content */}
-                <div className="pl-4 sm:pl-5 border-l-2 border-[#C5A25F] group-hover:border-[#0C2B3D] transition-colors duration-500">
+                <div className="pl-4 sm:pl-5 border-l-2 border-[#d4af37] group-hover:border-[#0C2B3D] transition-colors duration-500">
                   <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#0C2B3D] uppercase tracking-wide leading-tight">
                     {speaker.name}
                   </h3>
@@ -176,7 +169,7 @@ export default function Gallery() {
             <h2 className="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0C2B3D] tracking-tight uppercase">
               Event Photos
             </h2>
-            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#C5A25F] opacity-80 mt-4 mx-auto sm:mx-0"></div>
+            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#d4af37] opacity-80 mt-4 mx-auto sm:mx-0"></div>
           </motion.div>
         </div>
 
@@ -194,12 +187,12 @@ export default function Gallery() {
               }}
               layoutId={`gallery-img-${img.id}`}
               onClick={() => setSelectedImage(img)}
-              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer inline-block w-full`}
+              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer`}
             >
               <img
                 src={img.src}
                 alt={`Archive capture ${index + 1}`}
-                className="absolute inset-0 w-full h-full object-cover filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
+                className="w-full h-full object-cover filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
                 loading="lazy"
               />
               {/* Subtle ambient overlay to blend with theme */}
@@ -224,7 +217,7 @@ export default function Gallery() {
             {/* Close Button */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-24 right-6 sm:top-28 sm:right-8 lg:right-12 z-[110] flex items-center justify-center w-12 h-12 rounded-full bg-[#F4EBD9]/10 text-[#F4EBD9] hover:bg-[#F4EBD9]/20 transition-colors border border-[#F4EBD9]/20 shadow-lg cursor-pointer"
+              className="absolute top-24 right-6 sm:top-28 sm:right-8 lg:right-12 z-[110] flex items-center justify-center w-12 h-12 rounded-full bg-[#f3e5ab]/10 text-[#f3e5ab] hover:bg-[#f3e5ab]/20 transition-colors border border-[#f3e5ab]/20 shadow-lg cursor-pointer"
             >
               <svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M13 1L1 13M1 1L13 13" />

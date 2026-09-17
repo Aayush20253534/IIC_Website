@@ -481,9 +481,18 @@ export default function Events({ embedded = false }) {
                     layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                   }}
                   whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.008 }}
-                  className="group relative isolate h-full overflow-hidden rounded-[6px] border border-[#dfd0b7] bg-[#fffdf9] shadow-[0_10px_28px_rgba(38,64,65,.11)] transition-[border-color,box-shadow] duration-300 hover:border-[#cdb47c] hover:shadow-[0_18px_40px_rgba(38,64,65,.16)]"
+                  className="group relative isolate flex flex-col h-full overflow-hidden rounded-sm border-[1.5px] border-[#d8c8b0] bg-gradient-to-br from-[#fcfaf4] via-[#f7f2e5] to-[#f0e3ce] shadow-[0_8px_24px_rgba(25,40,45,.08),inset_0_0_0_1px_rgba(255,255,255,.6)] transition-all duration-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:border-[#c9a75d] hover:shadow-[0_14px_38px_rgba(25,40,45,.14),0_0_20px_rgba(201,167,93,.2),inset_0_0_0_1px_rgba(255,255,255,.8)]"
                   style={{ contentVisibility: "auto", containIntrinsicSize: "350px" }}
                 >
+                  {/* Subtle inner parchment noise texture overlay */}
+                  <div className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-30" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }}></div>
+
+                  {/* Corner Ornaments */}
+                  <svg className="absolute left-1 top-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round"/></svg>
+                  <svg className="absolute right-1 top-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round"/></svg>
+                  <svg className="absolute left-1 bottom-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round"/></svg>
+                  <svg className="absolute right-1 bottom-1 h-3.5 w-3.5 text-[#cfbc9d] transition-colors duration-400 group-hover:text-[#c9a75d] pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20M12 7l5 5-5 5-5-5z" strokeWidth="1" strokeLinejoin="round"/></svg>
+
                   <motion.button
                     type="button"
                     onClick={() => openStandaloneEvent(event)}
@@ -492,9 +501,9 @@ export default function Events({ embedded = false }) {
                     className="relative flex h-full w-full flex-col text-left"
                     aria-label={`View details for ${event.title}`}
                   >
-                    <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px]">
+                    <div className="relative h-[145px] overflow-hidden sm:h-[152px] lg:h-[160px] border-b border-[#dfd0b7]/80 group-hover:border-[#c9a75d]/80 transition-colors duration-400">
                       <motion.div
-                        className={`absolute -inset-3 bg-cover will-change-transform transition-transform duration-700 ${event.cardImage ? "" : "group-hover:scale-[1.055]"}`}
+                        className={`absolute -inset-3 bg-cover will-change-transform transition-[transform,filter] duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${event.cardImage ? "filter sepia-[0.35] brightness-95 group-hover:sepia-0 group-hover:brightness-105" : "group-hover:scale-[1.055]"}`}
                         style={{
                           backgroundImage: event.cardImage
                             ? `url('${event.cardImage}')`
@@ -543,39 +552,44 @@ export default function Events({ embedded = false }) {
                       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent" />
                     </div>
 
-                    <div className="relative flex flex-1 flex-col px-5 pb-5 pt-6 sm:px-5">
-                      <div className="absolute -top-4 left-5 right-5 flex flex-wrap gap-1.5">
+                    <div className="relative flex flex-1 flex-col px-5 pb-5 pt-7 sm:px-6">
+                      <div className="absolute -top-[14px] left-5 flex flex-wrap gap-1.5 z-10">
                         {(event.categories ?? [event.label]).map((label) => (
                           <span
                             key={label}
-                            className="rounded-full border border-[#d8b55d] bg-[#f8df98] px-2.5 py-1.5 font-montserrat text-[7px] font-black uppercase tracking-[0.1em] text-[#65480e] shadow-[0_4px_12px_rgba(94,67,17,.12)] sm:text-[8px]"
+                            className="rounded-[2px] border border-[#d8b55d] bg-gradient-to-b from-[#fae7b1] to-[#f3d683] px-2.5 py-[5px] font-montserrat text-[8px] font-black uppercase tracking-[0.14em] text-[#5c4008] shadow-[0_4px_10px_rgba(94,67,17,.2),inset_0_1px_0_rgba(255,255,255,.6)] sm:text-[9px]"
                           >
                             {label}
                           </span>
                         ))}
                       </div>
 
-                      <h2 className={`${event.categories ? "mt-8" : ""} flex min-h-[52px] items-start font-cinzel text-[22px] font-bold leading-[1.18] text-[#123f55] transition-colors duration-300 group-hover:text-[#8f5915] sm:text-[24px]`}>
+                      <h2 className={`mt-2 flex items-start font-cinzel text-[20px] font-bold leading-[1.2] text-[#123f55] transition-colors duration-300 group-hover:text-[#8f5915] sm:text-[22px]`}>
                         {event.title}
                       </h2>
 
-                      <div className="mt-3 flex min-h-[42px] flex-wrap items-start gap-x-3 gap-y-2 font-montserrat text-[10px] font-semibold text-[#5d7781] sm:text-[11px]">
-                        <span className="uppercase tracking-[0.11em] text-[#87979d]">
-                          {(event.categories ?? [event.category]).join(" • ")}
-                        </span>
+                      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 font-montserrat text-[10px] font-bold text-[#627a85] sm:text-[11px]">
+                        <div className="flex items-center gap-1.5">
+                          <svg className="h-3.5 w-3.5 text-[#b2976b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                          {event.time}
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <svg className="h-3.5 w-3.5 text-[#b2976b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                          <span className="truncate max-w-[150px]">{event.location}</span>
+                        </div>
                       </div>
 
-                      <p className="mt-3 line-clamp-2 min-h-[38px] font-montserrat text-[11px] leading-[1.65] text-[#6c7f86] sm:text-xs">
+                      <p className="mt-4 line-clamp-3 min-h-[38px] font-montserrat text-[11px] leading-[1.65] text-[#5a6e76] sm:text-xs relative z-10">
                         {event.description}
                       </p>
 
-                      <div className="mt-auto flex items-center justify-between border-t border-[#eee4d3] pt-4">
-                        <span className="font-montserrat text-[9px] font-bold uppercase tracking-[0.16em] text-[#a18f70]">
-                          Explore the voyage
+                      <div className="mt-auto flex items-center justify-between border-t border-[#dfd0b7]/60 pt-4 group-hover:border-[#c9a75d]/40 transition-colors duration-400">
+                        <span className="font-montserrat text-[9px] font-black uppercase tracking-[0.2em] text-[#a18f70] group-hover:text-[#8f5915] transition-colors duration-300">
+                          Inspect Mission
                         </span>
-                        <span className="inline-flex items-center gap-2 rounded-[7px] border border-[#0e6a84] bg-[#0a5269] px-3.5 py-2 font-montserrat text-[10px] font-extrabold text-white shadow-[0_5px_14px_rgba(10,82,105,.18)] transition-all duration-300 group-hover:bg-[#0b617c] group-hover:shadow-[0_7px_18px_rgba(10,82,105,.24)]">
-                          View details
-                          <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <span className="inline-flex h-[34px] items-center justify-center gap-2 rounded-sm border-[1.5px] border-[#a18f70]/40 bg-transparent px-4 font-cinzel text-[10px] font-bold uppercase tracking-[0.12em] text-[#123f55] transition-all duration-300 group-hover:border-[#c9a75d] group-hover:bg-[#f6ebd4] group-hover:text-[#8f5915] shadow-[0_2px_8px_rgba(0,0,0,.04)] group-hover:shadow-[0_4px_12px_rgba(201,167,93,.2)]">
+                          Details
+                          <svg className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
                             <path d="M5 12h14" strokeLinecap="round" />
                             <path d="m14 7 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>

@@ -45,13 +45,17 @@ function ScrollToTop() {
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
+  const routerBasename =
+    import.meta.env.BASE_URL === "/"
+      ? undefined
+      : import.meta.env.BASE_URL.replace(/\/$/, "");
 
   const handleIntroComplete = () => {
     setShowIntro(false);
   };
 
   return (
-    <BrowserRouter basename="/renaissance">
+    <BrowserRouter basename={routerBasename}>
       <SmoothScroll>
         {/* Reset smooth scroll position whenever route changes */}
         <ScrollToTop />

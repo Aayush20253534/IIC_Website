@@ -54,7 +54,7 @@ export default function Navbar() {
               onError={(e) => {
                 e.currentTarget.src = "/renaissance-logo-transparent.png";
               }}
-              className="h-7 sm:h-8 w-auto object-contain filter drop-shadow-[0_2px_10px_rgba(197,162,95,0.4)]"
+              className="h-9 sm:h-10 w-auto object-contain bg-gray-200 rounded-full px-4 py-1.5 shadow-lg border border-gray-300 hover:bg-gray-100 transition-all duration-300"
             />
           </Link>
 

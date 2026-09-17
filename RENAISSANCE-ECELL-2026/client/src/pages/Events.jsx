@@ -182,6 +182,7 @@ export default function Events({ embedded = false }) {
       cardImage: "/biz-war-card.jpeg",
       cardImageFit: "cover",
       cardImagePosition: "right center",
+      modalBackgroundImage: "/event-modal-parchment-square.jpg",
       compactModal: true,
       registrationUrl: "https://unstop.com/competitions/biz-wars-renaissance-100-motilal-nehru-national-institute-of-technology-1756444?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
       detailDescription: [
@@ -662,10 +663,11 @@ export default function Events({ embedded = false }) {
                   transition={{ duration: prefersReducedMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                   className="relative w-full max-w-[720px] overflow-hidden rounded-[18px] border border-[#d4ad58] bg-[#f4ead4] text-[#173f51] shadow-[0_28px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.2)_inset]"
                   style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(244,234,212,.87), rgba(244,234,212,.87)), url('/event-modal-parchment-square.jpg')",
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
+                    backgroundImage: selectedEventModal.modalBackgroundImage
+                      ? `linear-gradient(rgba(244,234,212,.68), rgba(244,234,212,.68)), url('${selectedEventModal.modalBackgroundImage}')`
+                      : undefined,
+                    backgroundPosition: selectedEventModal.modalBackgroundImage ? "center" : undefined,
+                    backgroundSize: selectedEventModal.modalBackgroundImage ? "cover" : undefined,
                   }}
                   onClick={(event) => event.stopPropagation()}
                   role="dialog"

@@ -377,6 +377,9 @@ export default function Sponsors({ embedded = false }) {
               />
             </div>
 
+            {/* Vintage Stamp Accent on the Presenting Sponsor Card */}
+            <img src="/card-decor-stamp.png" alt="" className="absolute -top-6 -left-6 w-24 sm:w-32 opacity-80 mix-blend-multiply drop-shadow-lg z-30 pointer-events-none -rotate-12" />
+
             <div className="relative grid items-center gap-10 p-6 sm:p-10 md:grid-cols-[1fr_1.05fr] md:p-14">
               {/* Logo plaque in sandy parchment tone */}
               <div
@@ -427,6 +430,9 @@ export default function Sponsors({ embedded = false }) {
                     group-hover:scale-[1.45]
                   "
                 />
+                
+                {/* Vintage Globe Sticker Accent */}
+                <img src="/card-decor-globe.png" alt="" className="absolute -bottom-8 -right-6 w-28 sm:w-36 opacity-[0.75] mix-blend-multiply drop-shadow-xl z-20 pointer-events-none group-hover:rotate-6 transition-transform duration-500" />
               </div>
 
               {/* Information - Centre aligned */}
@@ -803,6 +809,9 @@ function SponsorCard({ sponsor, size = "medium" }) {
           loading="lazy"
           className="max-h-full max-w-[85%] scale-[1.35] object-contain drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]"
         />
+
+        {/* Vintage Watch Accent for Sponsor Cards */}
+        <img src="/card-decor-watch.png" alt="" className="absolute -bottom-5 -right-5 w-20 sm:w-28 opacity-[0.65] mix-blend-multiply drop-shadow-lg z-20 pointer-events-none group-hover:-rotate-12 transition-transform duration-500" />
       </div>
     </article>
   );

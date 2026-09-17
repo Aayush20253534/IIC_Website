@@ -13,7 +13,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 import { useSmoothScroll } from "../lib/smoothScroll";
 import ContactFooter from "../components/ContactFooter";
-import NauticalDepthMeter from "../components/NauticalDepthMeter";
 import NauticalCartographyBg from "../components/NauticalCartographyBg";
 
 
@@ -554,7 +553,6 @@ export default function Home() {
   return (
     <div className="relative z-10 w-full text-white selection:bg-[#38BDF8] selection:text-[#020610]">
       <NauticalCartographyBg />
-      <NauticalDepthMeter />
 
       {/* ============================================================ */}
       {/* 1. HERO SECTION (100vh)                                      */}

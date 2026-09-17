@@ -82,7 +82,7 @@ export default function Navbar() {
           <Link
             to="/"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-white/25 via-white/15 to-white/5 border border-white/30 backdrop-blur-md shadow-[0_4px_20px_rgba(255,255,255,0.15)] transition-all hover:from-white/35 hover:to-white/20"
+            className="flex items-center gap-3 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-white/85 via-white/70 to-white/50 border border-white/80 backdrop-blur-lg shadow-[0_4px_25px_rgba(255,255,255,0.35)] transition-all hover:from-white/95 hover:to-white/65"
             aria-label="Renaissance Home"
           >
             <img

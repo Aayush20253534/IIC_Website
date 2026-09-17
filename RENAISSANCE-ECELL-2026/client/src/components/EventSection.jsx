@@ -7,13 +7,13 @@ export default function EventSection() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-20 px-6 bg-[#070E1A] border-t border-[#d4af37]/15">
+    <section className="py-20 px-6 bg-[#070E1A] border-t border-[#C5A25F]/15">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-cinzel text-3xl sm:text-4xl font-bold text-[#f3e5ab] mb-3">
+          <h2 className="font-cinzel text-3xl sm:text-4xl font-bold text-[#F4EBD9] mb-3">
             Events & Competitions
           </h2>
-          <div className="w-16 h-[2px] bg-[#d4af37] mx-auto mb-4" />
+          <div className="w-16 h-[2px] bg-[#C5A25F] mx-auto mb-4" />
           <p className="font-montserrat text-xs sm:text-sm text-[#94A3B8]">
             Explore summit challenges and competitive dockets.
           </p>
@@ -23,13 +23,13 @@ export default function EventSection() {
           {EVENTS_DATA.map((event) => (
             <div
               key={event.id}
-              className="p-6 rounded-2xl bg-[#0A192F]/60 border border-[#d4af37]/20 flex flex-col justify-between hover:border-[#d4af37]/40 transition-colors"
+              className="p-6 rounded-2xl bg-[#0A192F]/60 border border-[#C5A25F]/20 flex flex-col justify-between hover:border-[#C5A25F]/40 transition-colors"
             >
               <div>
                 <span className="text-[10px] font-mono uppercase text-[#0EA5E9] font-bold block mb-2">
                   {event.category} • {event.eventType}
                 </span>
-                <h3 className="font-cinzel text-lg font-bold text-[#f3e5ab] mb-2">
+                <h3 className="font-cinzel text-lg font-bold text-[#F4EBD9] mb-2">
                   {event.name}
                 </h3>
                 <p className="font-montserrat text-xs text-[#94A3B8] line-clamp-3 mb-6 font-light">

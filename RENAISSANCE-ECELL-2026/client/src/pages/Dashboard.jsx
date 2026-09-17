@@ -24,12 +24,12 @@ export default function Dashboard({ embedded = false }) {
   };
 
   return (
-    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#f3e5ab] flex flex-col justify-between`}>
+    <div className={`${embedded ? "py-16" : "min-h-screen pt-28 pb-12"} bg-transparent text-[#F4EBD9] flex flex-col justify-between`}>
       <div className="max-w-5xl mx-auto px-6 w-full mb-16">
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#020610]/80 backdrop-blur-xl border border-[#d4af37]/25 shadow-2xl mb-8">
-          <div className="flex items-center justify-between pb-4 border-b border-[#d4af37]/20">
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#020610]/80 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl mb-8">
+          <div className="flex items-center justify-between pb-4 border-b border-[#C5A25F]/20">
             <div>
-              <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#d4af37] bg-[#041021] border border-[#d4af37]/30 uppercase mb-2 font-semibold">
+              <span className="inline-block px-3 py-1 rounded-full text-[10px] font-mono tracking-widest text-[#C5A25F] bg-[#041021] border border-[#C5A25F]/30 uppercase mb-2 font-semibold">
                 Participant Docket
               </span>
               <h1 className="font-cinzel text-3xl font-bold mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">User Dashboard</h1>
@@ -37,7 +37,7 @@ export default function Dashboard({ embedded = false }) {
             </div>
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="px-4 py-2 rounded-lg border border-[#d4af37] text-[#d4af37] font-montserrat text-xs font-bold uppercase cursor-pointer hover:bg-[#d4af37] hover:text-[#020610] transition-colors shadow-md"
+              className="px-4 py-2 rounded-lg border border-[#C5A25F] text-[#C5A25F] font-montserrat text-xs font-bold uppercase cursor-pointer hover:bg-[#C5A25F] hover:text-[#020610] transition-colors shadow-md"
             >
               {isEditing ? "Cancel" : "Edit Profile"}
             </button>
@@ -45,8 +45,8 @@ export default function Dashboard({ embedded = false }) {
         </div>
 
         {/* Profile Details Form */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#041021]/85 backdrop-blur-xl border border-[#d4af37]/25 shadow-2xl mb-8">
-          <h3 className="font-cinzel text-lg font-bold text-[#d4af37] mb-4">Profile Information</h3>
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#041021]/85 backdrop-blur-xl border border-[#C5A25F]/25 shadow-2xl mb-8">
+          <h3 className="font-cinzel text-lg font-bold text-[#C5A25F] mb-4">Profile Information</h3>
           <form onSubmit={handleSave} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
               <label className="block text-[#94A3B8] mb-1">Name</label>
@@ -118,13 +118,13 @@ export default function Dashboard({ embedded = false }) {
 
         {/* Registrations & Teams Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="p-6 rounded-xl bg-[#0A192F]/40 border border-[#d4af37]/20">
-            <h3 className="font-cinzel text-lg font-bold text-[#f3e5ab] mb-4">
+          <div className="p-6 rounded-xl bg-[#0A192F]/40 border border-[#C5A25F]/20">
+            <h3 className="font-cinzel text-lg font-bold text-[#F4EBD9] mb-4">
               Registered Events ({registrations.length})
             </h3>
             <div className="space-y-3">
               {registrations.map((r, i) => (
-                <div key={i} className="p-3 bg-[#050B14] rounded border border-[#d4af37]/15 flex justify-between text-xs">
+                <div key={i} className="p-3 bg-[#050B14] rounded border border-[#C5A25F]/15 flex justify-between text-xs">
                   <span>{r.eventName}</span>
                   <span className="text-[#0EA5E9] font-mono font-bold">{r.type}</span>
                 </div>
@@ -132,18 +132,18 @@ export default function Dashboard({ embedded = false }) {
             </div>
           </div>
 
-          <div className="p-6 rounded-xl bg-[#0A192F]/40 border border-[#d4af37]/20">
-            <h3 className="font-cinzel text-lg font-bold text-[#f3e5ab] mb-4">
+          <div className="p-6 rounded-xl bg-[#0A192F]/40 border border-[#C5A25F]/20">
+            <h3 className="font-cinzel text-lg font-bold text-[#F4EBD9] mb-4">
               My Teams ({teams.length})
             </h3>
             <div className="space-y-3">
               {teams.map((t, i) => (
-                <div key={i} className="p-3 bg-[#050B14] rounded border border-[#d4af37]/15 flex justify-between text-xs">
+                <div key={i} className="p-3 bg-[#050B14] rounded border border-[#C5A25F]/15 flex justify-between text-xs">
                   <div>
                     <span className="font-bold block">{t.name}</span>
                     <span className="text-[10px] text-[#94A3B8]">{t.eventName}</span>
                   </div>
-                  <span className="text-[#d4af37] font-mono font-bold">{t.teamCode}</span>
+                  <span className="text-[#C5A25F] font-mono font-bold">{t.teamCode}</span>
                 </div>
               ))}
             </div>

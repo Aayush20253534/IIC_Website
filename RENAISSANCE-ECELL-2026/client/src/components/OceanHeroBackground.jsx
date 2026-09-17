@@ -49,7 +49,7 @@ function Moon() {
         intensity={22}
         distance={90}
         decay={2}
-        color="#d4af37"
+        color="#C5A25F"
       />
     </group>
   );

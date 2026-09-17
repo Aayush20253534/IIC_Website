@@ -43,7 +43,7 @@ export default function WebGLWaterCanvas({
 
     // Ocean lighting
     const ambientLight = new THREE.AmbientLight(
-      0x0369a1,
+      0x0ea5e9,
       1.6
     );
 
@@ -82,12 +82,12 @@ export default function WebGLWaterCanvas({
 
     gradient.addColorStop(
       0.35,
-      "rgba(2, 132, 199, 0.85)"
+      "rgba(56, 189, 248, 0.85)"
     );
 
     gradient.addColorStop(
       0.75,
-      "rgba(7, 89, 133, 0.3)"
+      "rgba(2, 132, 199, 0.3)"
     );
 
     gradient.addColorStop(
@@ -168,13 +168,13 @@ export default function WebGLWaterCanvas({
 
           uColorDeep: {
             value: new THREE.Color(
-              0x010c1c
+              0x021c3b
             ),
           },
 
           uColorFoam: {
             value: new THREE.Color(
-              0x0284c7
+              0x0ea5e9
             ),
           },
 

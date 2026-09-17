@@ -1,5 +1,5 @@
 import React from "react";
-import { FaFacebookF, FaLinkedinIn, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 
 export default function SocialSideRail() {
   const socials = [
@@ -11,10 +11,10 @@ export default function SocialSideRail() {
   return (
     <div className="fixed left-4 sm:left-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center gap-5 select-none">
       {/* Top Accent Line */}
-      <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-[#C5A25F]/60" />
+      <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-[#165D73]/40" />
 
       {/* Social Icons */}
-      <div className="flex flex-col gap-4 text-[#94A3B8]">
+      <div className="flex flex-col gap-4 text-[#165D73]">
         {socials.map((s, idx) => (
           <a
             key={idx}
@@ -22,7 +22,7 @@ export default function SocialSideRail() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={s.label}
-            className="w-7 h-7 rounded-full bg-[#0A192F]/80 border border-[#C5A25F]/20 flex items-center justify-center hover:text-[#F4EBD9] hover:border-[#C5A25F] hover:bg-[#050B14] transition-all duration-300 shadow-md group"
+            className="w-7 h-7 rounded-full bg-[#DFECEE]/60 border border-[#68A5B3]/40 flex items-center justify-center hover:text-white hover:border-[#165D73] hover:bg-[#165D73] transition-all duration-300 shadow-[0_2px_8px_rgba(20,50,65,0.1)] group backdrop-blur-sm"
           >
             <span className="group-hover:scale-110 transition-transform">{s.icon}</span>
           </a>
@@ -30,7 +30,7 @@ export default function SocialSideRail() {
       </div>
 
       {/* Bottom Accent Line */}
-      <div className="w-[1px] h-12 bg-gradient-to-t from-transparent to-[#C5A25F]/60" />
+      <div className="w-[1px] h-12 bg-gradient-to-t from-transparent to-[#165D73]/40" />
     </div>
   );
 }

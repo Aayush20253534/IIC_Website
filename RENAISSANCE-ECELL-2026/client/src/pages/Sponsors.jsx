@@ -846,10 +846,10 @@ function FloatingStickers() {
     <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
       <img src="/sticker-compass.png" alt="compass" className="absolute top-[8%] left-[-2%] w-48 opacity-60 drop-shadow-xl" />
       <img src="/sticker-anchor.png" alt="anchor" className="absolute top-[25%] right-[2%] w-56 opacity-60 drop-shadow-xl -rotate-12" />
-      <img src="/sticker-ship.png" alt="ship" className="absolute top-[45%] left-[-4%] w-72 opacity-60 drop-shadow-2xl" />
-      <img src="/sticker-wheel.png" alt="wheel" className="absolute top-[65%] right-[3%] w-44 opacity-60 drop-shadow-xl rotate-12" />
+      <img src="/sticker-ship.png" alt="ship" className="absolute top-[70%] left-[-4%] w-72 opacity-60 drop-shadow-2xl" />
+      <img src="/sticker-wheel.png" alt="wheel" className="absolute top-[50%] right-[3%] w-44 opacity-60 drop-shadow-xl rotate-12" />
       <img src="/sticker-watch.png" alt="watch" className="absolute top-[18%] right-[20%] w-32 opacity-40 drop-shadow-xl rotate-12" />
-      <img src="/sticker-bottle.png" alt="bottle" className="absolute top-[85%] left-[8%] w-64 opacity-60 drop-shadow-xl -rotate-6" />
+      <img src="/sticker-bottle.png" alt="bottle" className="absolute top-[85%] left-[12%] w-64 opacity-60 drop-shadow-xl -rotate-6" />
       <img src="/sticker-skull.png" alt="skull" className="absolute top-[35%] left-[45%] w-40 opacity-20 drop-shadow-lg" />
     </div>
   );

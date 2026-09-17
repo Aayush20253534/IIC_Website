@@ -9,15 +9,11 @@ import {
 } from "lucide-react";
 
 import ContactFooter from "../components/ContactFooter";
-import SocialSideRail from "../components/SocialSideRail";
-import ScrollIndicatorRail from "../components/ScrollIndicatorRail";
 import { SPONSOR_TIERS } from "../data/sponsorsData";
 
 /* ================================================================
    SPONSORS PAGE — RENAISSANCE OCEANIC EXPEDITION
-   Theme: Warm Beach Sand + Caribbean Oceanic Sea (No Stark White)
-   Hero: Previous bg image kept with smooth drift animation
-   Boat: Boat thing completely removed!
+   Theme: Consistent Warm Beach Sand & Vintage Maritime Parchment
 ================================================================ */
 
 export default function Sponsors({ embedded = false }) {
@@ -42,20 +38,17 @@ export default function Sponsors({ embedded = false }) {
         overflow-hidden
         bg-gradient-to-b
         from-[#EBDDC8]
-        via-[#D8ECEE]
-        to-[#E6D4BC]
+        via-[#E5D7C2]
+        to-[#DFCEB7]
         text-[#0C2B3D]
         selection:bg-[#C5A25F]
         selection:text-white
       "
     >
       {/* ============================================================
-          GLOBAL SANDY + OCEANIC ATMOSPHERE
+          GLOBAL SANDY + PARCHMENT ATMOSPHERE (Consistent Theme)
       ============================================================ */}
       <SandyOceanAtmosphere />
-
-      {!embedded && <SocialSideRail />}
-      {!embedded && <ScrollIndicatorRail />}
 
       {/* ============================================================
           HERO: Previous bg image + background drift animation KEPT
@@ -519,7 +512,7 @@ export default function Sponsors({ embedded = false }) {
       )}
 
       {/* ============================================================
-          STRATEGIC PARTNERS (The Golden Fleet — Oceanic Lagoon Wash)
+          STRATEGIC PARTNERS (The Golden Fleet)
       ============================================================ */}
       {goldenFleet.length > 0 && (
         <SponsorSection
@@ -529,12 +522,11 @@ export default function Sponsors({ embedded = false }) {
           subtitle="Organizations sailing alongside us to turn ideas into impact."
           sponsors={goldenFleet}
           size="medium"
-          theme="oceanic"
         />
       )}
 
       {/* ============================================================
-          VOYAGE FELLOWSHIP (Our Wider Fellowship — Warm Sand Tone)
+          VOYAGE FELLOWSHIP (Our Wider Fellowship)
       ============================================================ */}
       {voyageFellowship.length > 0 && (
         <SponsorSection
@@ -544,7 +536,6 @@ export default function Sponsors({ embedded = false }) {
           subtitle="Media, community and event partners carrying the voyage further."
           sponsors={voyageFellowship}
           size="small"
-          theme="sandy"
         />
       )}
 
@@ -696,30 +687,22 @@ function SponsorSection({
   subtitle,
   sponsors,
   size,
-  theme = "sandy",
 }) {
-  const isOceanic = theme === "oceanic";
-
   return (
     <section
       id={id}
-      className={`
+      className="
         relative
         z-10
         border-t
-        ${
-          isOceanic
-            ? "bg-[#D7EAEC]/65 border-[#80B2BE]/45"
-            : "bg-[#EFE2CF]/60 border-[#C2A169]/40"
-        }
-      `}
+        border-[#C2A169]/35
+        bg-[#EADDC9]/50
+      "
       style={{ contentVisibility: "auto", containIntrinsicSize: "400px" }}
     >
       {/* Section horizon line */}
       <div
-        className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${
-          isOceanic ? "via-[#5EA5B4]/45" : "via-[#C2A169]/50"
-        } to-transparent`}
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C2A169]/50 to-transparent"
       />
 
       <div className="mx-auto max-w-[1280px] px-5 py-24 sm:px-8 lg:py-28">
@@ -752,17 +735,16 @@ function SponsorSection({
                 w-full
                 ${
                   size === "large"
-                    ? "sm:w-[calc(50%-1.25rem)] max-w-[440px]"
+                    ? "sm:w-[calc(50%-1.25rem)] max-w-[480px]"
                     : size === "medium"
-                    ? "sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[370px]"
-                    : "w-[calc(50%-0.75rem)] sm:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.5rem)] max-w-[280px]"
+                    ? "sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[430px]"
+                    : "w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[400px]"
                 }
               `}
             >
               <SponsorCard
                 sponsor={sponsor}
                 size={size}
-                theme={theme}
               />
             </div>
           ))}
@@ -773,188 +755,131 @@ function SponsorSection({
 }
 
 /* =================================================================
-   SPONSOR CARD (Rich Sandy & Oceanic Tones, Centre Aligned)
+   SPONSOR CARD (Authentic Pirate Parchment Frame & Maritime Assets)
 ================================================================= */
 
-function SponsorCard({ sponsor, size = "medium", theme = "sandy" }) {
+function SponsorCard({ sponsor, size = "medium" }) {
   const isLarge = size === "large";
   const isSmall = size === "small";
-  const isOceanic = theme === "oceanic";
 
   return (
     <article
-      className={`
+      className="
         sponsor-card
         group
         relative
         w-full
-        flex
-        flex-col
-        justify-between
+        aspect-[4/3]
+        min-h-[290px]
         overflow-hidden
-        rounded-[22px]
-        border
-        ${
-          isOceanic
-            ? "border-[#86B4BF]/65 bg-gradient-to-b from-[#E7EEED] to-[#DBE8EA] hover:border-[#388D9E]"
-            : "border-[#C2A169]/65 bg-gradient-to-b from-[#EFE3D2] to-[#E8D7C2] hover:border-[#8E6422]"
-        }
-        shadow-[0_10px_30px_rgba(20,55,70,0.10)]
+        rounded-[18px]
+        border-2
+        border-[#A87E35]/65
+        bg-[#DCCBB4]
+        shadow-[0_14px_38px_rgba(12,38,50,0.20)]
         transition-all
-        duration-300
-        hover:shadow-[0_18px_45px_rgba(20,55,70,0.18)]
-        hover:-translate-y-1
-      `}
+        duration-400
+        hover:shadow-[0_22px_55px_rgba(12,38,50,0.32)]
+        hover:-translate-y-1.5
+        hover:border-[#D5B66B]
+      "
     >
-      {/* Gold top edge bar */}
-      <div className="absolute inset-x-0 top-0 z-30 h-[3px] bg-gradient-to-r from-transparent via-[#C5A25F] to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
-
-      {/* Decorative Brass Corners */}
-      <div
-        className={`pointer-events-none absolute left-3 top-3 z-30 h-7 w-7 border-l-2 border-t-2 ${
-          isOceanic ? "border-[#629FA8]/50" : "border-[#A87E35]/45"
-        } group-hover:border-[#9E6D1F] transition-colors`}
-      />
-      <div
-        className={`pointer-events-none absolute right-3 top-3 z-30 h-7 w-7 border-r-2 border-t-2 ${
-          isOceanic ? "border-[#629FA8]/50" : "border-[#A87E35]/45"
-        } group-hover:border-[#9E6D1F] transition-colors`}
+      {/* Authentic Pirate Parchment Background Image */}
+      <img
+        src="/sponsor-parchment-card.webp"
+        alt="Nautical Chart Frame"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none select-none transition-transform duration-700 group-hover:scale-[1.025]"
+        loading="lazy"
       />
 
-      {/* Visual / Logo Area in warm sand/ocean tones */}
+      {/* Subtle Warm Sheen on Hover */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-[#C5A25F]/0 to-[#C5A25F]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      {/* Central Parchment Content Area (Carefully framed between the compass, ship and sextant) */}
       <div
-        className={`
-          relative
-          overflow-hidden
-          border-b
-          ${isOceanic ? "border-[#A8CDD4]/60" : "border-[#D5C29E]/60"}
-          bg-gradient-to-b
-          ${
-            isOceanic
-              ? "from-[#DFECEE] via-[#D3E5E8] to-[#C9DFE2]"
-              : "from-[#EADDC9] via-[#E4D4BD] to-[#DCBFA2]"
-          }
+        className="
+          absolute
+          inset-0
+          left-[25%]
+          right-[7%]
+          top-[8%]
+          bottom-[12%]
           flex
+          flex-col
           items-center
-          justify-center
-          p-5
-          ${isLarge ? "h-[240px]" : isSmall ? "h-[145px]" : "h-[190px]"}
-        `}
+          justify-between
+          text-center
+          p-2.5
+          sm:p-3
+          z-10
+        "
       >
-        {/* Subtle Nautical Chart Texture in the Card */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.08] bg-cover bg-center"
-          style={{ backgroundImage: "url('/ship-map-hero.jpg')" }}
-        />
-
-        {/* Logo Plaque (Sandy/Oceanic Tint) */}
-        <div
-          className={`
-            relative
-            z-10
-            flex
-            h-[80%]
-            w-[86%]
-            items-center
-            justify-center
-            rounded-xl
-            border
-            ${
-              isOceanic
-                ? "border-[#99C5CF] bg-[#E8F2F3]"
-                : "border-[#D0B78B] bg-[#F5EAD9]"
-            }
-            p-3
-            shadow-[0_4px_16px_rgba(20,55,70,0.08)]
-            transition-all
-            duration-300
-            group-hover:scale-105
-          `}
-        >
-          <img
-            src={sponsor.image}
-            alt={sponsor.name}
-            loading="lazy"
-            className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_8px_rgba(20,55,70,0.14)]"
-          />
-        </div>
-
-        {/* Tier badge */}
-        <div
-          className={`
-            absolute
-            bottom-2.5
-            left-1/2
-            z-20
-            -translate-x-1/2
-            whitespace-nowrap
-            rounded-full
-            border
-            ${
-              isOceanic
-                ? "border-[#77ABB6] bg-[#D4E8EA]"
-                : "border-[#C5A25F]/60 bg-[#E8D7C2]"
-            }
-            px-3.5
-            py-0.5
-            shadow-sm
-          `}
-        >
-          <span
-            className={`font-mono text-[7px] font-bold uppercase tracking-[0.2em] ${
-              isOceanic ? "text-[#0F4B5A]" : "text-[#7A5418]"
-            }`}
-          >
+        {/* Tier badge (Captain's Ally / Golden Fleet / Voyage Ally) */}
+        <div className="flex items-center justify-center gap-1.5">
+          <span className="h-px w-3 bg-[#8E6422]/60" />
+          <span className="font-mono text-[7px] sm:text-[8px] font-bold uppercase tracking-[0.22em] text-[#7A4E15]">
             {isLarge
               ? "Captain's Ally"
               : isSmall
               ? "Voyage Ally"
               : "Golden Fleet"}
           </span>
+          <span className="h-px w-3 bg-[#8E6422]/60" />
         </div>
-      </div>
 
-      {/* Card Information - Centre Aligned */}
-      <div
-        className={`relative flex flex-1 flex-col items-center justify-between text-center ${
-          isLarge ? "p-6 sm:p-7" : isSmall ? "p-4" : "p-5"
-        }`}
-      >
-        <div className="flex flex-col items-center justify-center text-center w-full">
-          {/* Centered Decorative Accent */}
-          <div className="mb-2.5 flex items-center justify-center gap-2">
-            <span className="h-px w-6 bg-[#B58B3E]/60" />
-            <span className="h-1.5 w-1.5 rotate-45 bg-[#8E6422]" />
-            <span className="h-px w-6 bg-[#B58B3E]/60" />
-          </div>
+        {/* Sponsor Emblem / Logo with frosted parchment backing */}
+        <div
+          className="
+            relative
+            flex
+            h-[52px]
+            sm:h-[64px]
+            w-full
+            max-w-[190px]
+            items-center
+            justify-center
+            rounded-xl
+            bg-[#FAF2E3]/85
+            border
+            border-[#C5A25F]/50
+            px-3
+            py-1.5
+            shadow-[inset_0_1px_3px_rgba(0,0,0,0.06),0_3px_8px_rgba(20,45,60,0.08)]
+            backdrop-blur-[1px]
+            transition-transform
+            duration-300
+            group-hover:scale-105
+          "
+        >
+          <img
+            src={sponsor.image}
+            alt={sponsor.name}
+            loading="lazy"
+            className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_4px_rgba(15,35,45,0.12)]"
+          />
+        </div>
 
-          <h3 className="font-cinzel text-lg font-bold text-[#0C2B3D] transition-colors group-hover:text-[#8E6422] sm:text-xl">
+        {/* Text Details Area */}
+        <div className="flex flex-col items-center justify-center text-center w-full px-1">
+          <h3 className="font-cinzel text-xs sm:text-sm md:text-base font-bold text-[#0C2B3D] leading-tight tracking-wide group-hover:text-[#8E6422] transition-colors line-clamp-1">
             {sponsor.name}
           </h3>
 
-          <p
-            className={`mt-1 font-mono text-[10px] uppercase tracking-wider font-bold ${
-              isOceanic ? "text-[#125D73]" : "text-[#855D1E]"
-            }`}
-          >
+          <span className="mt-0.5 inline-block font-mono text-[7.5px] sm:text-[8.5px] font-bold uppercase tracking-wider text-[#14556C] line-clamp-1">
             {sponsor.category}
-          </p>
+          </span>
 
           {sponsor.description && (
-            <p className="mt-2 text-xs font-montserrat text-[#315768] font-medium leading-relaxed max-w-[280px]">
+            <p className="mt-1 font-montserrat text-[8.5px] sm:text-[9.5px] md:text-[10px] leading-tight sm:leading-snug text-[#2C4855] font-medium line-clamp-2 max-w-[240px]">
               {sponsor.description}
             </p>
           )}
         </div>
 
-        <div
-          className={`mt-4 flex items-center justify-center gap-2 border-t ${
-            isOceanic ? "border-[#BCD8DE]" : "border-[#DDCBBA]"
-          } pt-3 text-[10px] font-mono font-bold ${
-            isOceanic ? "text-[#125D73]" : "text-[#8E6422]"
-          } w-full`}
-        >
-          <Anchor className="h-3.5 w-3.5" />
+        {/* Bottom Parchment Seal */}
+        <div className="flex items-center justify-center gap-1.5 border-t border-[#A87E35]/35 pt-1 w-full text-[7.5px] sm:text-[8.5px] font-mono font-bold text-[#8E6422]">
+          <Anchor className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-[#8E6422]" />
           <span>Official Fleet Partner</span>
         </div>
       </div>
@@ -963,26 +888,24 @@ function SponsorCard({ sponsor, size = "medium", theme = "sandy" }) {
 }
 
 /* =================================================================
-   GLOBAL SANDY + OCEANIC ATMOSPHERE (No White, Warm Beach & Sea)
+   GLOBAL SANDY + PARCHMENT ATMOSPHERE (Consistent Theme)
 ================================================================= */
 
 function SandyOceanAtmosphere() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {/* Soft Caribbean Blue Depth Wash */}
-      <div className="absolute right-[-10%] top-[16%] h-[600px] w-[600px] rounded-full bg-[#5FB0C3]/12 blur-[90px]" />
-      <div className="absolute left-[-10%] top-[50%] h-[550px] w-[550px] rounded-full bg-[#3F95A9]/10 blur-[90px]" />
-
       {/* Warm sunlight sand glow */}
-      <div className="absolute left-[28%] top-[-5%] h-[500px] w-[500px] rounded-full bg-[#E8C87A]/15 blur-[100px]" />
+      <div className="absolute right-[-10%] top-[16%] h-[600px] w-[600px] rounded-full bg-[#E8C87A]/10 blur-[120px]" />
+      <div className="absolute left-[-10%] top-[50%] h-[550px] w-[550px] rounded-full bg-[#E2B766]/8 blur-[120px]" />
+      <div className="absolute left-[28%] top-[-5%] h-[500px] w-[500px] rounded-full bg-[#E8C87A]/12 blur-[120px]" />
 
       {/* Fine sand parchment grain texture */}
       <div
-        className="absolute inset-0 opacity-[0.08]"
+        className="absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 20% 20%, rgba(20,65,80,.25) 0 1px, transparent 1px),
-            radial-gradient(circle at 75% 75%, rgba(165,120,45,.22) 0 1px, transparent 1px)
+            radial-gradient(circle at 20% 20%, rgba(20,65,80,.18) 0 1px, transparent 1px),
+            radial-gradient(circle at 75% 75%, rgba(165,120,45,.15) 0 1px, transparent 1px)
           `,
           backgroundSize: "44px 44px, 58px 58px",
         }}

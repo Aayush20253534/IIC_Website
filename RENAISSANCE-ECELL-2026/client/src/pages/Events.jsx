@@ -759,14 +759,14 @@ export default function Events({ embedded = false }) {
                             </button>
                           )}
                           <a
-                            href="https://chat.whatsapp.com/FBmy90Cekgu5Jd4MkxXGMO"
+                            href="https://whatsapp.com/channel/0029VbDqDCA8V0tjtrkBsT46"
                             target="_blank"
                             rel="noreferrer"
                             className="flex items-center justify-center gap-2 rounded-xl border border-[#1dad59] bg-[#25d366] px-4 py-3 text-center font-montserrat text-[10px] font-extrabold uppercase tracking-[0.11em] text-white shadow-[0_7px_18px_rgba(37,211,102,.24)] transition hover:bg-[#1ebe5d]"
                           >
-                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                              <path d="M20.4 3.6A11.5 11.5 0 0 0 3.7 19.2L2.5 22l2.9-1.1A11.5 11.5 0 1 0 20.4 3.6Z" />
-                              <path d="M8.4 7.5c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.5.6c.7 1.4 1.8 2.5 3.2 3.2l.6-.5c.2-.2.4-.2.7-.1l1.8.8c.3.1.4.3.4.5v.5c0 .3-.1.5-.5.7-.5.2-1.3.4-2.2.1-1.2-.4-2.7-1.3-4.1-2.7-1.4-1.4-2.3-2.9-2.7-4.1-.3-.9-.1-1.7.1-2.2Z" />
+                            <svg className="h-5 w-5" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M16 3.5a12.5 12.5 0 0 0-10.7 19l-1.45 5.15 5.25-1.4A12.5 12.5 0 1 0 16 3.5Z" />
+                              <path d="M12.1 9.6c.25-.55.55-.6.9-.6h.62c.3 0 .55.16.67.45l.95 2.18c.13.3.08.65-.13.9l-.7.82c.78 1.62 2.08 2.92 3.7 3.7l.82-.7c.25-.21.6-.26.9-.13l2.18.95c.29.12.45.37.45.67V18.5c0 .35-.05.65-.6.9-.67.3-1.7.5-2.82.15-1.46-.45-3.15-1.48-4.74-3.07-1.59-1.59-2.62-3.28-3.07-4.74-.35-1.12-.15-2.15.15-2.82Z" />
                             </svg>
                             WhatsApp Community
                           </a>

@@ -3,23 +3,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
 
 const MASONRY_IMAGES = [
-  { id: 1, src: "/past_events/Copy of REN.png", aspect: "aspect-[282/179]", delay: 0.1 },
-  { id: 2, src: "/past_events/Copy of REN (1).png", aspect: "aspect-[305/172]", delay: 0.2 },
-  { id: 3, src: "/past_events/Copy of REN (2).png", aspect: "aspect-[268/183]", delay: 0.15 },
-  { id: 4, src: "/past_events/Copy of REN (3).png", aspect: "aspect-[164/429]", delay: 0.25 },
-  { id: 5, src: "/past_events/Copy of REN (4).png", aspect: "aspect-[499/155]", delay: 0.1 },
-  { id: 6, src: "/past_events/Copy of REN (5).png", aspect: "aspect-[347/222]", delay: 0.2 },
-  { id: 7, src: "/past_events/Copy of REN (6).png", aspect: "aspect-[14/9]", delay: 0.3 },
-  { id: 8, src: "/past_events/Copy of REN (7).png", aspect: "aspect-[254/153]", delay: 0.15 },
-  { id: 9, src: "/past_events/Copy of REN (8).png", aspect: "aspect-[288/175]", delay: 0.25 },
-  { id: 10, src: "/past_events/Copy of REN (9).png", aspect: "aspect-[7/12]", delay: 0.1 },
-  { id: 11, src: "/past_events/Copy of REN (10).png", aspect: "aspect-[67/52]", delay: 0.3 },
-  { id: 12, src: "/past_events/Copy of REN (11).png", aspect: "aspect-[306/163]", delay: 0.15 },
-  { id: 13, src: "/past_events/Copy of REN (12).png", aspect: "aspect-[307/218]", delay: 0.2 },
-  { id: 14, src: "/past_events/Copy of REN (13).png", aspect: "aspect-[217/166]", delay: 0.1 },
-  { id: 15, src: "/past_events/Copy of REN (14).png", aspect: "aspect-[105/32]", delay: 0.25 },
-  { id: 16, src: "/past_events/Copy of REN (15).png", aspect: "aspect-[206/119]", delay: 0.15 },
-  { id: 17, src: "/past_events/Copy of REN (16).png", aspect: "aspect-[57/65]", delay: 0.2 }
+  { id: 6, src: "/past_events/Copy of REN (5).png", delay: 0.1 },
+  { id: 9, src: "/past_events/Copy of REN (8).png", delay: 0.2 },
+  { id: 1, src: "/past_events/Copy of REN.png", delay: 0.15 },
+  { id: 2, src: "/past_events/Copy of REN (1).png", delay: 0.25 },
+  { id: 3, src: "/past_events/Copy of REN (2).png", delay: 0.1 },
+  { id: 4, src: "/past_events/Copy of REN (3).png", delay: 0.2 },
+  { id: 5, src: "/past_events/Copy of REN (4).png", delay: 0.3 },
+  { id: 7, src: "/past_events/Copy of REN (6).png", delay: 0.15 },
+  { id: 8, src: "/past_events/Copy of REN (7).png", delay: 0.25 },
+  { id: 10, src: "/past_events/Copy of REN (9).png", delay: 0.1 },
+  { id: 11, src: "/past_events/Copy of REN (10).png", delay: 0.3 },
+  { id: 12, src: "/past_events/Copy of REN (11).png", delay: 0.15 },
+  { id: 13, src: "/past_events/Copy of REN (12).png", delay: 0.2 },
+  { id: 14, src: "/past_events/Copy of REN (13).png", delay: 0.1 },
+  { id: 15, src: "/past_events/Copy of REN (14).png", delay: 0.25 },
+  { id: 16, src: "/past_events/Copy of REN (15).png", delay: 0.15 },
+  { id: 17, src: "/past_events/Copy of REN (16).png", delay: 0.2 }
 ];
 
 const PAST_SPEAKERS = [
@@ -164,7 +164,7 @@ export default function Gallery() {
       </motion.section>
 
       {/* Masonry Grid Layout (Archive) */}
-      <section className="relative z-10 w-full px-3 sm:px-8 lg:px-24 pb-32">
+      <section className="relative z-10 w-full px-2 sm:px-4 md:px-6 pb-32">
         <div className="px-3 sm:px-0 mb-12 sm:mb-16 text-center sm:text-left">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -194,12 +194,12 @@ export default function Gallery() {
               }}
               layoutId={`gallery-img-${img.id}`}
               onClick={() => setSelectedImage(img)}
-              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer inline-block w-full`}
+              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 group cursor-pointer inline-block w-full`}
             >
               <img
                 src={img.src}
                 alt={`Archive capture ${index + 1}`}
-                className="absolute inset-0 w-full h-full object-cover filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
+                className="w-full h-auto block filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
                 loading="lazy"
               />
               {/* Subtle ambient overlay to blend with theme */}

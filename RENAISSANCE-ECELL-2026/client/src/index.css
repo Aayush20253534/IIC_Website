@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* The root IIC Vite build runs from /frontend, so scan this complete client. */
+@source "..";
+
 /* Lenis owns interpolation; native smooth scrolling would otherwise compete with it. */
 html.lenis,
 html.lenis body {

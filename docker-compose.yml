@@ -14,7 +14,9 @@ services:
       - iic-network
 
   web-client:
-    build: ./frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
     image: anshn11/iic-web-client:latest
     networks:
       - iic-network

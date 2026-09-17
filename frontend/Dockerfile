@@ -2,15 +2,19 @@ FROM node:20-slim
 
 WORKDIR /usr/src/app
 
-# Copy package files
-COPY package*.json ./
+# Install the one frontend server's dependencies first so Docker can cache them.
+COPY frontend/package*.json ./frontend/
+WORKDIR /usr/src/app/frontend
 RUN npm install
 
-# Copy the rest of the code
-COPY . .
+# The root IIC frontend remains the only frontend server. Renaissance is
+# compiled by that frontend directly from its existing source tree.
+WORKDIR /usr/src/app
+COPY frontend ./frontend
+COPY RENAISSANCE-ECELL-2026/client ./RENAISSANCE-ECELL-2026/client
 
-# React dev servers usually run on 3000 (CRA) or 5173 (Vite)
-EXPOSE 6000
+WORKDIR /usr/src/app/frontend
 
-# Start the actual dev server script from your package.json
+EXPOSE 5173
+
 CMD ["npm", "start"]

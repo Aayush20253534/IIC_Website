@@ -8,7 +8,6 @@ const LoginSuccess = () => {
   useEffect(() => {
 
     const token = searchParams.get('token');
-    const isProfileComplete = searchParams.get('complete');
     const userName = searchParams.get('name');
     const profileImage = searchParams.get('image');
 

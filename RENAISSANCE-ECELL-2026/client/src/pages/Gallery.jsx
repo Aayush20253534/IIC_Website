@@ -1,71 +1,35 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
 
 const MASONRY_IMAGES = [
-  { id: 6, src: "/past_events/Copy of REN (5).png", delay: 0.1 },
-  { id: 9, src: "/past_events/Copy of REN (8).png", delay: 0.2 },
-  { id: 1, src: "/past_events/Copy of REN.png", delay: 0.15 },
-  { id: 2, src: "/past_events/Copy of REN (1).png", delay: 0.25 },
-  { id: 3, src: "/past_events/Copy of REN (2).png", delay: 0.1 },
-  { id: 4, src: "/past_events/Copy of REN (3).png", delay: 0.2 },
-  { id: 5, src: "/past_events/Copy of REN (4).png", delay: 0.3 },
-  { id: 7, src: "/past_events/Copy of REN (6).png", delay: 0.15 },
-  { id: 8, src: "/past_events/Copy of REN (7).png", delay: 0.25 },
-  { id: 10, src: "/past_events/Copy of REN (9).png", delay: 0.1 },
-
-  { id: 12, src: "/past_events/Copy of REN (11).png", delay: 0.15 },
-  { id: 13, src: "/past_events/Copy of REN (12).png", delay: 0.2 },
-  { id: 14, src: "/past_events/Copy of REN (13).png", delay: 0.1 },
-  { id: 15, src: "/past_events/Copy of REN (14).png", delay: 0.25 },
-  { id: 16, src: "/past_events/Copy of REN (15).png", delay: 0.15 },
-  { id: 17, src: "/past_events/Copy of REN (16).png", delay: 0.2 }
+  { id: 1, src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.1 },
+  { id: 2, src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.2 },
+  { id: 3, src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/3]", delay: 0.15 },
+  { id: 4, src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.25 },
+  { id: 5, src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.1 },
+  { id: 6, src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[16/9]", delay: 0.2 },
+  { id: 7, src: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.3 },
+  { id: 8, src: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.15 },
+  { id: 9, src: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.25 },
+  { id: 10, src: "https://images.unsplash.com/photo-1533174000243-7826359f1c7d?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.1 },
+  { id: 11, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[16/9]", delay: 0.3 },
+  { id: 12, src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.15 },
+  { id: 13, src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[3/4]", delay: 0.2 },
+  { id: 14, src: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-square", delay: 0.1 },
+  { id: 15, src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1600", aspect: "aspect-[4/5]", delay: 0.25 }
 ];
 
 const PAST_SPEAKERS = [
-  { id: 1, name: "Brajesh Maheshwari", designation: "Director of Allen career institute", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlAt6fhjuH78w28TfoD4ig2YgoyJTITMGxl6kzuesfJB2l7kfxAVJn6UQ&s=10" },
-  { id: 2, name: "VIJENDER SINGH CHAUHAN", designation: "Interviewer,Communicator, Personality Evaluator, Teacher, Academic, Keynote Speaker- 13xTEDx", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnnnCo-nr9XoghsQhqGUvmi5CVNDKtOKbFo64025xL9EhcGi8b9xiZO5JG&s=10" },
-  { id: 3, name: "anugrah agnihotri", designation: "Former Senior Software Engineer At Citrix And Bcg Consultant,Building DOT", img: "https://media.licdn.com/dms/image/v2/D5622AQEl4D26hcgXCw/feedshare-shrink_800/B56ZSMsWQpHQAg-/0/1737527230400?e=2147483647&v=beta&t=3bTVbPxvHraHGu0bQbfba7hPs4kEHUVU3_lHLi-3NYE", objectPosition: "object-top" },
-  { id: 4, name: "jagriti kesarwani", designation: "former program  manager at google, digital strategist", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPzwGZznHyyCoJht9PNiYXvT54EGa6nPVXHO6IQhF_uQ&s=10" },
-  { id: 5, name: "acyuta mohan das", designation: "CSR Strategist,Value Edu Consultant", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmTlnZtU_Ts0npX5INpnpcb2UX54E8MYGGyN1icZVWUA&s=10" },
-  { id: 5, name: "akshay singh", designation: "India's only Paranormal Illusionist,  Indian Mentalist, Ethical Hacker", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9YpzAIpz6rk5ZFOPnu3SuKUPMhVI8bh1EAyR3qHP8Bw&s=10" },
-  { id: 5, name: "neha agarwal", designation: "Founder of mathematically inclined", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS36KANgvdTvmh1Yn3l9QZXTDwX73HVJHrUrcF0CmTgfQ&s=10" },
-  { id: 5, name: "NEELAM JAIN", designation: "FOUNDER & CEO,PERIFERRY & FORBES 30U30 2021", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfRdEsJIOlWf5obecfCFFTAqvsTl6zr9oPaJsb5_Enig&s=10" },
-  { id: 5, name: "Sandeep Jain", designation: "Founder & CEO,GeeksforGeeksCSR", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRzNak8wdLRti5FPCSyfzeI4zrMZUzDMBi6hHUBhupQ&s=10" },
-  { id: 5, name: "SHRIYA LUHIA", designation: "FIRST FEMALE F1 RACER", img: "https://img.etimg.com/photo/msid-119117114,imgsize-49392/ShriyaLohia.jpg" },
+  { id: 1, name: "ALEXANDER WRIGHT", designation: "CHIEF INNOVATION OFFICER", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" },
+  { id: 2, name: "SARAH CHEN", designation: "AI RESEARCH LEAD", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800" },
+  { id: 3, name: "MARCUS JOHNSON", designation: "STARTUP VISIONARY", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800" },
+  { id: 4, name: "ELENA RODRIGUEZ", designation: "GLOBAL STRATEGY DIRECTOR", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800" },
+  { id: 5, name: "DAVID KIM", designation: "TECH ENTREPRENEUR", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800" },
 ];
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const marqueeRef = useRef(null);
-  const isHovered = useRef(false);
-
-  useEffect(() => {
-    const container = marqueeRef.current;
-    if (!container) return;
-
-    let animationFrameId;
-    // Initialize scroll position in the middle to allow seamless left scrolling
-    container.scrollLeft = container.scrollWidth / 2;
-
-    const animate = () => {
-      if (!isHovered.current) {
-        container.scrollLeft -= 1.5; // Controls the auto-scroll speed left-to-right
-      }
-      
-      // Infinite wrap logic
-      if (container.scrollLeft <= 0) {
-        container.scrollLeft += container.scrollWidth / 2;
-      } else if (container.scrollLeft >= container.scrollWidth / 2) {
-        container.scrollLeft -= container.scrollWidth / 2;
-      }
-      
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
 
   useEffect(() => {
     if (selectedImage) {
@@ -79,15 +43,20 @@ export default function Gallery() {
   }, [selectedImage]);
 
   return (
-    <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#C5A25F] selection:text-white">
+    <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#f3e5ab] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#d4af37] selection:text-white">
       
       <style>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
+        @keyframes marqueeLeftToRight {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0%); }
         }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
+        .animate-marquee-ltr {
+          display: flex;
+          width: max-content;
+          animation: marqueeLeftToRight 50s linear infinite;
+        }
+        .animate-marquee-ltr:hover {
+          animation-play-state: paused;
         }
       `}</style>
 
@@ -119,7 +88,7 @@ export default function Gallery() {
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.6 }}
           className="mt-8 flex items-center gap-6"
         >
-          <div className="h-px w-24 sm:w-48 bg-[#C5A25F] opacity-60"></div>
+          <div className="h-px w-24 sm:w-48 bg-[#d4af37] opacity-60"></div>
           <p className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-[#8E6422] uppercase font-bold">
             A visual documentation of past expeditions
           </p>
@@ -145,20 +114,13 @@ export default function Gallery() {
             <h2 className="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0C2B3D] tracking-tight uppercase">
               Past Speakers
             </h2>
-            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#C5A25F] opacity-80 mt-4 mx-auto sm:mx-0"></div>
+            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#d4af37] opacity-80 mt-4 mx-auto sm:mx-0"></div>
           </motion.div>
         </div>
 
-        {/* Infinite Marquee Left to Right with Manual Scroll */}
+        {/* Infinite Marquee Left to Right */}
         <div className="w-full overflow-hidden relative">
-          <div 
-            ref={marqueeRef}
-            onMouseEnter={() => isHovered.current = true}
-            onMouseLeave={() => isHovered.current = false}
-            onTouchStart={() => isHovered.current = true}
-            onTouchEnd={() => isHovered.current = false}
-            className="flex w-full overflow-x-auto hide-scrollbar py-8 cursor-grab active:cursor-grabbing"
-          >
+          <div className="animate-marquee-ltr py-8">
             {[...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS].map((speaker, idx) => (
               <div key={`${speaker.id}-${idx}`} className="w-64 sm:w-80 flex-shrink-0 mx-4 sm:mx-8 group cursor-pointer">
                 
@@ -168,19 +130,19 @@ export default function Gallery() {
                   <div className="absolute top-4 left-4 sm:top-6 sm:left-6 w-full h-full bg-[#0C2B3D] transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2" />
                   
                   {/* Portrait */}
-                  <div className="relative w-full h-full overflow-hidden bg-[#F4EBD9]">
+                  <div className="relative w-full h-full overflow-hidden bg-[#f3e5ab]">
                     <img 
                       src={speaker.img} 
                       alt={speaker.name} 
-                      className={`w-full h-full object-cover ${speaker.objectPosition || 'object-center'} filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]`} 
+                      className="w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]" 
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-[#C5A25F]/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-[#d4af37]/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </div>
                 
                 {/* Text Content */}
-                <div className="pl-4 sm:pl-5 border-l-2 border-[#C5A25F] group-hover:border-[#0C2B3D] transition-colors duration-500">
+                <div className="pl-4 sm:pl-5 border-l-2 border-[#d4af37] group-hover:border-[#0C2B3D] transition-colors duration-500">
                   <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#0C2B3D] uppercase tracking-wide leading-tight">
                     {speaker.name}
                   </h3>
@@ -195,7 +157,7 @@ export default function Gallery() {
       </motion.section>
 
       {/* Masonry Grid Layout (Archive) */}
-      <section className="relative z-10 w-full px-2 sm:px-4 md:px-6 pb-32">
+      <section className="relative z-10 w-full px-3 sm:px-8 lg:px-24 pb-32">
         <div className="px-3 sm:px-0 mb-12 sm:mb-16 text-center sm:text-left">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -207,7 +169,7 @@ export default function Gallery() {
             <h2 className="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0C2B3D] tracking-tight uppercase">
               Event Photos
             </h2>
-            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#C5A25F] opacity-80 mt-4 mx-auto sm:mx-0"></div>
+            <div className="h-[2px] w-1/2 sm:w-2/3 bg-[#d4af37] opacity-80 mt-4 mx-auto sm:mx-0"></div>
           </motion.div>
         </div>
 
@@ -225,12 +187,12 @@ export default function Gallery() {
               }}
               layoutId={`gallery-img-${img.id}`}
               onClick={() => setSelectedImage(img)}
-              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 group cursor-pointer inline-block w-full`}
+              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer`}
             >
               <img
                 src={img.src}
                 alt={`Archive capture ${index + 1}`}
-                className="w-full h-auto block filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
+                className="w-full h-full object-cover filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
                 loading="lazy"
               />
               {/* Subtle ambient overlay to blend with theme */}
@@ -255,7 +217,7 @@ export default function Gallery() {
             {/* Close Button */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-24 right-6 sm:top-28 sm:right-8 lg:right-12 z-[110] flex items-center justify-center w-12 h-12 rounded-full bg-[#F4EBD9]/10 text-[#F4EBD9] hover:bg-[#F4EBD9]/20 transition-colors border border-[#F4EBD9]/20 shadow-lg cursor-pointer"
+              className="absolute top-24 right-6 sm:top-28 sm:right-8 lg:right-12 z-[110] flex items-center justify-center w-12 h-12 rounded-full bg-[#f3e5ab]/10 text-[#f3e5ab] hover:bg-[#f3e5ab]/20 transition-colors border border-[#f3e5ab]/20 shadow-lg cursor-pointer"
             >
               <svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M13 1L1 13M1 1L13 13" />

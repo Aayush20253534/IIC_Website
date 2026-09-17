@@ -62,6 +62,9 @@ export default function App() {
         {/* Interactive Custom Pirate Hook Cursor */}
         <PirateCursor />
 
+        {/* Global Abyss Gradient Transition Overlay */}
+        <div id="abyss-overlay" className="fixed inset-0 z-[5] bg-[#020610] opacity-0 pointer-events-none transition-opacity duration-300" />
+
         {/* Full-screen Fixed WebGL Ocean Adventure Background Shader */}
         <AdisyonShader className="fixed inset-0 z-0 opacity-90 mix-blend-screen pointer-events-none" />
 
@@ -77,7 +80,7 @@ export default function App() {
         <Navbar />
 
         {/* Main Route Views */}
-        <div className="relative z-10 min-h-screen bg-transparent text-[#F4EBD9]">
+        <div className="relative z-10 min-h-screen bg-transparent text-[#f3e5ab]">
           <Suspense
             fallback={
               <div className="min-h-screen bg-transparent" />

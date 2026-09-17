@@ -24,8 +24,8 @@ const MASONRY_IMAGES = [
 
 const PAST_SPEAKERS = [
   { id: 1, name: "Brajesh Maheshwari", designation: "Director of Allen career institute", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlAt6fhjuH78w28TfoD4ig2YgoyJTITMGxl6kzuesfJB2l7kfxAVJn6UQ&s=10" },
-  { id: 2, name: "VIJENDER SINGH CHAUHAN", designation: "Interviewer,Communicator, Personality Evaluator, Teacher, Academic, Keynote Speaker- 13xTEDx", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNcip1fParP-JITOLDWfiQORJ35NfkpNC2jloxbBKXZQ&s=10" },
-  { id: 3, name: "anugrah agnihotri", designation: "Former Senior Software Engineer At Citrix And Bcg Consultant,Building DOT", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBa8BnWTP-p_jaixRc9UAp5fzuPm6Iu9YVuUtXr2NoQ&s=10" },
+  { id: 2, name: "VIJENDER SINGH CHAUHAN", designation: "Interviewer,Communicator, Personality Evaluator, Teacher, Academic, Keynote Speaker- 13xTEDx", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnnnCo-nr9XoghsQhqGUvmi5CVNDKtOKbFo64025xL9EhcGi8b9xiZO5JG&s=10" },
+  { id: 3, name: "anugrah agnihotri", designation: "Former Senior Software Engineer At Citrix And Bcg Consultant,Building DOT", img: "https://media.licdn.com/dms/image/v2/D5622AQEl4D26hcgXCw/feedshare-shrink_800/B56ZSMsWQpHQAg-/0/1737527230400?e=2147483647&v=beta&t=3bTVbPxvHraHGu0bQbfba7hPs4kEHUVU3_lHLi-3NYE", objectPosition: "object-top" },
   { id: 4, name: "jagriti kesarwani", designation: "former program  manager at google, digital strategist", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPzwGZznHyyCoJht9PNiYXvT54EGa6nPVXHO6IQhF_uQ&s=10" },
   { id: 5, name: "acyuta mohan das", designation: "CSR Strategist,Value Edu Consultant", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmTlnZtU_Ts0npX5INpnpcb2UX54E8MYGGyN1icZVWUA&s=10" },
   { id: 5, name: "akshay singh", designation: "India's only Paranormal Illusionist,  Indian Mentalist, Ethical Hacker", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9YpzAIpz6rk5ZFOPnu3SuKUPMhVI8bh1EAyR3qHP8Bw&s=10" },
@@ -172,7 +172,7 @@ export default function Gallery() {
                     <img 
                       src={speaker.img} 
                       alt={speaker.name} 
-                      className="w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]" 
+                      className={`w-full h-full object-cover ${speaker.objectPosition || 'object-center'} filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]`} 
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-[#C5A25F]/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

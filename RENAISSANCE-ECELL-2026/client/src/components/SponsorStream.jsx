@@ -348,7 +348,7 @@ function SponsorCard({ sponsor, slot }) {
     >
       <div className="voyage-sponsor-card__inner">
         <div className="voyage-sponsor-card__logo">
-          <span className="text-5xl font-bold">{sponsor.number}</span>
+          <div className="flex items-center justify-center w-full h-full text-5xl font-cinzel font-bold text-[#0C2B3D]/70">{sponsor.number}</div>
         </div>
 
         <div className="voyage-sponsor-card__copy">

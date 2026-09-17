@@ -422,21 +422,7 @@ export default function Sponsors({ embedded = false }) {
                 <div className="pointer-events-none absolute left-4 top-4 h-6 w-6 border-l border-t border-[#9E6D1F]/55" />
                 <div className="pointer-events-none absolute bottom-4 right-4 h-6 w-6 border-b border-r border-[#9E6D1F]/55" />
 
-                <img
-                  src={presentingSponsor.image}
-                  alt={presentingSponsor.name}
-                  className="
-                    relative
-                    z-10
-                    max-h-44
-                    max-w-[82%]
-                    object-contain
-                    drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]
-                    transition-transform
-                    duration-500
-                    group-hover:scale-105
-                  "
-                />
+                <div className="relative z-10 text-9xl font-cinzel font-bold text-[#0C2B3D]/80 drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)] transition-transform duration-500 group-hover:scale-105">{presentingSponsor.number}</div>
               </div>
 
               {/* Information - Centre aligned */}
@@ -786,11 +772,7 @@ export default function Sponsors({ embedded = false }) {
               </span>
 
               <div className="flex h-36 w-full items-center justify-center rounded-2xl border border-[#97BFC7] bg-[#E4ECEB] p-5 shadow-inner">
-                <img
-                  src={activeSponsor.image}
-                  alt={activeSponsor.name}
-                  className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_8px_rgba(20,61,77,0.15)]"
-                />
+                <div className="text-7xl font-cinzel font-bold text-[#0C2B3D]/80 filter drop-shadow-[0_2px_8px_rgba(20,61,77,0.15)]">{activeSponsor.number}</div>
               </div>
 
               <h3 className="font-cinzel text-2xl font-bold text-[#0C2B3D]">
@@ -1133,12 +1115,7 @@ function SponsorCard({ sponsor, size = "medium", theme = "sandy", onInspect }) {
             group-hover:scale-105
           `}
         >
-          <img
-            src={sponsor.image}
-            alt={sponsor.name}
-            loading="lazy"
-            className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_8px_rgba(20,55,70,0.14)]"
-          />
+          <div className="text-6xl font-cinzel font-bold text-[#0C2B3D]/80 filter drop-shadow-[0_2px_8px_rgba(20,55,70,0.14)]">{sponsor.number}</div>
         </div>
 
         {/* Tier badge */}

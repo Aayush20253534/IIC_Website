@@ -20,8 +20,8 @@
     </filter>
   </defs>
 
-  <rect x="15" y="15" width="370" height="210" rx="18" fill="url(#oceanPlacque)" stroke="url(#solidGold)" stroke-width="2.5" filter="url(#chestShadow)"/>
-  <rect x="25" y="25" width="350" height="190" rx="12" fill="none" stroke="#68A5B3" stroke-width="1.2" stroke-dasharray="6,4"/>
+  
+  
 
   <!-- Overflowing Pirate Treasure Chest -->
   <g transform="translate(200, 84)">
@@ -66,7 +66,7 @@
   </g>
 
   <!-- Typography -->
-  <text x="200" y="165" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="14.5" font-weight="800" fill="#0C2B3D" letter-spacing="3.5">SUNKEN VAULT</text>
-  <text x="200" y="183" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="10.5" font-weight="700" fill="#996515" letter-spacing="4">TREASURY &amp; RESERVES</text>
-  <text x="200" y="199" text-anchor="middle" font-family="'Courier New', monospace" font-size="7.5" font-weight="600" fill="#695123" letter-spacing="2">GOLD DOUBLOON SOVEREIGN MINT</text>
+  <text x="200" y="165" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="14.5" font-weight="800" fill="#061824" letter-spacing="3.5">SUNKEN VAULT</text>
+  <text x="200" y="183" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="10.5" font-weight="700" fill="#0E384D" letter-spacing="4">TREASURY &amp; RESERVES</text>
+  <text x="200" y="199" text-anchor="middle" font-family="'Courier New', monospace" font-size="7.5" font-weight="600" fill="#1C4E63" letter-spacing="2">GOLD DOUBLOON SOVEREIGN MINT</text>
 </svg>

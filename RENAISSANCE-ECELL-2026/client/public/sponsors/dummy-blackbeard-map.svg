@@ -25,16 +25,12 @@
   </defs>
 
   <!-- Background Plaque -->
-  <rect x="15" y="15" width="370" height="210" rx="18" fill="url(#oceanPlacque)" stroke="url(#goldTrim)" stroke-width="2.5" filter="url(#mapShadow)"/>
+  
   
   <!-- Outer Navigation Coordinates border -->
-  <rect x="25" y="25" width="350" height="190" rx="12" fill="none" stroke="#68A5B3" stroke-width="1" stroke-dasharray="8,5" opacity="0.65"/>
+  
 
-  <!-- Corner Fleur-de-lis / Accents -->
-  <path d="M 33 33 L 45 33 M 33 33 L 33 45" stroke="#9A6F27" stroke-width="2" fill="none"/>
-  <path d="M 367 33 L 355 33 M 367 33 L 367 45" stroke="#9A6F27" stroke-width="2" fill="none"/>
-  <path d="M 33 207 L 45 207 M 33 207 L 33 195" stroke="#9A6F27" stroke-width="2" fill="none"/>
-  <path d="M 367 207 L 355 207 M 367 207 L 367 195" stroke="#9A6F27" stroke-width="2" fill="none"/>
+  <!-- Corner Fleur-de-lis / Accents Removed -->
 
   <!-- Island Contours (Map background) -->
   <path d="M 70 85 Q 95 65, 120 75 T 145 110 T 115 145 T 75 130 Z" fill="#D4BD99" opacity="0.45" stroke="#A88B63" stroke-width="1.2" stroke-dasharray="3,3"/>
@@ -82,7 +78,7 @@
   </g>
 
   <!-- Typography: Blackbeard Cartography -->
-  <text x="200" y="168" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="14" font-weight="800" fill="#0C2B3D" letter-spacing="3.5">BLACKBEARD</text>
-  <text x="200" y="185" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="10.5" font-weight="700" fill="#9A6F27" letter-spacing="4">CARTOGRAPHY &amp; CHARTS</text>
-  <text x="200" y="200" text-anchor="middle" font-family="'Courier New', monospace" font-size="7.5" font-weight="600" fill="#4B6B7C" letter-spacing="2">LAT 25° 12' N • LONG 71° 04' W</text>
+  <text x="200" y="168" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="14" font-weight="800" fill="#061824" letter-spacing="3.5">BLACKBEARD</text>
+  <text x="200" y="185" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="10.5" font-weight="700" fill="#0E384D" letter-spacing="4">CARTOGRAPHY &amp; CHARTS</text>
+  <text x="200" y="200" text-anchor="middle" font-family="'Courier New', monospace" font-size="7.5" font-weight="600" fill="#1C4E63" letter-spacing="2">LAT 25° 12' N • LONG 71° 04' W</text>
 </svg>

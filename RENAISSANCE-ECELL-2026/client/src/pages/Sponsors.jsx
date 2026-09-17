@@ -424,6 +424,7 @@ export default function Sponsors({ embedded = false }) {
                     max-w-[82%]
                     scale-[1.35]
                     object-contain
+                    mix-blend-multiply
                     drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]
                     transition-transform
                     duration-500
@@ -807,7 +808,7 @@ function SponsorCard({ sponsor, size = "medium" }) {
           src={sponsor.image}
           alt={sponsor.name}
           loading="lazy"
-          className="max-h-full max-w-[85%] scale-[1.35] object-contain drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]"
+          className="max-h-full max-w-[85%] scale-[1.35] object-contain mix-blend-multiply drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]"
         />
 
         {/* Vintage Watch Accent for Sponsor Cards */}

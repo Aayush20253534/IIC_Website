@@ -13,7 +13,7 @@ const MASONRY_IMAGES = [
   { id: 7, src: "/past_events/Copy of REN (6).png", delay: 0.15 },
   { id: 8, src: "/past_events/Copy of REN (7).png", delay: 0.25 },
   { id: 10, src: "/past_events/Copy of REN (9).png", delay: 0.1 },
-  { id: 11, src: "/past_events/Copy of REN (10).png", delay: 0.3 },
+
   { id: 12, src: "/past_events/Copy of REN (11).png", delay: 0.15 },
   { id: 13, src: "/past_events/Copy of REN (12).png", delay: 0.2 },
   { id: 14, src: "/past_events/Copy of REN (13).png", delay: 0.1 },

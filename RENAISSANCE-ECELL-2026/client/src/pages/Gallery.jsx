@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
 
@@ -37,6 +37,35 @@ const PAST_SPEAKERS = [
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const marqueeRef = useRef(null);
+  const isHovered = useRef(false);
+
+  useEffect(() => {
+    const container = marqueeRef.current;
+    if (!container) return;
+
+    let animationFrameId;
+    // Initialize scroll position in the middle to allow seamless left scrolling
+    container.scrollLeft = container.scrollWidth / 2;
+
+    const animate = () => {
+      if (!isHovered.current) {
+        container.scrollLeft -= 1.5; // Controls the auto-scroll speed left-to-right
+      }
+      
+      // Infinite wrap logic
+      if (container.scrollLeft <= 0) {
+        container.scrollLeft += container.scrollWidth / 2;
+      } else if (container.scrollLeft >= container.scrollWidth / 2) {
+        container.scrollLeft -= container.scrollWidth / 2;
+      }
+      
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   useEffect(() => {
     if (selectedImage) {
@@ -53,17 +82,12 @@ export default function Gallery() {
     <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#C5A25F] selection:text-white">
       
       <style>{`
-        @keyframes marqueeLeftToRight {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0%); }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
-        .animate-marquee-ltr {
-          display: flex;
-          width: max-content;
-          animation: marqueeLeftToRight 50s linear infinite;
-        }
-        .animate-marquee-ltr:hover {
-          animation-play-state: paused;
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
 
@@ -125,9 +149,16 @@ export default function Gallery() {
           </motion.div>
         </div>
 
-        {/* Infinite Marquee Left to Right */}
+        {/* Infinite Marquee Left to Right with Manual Scroll */}
         <div className="w-full overflow-hidden relative">
-          <div className="animate-marquee-ltr py-8">
+          <div 
+            ref={marqueeRef}
+            onMouseEnter={() => isHovered.current = true}
+            onMouseLeave={() => isHovered.current = false}
+            onTouchStart={() => isHovered.current = true}
+            onTouchEnd={() => isHovered.current = false}
+            className="flex w-full overflow-x-auto hide-scrollbar py-8 cursor-grab active:cursor-grabbing"
+          >
             {[...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS].map((speaker, idx) => (
               <div key={`${speaker.id}-${idx}`} className="w-64 sm:w-80 flex-shrink-0 mx-4 sm:mx-8 group cursor-pointer">
                 

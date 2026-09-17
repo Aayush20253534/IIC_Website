@@ -50,8 +50,12 @@ export default function App() {
     setShowIntro(false);
   };
 
+  const hasRenaissanceBase =
+    typeof window !== "undefined" &&
+    window.location.pathname.startsWith("/renaissance");
+
   return (
-    <BrowserRouter basename="/renaissance">
+    <BrowserRouter basename={hasRenaissanceBase ? "/renaissance" : ""}>
       <SmoothScroll>
         {/* Reset smooth scroll position whenever route changes */}
         <ScrollToTop />

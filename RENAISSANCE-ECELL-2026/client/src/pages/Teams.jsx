@@ -1,9 +1,8 @@
-import { useRef, useState } from "react";
 import { FaLinkedin } from "react-icons/fa";
 import ContactFooter from "../components/ContactFooter";
 
 // Replace this path with each member's photo when it is available.
-const DUMMY_MEMBER_PHOTO = "/placeholder-speaker.svg";
+// const DUMMY_MEMBER_PHOTO = "/placeholder-speaker.svg";
 const MAIN_SECTION_HEADING_CLASS =
   "group mx-auto mb-5 flex w-fit cursor-default flex-col items-center font-cinzel text-[1.65rem] font-bold leading-tight tracking-[0.04em] text-[#166E94] sm:mb-9 sm:text-5xl sm:tracking-[0.06em]";
 
@@ -22,6 +21,7 @@ const facultyIncharges = [
   },
 ];
 
+/* Temporarily hidden along with the Final, Third, and Second Year card sections.
 const finalYearMembers = Array.from({ length: 10 }, (_, index) => ({
   name: `Final Year Member ${index + 1}`,
   position: "Final Year",
@@ -63,7 +63,9 @@ const secondYearTeams = [
       .replace(/\s/g, "-")}-member-${index + 1}/`,
   })),
 }));
+*/
 
+/* Temporarily hidden along with the Final, Third, and Second Year card sections.
 const MemberCard = ({ member, compact = false }) => (
   <div className={`teams-member-card group relative rounded-2xl bg-[#FDF3DF] border border-[#78C8ED] hover:border-[#238BBB] shadow-[0_8px_22px_rgba(35,93,119,0.16)] hover:shadow-[0_12px_28px_rgba(35,93,119,0.22)] transition-all duration-300 flex flex-col items-center text-center overflow-hidden cursor-pointer ${compact ? "min-h-[210px] justify-center px-6 py-8" : "p-6"}`}>
 
@@ -117,6 +119,7 @@ const MemberCard = ({ member, compact = false }) => (
     )}
   </div>
 );
+*/
 
 const FacultyCard = ({ member }) => (
   <article className="teams-member-card teams-faculty-card group flex w-[calc((100vw-60px)/2)] shrink-0 flex-col rounded-xl border border-[#D8C4A8] bg-[#FDF3DF] p-2.5 text-center shadow-[0_10px_24px_rgba(84,64,43,0.2)] transition-all duration-300 sm:w-[232px] sm:rounded-2xl sm:p-4">
@@ -145,6 +148,7 @@ const FacultyCard = ({ member }) => (
   </article>
 );
 
+/* Temporarily hidden along with the Final, Third, and Second Year card sections.
 const ScrollingMemberRow = ({
   members,
   label,
@@ -207,6 +211,7 @@ const ScrollingMemberRow = ({
     </div>
   );
 };
+*/
 
 export default function Teams({ embedded = false }) {
   return (
@@ -362,6 +367,7 @@ export default function Teams({ embedded = false }) {
             </div>
           </section>
 
+          {/* Temporarily hidden: Final Year member cards.
           <section aria-labelledby="final-year-heading">
             <h2
               id="final-year-heading"
@@ -374,8 +380,9 @@ export default function Teams({ embedded = false }) {
               members={finalYearMembers}
               label="final year"
             />
-          </section>
+          </section> */}
 
+          {/* Temporarily hidden: Third Year team cards.
           <section aria-labelledby="third-year-heading">
             <h2
               id="third-year-heading"
@@ -399,8 +406,9 @@ export default function Teams({ embedded = false }) {
                 </div>
               ))}
             </div>
-          </section>
+          </section> */}
 
+          {/* Temporarily hidden: Second Year team cards.
           <section aria-labelledby="second-year-heading">
             <h2
               id="second-year-heading"
@@ -425,7 +433,7 @@ export default function Teams({ embedded = false }) {
                 </div>
               ))}
             </div>
-          </section>
+          </section> */}
         </div>
       </div>
 

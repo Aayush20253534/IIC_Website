@@ -1,42 +1,71 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ContactFooter from "../components/ContactFooter";
 
 const MASONRY_IMAGES = [
-  { id: 1, src: "/past_events/Copy of REN.png", aspect: "aspect-[282/179]", delay: 0.1 },
-  { id: 2, src: "/past_events/Copy of REN (1).png", aspect: "aspect-[305/172]", delay: 0.2 },
-  { id: 3, src: "/past_events/Copy of REN (2).png", aspect: "aspect-[268/183]", delay: 0.15 },
-  { id: 4, src: "/past_events/Copy of REN (3).png", aspect: "aspect-[164/429]", delay: 0.25 },
-  { id: 5, src: "/past_events/Copy of REN (4).png", aspect: "aspect-[499/155]", delay: 0.1 },
-  { id: 6, src: "/past_events/Copy of REN (5).png", aspect: "aspect-[347/222]", delay: 0.2 },
-  { id: 7, src: "/past_events/Copy of REN (6).png", aspect: "aspect-[14/9]", delay: 0.3 },
-  { id: 8, src: "/past_events/Copy of REN (7).png", aspect: "aspect-[254/153]", delay: 0.15 },
-  { id: 9, src: "/past_events/Copy of REN (8).png", aspect: "aspect-[288/175]", delay: 0.25 },
-  { id: 10, src: "/past_events/Copy of REN (9).png", aspect: "aspect-[7/12]", delay: 0.1 },
-  { id: 11, src: "/past_events/Copy of REN (10).png", aspect: "aspect-[67/52]", delay: 0.3 },
-  { id: 12, src: "/past_events/Copy of REN (11).png", aspect: "aspect-[306/163]", delay: 0.15 },
-  { id: 13, src: "/past_events/Copy of REN (12).png", aspect: "aspect-[307/218]", delay: 0.2 },
-  { id: 14, src: "/past_events/Copy of REN (13).png", aspect: "aspect-[217/166]", delay: 0.1 },
-  { id: 15, src: "/past_events/Copy of REN (14).png", aspect: "aspect-[105/32]", delay: 0.25 },
-  { id: 16, src: "/past_events/Copy of REN (15).png", aspect: "aspect-[206/119]", delay: 0.15 },
-  { id: 17, src: "/past_events/Copy of REN (16).png", aspect: "aspect-[57/65]", delay: 0.2 }
+  { id: 6, src: "/past_events/Copy of REN (5).png", delay: 0.1 },
+  { id: 9, src: "/past_events/Copy of REN (8).png", delay: 0.2 },
+  { id: 1, src: "/past_events/Copy of REN.png", delay: 0.15 },
+  { id: 2, src: "/past_events/Copy of REN (1).png", delay: 0.25 },
+  { id: 3, src: "/past_events/Copy of REN (2).png", delay: 0.1 },
+  { id: 4, src: "/past_events/Copy of REN (3).png", delay: 0.2 },
+  { id: 5, src: "/past_events/Copy of REN (4).png", delay: 0.3 },
+  { id: 7, src: "/past_events/Copy of REN (6).png", delay: 0.15 },
+  { id: 8, src: "/past_events/Copy of REN (7).png", delay: 0.25 },
+  { id: 10, src: "/past_events/Copy of REN (9).png", delay: 0.1 },
+
+  { id: 12, src: "/past_events/Copy of REN (11).png", delay: 0.15 },
+  { id: 13, src: "/past_events/Copy of REN (12).png", delay: 0.2 },
+  { id: 14, src: "/past_events/Copy of REN (13).png", delay: 0.1 },
+  { id: 15, src: "/past_events/Copy of REN (14).png", delay: 0.25 },
+  { id: 16, src: "/past_events/Copy of REN (15).png", delay: 0.15 },
+  { id: 17, src: "/past_events/Copy of REN (16).png", delay: 0.2 }
 ];
 
 const PAST_SPEAKERS = [
   { id: 1, name: "Brajesh Maheshwari", designation: "Director of Allen career institute", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlAt6fhjuH78w28TfoD4ig2YgoyJTITMGxl6kzuesfJB2l7kfxAVJn6UQ&s=10" },
-  { id: 2, name: "VIJENDER SINGH CHAUHAN", designation: "Interviewer,Communicator, Personality Evaluator, Teacher, Academic, Keynote Speaker- 13xTEDx", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNcip1fParP-JITOLDWfiQORJ35NfkpNC2jloxbBKXZQ&s=10" },
-  { id: 3, name: "anugrah agnihotri", designation: "Former Senior Software Engineer At Citrix And Bcg Consultant,Building DOT", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBa8BnWTP-p_jaixRc9UAp5fzuPm6Iu9YVuUtXr2NoQ&s=10" },
+  { id: 2, name: "VIJENDER SINGH CHAUHAN", designation: "Interviewer,Communicator, Personality Evaluator, Teacher, Academic, Keynote Speaker- 13xTEDx", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnnnCo-nr9XoghsQhqGUvmi5CVNDKtOKbFo64025xL9EhcGi8b9xiZO5JG&s=10" },
+  { id: 3, name: "anugrah agnihotri", designation: "Former Senior Software Engineer At Citrix And Bcg Consultant,Building DOT", img: "https://media.licdn.com/dms/image/v2/D5622AQEl4D26hcgXCw/feedshare-shrink_800/B56ZSMsWQpHQAg-/0/1737527230400?e=2147483647&v=beta&t=3bTVbPxvHraHGu0bQbfba7hPs4kEHUVU3_lHLi-3NYE", objectPosition: "object-top" },
   { id: 4, name: "jagriti kesarwani", designation: "former program  manager at google, digital strategist", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPzwGZznHyyCoJht9PNiYXvT54EGa6nPVXHO6IQhF_uQ&s=10" },
   { id: 5, name: "acyuta mohan das", designation: "CSR Strategist,Value Edu Consultant", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmTlnZtU_Ts0npX5INpnpcb2UX54E8MYGGyN1icZVWUA&s=10" },
   { id: 5, name: "akshay singh", designation: "India's only Paranormal Illusionist,  Indian Mentalist, Ethical Hacker", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9YpzAIpz6rk5ZFOPnu3SuKUPMhVI8bh1EAyR3qHP8Bw&s=10" },
   { id: 5, name: "neha agarwal", designation: "Founder of mathematically inclined", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS36KANgvdTvmh1Yn3l9QZXTDwX73HVJHrUrcF0CmTgfQ&s=10" },
   { id: 5, name: "NEELAM JAIN", designation: "FOUNDER & CEO,PERIFERRY & FORBES 30U30 2021", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfRdEsJIOlWf5obecfCFFTAqvsTl6zr9oPaJsb5_Enig&s=10" },
   { id: 5, name: "Sandeep Jain", designation: "Founder & CEO,GeeksforGeeksCSR", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRzNak8wdLRti5FPCSyfzeI4zrMZUzDMBi6hHUBhupQ&s=10" },
-  { id: 5, name: "SHRIYA LUHIA", designation: "FIRST FEMALE F1 RACER", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzBypDaPXl4J1o6s_ccLJ-5Sfu5zs0pUl9ca58FPKQ3w&s=10" },
+  { id: 5, name: "SHRIYA LUHIA", designation: "FIRST FEMALE F1 RACER", img: "https://img.etimg.com/photo/msid-119117114,imgsize-49392/ShriyaLohia.jpg" },
 ];
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const marqueeRef = useRef(null);
+  const isHovered = useRef(false);
+
+  useEffect(() => {
+    const container = marqueeRef.current;
+    if (!container) return;
+
+    let animationFrameId;
+    // Initialize scroll position in the middle to allow seamless left scrolling
+    container.scrollLeft = container.scrollWidth / 2;
+
+    const animate = () => {
+      if (!isHovered.current) {
+        container.scrollLeft -= 1.5; // Controls the auto-scroll speed left-to-right
+      }
+      
+      // Infinite wrap logic
+      if (container.scrollLeft <= 0) {
+        container.scrollLeft += container.scrollWidth / 2;
+      } else if (container.scrollLeft >= container.scrollWidth / 2) {
+        container.scrollLeft -= container.scrollWidth / 2;
+      }
+      
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   useEffect(() => {
     if (selectedImage) {
@@ -53,17 +82,12 @@ export default function Gallery() {
     <main className="relative w-full min-h-screen bg-fixed bg-gradient-to-br from-[#9AC8DB] via-[#D3E3DD] to-[#F4EBD9] text-[#0C2B3D] overflow-x-hidden font-montserrat selection:bg-[#C5A25F] selection:text-white">
       
       <style>{`
-        @keyframes marqueeLeftToRight {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0%); }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
-        .animate-marquee-ltr {
-          display: flex;
-          width: max-content;
-          animation: marqueeLeftToRight 50s linear infinite;
-        }
-        .animate-marquee-ltr:hover {
-          animation-play-state: paused;
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
 
@@ -125,9 +149,16 @@ export default function Gallery() {
           </motion.div>
         </div>
 
-        {/* Infinite Marquee Left to Right */}
+        {/* Infinite Marquee Left to Right with Manual Scroll */}
         <div className="w-full overflow-hidden relative">
-          <div className="animate-marquee-ltr py-8">
+          <div 
+            ref={marqueeRef}
+            onMouseEnter={() => isHovered.current = true}
+            onMouseLeave={() => isHovered.current = false}
+            onTouchStart={() => isHovered.current = true}
+            onTouchEnd={() => isHovered.current = false}
+            className="flex w-full overflow-x-auto hide-scrollbar py-8 cursor-grab active:cursor-grabbing"
+          >
             {[...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS].map((speaker, idx) => (
               <div key={`${speaker.id}-${idx}`} className="w-64 sm:w-80 flex-shrink-0 mx-4 sm:mx-8 group cursor-pointer">
                 
@@ -141,7 +172,7 @@ export default function Gallery() {
                     <img 
                       src={speaker.img} 
                       alt={speaker.name} 
-                      className="w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]" 
+                      className={`w-full h-full object-cover ${speaker.objectPosition || 'object-center'} filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]`} 
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-[#C5A25F]/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -164,7 +195,7 @@ export default function Gallery() {
       </motion.section>
 
       {/* Masonry Grid Layout (Archive) */}
-      <section className="relative z-10 w-full px-3 sm:px-8 lg:px-24 pb-32">
+      <section className="relative z-10 w-full px-2 sm:px-4 md:px-6 pb-32">
         <div className="px-3 sm:px-0 mb-12 sm:mb-16 text-center sm:text-left">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -194,12 +225,12 @@ export default function Gallery() {
               }}
               layoutId={`gallery-img-${img.id}`}
               onClick={() => setSelectedImage(img)}
-              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 ${img.aspect} group cursor-pointer inline-block w-full`}
+              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 group cursor-pointer inline-block w-full`}
             >
               <img
                 src={img.src}
                 alt={`Archive capture ${index + 1}`}
-                className="absolute inset-0 w-full h-full object-cover filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
+                className="w-full h-auto block filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
                 loading="lazy"
               />
               {/* Subtle ambient overlay to blend with theme */}

@@ -127,15 +127,10 @@ function FeaturedSpeakersGrid({ speakers }) {
         </div>
 
         <div ref={gridRef} className="w-full flex items-center justify-center">
-          <div className="speaker-card relative w-full max-w-3xl min-h-[230px] sm:min-h-[290px] flex items-center justify-center px-8 py-12 bg-[rgba(10,15,30,0.28)] border border-[#d4af37]/25 backdrop-blur-sm opacity-0 translate-y-[30px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
-            <div className="absolute top-0 left-0 w-7 h-7 border-t border-l border-[#d4af37]/55 rounded-tl-sm" />
-            <div className="absolute top-0 right-0 w-7 h-7 border-t border-r border-[#d4af37]/55 rounded-tr-sm" />
-            <div className="absolute bottom-0 left-0 w-7 h-7 border-b border-l border-[#d4af37]/55 rounded-bl-sm" />
-            <div className="absolute bottom-0 right-0 w-7 h-7 border-b border-r border-[#d4af37]/55 rounded-br-sm" />
-
-            <span className="text-[#E6DFD3] font-mono text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[0.11em] text-center uppercase opacity-95 drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
+          <div className="speaker-card relative flex w-full max-w-3xl translate-y-[30px] items-center justify-center px-4 py-8 opacity-0 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] sm:px-8 sm:py-12">
+            <p className="max-w-3xl text-center font-cinzel text-2xl font-semibold tracking-tight text-[#F4EBD9] drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] sm:text-4xl lg:text-5xl">
               To be announced soon...
-            </span>
+            </p>
           </div>
         </div>
       </div>
@@ -192,27 +187,10 @@ function PremiumSponsorsGrid({ title, subtitle, sponsors }) {
         </h2>
       </div>
 
-      <div 
-        ref={gridRef}
-        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 w-full max-w-[1200px] mx-auto"
-      >
-        {sponsors.map((sponsor, idx) => (
-          <div
-            key={idx}
-            className="premium-sponsor-item relative aspect-video flex items-center justify-center p-6 opacity-0 translate-y-[20px] scale-90 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-            style={{ transitionProperty: 'transform, border-color, background, opacity' }}
-          >
-            {/* Brass Corners */}
-            <div className="absolute top-0 left-0 w-3 h-3 border-t-[1px] border-l-[1px] border-[#d4af37]/40 rounded-tl-sm transition-all duration-300 "></div>
-            <div className="absolute top-0 right-0 w-3 h-3 border-t-[1px] border-r-[1px] border-[#d4af37]/40 rounded-tr-sm transition-all duration-300 "></div>
-            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-[1px] border-l-[1px] border-[#d4af37]/40 rounded-bl-sm transition-all duration-300 "></div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-[1px] border-r-[1px] border-[#d4af37]/40 rounded-br-sm transition-all duration-300 "></div>
-
-            <span className="text-[#E6DFD3] font-mono text-xs sm:text-sm font-bold tracking-wider text-center uppercase opacity-85">
-              To be announced soon...
-            </span>
-          </div>
-        ))}
+      <div ref={gridRef} className="mx-auto flex w-full max-w-3xl items-center justify-center px-4 py-4">
+        <p className="premium-sponsor-item translate-y-[20px] text-center font-cinzel text-2xl font-semibold tracking-tight text-[#F4EBD9] opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] sm:text-4xl lg:text-5xl">
+          To be announced soon...
+        </p>
       </div>
     </section>
   );

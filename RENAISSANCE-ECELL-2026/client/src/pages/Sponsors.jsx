@@ -49,6 +49,8 @@ export default function Sponsors({ embedded = false }) {
             To be announced soon...
           </h1>
         </section>
+
+        {!embedded && <ContactFooter />}
       </main>
     );
   }

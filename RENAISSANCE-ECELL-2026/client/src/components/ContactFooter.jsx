@@ -47,7 +47,7 @@ export default function ContactFooter() {
           {/* Socials */}
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <a
-              href="https://lnkd.in/gv7yfGVe"
+              href="https://whatsapp.com/channel/0029VaPJh9gBA1f6VCR1I31y"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
@@ -57,7 +57,7 @@ export default function ContactFooter() {
             </a>
 
             <a
-              href="https://www.instagram.com/ecellmnnit"
+              href="https://www.instagram.com/ecellmnnit?stkn=MWxlaWVoMDZxb3FhZA=="
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"

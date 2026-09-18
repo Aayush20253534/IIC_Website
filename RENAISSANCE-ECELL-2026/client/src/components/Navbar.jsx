@@ -12,7 +12,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     {
@@ -76,7 +85,11 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 border-white/10 px-4 py-4 sm:px-6">
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 py-3 sm:px-6 ${
+        scrolled
+          ? "bg-[#020610]/95 backdrop-blur-md border-b border-white/10 shadow-xl"
+          : "bg-gradient-to-b from-[#020610]/80 via-[#020610]/40 to-transparent"
+      }`}>
         <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-between">
           {/* Renaissance Logo */}
           <Link

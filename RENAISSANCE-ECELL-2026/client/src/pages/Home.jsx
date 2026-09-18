@@ -342,179 +342,153 @@ export default function Home() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // -------------------------------------------------------------
-      // Section 2: About Renaissance (Shorter Pinned Parallax Timeline +=1500)
-      // -------------------------------------------------------------
-      if (aboutSectionRef.current) {
-        const aboutTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: aboutSectionRef.current,
-            start: "top top",
-            end: "+=1500",
-            pin: true,
-            scrub: 0.8,
-          },
-        });
+      const mm = gsap.matchMedia();
 
-        // 1. Deep Ocean Glow Aura Expands with scroll
-        if (aboutAuraRef.current) {
-          aboutTl.fromTo(
-            aboutAuraRef.current,
-            { scale: 0.7, opacity: 0.2 },
-            { scale: 1.25, opacity: 0.75, ease: "none" },
-            0
+      // Desktop Only (min-width: 768px): Pinned Parallax Timeline
+      mm.add("(min-width: 768px)", () => {
+        if (aboutSectionRef.current) {
+          const aboutTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: aboutSectionRef.current,
+              start: "top top",
+              end: "+=1000",
+              pin: true,
+              scrub: 0.4,
+            },
+          });
+          if (aboutAuraRef.current) {
+            aboutTl.fromTo(
+              aboutAuraRef.current,
+              { scale: 0.7, opacity: 0.2 },
+              { scale: 1.25, opacity: 0.75, ease: "none" },
+              0
+            );
+          }
+          if (aboutTitleRef.current) {
+            aboutTl.fromTo(
+              aboutTitleRef.current,
+              { opacity: 0, scale: 0.8 },
+              { opacity: 1, scale: 1.05, ease: "power2.out" },
+              0.1
+            );
+          }
+          if (aboutDescRef.current) {
+            aboutTl.fromTo(
+              aboutDescRef.current,
+              { opacity: 0, y: 30 },
+              { opacity: 1, y: 0, ease: "power2.out" },
+              0.25
+            );
+          }
+          [statCard1Ref, statCard2Ref, statCard3Ref, statCard4Ref].forEach((ref, idx) => {
+            if (ref.current) {
+              aboutTl.fromTo(
+                ref.current,
+                { opacity: 0, y: -30 },
+                { opacity: 1, y: 0, ease: "power2.out" },
+                0.4 + idx * 0.1
+              );
+            }
+          });
+          aboutTl.to({}, { duration: 0.3 });
+        }
+
+        if (eventsSectionRef.current) {
+          if (wheelImgRef.current) {
+            gsap.set(wheelImgRef.current, { transformOrigin: "50% 50%" });
+          }
+
+          const mainTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: eventsSectionRef.current,
+              start: "top top",
+              end: "+=1200",
+              pin: true,
+              pinSpacing: true,
+              scrub: 0.5,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          if (wheelImgRef.current) {
+            mainTl.to(
+              wheelImgRef.current,
+              { rotation: 540, ease: "none", duration: 10 },
+              0
+            );
+          }
+
+          const totalEvents = EVENTS.length;
+          const stepDuration = 3.0;
+
+          EVENTS.forEach((_, idx) => {
+            const visualEl = visualsRef.current[idx];
+            const detailsEl = detailsRef.current[idx];
+            if (!visualEl || !detailsEl) return;
+
+            const startTime = idx * stepDuration;
+
+            mainTl.fromTo(
+              [visualEl, detailsEl],
+              { opacity: 0, y: 20, pointerEvents: "none" },
+              { opacity: 1, y: 0, pointerEvents: "auto", duration: 0.6, ease: "power2.out" },
+              startTime
+            );
+
+            mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 1.2 }, startTime + 0.6);
+
+            if (idx < totalEvents - 1) {
+              mainTl.to(
+                [visualEl, detailsEl],
+                {
+                  opacity: 0,
+                  y: -20,
+                  pointerEvents: "none",
+                  duration: 0.6,
+                  ease: "power2.in",
+                },
+                startTime + 2.0
+              );
+            }
+          });
+        }
+      });
+
+      // Mobile Only (max-width: 767px): Fast unpinned flow, no scroll trap!
+      mm.add("(max-width: 767px)", () => {
+        if (aboutSectionRef.current) {
+          gsap.fromTo(
+            [
+              aboutTitleRef.current,
+              aboutDescRef.current,
+              statCard1Ref.current,
+              statCard2Ref.current,
+              statCard3Ref.current,
+              statCard4Ref.current,
+            ],
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              stagger: 0.08,
+              scrollTrigger: {
+                trigger: aboutSectionRef.current,
+                start: "top 85%",
+              },
+            }
           );
         }
-
-        // 2. Giant "About Renaissance" Title reveals
-        if (aboutTitleRef.current) {
-          aboutTl.fromTo(
-            aboutTitleRef.current,
-            { opacity: 0, scale: 0.7 },
-            { opacity: 1, scale: 1.15, ease: "power2.out" },
-            0.1
-          );
-        }
-
-        // 3. Detailed Description text floats up
-        if (aboutDescRef.current) {
-          aboutTl.fromTo(
-            aboutDescRef.current,
-            { opacity: 0, y: 50, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
-            0.25
-          );
-        }
-
-        // 4. Stat Cards drop down sequentially
-        if (statCard1Ref.current) {
-          aboutTl.fromTo(
-            statCard1Ref.current,
-            { opacity: 0, y: -60, scale: 0.88 },
-            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
-            0.48
-          );
-        }
-
-        if (statCard2Ref.current) {
-          aboutTl.fromTo(
-            statCard2Ref.current,
-            { opacity: 0, y: -60, scale: 0.88 },
-            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
-            0.58
-          );
-        }
-
-        if (statCard3Ref.current) {
-          aboutTl.fromTo(
-            statCard3Ref.current,
-            { opacity: 0, y: -60, scale: 0.88 },
-            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
-            0.68
-          );
-        }
-
-        if (statCard4Ref.current) {
-          aboutTl.fromTo(
-            statCard4Ref.current,
-            { opacity: 0, y: -60, scale: 0.88 },
-            { opacity: 1, y: 0, scale: 1.0, ease: "power2.out" },
-            0.78
-          );
-        }
-
-        if (aboutCtaRef.current) {
-          aboutTl.fromTo(
-            aboutCtaRef.current,
-            { opacity: 0, y: 25 },
-            { opacity: 1, y: 0, ease: "power2.out" },
-            0.82
-          );
-        }
-
-        // 5. Comfortable hold phase so full view stays pinned before unlocking
-        aboutTl.to({}, { duration: 0.4 });
-      }
-
-      // -------------------------------------------------------------
-      // Section 4: Featured Events (Unified Pinned Parallax Timeline +=3000)
-      // -------------------------------------------------------------
-      if (eventsSectionRef.current) {
-        if (wheelImgRef.current) {
-          gsap.set(wheelImgRef.current, { transformOrigin: "50% 50%" });
-        }
-
-        const mainTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: eventsSectionRef.current,
-            start: "top top",
-            end: "+=1800",
-            pin: true,
-            anticipatePin: 1,
-            pinSpacing: true,
-            scrub: 1.5,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        // Rotate pirate wheel smoothly across entire pin duration
-        if (wheelImgRef.current) {
-          mainTl.to(
-            wheelImgRef.current,
-            { rotation: 720, ease: "none", duration: 10 },
-            0
-          );
-        }
-
-        const totalEvents = EVENTS.length;
-        const stepDuration = 3.0;
 
         EVENTS.forEach((_, idx) => {
           const visualEl = visualsRef.current[idx];
           const detailsEl = detailsRef.current[idx];
-          if (!visualEl || !detailsEl) return;
-
-          const startTime = idx * stepDuration;
-
-          // Event Visual Fades In
-          mainTl.fromTo(
-            visualEl,
-            { opacity: 0, scale: 0.9, pointerEvents: "none" },
-            { opacity: 1, scale: 1.0, pointerEvents: "auto", duration: 0.6, ease: "power2.out" },
-            startTime
-          );
-
-          // Details Panel Slides Up
-          mainTl.fromTo(
-            detailsEl,
-            { opacity: 0, y: 30, pointerEvents: "none" },
-            { opacity: 1, y: 0, pointerEvents: "auto", duration: 0.6, ease: "power2.out" },
-            startTime + 0.2
-          );
-
-          // Solid Hold phase so user can view/interact with the event card
-          mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 1.2 }, startTime + 0.8);
-
-          // Exit transition for next event (if not last)
-          if (idx < totalEvents - 1) {
-            mainTl.to(
-              [visualEl, detailsEl],
-              {
-                opacity: 0,
-                y: -25,
-                pointerEvents: "none",
-                duration: 0.6,
-                ease: "power2.in",
-              },
-              startTime + 2.2
-            );
-          }
+          if (visualEl) gsap.set(visualEl, { opacity: 1, y: 0, scale: 1, pointerEvents: "auto" });
+          if (detailsEl) gsap.set(detailsEl, { opacity: 1, y: 0, pointerEvents: "auto" });
         });
-      }
+      });
 
-      // -------------------------------------------------------------
-      // Section 6: Keynote Speakers (Automatic Scroll Trigger Entrance)
-      // -------------------------------------------------------------
+      // Keynote Speakers entrance
       if (speakersSectionRef.current) {
         const speakersHeaderEl = speakersSectionRef.current.querySelector(".speakers-header");
         const speakerCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card-item");
@@ -530,17 +504,17 @@ export default function Home() {
         if (speakersHeaderEl) {
           speakersTl.fromTo(
             speakersHeaderEl,
-            { opacity: 0, y: 35, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1.0, duration: 0.6, ease: "power2.out" }
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
           );
         }
 
         if (speakerCardEls.length > 0) {
           speakersTl.fromTo(
             speakerCardEls,
-            { opacity: 0, y: 50, scale: 0.92 },
-            { opacity: 1, y: 0, scale: 1.0, duration: 0.5, stagger: 0.12, ease: "power2.out" },
-            "-=0.3"
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: "power2.out" },
+            "-=0.2"
           );
         }
       }
@@ -752,11 +726,11 @@ export default function Home() {
             </div>
 
             {/* Event Showcase Cards */}
-            <div className="relative w-full h-[410px] sm:h-[450px] md:h-[480px]">
+            <div className="relative w-full flex flex-col gap-6 md:block md:h-[480px]">
               {EVENTS.map((event, idx) => (
                 <div
                   key={event.id}
-                  className="absolute inset-0 w-full h-full flex flex-col gap-3 sm:gap-4 pointer-events-none"
+                  className="w-full md:absolute md:inset-0 md:h-full flex flex-col gap-3 sm:gap-4 md:pointer-events-none mb-4 md:mb-0"
                 >
                   {/* Unified Event Card */}
                   <div
@@ -764,7 +738,7 @@ export default function Home() {
                       visualsRef.current[idx] = el;
                       detailsRef.current[idx] = el;
                     }}
-                    className="w-full p-6 sm:p-8 rounded-3xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col gap-4 overflow-hidden will-change-transform pointer-events-auto shrink-0"
+                    className="w-full p-5 sm:p-7 rounded-3xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
                   >
                     <div className="flex items-center justify-between w-full pb-2 border-b border-[#0C2B3D]/10">
                       <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest uppercase opacity-70">
@@ -776,15 +750,15 @@ export default function Home() {
                     </div>
                     
                     <div>
-                      <h3 className="text-3xl sm:text-4xl font-extrabold font-sans tracking-tight mb-1">
+                      <h3 className="text-2xl sm:text-4xl font-extrabold font-sans tracking-tight mb-1">
                         {event.name}
                       </h3>
                       {event.tagline && (
-                        <p className="text-xs sm:text-sm font-semibold italic opacity-85 mb-2 text-[#0C2B3D]">
+                        <p className="text-xs sm:text-sm font-semibold italic opacity-85 mb-1.5 text-[#0C2B3D]">
                           "{event.tagline}"
                         </p>
                       )}
-                      <div className="text-sm sm:text-base font-mono font-bold opacity-80 text-[#d4af37]">
+                      <div className="text-xs sm:text-sm font-mono font-bold opacity-80 text-[#d4af37]">
                         Prize Pool: {event.prize}
                       </div>
                     </div>
@@ -793,7 +767,7 @@ export default function Home() {
                       {event.desc}
                     </p>
                     
-                    <div className="pt-4 mt-auto border-t border-[#0C2B3D]/10 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
+                    <div className="pt-3 mt-auto border-t border-[#0C2B3D]/10 flex flex-col sm:flex-row items-center justify-between gap-3 w-full">
                       <a
                         href={event.registrationUrl}
                         target="_blank"

@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 
 import ContactFooter from "../components/ContactFooter";
-import SocialSideRail from "../components/SocialSideRail";
 import { SPONSOR_TIERS } from "../data/sponsorsData";
 
 /* ================================================================
@@ -30,8 +29,6 @@ export default function Sponsors({ embedded = false }) {
         <SandyOceanAtmosphere />
         <FloatingStickers />
 
-        {!embedded && <SocialSideRail />}
-
         <div className="absolute inset-0 z-[1]">
           <img
             src="/bg_images/events.png"
@@ -44,8 +41,8 @@ export default function Sponsors({ embedded = false }) {
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A2634]/15 via-[#061923]/35 to-[#020610]/78" />
         </div>
 
-        <section className="relative z-10 flex min-h-[100svh] items-center justify-center px-4 py-24 sm:px-6">
-          <h1 className="max-w-5xl text-center font-mono text-2xl font-extrabold uppercase tracking-[0.06em] text-[#F3E9D2] drop-shadow-[0_6px_24px_rgba(0,0,0,0.72)] sm:text-6xl sm:tracking-[0.10em] lg:text-7xl">
+        <section className="relative z-10 grid min-h-[100svh] w-full place-items-center px-4 py-24 sm:px-6">
+          <h1 className="mx-auto w-full max-w-4xl text-center font-cinzel text-3xl font-bold uppercase tracking-[0.04em] text-[#F3E9D2] drop-shadow-[0_6px_24px_rgba(0,0,0,0.72)] sm:text-5xl lg:text-6xl">
             To be announced soon...
           </h1>
         </section>
@@ -90,8 +87,6 @@ export default function Sponsors({ embedded = false }) {
       ============================================================ */}
       <SandyOceanAtmosphere />
       <FloatingStickers />
-
-      {!embedded && <SocialSideRail />}
 
       {/* ============================================================
           HERO: Previous bg image + background drift animation KEPT

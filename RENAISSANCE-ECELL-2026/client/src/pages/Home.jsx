@@ -326,11 +326,13 @@ export default function Home() {
   const speakersSectionRef = useRef(null);
 
   useEffect(() => {
+    const isDesktopViewport = window.matchMedia("(min-width: 768px)").matches;
+
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
       // Section 2: About Renaissance (Shorter Pinned Parallax Timeline +=1500)
       // -------------------------------------------------------------
-      if (aboutSectionRef.current) {
+      if (aboutSectionRef.current && isDesktopViewport) {
         const aboutTl = gsap.timeline({
           scrollTrigger: {
             trigger: aboutSectionRef.current,
@@ -424,7 +426,7 @@ export default function Home() {
       // -------------------------------------------------------------
       // Section 4: Featured Events (Unified Pinned Parallax Timeline +=3000)
       // -------------------------------------------------------------
-      if (eventsSectionRef.current) {
+      if (eventsSectionRef.current && isDesktopViewport) {
         if (wheelImgRef.current) {
           gsap.set(wheelImgRef.current, { transformOrigin: "50% 50%" });
         }
@@ -538,7 +540,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative z-10 w-full text-white selection:bg-[#38BDF8] selection:text-[#020610]">
+    <div className="relative z-10 w-full overflow-x-clip text-white selection:bg-[#38BDF8] selection:text-[#020610]">
       <NauticalCartographyBg />
 
       {/* ============================================================ */}
@@ -614,13 +616,13 @@ export default function Home() {
       {/* ============================================================ */}
       <section
         ref={aboutSectionRef}
-        className="relative min-h-[85vh] w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent pt-24 pb-8 sm:pt-32 sm:pb-12"
+        className="relative z-10 flex min-h-0 w-full flex-col items-center justify-center bg-transparent px-4 pb-14 pt-20 text-center sm:min-h-[85vh] sm:px-6 sm:pb-12 sm:pt-32"
       >
 
-        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center z-10 px-4">
+        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center justify-center px-0 text-center sm:px-4">
                                         <h2
             ref={aboutTitleRef}
-            className="text-5xl sm:text-7xl md:text-8xl font-black mb-6 tracking-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)] z-10 font-sans animate-whitegold-shine"
+            className="z-10 mb-5 font-sans text-4xl font-black tracking-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)] animate-whitegold-shine sm:mb-6 sm:text-7xl md:text-8xl"
           >
             About Renaissance
           </h2>
@@ -699,13 +701,13 @@ export default function Home() {
       <section
         id="events"
         ref={eventsSectionRef}
-        className="relative w-full min-h-screen sm:h-screen bg-transparent flex flex-col justify-between pt-28 sm:pt-32 pb-6 px-4 sm:px-12 overflow-visible select-none"
+        className="relative flex min-h-0 w-full flex-col justify-between overflow-visible bg-transparent px-3 pb-14 pt-20 select-none sm:px-6 md:min-h-screen md:h-screen md:px-12 md:pb-6 md:pt-32"
       >
 
         {/* Giant Rotating Nautical Wheel */}
         <div
           ref={wheelContainerRef}
-          className="absolute left-1/2 md:left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[65vh] h-[65vh] sm:w-[95vh] sm:h-[95vh] md:w-[110vh] md:h-[110vh] pointer-events-none z-0 md:z-10 flex items-center justify-center opacity-25 md:opacity-100 overflow-visible"
+          className="pointer-events-none absolute left-0 top-1/2 z-10 hidden h-[110vh] w-[110vh] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-100 md:flex"
         >
           <div className="absolute w-[68%] h-[68%] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
           <img
@@ -717,8 +719,8 @@ export default function Home() {
         </div>
 
         {/* Right Half Container: Events Header & Event Showcase */}
-        <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
-          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-3 sm:gap-4">
+        <div className="relative z-20 mx-auto my-auto flex w-full max-w-7xl flex-col items-stretch justify-center md:items-end">
+          <div className="flex w-full max-w-none flex-col gap-3 sm:gap-4 md:ml-auto md:max-w-xl">
 
             {/* Header */}
             <div
@@ -737,11 +739,11 @@ export default function Home() {
             </div>
 
             {/* Event Showcase Cards */}
-            <div className="relative w-full h-[410px] sm:h-[450px] md:h-[480px]">
+            <div className="relative flex h-auto w-full flex-col gap-4 md:block md:h-[480px]">
               {EVENTS.map((event, idx) => (
                 <div
                   key={event.id}
-                  className="absolute inset-0 w-full h-full flex flex-col gap-3 sm:gap-4 pointer-events-none"
+                  className="relative flex w-full flex-col gap-3 pointer-events-none sm:gap-4 md:absolute md:inset-0 md:h-full"
                 >
                   {/* Unified Event Card */}
                   <div
@@ -749,7 +751,7 @@ export default function Home() {
                       visualsRef.current[idx] = el;
                       detailsRef.current[idx] = el;
                     }}
-                    className="w-full p-6 sm:p-8 rounded-3xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col gap-4 overflow-hidden will-change-transform pointer-events-auto shrink-0"
+                    className="pointer-events-auto flex w-full shrink-0 flex-col gap-4 overflow-hidden rounded-2xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 p-4 text-[#0C2B3D] shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl will-change-transform sm:rounded-3xl sm:p-6 md:p-8"
                   >
                     <div className="flex items-center justify-between w-full pb-2 border-b border-[#0C2B3D]/10">
                       <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest uppercase opacity-70">

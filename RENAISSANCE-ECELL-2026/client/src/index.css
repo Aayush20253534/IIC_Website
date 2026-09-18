@@ -1752,3 +1752,54 @@ a, button, .cursor-pointer {
   display: inline-block;
   will-change: background-position;
 }
+
+/* ================================================================
+   RENAISSANCE RESPONSIVE SAFETY LAYER
+================================================================ */
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.renaissance-page-shell {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+.renaissance-page-shell img,
+.renaissance-page-shell video,
+.renaissance-page-shell canvas {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .renaissance-page-shell {
+    min-height: 100svh;
+  }
+
+  .renaissance-page-shell h1,
+  .renaissance-page-shell h2,
+  .renaissance-page-shell h3,
+  .renaissance-page-shell p,
+  .renaissance-page-shell a,
+  .renaissance-page-shell button,
+  .renaissance-page-shell span {
+    overflow-wrap: anywhere;
+  }
+
+  .renaissance-page-shell input,
+  .renaissance-page-shell select,
+  .renaissance-page-shell textarea,
+  .renaissance-page-shell button {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .renaissance-page-shell [class*="bg-fixed"] {
+    background-attachment: scroll !important;
+  }
+}

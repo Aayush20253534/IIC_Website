@@ -24,7 +24,7 @@ const SHOW_SPONSORS_COMING_SOON = true;
 export default function Sponsors({ embedded = false }) {
   if (SHOW_SPONSORS_COMING_SOON) {
     return (
-      <main className="relative min-h-screen w-full overflow-hidden bg-[#061823] text-[#E6DFD3]">
+      <main className="relative min-h-[100svh] w-full overflow-hidden bg-[#061823] text-[#E6DFD3]">
         {/* Preserve the Sponsors page atmosphere/background while the
             sponsor cards remain disabled. Original implementation is below. */}
         <SandyOceanAtmosphere />
@@ -44,8 +44,8 @@ export default function Sponsors({ embedded = false }) {
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A2634]/15 via-[#061923]/35 to-[#020610]/78" />
         </div>
 
-        <section className="relative z-10 flex min-h-screen items-center justify-center px-6 py-24">
-          <h1 className="max-w-5xl font-mono text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-[0.10em] text-center uppercase text-[#F3E9D2] drop-shadow-[0_6px_24px_rgba(0,0,0,0.72)]">
+        <section className="relative z-10 flex min-h-[100svh] items-center justify-center px-4 py-24 sm:px-6">
+          <h1 className="max-w-5xl text-center font-mono text-2xl font-extrabold uppercase tracking-[0.06em] text-[#F3E9D2] drop-shadow-[0_6px_24px_rgba(0,0,0,0.72)] sm:text-6xl sm:tracking-[0.10em] lg:text-7xl">
             To be announced soon...
           </h1>
         </section>

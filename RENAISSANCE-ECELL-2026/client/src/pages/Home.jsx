@@ -680,13 +680,13 @@ export default function Home() {
       <section
         id="events"
         ref={eventsSectionRef}
-        className="relative flex min-h-0 w-full flex-col justify-between overflow-visible bg-transparent px-3 pb-14 pt-20 select-none sm:px-6 md:min-h-screen md:h-screen md:px-12 md:pb-6 md:pt-32"
+        className="featured-events-section relative flex min-h-0 w-full flex-col justify-between overflow-visible bg-transparent px-3 pb-14 pt-20 select-none sm:px-6 md:min-h-[100svh] md:h-[100svh] md:px-12 md:pb-6 md:pt-32"
       >
 
         {/* Giant Rotating Nautical Wheel */}
         <div
           ref={wheelContainerRef}
-          className="pointer-events-none absolute left-0 top-1/2 z-10 hidden h-[110vh] w-[110vh] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-100 md:flex"
+          className="featured-events-wheel pointer-events-none absolute left-0 top-1/2 z-10 hidden h-[110vh] w-[110vh] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-100 md:flex"
         >
           <div className="absolute w-[68%] h-[68%] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
           <img
@@ -704,7 +704,7 @@ export default function Home() {
             {/* Header */}
             <div
               ref={eventsHeaderRef}
-              className="w-full flex items-end justify-between pb-2 border-b border-white/10"
+              className="featured-events-header w-full flex items-end justify-between pb-2 border-b border-white/10"
             >
               <div>
                 <span className="text-[10px] sm:text-[11px] font-mono text-[#0284c7] uppercase tracking-[0.25em] font-extrabold flex items-center gap-1.5">
@@ -718,7 +718,7 @@ export default function Home() {
             </div>
 
             {/* Event Showcase Cards */}
-            <div className="relative flex h-auto w-full flex-col gap-4 md:block md:h-[480px]">
+            <div className="featured-events-showcase relative flex h-auto w-full flex-col gap-4 md:block md:h-[480px]">
               {EVENTS.map((event, idx) => (
                 <div
                   key={event.id}
@@ -730,7 +730,7 @@ export default function Home() {
                       visualsRef.current[idx] = el;
                       detailsRef.current[idx] = el;
                     }}
-                    className="pointer-events-auto flex w-full shrink-0 flex-col gap-4 overflow-hidden rounded-2xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 p-4 text-[#0C2B3D] shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl will-change-transform sm:rounded-3xl sm:p-6 md:p-8"
+                    className="featured-events-card pointer-events-auto flex w-full shrink-0 flex-col gap-4 overflow-hidden rounded-2xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 p-4 text-[#0C2B3D] shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl will-change-transform sm:rounded-3xl sm:p-6 md:p-8"
                   >
                     <div className="flex items-center justify-between w-full pb-2 border-b border-[#0C2B3D]/10">
                       <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest uppercase opacity-70">
@@ -755,11 +755,11 @@ export default function Home() {
                       </div>
                     </div>
                     
-                    <p className="text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-y-auto max-h-[140px] pr-1">
+                    <p className="featured-events-description text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-y-auto max-h-[140px] pr-1">
                       {event.desc}
                     </p>
                     
-                    <div className="pt-4 mt-auto border-t border-[#0C2B3D]/10 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
+                    <div className="featured-events-actions pt-4 mt-auto border-t border-[#0C2B3D]/10 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
                       <a
                         href={event.registrationUrl}
                         target="_blank"

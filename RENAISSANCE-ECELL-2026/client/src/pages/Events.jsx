@@ -300,12 +300,12 @@ export default function Events({ embedded = false }) {
         </motion.div>
 
         <section className="relative z-10 mx-auto w-full max-w-[1540px] px-4 pb-10 pt-[280px] sm:pb-14 sm:px-5 sm:pt-[360px] lg:px-8 lg:pt-[390px]">
-          <div className="relative z-10 flex flex-col gap-3 border-b border-[#cdb98f]/65 pt-3 pb-5 sm:flex-row sm:items-end sm:justify-between sm:gap-5 sm:pt-4 sm:pb-6">
+          <div className="relative z-10 flex flex-col gap-3 border-b border-[#cdb98f]/65 pt-3 pb-5 sm:flex-row sm:items-end sm:justify-between sm:gap-5 sm:pt-5 sm:pb-7">
             <div>
               <p className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-[#9b6a27] sm:text-[10px]">
                 Curated programme
               </p>
-              <h2 className="mt-2 font-cinzel text-2xl font-bold leading-snug tracking-[-0.01em] text-[#173f51] sm:text-3xl">
+              <h2 className="mt-2 font-cinzel text-[26px] font-bold leading-snug tracking-[-0.01em] text-[#173f51] sm:text-[32px]">
                 {standaloneEvents.length} {standaloneEvents.length === 1 ? "event" : "events"} on the horizon
               </h2>
             </div>

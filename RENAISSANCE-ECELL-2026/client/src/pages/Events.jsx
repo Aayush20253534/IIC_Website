@@ -154,8 +154,8 @@ export default function Events({ embedded = false }) {
         "Business Development",
         "Finance",
       ],
-      time: "09:30 AM",
-      location: "Main Auditorium",
+      time: "TBD",
+      location: "TBD",
       description: "Got a million-dollar idea? Prove it.",
       eyebrow: "Flagship Business Plan",
       cardImage: "/b-plan-card.jpeg",
@@ -163,7 +163,7 @@ export default function Events({ embedded = false }) {
       registrationUrl: "http://unstop.com/o/UL8OJ4R?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
       detailDescription: [
         "Got a million-dollar idea? Prove it.",
-        "B-Plan is the flagship business-plan showdown of Renaissance - India’s premier student entrepreneurship summit. This isn’t just about dreaming big; it’s about building smart. Present a rock-solid plan, defend it before expert judges, and turn your concept into a venture that investors notice.",
+        "B-Plan is the flagship business-plan showdown of Renaissance - India's premier student entrepreneurship summit. This isn't just about dreaming big; it’s about building smart. Present a rock-solid plan, defend it before expert judges, and turn your concept into a venture that investors notice.",
         "All you need to know about B-Plan (Fish Tank-Business Plan) : Business plan pitching competetion at Renaissance 10.0",
         "Reward & Prizes: Total prize pool worth ₹25,000 to winners.",
       ],
@@ -175,8 +175,8 @@ export default function Events({ embedded = false }) {
       category: "Strategy & Planning",
       categories: ["Strategy & Planning", "Quizzes & Treasure Hunt"],
       label: "Strategy & Planning",
-      time: "02:00 PM",
-      location: "Learning Deck",
+      time: "TBD",
+      location: "TBD",
       description: "From Product to Phenomenon: Architecting Iconic Launches",
       eyebrow: "Ultimate Strategy Challenge",
       cardImage: "/strategy-wiz-card.jpeg",
@@ -197,8 +197,8 @@ export default function Events({ embedded = false }) {
       category: "Strategy & Planning",
       categories: ["Strategy & Planning", "Quizzes & Treasure Hunt"],
       label: "Strategy & Planning",
-      time: "11:30 AM",
-      location: "Innovation Hub",
+      time: "TBD",
+      location: "TBD",
       description: "Think Fast. Strategize Better. Win the Market",
       eyebrow: "Market Strategy Competition",
       cardImage: "/biz-war-card.jpeg",
@@ -346,7 +346,7 @@ export default function Events({ embedded = false }) {
             </h1>
             <p className="mt-2 font-montserrat text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#164f66] drop-shadow-[0_2px_8px_rgba(255,255,255,.9)] sm:text-xs lg:mt-3 lg:text-sm">
               <span className="relative inline-block pb-2 after:absolute after:bottom-0 after:left-[8%] after:h-px after:w-[84%] after:bg-gradient-to-r after:from-transparent after:via-[#c99535] after:to-transparent">
-                Renaissance 10.0 — MNNIT Allahabad
+                Renaissance 10.0 | MNNIT Allahabad
               </span>
             </p>
           </motion.div>
@@ -639,7 +639,7 @@ export default function Events({ embedded = false }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.18, ease: "easeOut" }}
-                className="fixed inset-0 z-[100] flex min-h-[100dvh] items-end justify-center bg-[#020b12]/82 p-0 backdrop-blur-[2px] sm:items-center sm:p-5"
+                className="fixed inset-0 z-[100] flex min-h-[100dvh] items-end justify-center bg-[#020b12]/82 p-0 backdrop-blur-[2px] sm:items-start sm:p-5 sm:pt-16"
                 onClick={() => setSelectedEventModal(null)}
               >
                 <div
@@ -656,7 +656,7 @@ export default function Events({ embedded = false }) {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: 8 }}
                   transition={{ duration: prefersReducedMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative max-h-[100dvh] w-full max-w-[760px] overflow-y-auto overscroll-contain rounded-t-[18px] border border-[#cfae68] bg-[#f7eedc] text-[#173f51] shadow-[0_26px_80px_rgba(0,0,0,.48),0_1px_0_rgba(255,255,255,.55)_inset] sm:max-h-[88svh] sm:rounded-[18px]"
+                  className="relative max-h-[100dvh] w-full max-w-[720px] overflow-y-auto overscroll-contain rounded-t-[18px] border border-[#cfae68] bg-[#f7eedc] text-[#173f51] shadow-[0_26px_80px_rgba(0,0,0,.48),0_1px_0_rgba(255,255,255,.55)_inset] sm:max-h-[82svh] sm:rounded-[18px]"
                   onClick={(event) => event.stopPropagation()}
                   role="dialog"
                   aria-modal="true"

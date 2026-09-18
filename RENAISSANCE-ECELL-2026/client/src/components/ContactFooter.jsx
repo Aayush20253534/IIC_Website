@@ -120,11 +120,6 @@ export default function ContactFooter() {
 
         {/* Contact */}
         <div className="flex min-w-0 flex-col gap-4 md:col-span-4">
-          <h4 className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#F4EBD9]">
-            <Mail className="h-4 w-4 text-[#7DD3FC]" />
-            <span>Summit Headquarters</span>
-          </h4>
-
           <div className="flex items-start gap-3 text-xs leading-6 text-[#C6E2EA] sm:text-[13px]">
             <MapPin className="mt-1 h-4 w-4 shrink-0 text-[#7DD3FC]" />
 

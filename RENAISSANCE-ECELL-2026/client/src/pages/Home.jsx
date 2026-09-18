@@ -126,32 +126,17 @@ function FeaturedSpeakersGrid({ speakers }) {
           </h2>
         </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
-          {speakers.map((speaker, idx) => (
-            <div
-              key={speaker.id}
-              className={`speaker-card group relative aspect-[3/4] overflow-hidden rounded-xl bg-[rgba(10,15,30,0.6)] border border-white/10 hover:border-[#ffd700]/30 backdrop-blur-md opacity-0 translate-y-[30px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer ${idx % 2 === 1 ? 'md:mt-16' : ''}`}
-            >
-              
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                 
-              />
-              <div 
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(5,10,20, 0.9) 0%, transparent 100%)' }}
-              />
-              
-              <div className="absolute bottom-6 left-6 right-6 text-left z-10">
-                <h3 className="text-xl sm:text-2xl font-bold text-white font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  {speaker.label}
-                </h3>
-                <p className="text-[0.85rem] font-mono text-[#E6DFD3] mt-1 font-semibold tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  CEO, Oceanic Tech
-                </p>
-              </div>
-            </div>
-          ))}
+        <div ref={gridRef} className="w-full flex items-center justify-center">
+          <div className="speaker-card relative w-full max-w-3xl min-h-[230px] sm:min-h-[290px] flex items-center justify-center px-8 py-12 bg-[rgba(10,15,30,0.28)] border border-[#d4af37]/25 backdrop-blur-sm opacity-0 translate-y-[30px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+            <div className="absolute top-0 left-0 w-7 h-7 border-t border-l border-[#d4af37]/55 rounded-tl-sm" />
+            <div className="absolute top-0 right-0 w-7 h-7 border-t border-r border-[#d4af37]/55 rounded-tr-sm" />
+            <div className="absolute bottom-0 left-0 w-7 h-7 border-b border-l border-[#d4af37]/55 rounded-bl-sm" />
+            <div className="absolute bottom-0 right-0 w-7 h-7 border-b border-r border-[#d4af37]/55 rounded-br-sm" />
+
+            <span className="text-[#E6DFD3] font-mono text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[0.11em] text-center uppercase opacity-95 drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
+              To be announced soon...
+            </span>
+          </div>
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-[#020610] pointer-events-none z-10" />

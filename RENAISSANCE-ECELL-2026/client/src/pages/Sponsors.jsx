@@ -19,7 +19,42 @@ import { SPONSOR_TIERS } from "../data/sponsorsData";
    Boat: Boat thing completely removed!
 ================================================================ */
 
+const SHOW_SPONSORS_COMING_SOON = true;
+
 export default function Sponsors({ embedded = false }) {
+  if (SHOW_SPONSORS_COMING_SOON) {
+    return (
+      <main className="relative min-h-screen w-full overflow-hidden bg-[#061823] text-[#E6DFD3]">
+        {/* Preserve the Sponsors page atmosphere/background while the
+            sponsor cards remain disabled. Original implementation is below. */}
+        <SandyOceanAtmosphere />
+        <FloatingStickers />
+
+        {!embedded && <SocialSideRail />}
+
+        <div className="absolute inset-0 z-[1]">
+          <img
+            src="/bg_images/events.png"
+            alt=""
+            aria-hidden="true"
+            className="sponsor-hero-raster h-full w-full object-cover object-center select-none pointer-events-none"
+            draggable="false"
+          />
+          <div className="absolute inset-0 bg-[#062538]/35 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A2634]/15 via-[#061923]/35 to-[#020610]/78" />
+        </div>
+
+        <section className="relative z-10 flex min-h-screen items-center justify-center px-6 py-24">
+          <h1 className="max-w-5xl font-mono text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-[0.10em] text-center uppercase text-[#F3E9D2] drop-shadow-[0_6px_24px_rgba(0,0,0,0.72)]">
+            To be announced soon...
+          </h1>
+        </section>
+      </main>
+    );
+  }
+
+  // Original Sponsors page, hero, navigation and every sponsor card remain
+  // preserved below. Toggle SHOW_SPONSORS_COMING_SOON to restore them.
   const presentingSponsor = SPONSOR_TIERS?.[0]?.sponsors?.[0];
   const principalAllies = SPONSOR_TIERS?.[0]?.sponsors?.slice(1) || [];
   const goldenFleet = SPONSOR_TIERS?.[1]?.sponsors || [];

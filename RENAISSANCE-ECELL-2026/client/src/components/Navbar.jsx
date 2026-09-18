@@ -76,7 +76,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 border-white/10 px-4 py-4 sm:px-6">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-white/10 px-3 py-3 sm:px-6 sm:py-4">
         <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-between">
           {/* Renaissance Logo */}
           <Link
@@ -166,7 +166,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 flex flex-col justify-between overflow-y-auto bg-[#020610]/95 p-6 pb-8 pt-24 backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-40 flex min-h-[100dvh] flex-col justify-between overflow-y-auto overscroll-contain bg-[#020610]/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(5.5rem,env(safe-area-inset-top))] backdrop-blur-2xl sm:px-6 md:hidden"
           >
             {/* Gold Ambient Glow */}
             <div className="pointer-events-none absolute left-1/2 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full bg-[#d4af37]/10 blur-[90px]" />

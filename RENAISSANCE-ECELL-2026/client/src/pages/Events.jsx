@@ -334,12 +334,12 @@ export default function Events({ embedded = false }) {
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#efe3cb]" />
 
           <motion.div
-            className="absolute left-10 top-[96px] max-w-[70vw] sm:left-20 sm:top-[110px] lg:left-[8.5vw] lg:top-[120px]"
+            className="absolute left-4 top-[88px] max-w-[calc(100vw-2rem)] sm:left-20 sm:top-[110px] sm:max-w-[70vw] lg:left-[8.5vw] lg:top-[120px]"
             initial={prefersReducedMotion ? false : { opacity: 0, x: -24, y: 8 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
           >
-            <h1 className="font-cinzel text-5xl font-black leading-none tracking-[-0.015em] drop-shadow-[0_3px_12px_rgba(255,255,255,.75)] sm:text-7xl lg:text-[104px]">
+            <h1 className="font-cinzel text-4xl font-black leading-none tracking-[-0.015em] drop-shadow-[0_3px_12px_rgba(255,255,255,.75)] sm:text-7xl lg:text-[104px]">
               <span className="relative inline-block pb-3 bg-gradient-to-b from-[#155d78] via-[#0b4259] to-[#062d40] bg-clip-text text-transparent after:absolute after:bottom-0 after:left-[6%] after:h-px after:w-[88%] after:bg-gradient-to-r after:from-transparent after:via-[#c99535] after:to-transparent">
                 Events
               </span>
@@ -639,7 +639,7 @@ export default function Events({ embedded = false }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.18, ease: "easeOut" }}
-                className="fixed inset-0 z-[100] flex items-end justify-center bg-[#020b12]/82 p-0 backdrop-blur-[2px] sm:items-center sm:p-5"
+                className="fixed inset-0 z-[100] flex min-h-[100dvh] items-end justify-center bg-[#020b12]/82 p-0 backdrop-blur-[2px] sm:items-center sm:p-5"
                 onClick={() => setSelectedEventModal(null)}
               >
                 <div
@@ -656,7 +656,7 @@ export default function Events({ embedded = false }) {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: 8 }}
                   transition={{ duration: prefersReducedMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative max-h-[92svh] w-full max-w-[760px] overflow-y-auto overscroll-contain rounded-t-[20px] border border-[#cfae68] bg-[#f7eedc] text-[#173f51] shadow-[0_26px_80px_rgba(0,0,0,.48),0_1px_0_rgba(255,255,255,.55)_inset] sm:max-h-[88svh] sm:rounded-[18px]"
+                  className="relative max-h-[100dvh] w-full max-w-[760px] overflow-y-auto overscroll-contain rounded-t-[18px] border border-[#cfae68] bg-[#f7eedc] text-[#173f51] shadow-[0_26px_80px_rgba(0,0,0,.48),0_1px_0_rgba(255,255,255,.55)_inset] sm:max-h-[88svh] sm:rounded-[18px]"
                   onClick={(event) => event.stopPropagation()}
                   role="dialog"
                   aria-modal="true"

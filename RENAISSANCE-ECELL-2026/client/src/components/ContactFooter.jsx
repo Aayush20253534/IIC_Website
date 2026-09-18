@@ -5,9 +5,9 @@ import { Mail, MapPin, Compass } from "lucide-react";
 
 export default function ContactFooter() {
   return (
-    <footer className="relative z-30 bg-[#020610] border-t border-[#38BDF8]/20 pt-16 pb-12 px-6 text-[#94A3B8] shadow-[0_-20px_60px_rgba(0,0,0,0.95)] select-none">
+    <footer className="relative z-30 overflow-x-hidden border-t border-[#38BDF8]/20 bg-[#020610] px-4 pb-8 pt-12 text-[#94A3B8] shadow-[0_-20px_60px_rgba(0,0,0,0.95)] select-none sm:px-6 sm:pb-12 sm:pt-16">
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 mb-12 text-xs relative z-10">
+      <div className="relative z-10 mx-auto mb-10 grid max-w-7xl grid-cols-1 gap-8 text-xs sm:mb-12 md:grid-cols-12 md:gap-10">
         {/* Left Column (5 Cols): Logo, Description & Social Handles */}
         <div className="md:col-span-5 flex flex-col items-start gap-4">
           <Link to="/" className="flex items-center gap-3 group">
@@ -87,13 +87,13 @@ export default function ContactFooter() {
           </div>
           <div className="flex items-center gap-2 text-xs text-[#38BDF8] font-mono font-semibold mt-1">
             <Mail className="w-3.5 h-3.5" />
-            <a href="mailto:renaissance@mnnit.ac.in" className="hover:underline">renaissance@mnnit.ac.in</a>
+            <a href="mailto:renaissance@mnnit.ac.in" className="break-all hover:underline">renaissance@mnnit.ac.in</a>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono relative z-10">
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-center font-mono text-[10px] sm:flex-row sm:text-left sm:text-[11px]">
         <p className="text-[#64748B]">
           © 2026 Renaissance (10th Edition) • E-Cell MNNIT Allahabad. All rights reserved.
         </p>

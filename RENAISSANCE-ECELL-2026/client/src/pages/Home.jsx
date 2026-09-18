@@ -223,11 +223,9 @@ function PremiumSponsorsGrid({ title, subtitle, sponsors }) {
             <div className="absolute bottom-0 left-0 w-3 h-3 border-b-[1px] border-l-[1px] border-[#d4af37]/40 rounded-bl-sm transition-all duration-300 "></div>
             <div className="absolute bottom-0 right-0 w-3 h-3 border-b-[1px] border-r-[1px] border-[#d4af37]/40 rounded-br-sm transition-all duration-300 "></div>
 
-            {sponsor.image ? (
-              <span className="text-[#E6DFD3] text-6xl font-bold">{idx + 1}</span>
-            ) : (
-              <span className="text-[#E6DFD3] font-bold">{sponsor.name}</span>
-            )}
+            <span className="text-[#E6DFD3] font-mono text-xs sm:text-sm font-bold tracking-wider text-center uppercase opacity-85">
+              To be announced soon...
+            </span>
           </div>
         ))}
       </div>

@@ -155,7 +155,6 @@ export default function Gallery() {
             ref={marqueeRef}
             onMouseEnter={() => isHovered.current = true}
             onMouseLeave={() => isHovered.current = false}
-            onTouchStart={() => isHovered.current = true}
             className="flex w-full cursor-grab overflow-x-auto py-5 active:cursor-grabbing hide-scrollbar sm:py-8"
           >
             {[...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS, ...PAST_SPEAKERS].map((speaker, idx) => (
@@ -163,7 +162,7 @@ export default function Gallery() {
                 key={`${speaker.id}-${idx}`}
                 onClick={() => {
                   if (window.matchMedia("(pointer: coarse)").matches) {
-                    isHovered.current = true;
+                    isHovered.current = !isHovered.current;
                   }
                 }}
                 className="group mx-3 w-[78vw] max-w-[280px] flex-shrink-0 cursor-pointer sm:mx-8 sm:w-80 sm:max-w-none"

@@ -21,6 +21,7 @@ import { SPONSOR_TIERS } from "../data/sponsorsData";
 const SHOW_SPONSORS_COMING_SOON = true;
 
 export default function Sponsors({ embedded = false }) {
+
   if (SHOW_SPONSORS_COMING_SOON) {
     return (
       <main className="relative min-h-[100svh] w-full overflow-hidden bg-[#061823] text-[#E6DFD3]">
@@ -262,88 +263,6 @@ export default function Sponsors({ embedded = false }) {
       )}
 
       {/* ============================================================
-          PARTNER NAVIGATION BAR (Oceanic Glass Strip)
-      ============================================================ */}
-      <section className="relative z-30 mx-auto -mt-7 max-w-[1280px] px-5 sm:px-8">
-        <div
-          className="
-            overflow-hidden
-            rounded-2xl
-            border
-            border-[#68A5B3]/55
-            bg-[#DFECEE]/95
-            shadow-[0_14px_40px_rgba(20,50,65,0.12)]
-            backdrop-blur-md
-          "
-        >
-          <div
-            className="
-              flex
-              flex-wrap
-              items-center
-              justify-center
-              gap-x-8
-              gap-y-4
-              px-5
-              py-4
-              sm:justify-between
-              sm:px-8
-            "
-          >
-            <button
-              type="button"
-              onClick={() => scrollToSection("presenting-partner")}
-              className="cursor-pointer"
-            >
-              <PartnerStripItem
-                icon={<Star className="h-4 w-4 text-[#9E6D1F]" />}
-                text="The Flagship"
-              />
-            </button>
-
-            <div className="hidden h-5 w-px bg-[#C2A169]/40 sm:block" />
-
-            <button
-              type="button"
-              onClick={() => scrollToSection("principal-allies")}
-              className="cursor-pointer"
-            >
-              <PartnerStripItem
-                icon={<Navigation className="h-4 w-4 text-[#165D73]" />}
-                text="Principal Allies"
-              />
-            </button>
-
-            <div className="hidden h-5 w-px bg-[#C2A169]/40 sm:block" />
-
-            <button
-              type="button"
-              onClick={() => scrollToSection("golden-fleet")}
-              className="cursor-pointer"
-            >
-              <PartnerStripItem
-                icon={<Sparkles className="h-4 w-4 text-[#9E6D1F]" />}
-                text="Strategic Partners"
-              />
-            </button>
-
-            <div className="hidden h-5 w-px bg-[#C2A169]/40 sm:block" />
-
-            <button
-              type="button"
-              onClick={() => scrollToSection("voyage-fellowship")}
-              className="cursor-pointer"
-            >
-              <PartnerStripItem
-                icon={<Anchor className="h-4 w-4 text-[#165D73]" />}
-                text="Voyage Fellowship"
-              />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
           PRESENTING PARTNER (Sandy-Oceanic Sovereign Vault)
       ============================================================ */}
       {presentingSponsor && (
@@ -537,51 +456,6 @@ export default function Sponsors({ embedded = false }) {
       )}
 
       {/* ============================================================
-          PRINCIPAL ALLIES (Those At The Helm — Sandy Paper Tone)
-      ============================================================ */}
-      {principalAllies.length > 0 && (
-        <SponsorSection
-          id="principal-allies"
-          eyebrow="Our Principal Allies"
-          title="Those At The Helm"
-          subtitle="The partners helping chart the course for Renaissance."
-          sponsors={principalAllies}
-          size="large"
-          theme="sandy"
-        />
-      )}
-
-      {/* ============================================================
-          STRATEGIC PARTNERS (The Golden Fleet)
-      ============================================================ */}
-      {goldenFleet.length > 0 && (
-        <SponsorSection
-          id="golden-fleet"
-          eyebrow="The Golden Fleet"
-          title="Strategic Partners"
-          subtitle="Organizations sailing alongside us to turn ideas into impact."
-          sponsors={goldenFleet}
-          size="medium"
-        />
-      )}
-
-      {/* ============================================================
-          VOYAGE FELLOWSHIP (Our Wider Fellowship)
-      ============================================================ */}
-      {voyageFellowship.length > 0 && (
-        <SponsorSection
-          id="voyage-fellowship"
-          eyebrow="The Voyage Fellowship"
-          title="Our Wider Fellowship"
-          subtitle="Media, community and event partners carrying the voyage further."
-          sponsors={voyageFellowship}
-          size="small"
-        />
-      )}
-
-
-
-      {/* ============================================================
           FOOTER (Matching Warm Beach Sand Tone)
       ============================================================ */}
       {!embedded && (
@@ -589,7 +463,6 @@ export default function Sponsors({ embedded = false }) {
           <ContactFooter />
         </div>
       )}
-
 
       {/* ============================================================
           PAGE ANIMATIONS (Hero Drift & Compass Kept, Boat Removed)

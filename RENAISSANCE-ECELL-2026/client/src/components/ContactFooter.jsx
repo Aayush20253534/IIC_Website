@@ -77,7 +77,7 @@ export default function ContactFooter() {
             </a>
 
             <a
-              href="https://www.facebook.com/mnnitecell/"
+              href="https://www.facebook.com/ecellmnnit"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"

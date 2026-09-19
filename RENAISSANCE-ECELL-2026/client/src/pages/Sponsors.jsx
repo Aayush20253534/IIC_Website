@@ -435,7 +435,6 @@ export default function Sponsors({ embedded = false }) {
         </div>
       )}
 
-
       {/* ============================================================
           PAGE ANIMATIONS (Hero Drift & Compass Kept, Boat Removed)
       ============================================================ */}

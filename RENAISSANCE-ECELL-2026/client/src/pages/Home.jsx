@@ -376,69 +376,70 @@ export default function Home() {
           });
           aboutTl.to({}, { duration: 0.3 });
         }
-
-        if (eventsSectionRef.current) {
-          if (wheelImgRef.current) {
-            gsap.set(wheelImgRef.current, { transformOrigin: "50% 50%" });
-          }
-
-          const mainTl = gsap.timeline({
-            scrollTrigger: {
-              trigger: eventsSectionRef.current,
-              start: "top top",
-              end: "+=1200",
-              pin: true,
-              pinSpacing: true,
-              scrub: 0.5,
-              invalidateOnRefresh: true,
-            },
-          });
-
-          if (wheelImgRef.current) {
-            mainTl.to(
-              wheelImgRef.current,
-              { rotation: 540, ease: "none", duration: 10 },
-              0
-            );
-          }
-
-          const totalEvents = EVENTS.length;
-          const stepDuration = 3.0;
-
-          EVENTS.forEach((_, idx) => {
-            const visualEl = visualsRef.current[idx];
-            const detailsEl = detailsRef.current[idx];
-            if (!visualEl || !detailsEl) return;
-
-            const startTime = idx * stepDuration;
-
-            mainTl.fromTo(
-              [visualEl, detailsEl],
-              { opacity: 0, y: 20, pointerEvents: "none" },
-              { opacity: 1, y: 0, pointerEvents: "auto", duration: 0.6, ease: "power2.out" },
-              startTime
-            );
-
-            mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 1.2 }, startTime + 0.6);
-
-            if (idx < totalEvents - 1) {
-              mainTl.to(
-                [visualEl, detailsEl],
-                {
-                  opacity: 0,
-                  y: -20,
-                  pointerEvents: "none",
-                  duration: 0.6,
-                  ease: "power2.in",
-                },
-                startTime + 2.0
-              );
-            }
-          });
-        }
       });
 
-      // Mobile Only (max-width: 767px): Fast unpinned flow, no scroll trap!
+      // Pinned Events Parallax Timeline (Desktop + Mobile)
+      if (eventsSectionRef.current) {
+        if (wheelImgRef.current) {
+          gsap.set(wheelImgRef.current, { transformOrigin: "50% 50%" });
+        }
+
+        const mainTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: eventsSectionRef.current,
+            start: "top top",
+            end: "+=1200",
+            pin: true,
+            pinSpacing: true,
+            scrub: 0.5,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        if (wheelImgRef.current) {
+          mainTl.to(
+            wheelImgRef.current,
+            { rotation: 540, ease: "none", duration: 10 },
+            0
+          );
+        }
+
+        const totalEvents = EVENTS.length;
+        const stepDuration = 3.0;
+
+        EVENTS.forEach((_, idx) => {
+          const visualEl = visualsRef.current[idx];
+          const detailsEl = detailsRef.current[idx];
+          if (!visualEl || !detailsEl) return;
+
+          const startTime = idx * stepDuration;
+
+          mainTl.fromTo(
+            [visualEl, detailsEl],
+            { opacity: 0, y: 20, pointerEvents: "none" },
+            { opacity: 1, y: 0, pointerEvents: "auto", duration: 0.6, ease: "power2.out" },
+            startTime
+          );
+
+          mainTl.to([visualEl, detailsEl], { opacity: 1, duration: 1.2 }, startTime + 0.6);
+
+          if (idx < totalEvents - 1) {
+            mainTl.to(
+              [visualEl, detailsEl],
+              {
+                opacity: 0,
+                y: -20,
+                pointerEvents: "none",
+                duration: 0.6,
+                ease: "power2.in",
+              },
+              startTime + 2.0
+            );
+          }
+        });
+      }
+
+      // Mobile Only (max-width: 767px): About section unpinned flow
       mm.add("(max-width: 767px)", () => {
         if (aboutSectionRef.current) {
           gsap.fromTo(
@@ -463,12 +464,6 @@ export default function Home() {
             }
           );
         }
-
-        EVENTS.forEach((_, idx) => {
-          const visualEl = visualsRef.current[idx];
-          const detailsEl = detailsRef.current[idx];
-          if (visualEl) gsap.set(visualEl, { opacity: 1, y: 0, scale: 1, pointerEvents: "auto" });
-        });
       });
 
       // Keynote Speakers entrance
@@ -677,47 +672,47 @@ export default function Home() {
       <section
         id="events"
         ref={eventsSectionRef}
-        className="featured-events-section relative flex min-h-0 w-full flex-col justify-between overflow-visible bg-transparent px-3 pb-14 pt-20 select-none sm:px-6 md:min-h-[100svh] md:h-[100svh] md:px-12 md:pb-6 md:pt-32"
+        className="featured-events-section relative flex min-h-[100svh] h-[100svh] w-full flex-col justify-center md:justify-between overflow-hidden bg-transparent px-4 py-6 select-none sm:px-6 md:px-12 md:pb-6 md:pt-32"
       >
         {/* Giant Rotating Nautical Wheel */}
         <div
           ref={wheelContainerRef}
-          className="featured-events-wheel pointer-events-none absolute left-0 top-1/2 z-10 hidden h-[135vh] w-[135vh] lg:h-[145vh] lg:w-[145vh] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-100 md:flex"
+          className="featured-events-wheel pointer-events-none absolute left-1/2 top-1/2 z-10 flex h-[120vw] w-[120vw] max-h-[560px] max-w-[560px] sm:h-[110vw] sm:w-[110vw] sm:max-h-[600px] sm:max-w-[600px] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-45 md:left-0 md:h-[135vh] md:w-[135vh] lg:h-[145vh] lg:w-[145vh] md:opacity-100"
         >
-          <div className="absolute w-[75%] h-[75%] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
+          <div className="absolute w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
           <img
             ref={wheelImgRef}
             src="/pirate-wheel-transparent.png"
             alt="Nautical Wheel"
-            className="w-full h-full object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] drop-shadow-[0_0_50px_rgba(56,189,248,0.45)] select-none pointer-events-none will-change-transform overflow-visible"
+            className="w-full h-full object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)] md:drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)] md:drop-shadow-[0_0_50px_rgba(56,189,248,0.45)] select-none pointer-events-none will-change-transform overflow-visible"
           />
         </div>
 
         {/* Right Half Container: Events Header & Event Showcase */}
-        <div className="relative z-20 mx-auto my-auto flex w-full max-w-7xl flex-col items-stretch justify-center md:items-end">
-          <div className="flex w-full max-w-none flex-col gap-3 sm:gap-4 md:ml-auto md:max-w-xl">
+        <div className="relative z-20 mx-auto my-auto flex w-full max-w-7xl flex-col items-center justify-center md:items-end">
+          <div className="flex w-full max-w-md sm:max-w-xl flex-col gap-3 sm:gap-4 md:ml-auto">
             {/* Header */}
             <div
               ref={eventsHeaderRef}
               className="featured-events-header w-full flex items-end justify-between pb-2 border-b border-white/10"
             >
               <div>
-                <span className="text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.25em] font-extrabold flex items-center gap-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">
-                  <Compass className="w-3.5 h-3.5 text-white" />
+                <span className="text-xs sm:text-sm font-mono text-white uppercase tracking-[0.25em] font-extrabold flex items-center gap-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] mb-1">
+                  <Compass className="w-4 h-4 text-white" />
                   <span>Summit Flagships</span>
                 </span>
-                <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] animate-whitegold-shine pb-2">
+                <h2 className="text-3.5xl sm:text-5xl md:text-6xl font-black tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] animate-whitegold-shine pb-1 sm:pb-2 text-[2rem] leading-none">
                   Featured Events
                 </h2>
               </div>
             </div>
 
             {/* Event Showcase Cards */}
-            <div className="relative w-full flex flex-col gap-6 md:block md:h-[480px]">
+            <div className="relative w-full h-[320px] sm:h-[380px] md:h-[480px]">
               {EVENTS.map((event, idx) => (
                 <div
                   key={event.id}
-                  className="w-full md:absolute md:inset-0 md:h-full flex flex-col gap-3 sm:gap-4 md:pointer-events-none mb-4 md:mb-0"
+                  className="absolute inset-0 h-full w-full flex flex-col pointer-events-none"
                 >
                   {/* Unified Event Card */}
                   <div
@@ -725,49 +720,50 @@ export default function Home() {
                       visualsRef.current[idx] = el;
                       detailsRef.current[idx] = el;
                     }}
-                    className="w-full p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
+                    className="w-full p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col gap-2 sm:gap-3 overflow-hidden will-change-transform pointer-events-auto"
                   >
-                    <div className="flex items-center justify-between w-full pb-2 border-b border-[#0C2B3D]/10">
+                    <div className="flex items-center justify-between w-full pb-1.5 sm:pb-2 border-b border-[#0C2B3D]/10">
                       <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest uppercase opacity-70">
                         {event.category}
                       </span>
-                      <span className="text-xs font-mono px-3 py-1 rounded-full border border-[#0C2B3D]/20 bg-[#0C2B3D]/10 text-[#0C2B3D] uppercase tracking-wider font-extrabold">
+                      <span className="text-[10px] sm:text-xs font-mono px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-[#0C2B3D]/20 bg-[#0C2B3D]/10 text-[#0C2B3D] uppercase tracking-wider font-extrabold">
                         CHALLENGE {event.id} / 03
                       </span>
                     </div>
 
                     <div>
-                      <h3 className="text-xl sm:text-3xl md:text-4xl font-extrabold font-sans tracking-tight mb-1">
+                      <h3 className="text-xl sm:text-3xl md:text-4xl font-extrabold font-sans tracking-tight mb-0.5 sm:mb-1">
                         {event.name}
                       </h3>
                       {event.tagline && (
-                        <p className="text-xs sm:text-sm font-semibold italic opacity-85 mb-1.5 text-[#0C2B3D]">
+                        <p className="text-[11px] sm:text-sm font-semibold italic opacity-85 mb-1 text-[#0C2B3D] line-clamp-1">
                           "{event.tagline}"
                         </p>
                       )}
-                      <div className="text-xs sm:text-sm font-mono font-bold opacity-80 text-[#d4af37]">
+                      <div className="text-[11px] sm:text-sm font-mono font-bold opacity-80 text-[#d4af37]">
                         Prize Pool: {event.prize}
                       </div>
                     </div>
 
-                    <p className="featured-events-description text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-y-auto max-h-[140px] sm:max-h-[160px] pr-1">
+                    {/* Compact text summary on mobile so user has up/down areas to scroll */}
+                    <p className="featured-events-description line-clamp-2 md:line-clamp-none text-[11px] sm:text-xs md:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-hidden md:overflow-y-auto max-h-[48px] sm:max-h-[100px] md:max-h-[160px] pr-1">
                       {event.desc}
                     </p>
 
-                    <div className="pt-3 mt-auto border-t border-[#0C2B3D]/10 flex flex-col sm:flex-row items-center justify-between gap-3 w-full">
+                    <div className="pt-2 sm:pt-3 mt-auto border-t border-[#0C2B3D]/10 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 w-full">
                       <a
                         href={event.registrationUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full sm:w-auto px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#1C4ED8] hover:bg-[#1E40AF] text-white font-bold text-xs tracking-wider uppercase shadow-[0_4px_16px_rgba(28,78,216,0.35)] hover:shadow-[0_6px_22px_rgba(28,78,216,0.55)] hover:scale-[1.03] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                        className="w-full sm:w-auto px-4 sm:px-7 py-2 sm:py-3 rounded-full bg-[#1C4ED8] hover:bg-[#1E40AF] text-white font-bold text-[11px] sm:text-xs tracking-wider uppercase shadow-[0_4px_16px_rgba(28,78,216,0.35)] hover:shadow-[0_6px_22px_rgba(28,78,216,0.55)] hover:scale-[1.03] transition-all flex items-center justify-center gap-2 group cursor-pointer"
                       >
-                        <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#38BDF8] animate-pulse" />
                         <span>Register on Unstop</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-[#38BDF8] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#38BDF8] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </a>
                       <Link
                         to="/events"
-                        className="text-xs font-bold uppercase tracking-widest cursor-pointer hover:opacity-70 transition-opacity"
+                        className="text-[10px] sm:text-xs font-bold uppercase tracking-widest cursor-pointer hover:opacity-70 transition-opacity"
                       >
                         View Schedule →
                       </Link>

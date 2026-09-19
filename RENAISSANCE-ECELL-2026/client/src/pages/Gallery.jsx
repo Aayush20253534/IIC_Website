@@ -225,7 +225,7 @@ export default function Gallery() {
               }}
               layoutId={`gallery-img-${img.id}`}
               onClick={() => setSelectedImage(img)}
-              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 group cursor-pointer inline-block w-full`}
+              className={`relative mb-3 sm:mb-6 overflow-hidden rounded-xl break-inside-avoid shadow-lg hover:shadow-2xl transition-shadow duration-500 bg-[#E8D7C2]/30 group cursor-pointer block w-full`}
             >
               <img
                 src={img.src}

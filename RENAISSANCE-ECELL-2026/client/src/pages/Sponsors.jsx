@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 
 import ContactFooter from "../components/ContactFooter";
-import SocialSideRail from "../components/SocialSideRail";
 import { SPONSOR_TIERS } from "../data/sponsorsData";
 
 /* ================================================================
@@ -19,7 +18,42 @@ import { SPONSOR_TIERS } from "../data/sponsorsData";
    Boat: Boat thing completely removed!
 ================================================================ */
 
+const SHOW_SPONSORS_COMING_SOON = true;
+
 export default function Sponsors({ embedded = false }) {
+  if (SHOW_SPONSORS_COMING_SOON) {
+    return (
+      <main className="relative min-h-[100svh] w-full overflow-hidden bg-[#061823] text-[#E6DFD3]">
+        {/* Preserve the Sponsors page atmosphere/background while the
+            sponsor cards remain disabled. Original implementation is below. */}
+        <SandyOceanAtmosphere />
+        <FloatingStickers />
+
+        <div className="absolute inset-0 z-[1]">
+          <img
+            src="/bg_images/events.png"
+            alt=""
+            aria-hidden="true"
+            className="sponsor-hero-raster h-full w-full object-cover object-center select-none pointer-events-none"
+            draggable="false"
+          />
+          <div className="absolute inset-0 bg-[#062538]/35 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A2634]/15 via-[#061923]/35 to-[#020610]/78" />
+        </div>
+
+        <section className="relative z-10 grid min-h-[100svh] w-full place-items-center px-4 py-24 sm:px-6">
+          <h1 className="mx-auto w-full max-w-4xl text-center font-cinzel text-3xl font-bold uppercase tracking-[0.04em] text-[#F3E9D2] drop-shadow-[0_6px_24px_rgba(0,0,0,0.72)] sm:text-5xl lg:text-6xl">
+            To be announced soon...
+          </h1>
+        </section>
+
+        {!embedded && <ContactFooter />}
+      </main>
+    );
+  }
+
+  // Original Sponsors page, hero, navigation and every sponsor card remain
+  // preserved below. Toggle SHOW_SPONSORS_COMING_SOON to restore them.
   const presentingSponsor = SPONSOR_TIERS?.[0]?.sponsors?.[0];
   const principalAllies = SPONSOR_TIERS?.[0]?.sponsors?.slice(1) || [];
   const goldenFleet = SPONSOR_TIERS?.[1]?.sponsors || [];
@@ -53,8 +87,6 @@ export default function Sponsors({ embedded = false }) {
       ============================================================ */}
       <SandyOceanAtmosphere />
       <FloatingStickers />
-
-      {!embedded && <SocialSideRail />}
 
       {/* ============================================================
           HERO: Previous bg image + background drift animation KEPT
@@ -730,10 +762,10 @@ function SponsorSection({
                 w-full
                 ${
                   size === "large"
-                    ? "sm:w-[calc(50%-1.25rem)] max-w-[480px]"
+                    ? "sm:w-[calc(50%-1.25rem)] max-w-[440px]"
                     : size === "medium"
-                    ? "sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[430px]"
-                    : "w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[400px]"
+                    ? "sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[390px]"
+                    : "w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[340px]"
                 }
               `}
             >

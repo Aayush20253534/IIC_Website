@@ -1,103 +1,155 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaLinkedinIn, FaInstagram, FaYoutube } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { Mail, MapPin, Compass } from "lucide-react";
 
 export default function ContactFooter() {
-  return (
-    <footer className="relative z-30 bg-[#020610] border-t border-[#38BDF8]/20 pt-16 pb-12 px-6 text-[#94A3B8] shadow-[0_-20px_60px_rgba(0,0,0,0.95)] select-none">
+  const socialLinkClass =
+    "flex h-10 w-10 items-center justify-center rounded-full border border-[#8ED8EC]/30 bg-white/10 text-[#DDF6FB] shadow-[0_6px_18px_rgba(0,0,0,0.16)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#F4EBD9]/60 hover:bg-[#F4EBD9] hover:text-[#0C2B3D] hover:shadow-[0_8px_22px_rgba(244,235,217,0.16)]";
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 mb-12 text-xs relative z-10">
-        {/* Left Column (5 Cols): Logo, Description & Social Handles */}
-        <div className="md:col-span-5 flex flex-col items-start gap-4">
-          <Link to="/" className="flex items-center gap-3 group">
+  const footerLinkClass =
+    "text-[#C6E2EA] transition-colors duration-200 hover:text-[#F4EBD9]";
+
+  return (
+    <footer className="relative z-30 overflow-hidden border-t border-[#8ED8EC]/20 bg-gradient-to-b from-[#0B5271] via-[#0A4562] to-[#07344C] px-4 pb-8 pt-12 text-[#C6E2EA] shadow-[0_-16px_45px_rgba(3,24,38,0.22)] select-none sm:px-6 sm:pb-12 sm:pt-16">
+      {/* Subtle ocean atmosphere */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-32 top-0 h-72 w-72 rounded-full bg-[#38BDF8]/10 blur-[100px]" />
+        <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-[#7DD3FC]/8 blur-[120px]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A5E4F2]/40 to-transparent" />
+      </div>
+
+      <div className="relative z-10 mx-auto mb-10 grid max-w-7xl grid-cols-1 gap-10 text-xs sm:mb-12 md:grid-cols-12 md:gap-8 lg:gap-12">
+        {/* Brand */}
+        <div className="flex flex-col items-start gap-4 md:col-span-5">
+          <Link to="/" className="group flex items-center gap-3">
             <img
               src="/renaissance-logo-clean.png"
               alt="Renaissance 10th Edition Logo"
               onError={(e) => {
                 e.currentTarget.src = "/renaissance-logo-transparent.png";
               }}
-              className="h-10 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(56,189,248,0.5)] transition-transform duration-300 group-hover:scale-105"
+              className="h-11 w-auto object-contain brightness-110 drop-shadow-[0_5px_14px_rgba(0,0,0,0.2)] transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
 
-          <p className="text-[#CBD5E1] text-xs font-light leading-relaxed max-w-sm">
-            Renaissance is the annual flagship entrepreneurship summit of MNNIT Allahabad, charting new horizons in deep tech, venture creation, and innovation.
+          <p className="max-w-md text-xs font-medium leading-6 text-[#C6E2EA] sm:text-[13px]">
+            Renaissance is the annual flagship entrepreneurship summit of
+            MNNIT Allahabad, charting new horizons in deep tech, venture
+            creation, and innovation.
           </p>
 
-          {/* Social Handles */}
-          <div className="flex items-center gap-3 mt-2">
+          {/* Socials */}
+          <div className="mt-2 flex flex-wrap items-center gap-3">
             <a
-              href="https://www.linkedin.com/company/ecellmnnit"
+              href="https://whatsapp.com/channel/0029VaPJh9gBA1f6VCR1I31y"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="w-9 h-9 rounded-full border border-[#38BDF8]/30 bg-[#040f21]/80 flex items-center justify-center text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#020610] hover:border-[#38BDF8] transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+              aria-label="WhatsApp"
+              className={socialLinkClass}
             >
-              <FaLinkedinIn className="w-4 h-4" />
+              <FaWhatsapp className="h-4 w-4" />
             </a>
 
             <a
-              href="https://www.instagram.com/ecellmnnit"
+              href="https://www.instagram.com/ecellmnnit?stkn=MWxlaWVoMDZxb3FhZA=="
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="w-9 h-9 rounded-full border border-[#38BDF8]/30 bg-[#040f21]/80 flex items-center justify-center text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#020610] hover:border-[#38BDF8] transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+              className={socialLinkClass}
             >
-              <FaInstagram className="w-4 h-4" />
+              <FaInstagram className="h-4 w-4" />
             </a>
 
             <a
-              href="https://youtube.com/@ecellmnnit"
+              href="https://www.linkedin.com/company/e-cell-mnnit"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="YouTube"
-              className="w-9 h-9 rounded-full border border-[#38BDF8]/30 bg-[#040f21]/80 flex items-center justify-center text-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#020610] hover:border-[#38BDF8] transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+              aria-label="LinkedIn"
+              className={socialLinkClass}
             >
-              <FaYoutube className="w-4 h-4" />
+              <FaLinkedinIn className="h-4 w-4" />
+            </a>
+
+            <a
+              href="https://www.facebook.com/ecellmnnit"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className={socialLinkClass}
+            >
+              <FaFacebookF className="h-4 w-4" />
             </a>
           </div>
         </div>
 
-        {/* Middle Column (3 Cols): Navigation */}
-        <div className="md:col-span-3 flex flex-col gap-3">
-          <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest flex items-center gap-2">
-            <Compass className="w-3.5 h-3.5 text-[#38BDF8]" />
+        {/* Navigation */}
+        <div className="flex flex-col gap-4 md:col-span-3">
+          <h4 className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.18em] text-[#F4EBD9]">
+            <Compass className="h-4 w-4 text-[#7DD3FC]" />
             <span>Navigation</span>
           </h4>
-          <div className="grid grid-cols-2 gap-2 text-xs font-medium">
-            <Link to="/" className="text-[#94A3B8] hover:text-[#38BDF8] transition-colors">Home</Link>
-            <Link to="/events" className="text-[#94A3B8] hover:text-[#38BDF8] transition-colors">Events</Link>
-            <Link to="/sponsors" className="text-[#94A3B8] hover:text-[#38BDF8] transition-colors">Sponsors</Link>
-            <Link to="/teams" className="text-[#94A3B8] hover:text-[#38BDF8] transition-colors">Teams</Link>
-            <Link to="/gallery" className="text-[#94A3B8] hover:text-[#38BDF8] transition-colors">Gallery</Link>
-            <Link to="/register" className="text-[#38BDF8] font-bold hover:underline">Register</Link>
+
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-xs font-semibold">
+            <Link to="/" className={footerLinkClass}>
+              Home
+            </Link>
+
+            <Link to="/events" className={footerLinkClass}>
+              Events
+            </Link>
+
+            <Link to="/sponsors" className={footerLinkClass}>
+              Sponsors
+            </Link>
+
+            <Link to="/teams" className={footerLinkClass}>
+              Teams
+            </Link>
+
+            <Link to="/gallery" className={footerLinkClass}>
+              Gallery
+            </Link>
           </div>
         </div>
 
-        {/* Right Column (4 Cols): Contact & Location */}
-        <div className="md:col-span-4 flex flex-col gap-3">
-          <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest flex items-center gap-2">
-            <Mail className="w-3.5 h-3.5 text-[#38BDF8]" />
-            <span>Summit Headquarters</span>
-          </h4>
-          <div className="flex items-start gap-2.5 text-xs text-[#CBD5E1]">
-            <MapPin className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" />
-            <p>E-Cell, Motilal Nehru National Institute of Technology (MNNIT) Allahabad, Prayagraj, UP - 211004</p>
+        {/* Contact */}
+        <div className="flex min-w-0 flex-col gap-4 md:col-span-4">
+          <div className="flex items-start gap-3 text-xs leading-6 text-[#C6E2EA] sm:text-[13px]">
+            <MapPin className="mt-1 h-4 w-4 shrink-0 text-[#7DD3FC]" />
+
+            <p className="min-w-0">
+              E-Cell, Motilal Nehru National Institute of Technology (MNNIT)
+              Allahabad, Prayagraj, UP - 211004
+            </p>
           </div>
-          <div className="flex items-center gap-2 text-xs text-[#38BDF8] font-mono font-semibold mt-1">
-            <Mail className="w-3.5 h-3.5" />
-            <a href="mailto:renaissance@mnnit.ac.in" className="hover:underline">renaissance@mnnit.ac.in</a>
+
+          <div className="flex min-w-0 items-center gap-2 font-mono text-xs font-semibold text-[#A5E4F2]">
+            <Mail className="h-4 w-4 shrink-0" />
+
+            <a
+              href="mailto:renaissance@mnnit.ac.in"
+              className="min-w-0 break-all transition-colors hover:text-[#F4EBD9] hover:underline"
+            >
+              renaissance@mnnit.ac.in
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono relative z-10">
-        <p className="text-[#64748B]">
-          © 2026 Renaissance (10th Edition) • E-Cell MNNIT Allahabad. All rights reserved.
+      {/* Bottom bar */}
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-[#A5E4F2]/15 pt-6 text-center font-mono text-[10px] sm:flex-row sm:text-left sm:text-[11px]">
+        <p className="text-[#94C9D7]">
+          © 2026 Renaissance (10th Edition) • E-Cell MNNIT Allahabad. All
+          rights reserved.
         </p>
-        <span className="text-[#38BDF8]/80 uppercase tracking-widest font-semibold">
+
+        <span className="font-semibold uppercase tracking-[0.15em] text-[#F4EBD9]/80">
           10th Edition • Venture Beyond Known
         </span>
       </div>

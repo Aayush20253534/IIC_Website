@@ -16,7 +16,6 @@ import { useSmoothScroll } from "../lib/smoothScroll";
 import ContactFooter from "../components/ContactFooter";
 import NauticalCartographyBg from "../components/NauticalCartographyBg";
 
-
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
 const EVENTS = [
@@ -27,7 +26,8 @@ const EVENTS = [
     tagline: "Got a million-dollar idea? Prove it.",
     desc: "B-Plan is the flagship business-plan showdown of Renaissance - India’s premier student entrepreneurship summit. This isn’t just about dreaming big; it’s about building smart. Present a rock-solid plan, defend it before expert judges, and turn your concept into a venture that investors notice.\n\nAll you need to know about B-Plan (Fish Tank-Business Plan) : Business plan pitching competetion at Renaissance 10.0",
     prize: "₹25,000",
-    registrationUrl: "http://unstop.com/o/UL8OJ4R?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+    registrationUrl:
+      "http://unstop.com/o/UL8OJ4R?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
   {
     id: "02",
@@ -36,7 +36,8 @@ const EVENTS = [
     tagline: "From Product to Phenomenon: Architecting Iconic Launches",
     desc: "A great product can fail; a legendary launch builds an empire. The product is ready, the market is waiting. Do you have the masterplan to make it iconic?\n\nStrategy-Wiz, the ultimate strategy challenge, is designed for future business leaders and innovators. Teams will craft the blueprint for market domination: analyse markets, design innovative launch plans, and compete to showcase the most impactful marketing strategy.",
     prize: "₹15,000",
-    registrationUrl: "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+    registrationUrl:
+      "https://unstop.com/competitions/strategy-wiz-renaissance-100-motilal-nehru-national-institute-of-technology-1755423?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
   {
     id: "03",
@@ -45,7 +46,8 @@ const EVENTS = [
     tagline: "Think Fast. Strategize Better. Win the Market",
     desc: "In business, having a good idea is only the beginning. The real challenge is making the right decisions when the stakes are high and your competitors are waiting for you to slip.\n\nBusiness Wars is a high-pressure business strategy competition where teams step into the shoes of competing businesses and battle through real-world market scenarios.",
     prize: "₹15,000",
-    registrationUrl: "https://unstop.com/competitions/biz-wars-renaissance-100-motilal-nehru-national-institute-of-technology-1756444?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
+    registrationUrl:
+      "https://unstop.com/competitions/biz-wars-renaissance-100-motilal-nehru-national-institute-of-technology-1756444?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
 ];
 
@@ -71,40 +73,41 @@ const PAST_SPONSORS = [
   { name: "Domino's", image: "/sponsors/dominos.png" },
 ];
 
-
-
 function FeaturedSpeakersGrid({ speakers }) {
   const gridRef = React.useRef(null);
 
   React.useEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
-    
-    const items = grid.querySelectorAll('.speaker-card');
+
+    const items = grid.querySelectorAll(".speaker-card");
     if (items.length === 0) return;
 
-    items.forEach(item => {
-      item.style.willChange = 'transform, opacity, filter';
+    items.forEach((item) => {
+      item.style.willChange = "transform, opacity, filter";
     });
 
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          items.forEach((item, index) => {
-            const delay = index * 100;
-            item.style.transitionDelay = `${delay}ms`;
-            item.classList.add('opacity-100', 'translate-y-0');
-            item.classList.remove('opacity-0', 'translate-y-[30px]');
-            
-            setTimeout(() => {
-              item.style.willChange = 'auto';
-              item.style.transitionDelay = '0ms'; // reset for hover
-            }, delay + 800);
-          });
-          obs.disconnect();
-        }
-      });
-    }, { threshold: 0.15 });
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            items.forEach((item, index) => {
+              const delay = index * 100;
+              item.style.transitionDelay = `${delay}ms`;
+              item.classList.add("opacity-100", "translate-y-0");
+              item.classList.remove("opacity-0", "translate-y-[30px]");
+
+              setTimeout(() => {
+                item.style.willChange = "auto";
+                item.style.transitionDelay = "0ms"; // reset for hover
+              }, delay + 800);
+            });
+            obs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
 
     observer.observe(grid);
     return () => observer.disconnect();
@@ -113,8 +116,6 @@ function FeaturedSpeakersGrid({ speakers }) {
   return (
     <section className="relative min-h-screen w-full bg-transparent flex flex-col items-center justify-center px-6 sm:px-12 pt-24 sm:pt-36 pb-48 sm:pb-64 overflow-hidden select-none z-20">
       {/* Heavy Marine Mist Overlay */}
-      
-      
 
       <div className="max-w-6xl w-full mx-auto flex flex-col items-center justify-center relative z-10 my-auto">
         <div className="speakers-header text-center mb-16 sm:mb-24">
@@ -126,32 +127,12 @@ function FeaturedSpeakersGrid({ speakers }) {
           </h2>
         </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
-          {speakers.map((speaker, idx) => (
-            <div
-              key={speaker.id}
-              className={`speaker-card group relative aspect-[3/4] overflow-hidden rounded-xl bg-[rgba(10,15,30,0.6)] border border-white/10 hover:border-[#ffd700]/30 backdrop-blur-md opacity-0 translate-y-[30px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer ${idx % 2 === 1 ? 'md:mt-16' : ''}`}
-            >
-              
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                 
-              />
-              <div 
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(5,10,20, 0.9) 0%, transparent 100%)' }}
-              />
-              
-              <div className="absolute bottom-6 left-6 right-6 text-left z-10">
-                <h3 className="text-xl sm:text-2xl font-bold text-white font-sans drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  {speaker.label}
-                </h3>
-                <p className="text-[0.85rem] font-mono text-[#E6DFD3] mt-1 font-semibold tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  CEO, Oceanic Tech
-                </p>
-              </div>
-            </div>
-          ))}
+        <div ref={gridRef} className="w-full flex items-center justify-center">
+          <div className="speaker-card relative flex w-full max-w-3xl translate-y-[30px] items-center justify-center px-4 py-8 opacity-0 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] sm:px-8 sm:py-12">
+            <p className="max-w-3xl text-center font-cinzel text-2xl font-semibold tracking-tight text-[#F4EBD9] drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] sm:text-4xl lg:text-5xl">
+              To be announced soon...
+            </p>
+          </div>
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-[#020610] pointer-events-none z-10" />
@@ -165,31 +146,38 @@ function PremiumSponsorsGrid({ title, subtitle, sponsors }) {
   useEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
-    
-    const items = grid.querySelectorAll('.premium-sponsor-item');
+
+    const items = grid.querySelectorAll(".premium-sponsor-item");
     if (items.length === 0) return;
 
-    items.forEach(item => {
-      item.style.willChange = 'transform, opacity';
+    items.forEach((item) => {
+      item.style.willChange = "transform, opacity";
     });
 
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          items.forEach((item, index) => {
-            const delay = index * 80;
-            item.style.transitionDelay = `${delay}ms`;
-            item.classList.add('opacity-100', 'translate-y-0', 'scale-100');
-            item.classList.remove('opacity-0', 'translate-y-[20px]', 'scale-90');
-            
-            setTimeout(() => {
-              item.style.willChange = 'auto';
-            }, delay + 800);
-          });
-          obs.disconnect();
-        }
-      });
-    }, { threshold: 0.15 });
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            items.forEach((item, index) => {
+              const delay = index * 80;
+              item.style.transitionDelay = `${delay}ms`;
+              item.classList.add("opacity-100", "translate-y-0", "scale-100");
+              item.classList.remove(
+                "opacity-0",
+                "translate-y-[20px]",
+                "scale-90",
+              );
+
+              setTimeout(() => {
+                item.style.willChange = "auto";
+              }, delay + 800);
+            });
+            obs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
 
     observer.observe(grid);
     return () => observer.disconnect();
@@ -201,33 +189,19 @@ function PremiumSponsorsGrid({ title, subtitle, sponsors }) {
         <span className="text-[10px] sm:text-xs font-mono text-[#E6DFD3] uppercase tracking-[0.25em] font-bold block mb-2">
           {subtitle}
         </span>
-        
+
         <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight animate-whitegold-shine">
           {title}
         </h2>
       </div>
 
-      <div 
+      <div
         ref={gridRef}
-        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 w-full max-w-[1200px] mx-auto"
+        className="mx-auto flex w-full max-w-3xl items-center justify-center px-4 py-4"
       >
-        {sponsors.map((sponsor, idx) => (
-          <div
-            key={idx}
-            className="premium-sponsor-item relative aspect-video flex items-center justify-center p-6 opacity-0 translate-y-[20px] scale-90 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-            style={{ transitionProperty: 'transform, border-color, background, opacity' }}
-          >
-            {/* Brass Corners */}
-            <div className="absolute top-0 left-0 w-3 h-3 border-t-[1px] border-l-[1px] border-[#d4af37]/40 rounded-tl-sm transition-all duration-300 "></div>
-            <div className="absolute top-0 right-0 w-3 h-3 border-t-[1px] border-r-[1px] border-[#d4af37]/40 rounded-tr-sm transition-all duration-300 "></div>
-            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-[1px] border-l-[1px] border-[#d4af37]/40 rounded-bl-sm transition-all duration-300 "></div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-[1px] border-r-[1px] border-[#d4af37]/40 rounded-br-sm transition-all duration-300 "></div>
-
-            <span className="text-[#E6DFD3] font-mono text-xs sm:text-sm font-bold tracking-wider text-center uppercase opacity-85">
-              To be announced soon...
-            </span>
-          </div>
-        ))}
+        <p className="premium-sponsor-item translate-y-[20px] text-center font-cinzel text-2xl font-semibold tracking-tight text-[#F4EBD9] opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] sm:text-4xl lg:text-5xl">
+          To be announced soon...
+        </p>
       </div>
     </section>
   );
@@ -239,31 +213,37 @@ function StaggeredSponsorsGrid({ title, subtitle, sponsors }) {
   useEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
-    
-    const items = grid.querySelectorAll('.sponsor-item');
+
+    const items = grid.querySelectorAll(".sponsor-item");
     if (items.length === 0) return;
 
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          items.forEach((item, index) => {
-            const delay = index * 80;
-            item.style.transitionDelay = `${delay}ms`;
-            item.classList.add('opacity-100', 'translate-y-0');
-            item.classList.remove('opacity-0', 'translate-y-10');
-            
-            setTimeout(() => {
-              item.style.willChange = 'auto';
-              item.style.transitionDelay = '0ms';
-            }, 800 + delay + 50);
-          });
-          obs.disconnect();
-        }
-      });
-    }, { threshold: 0.15 });
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            items.forEach((item, index) => {
+              const delay = index * 80;
+              item.style.transitionDelay = `${delay}ms`;
+              item.classList.add("opacity-100", "translate-y-0");
+              item.classList.remove("opacity-0", "translate-y-10");
+
+              setTimeout(
+                () => {
+                  item.style.willChange = "auto";
+                  item.style.transitionDelay = "0ms";
+                },
+                800 + delay + 50,
+              );
+            });
+            obs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
 
     observer.observe(grid);
-    
+
     return () => observer.disconnect();
   }, [sponsors]);
 
@@ -280,7 +260,7 @@ function StaggeredSponsorsGrid({ title, subtitle, sponsors }) {
         </h2>
       </div>
 
-      <div 
+      <div
         ref={gridRef}
         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6 w-full max-w-6xl mx-auto"
       >
@@ -305,8 +285,6 @@ function StaggeredSponsorsGrid({ title, subtitle, sponsors }) {
     </section>
   );
 }
-
-
 
 const SPEAKERS = [
   { id: 1, label: "Speaker 01" },
@@ -341,6 +319,8 @@ export default function Home() {
   const speakersSectionRef = useRef(null);
 
   useEffect(() => {
+    const isDesktopViewport = window.matchMedia("(min-width: 768px)").matches;
+
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
@@ -487,11 +467,15 @@ export default function Home() {
           if (detailsEl) gsap.set(detailsEl, { opacity: 1, y: 0, pointerEvents: "auto" });
         });
       });
+        });
+      });
 
       // Keynote Speakers entrance
       if (speakersSectionRef.current) {
-        const speakersHeaderEl = speakersSectionRef.current.querySelector(".speakers-header");
-        const speakerCardEls = speakersSectionRef.current.querySelectorAll(".speaker-card-item");
+        const speakersHeaderEl =
+          speakersSectionRef.current.querySelector(".speakers-header");
+        const speakerCardEls =
+          speakersSectionRef.current.querySelectorAll(".speaker-card-item");
 
         const speakersTl = gsap.timeline({
           scrollTrigger: {
@@ -504,6 +488,7 @@ export default function Home() {
         if (speakersHeaderEl) {
           speakersTl.fromTo(
             speakersHeaderEl,
+<<<<<<< HEAD
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
           );
@@ -527,7 +512,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative z-10 w-full text-white selection:bg-[#38BDF8] selection:text-[#020610]">
+    <div className="relative z-10 w-full overflow-x-clip text-white selection:bg-[#38BDF8] selection:text-[#020610]">
       <NauticalCartographyBg />
 
       {/* ============================================================ */}
@@ -537,9 +522,12 @@ export default function Home() {
         ref={heroSectionRef}
         className="relative min-h-screen w-full flex flex-col items-center justify-center px-4 pt-20 pb-12 text-center overflow-visible mx-auto"
       >
-        <div className="flex flex-col items-center justify-center max-w-4xl mx-auto overflow-visible my-auto">
+        <div className="relative flex flex-col items-center justify-center max-w-4xl mx-auto overflow-visible my-auto">
+          {/* Wide soft cloud behind the Renaissance logo */}
+          <div className="pointer-events-none absolute left-1/2 top-[36%] z-0 h-[240px] w-[96vw] max-w-[1450px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.88)_0%,rgba(255,255,255,0.70)_32%,rgba(255,255,255,0.38)_56%,rgba(255,255,255,0.14)_72%,rgba(255,255,255,0)_88%)] blur-[38px] sm:h-[285px] md:h-[330px]" />
+
           {/* Centered Transparent Emblem Logo */}
-          <div className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl mb-6 sm:mb-8 flex items-center justify-center overflow-visible">
+          <div className="relative z-10 w-full max-w-xl sm:max-w-2xl md:max-w-3xl mb-6 sm:mb-8 flex items-center justify-center overflow-visible">
             <img
               src="/renaissance-logo-clean.png"
               alt="Renaissance 10th Edition Emblem"
@@ -550,28 +538,33 @@ export default function Home() {
             />
           </div>
 
-          <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.32em] text-[#38BDF8]/90 mb-8 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+          <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.32em] text-[#0C5D75] mb-8 drop-shadow-[0_2px_10px_rgba(255,255,255,0.35)]">
             E-Cell MNNIT Allahabad • Annual Entrepreneurship Summit
           </p>
 
           {/* Action CTAs: Register Now + Explore Events */}
           <div className="overflow-visible flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full max-w-xs sm:max-w-none mx-auto">
-            <Link
-              to="/register"
-              className="group relative flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#d4af37] text-[#0C2B3D] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all duration-300 transform hover:scale-[1.03] overflow-visible cursor-pointer border border-[#d4af37]/60 w-full sm:w-auto"
+            <button
+              type="button"
+              aria-label="Register Now"
+              className="group relative flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#f3e5ab] via-[#d4af37] to-[#d4af37] text-[#0C2B3D] font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98] overflow-visible cursor-pointer border border-[#d4af37]/60 w-full sm:w-auto"
             >
               <UserCheck className="w-4 h-4 text-[#0C2B3D] overflow-visible" />
               <span>Register Now</span>
-            </Link>
+            </button>
 
             <a
               href="#events"
               onClick={(e) => {
                 e.preventDefault();
                 if (smoothScroll?.scrollTo && eventsSectionRef.current) {
-                  smoothScroll.scrollTo(eventsSectionRef.current, { duration: 1.2 });
+                  smoothScroll.scrollTo(eventsSectionRef.current, {
+                    duration: 1.2,
+                  });
                 } else {
-                  eventsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                  eventsSectionRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                  });
                 }
               }}
               className="group relative flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#38BDF8]/50 bg-[#031d33]/80 backdrop-blur-md text-[#CBD5E1] hover:text-white hover:border-[#38BDF8] hover:bg-[#042542]/90 transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.45)] overflow-visible cursor-pointer w-full sm:w-auto"
@@ -590,8 +583,10 @@ export default function Home() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#38BDF8]/70 text-xs font-mono overflow-visible">
-          <span className="tracking-widest uppercase text-[10px]">Scroll To Navigate</span>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/90 text-xs font-mono overflow-visible">
+          <span className="tracking-widest uppercase text-[10px]">
+            Scroll To Navigate
+          </span>
           <div className="w-4 h-7 border border-[#38BDF8]/40 rounded-full flex items-start justify-center p-1 overflow-visible">
             <div className="w-1.5 h-1.5 bg-[#38BDF8] rounded-full animate-bounce" />
           </div>
@@ -603,13 +598,12 @@ export default function Home() {
       {/* ============================================================ */}
       <section
         ref={aboutSectionRef}
-        className="relative min-h-[85vh] w-full flex flex-col items-center justify-center px-6 text-center z-10 bg-transparent pt-24 pb-8 sm:pt-32 sm:pb-12"
+        className="relative z-10 flex min-h-0 w-full flex-col items-center justify-center bg-transparent px-4 pb-14 pt-20 text-center sm:min-h-[85vh] sm:px-6 sm:pb-12 sm:pt-32"
       >
-
-        <div className="relative max-w-4xl mx-auto flex flex-col items-center justify-center text-center z-10 px-4">
-                                        <h2
+        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center justify-center px-0 text-center sm:px-4">
+          <h2
             ref={aboutTitleRef}
-            className="text-5xl sm:text-7xl md:text-8xl font-black mb-6 tracking-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)] z-10 font-sans animate-whitegold-shine"
+            className="z-10 mb-5 font-sans text-4xl font-black tracking-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)] animate-whitegold-shine sm:mb-6 sm:text-7xl md:text-8xl"
           >
             About Renaissance
           </h2>
@@ -618,7 +612,10 @@ export default function Home() {
             ref={aboutDescRef}
             className="text-base sm:text-xl text-[#f3e5ab] font-light leading-relaxed mb-10 max-w-3xl z-10 drop-shadow-[ 0_4px_10px_#000 ]"
           >
-            The Institution’s Innovation Council and Entrepreneurship Cell at MNNIT Allahabad present the 10th edition of Renaissance. The summit brings together students, founders, and leaders to foster entrepreneurship and innovation across diverse disciplines.
+            The Institution’s Innovation Council and Entrepreneurship Cell at
+            MNNIT Allahabad present the 10th edition of Renaissance. The summit
+            brings together students, founders, and leaders to foster
+            entrepreneurship and innovation across diverse disciplines.
           </p>
 
           {/* Summit Statistics Grid */}
@@ -639,7 +636,7 @@ export default function Home() {
               ref={statCard2Ref}
               className="flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl bg-[#040f21]/60 border border-[#d4af37]/30 backdrop-blur-md"
             >
-              <span className="text-xl sm:text-3xl font-extrabold font-mono text-[#d4af37] tracking-tight">
+              <span className="whitespace-nowrap text-[1.35rem] sm:text-2xl md:text-3xl font-extrabold font-mono text-[#d4af37] tracking-tight leading-none">
                 ₹2.5 Lakh+
               </span>
               <span className="text-[10px] sm:text-xs font-mono text-[#CBD5E1] uppercase tracking-wider font-semibold mt-1.5">
@@ -671,30 +668,21 @@ export default function Home() {
               </span>
             </div>
           </div>
-
-          
         </div>
       </section>
 
       {/* ============================================================ */}
-      {/* 3. CURRENT SPONSORS SECTION */}
-      <PremiumSponsorsGrid 
-        title="Current Sponsors" 
-        subtitle="Industry & Innovation Partners" 
-        sponsors={CURRENT_SPONSORS} 
-      />
-{/* 4. FEATURED EVENTS SECTION (SHORTENED PIN DISTANCE +=2200)   */}
+      {/* 3. FEATURED EVENTS SECTION                                  */}
       {/* ============================================================ */}
       <section
         id="events"
         ref={eventsSectionRef}
-        className="relative w-full min-h-screen sm:h-screen bg-transparent flex flex-col justify-between pt-28 sm:pt-32 pb-6 px-4 sm:px-12 overflow-visible select-none"
+        className="featured-events-section relative flex min-h-0 w-full flex-col justify-between overflow-visible bg-transparent px-3 pb-14 pt-20 select-none sm:px-6 md:min-h-[100svh] md:h-[100svh] md:px-12 md:pb-6 md:pt-32"
       >
-
         {/* Giant Rotating Nautical Wheel */}
         <div
           ref={wheelContainerRef}
-          className="absolute left-1/2 md:left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[65vh] h-[65vh] sm:w-[95vh] sm:h-[95vh] md:w-[110vh] md:h-[110vh] pointer-events-none z-0 md:z-10 flex items-center justify-center opacity-25 md:opacity-100 overflow-visible"
+          className="featured-events-wheel pointer-events-none absolute left-0 top-1/2 z-10 hidden h-[110vh] w-[110vh] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-100 md:flex"
         >
           <div className="absolute w-[68%] h-[68%] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
           <img
@@ -706,17 +694,16 @@ export default function Home() {
         </div>
 
         {/* Right Half Container: Events Header & Event Showcase */}
-        <div className="max-w-7xl w-full mx-auto flex flex-col items-end justify-center my-auto relative z-20">
-          <div className="w-full max-w-lg sm:max-w-xl ml-auto flex flex-col gap-3 sm:gap-4">
-
+        <div className="relative z-20 mx-auto my-auto flex w-full max-w-7xl flex-col items-stretch justify-center md:items-end">
+          <div className="flex w-full max-w-none flex-col gap-3 sm:gap-4 md:ml-auto md:max-w-xl">
             {/* Header */}
             <div
               ref={eventsHeaderRef}
-              className="w-full flex items-end justify-between pb-2 border-b border-white/10"
+              className="featured-events-header w-full flex items-end justify-between pb-2 border-b border-white/10"
             >
               <div>
-                <span className="text-[10px] sm:text-[11px] font-mono text-[#0284c7] uppercase tracking-[0.25em] font-extrabold flex items-center gap-1.5">
-                  <Compass className="w-3.5 h-3.5 text-[#0284c7]" />
+                <span className="text-[10px] sm:text-[11px] font-mono text-white uppercase tracking-[0.25em] font-extrabold flex items-center gap-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">
+                  <Compass className="w-3.5 h-3.5 text-white" />
                   <span>Summit Flagships</span>
                 </span>
                 <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] animate-whitegold-shine pb-2">
@@ -748,7 +735,7 @@ export default function Home() {
                         CHALLENGE {event.id} / 03
                       </span>
                     </div>
-                    
+
                     <div>
                       <h3 className="text-2xl sm:text-4xl font-extrabold font-sans tracking-tight mb-1">
                         {event.name}
@@ -762,11 +749,11 @@ export default function Home() {
                         Prize Pool: {event.prize}
                       </div>
                     </div>
-                    
-                    <p className="text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-y-auto max-h-[140px] pr-1">
+
+                    <p className="featured-events-description text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-y-auto max-h-[140px] pr-1">
                       {event.desc}
                     </p>
-                    
+
                     <div className="pt-3 mt-auto border-t border-[#0C2B3D]/10 flex flex-col sm:flex-row items-center justify-between gap-3 w-full">
                       <a
                         href={event.registrationUrl}
@@ -778,7 +765,10 @@ export default function Home() {
                         <span>Register on Unstop</span>
                         <ExternalLink className="w-3.5 h-3.5 text-[#38BDF8] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </a>
-                      <Link to="/events" className="text-xs font-bold uppercase tracking-widest cursor-pointer hover:opacity-70 transition-opacity">
+                      <Link
+                        to="/events"
+                        className="text-xs font-bold uppercase tracking-widest cursor-pointer hover:opacity-70 transition-opacity"
+                      >
                         View Schedule →
                       </Link>
                     </div>
@@ -786,7 +776,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
 
@@ -795,19 +784,11 @@ export default function Home() {
           ref={eventsFooterRef}
           className="max-w-7xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#64748B] relative z-20"
         >
-          
-          <span className="hidden sm:inline text-[#64748B]">10th Edition Summit</span>
+          <span className="hidden sm:inline text-[#64748B]">
+            10th Edition Summit
+          </span>
         </div>
       </section>
-
-      {/* ============================================================ */}
-      {/* 5. PAST SPONSORS SECTION */}
-      <StaggeredSponsorsGrid 
-        title="Past Sponsors" 
-        subtitle="Pioneers & Legacy Partners" 
-        sponsors={PAST_SPONSORS} 
-      />
-
 
       {/* ============================================================ */}
       {/* 6. KEYNOTE SPEAKERS SECTION (FULL SCREEN UNPINNED SCRUB GRID)*/}
@@ -817,7 +798,20 @@ export default function Home() {
       <FeaturedSpeakersGrid speakers={SPEAKERS} />
 
       {/* ============================================================ */}
-      {/* 7. GLOBAL SUMMIT FOOTER                                      */}
+      {/* 7. SPONSORS SECTION                                          */}
+      <PremiumSponsorsGrid
+        title="Current Sponsors"
+        subtitle="Industry & Innovation Partners"
+        sponsors={CURRENT_SPONSORS}
+      />
+      <StaggeredSponsorsGrid
+        title="Past Sponsors"
+        subtitle="Pioneers & Legacy Partners"
+        sponsors={PAST_SPONSORS}
+      />
+
+      {/* ============================================================ */}
+      {/* 8. GLOBAL SUMMIT FOOTER                                      */}
       {/* ============================================================ */}
       <ContactFooter />
     </div>

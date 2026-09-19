@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FiMenu, FiX, FiArrowUpRight } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 import {
   Compass,
   Anchor,
@@ -40,7 +40,7 @@ export default function Navbar() {
       icon: Calendar,
     },
     {
-      name: "Teams",
+      name: "Our Team",
       path: "/teams",
       icon: Users,
     },
@@ -110,7 +110,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="absolute left-1/2 -translate-x-1/2 hidden items-center gap-4 rounded-full border border-white/15 bg-[#030d1c]/80 px-5 py-2 font-light text-xs tracking-widest shadow-[0_4px_24px_rgba(0,0,0,0.6)] backdrop-blur-xl md:flex">
+          <div className="absolute left-1/2 -translate-x-1/2 hidden items-center gap-4 rounded-full border border-white/80 bg-[#ECF6F5]/88 px-5 py-2 font-light text-xs tracking-widest shadow-[0_4px_24px_rgba(0,0,0,0.6)] backdrop-blur-xl md:flex">
             {navLinks.map((link) => {
               const current = isActive(link.path);
               const Icon = link.icon;
@@ -121,15 +121,15 @@ export default function Navbar() {
                   to={link.path}
                   className={`inline-flex cursor-pointer items-center gap-1.5 transition-all duration-300 ${
                     current
-                      ? "rounded-full border border-[#d4af37]/60 bg-[#d4af37]/25 px-3.5 py-1 font-extrabold text-[#f3e5ab] shadow-[0_0_16px_rgba(212,175,55,0.4)] drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]"
-                      : "px-2 py-1 font-semibold text-[#94A3B8] hover:text-[#F8FAFC]"
+                      ? "rounded-full border border-[#C5A25F]/70 bg-[#F4EBD9]/95 px-3.5 py-1 font-extrabold text-[#0C2B3D] shadow-[0_4px_14px_rgba(197,162,95,0.24)]"
+                      : "px-2 py-1 font-semibold text-[#416678] hover:text-[#0C2B3D]"
                   }`}
                 >
                   <Icon
                     className={`h-3.5 w-3.5 ${
                       current
-                        ? "text-[#d4af37]"
-                        : "opacity-90"
+                        ? "text-[#9E6D1F]"
+                        : "text-[#527486] opacity-90"
                     }`}
                     strokeWidth={1.8}
                   />
@@ -157,12 +157,12 @@ export default function Navbar() {
                 : "Open navigation menu"
             }
             aria-expanded={isOpen}
-            className="relative z-50 rounded-xl border border-[#d4af37]/40 bg-[#040f21]/80 p-2.5 text-[#f3e5ab] shadow-[0_0_15px_rgba(212,175,55,0.15)] transition-all hover:text-[#d4af37] active:scale-95 md:hidden"
+            className="relative z-50 rounded-xl border border-white/80 bg-[#ECF6F5]/90 p-2.5 text-[#0C2B3D] shadow-[0_6px_20px_rgba(12,43,61,0.18)] backdrop-blur-xl transition-all hover:text-[#9E6D1F] active:scale-95 md:hidden"
           >
             {isOpen ? (
               <FiX
                 size={22}
-                className="text-[#d4af37]"
+                className="text-[#9E6D1F]"
               />
             ) : (
               <FiMenu size={22} />
@@ -179,19 +179,19 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 flex flex-col justify-between overflow-y-auto bg-[#020610]/95 p-6 pb-8 pt-24 backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-40 flex min-h-[100dvh] flex-col justify-between overflow-y-auto overscroll-contain bg-[#E7F2F2]/96 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(5.5rem,env(safe-area-inset-top))] backdrop-blur-2xl sm:px-6 md:hidden"
           >
             {/* Gold Ambient Glow */}
-            <div className="pointer-events-none absolute left-1/2 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full bg-[#d4af37]/10 blur-[90px]" />
+            <div className="pointer-events-none absolute left-1/2 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full bg-[#38BDF8]/12 blur-[90px]" />
 
             <div className="relative z-10 my-auto w-full max-w-sm mx-auto space-y-6">
               {/* Mobile Menu Heading */}
               <div className="mb-6 text-center">
-                <span className="mb-1 block font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-[#d4af37]">
+                <span className="mb-1 block font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-[#9E6D1F]">
                   Renaissance X Edition
                 </span>
 
-                <h2 className="text-xl font-bold tracking-tight text-white">
+                <h2 className="text-xl font-bold tracking-tight text-[#0C2B3D]">
                   Expedition Navigation
                 </h2>
               </div>
@@ -226,16 +226,16 @@ export default function Navbar() {
                         }
                         className={`flex w-full items-center justify-between rounded-2xl border px-5 py-3.5 font-mono text-xs uppercase tracking-wider transition-all duration-300 ${
                           current
-                            ? "border-[#d4af37]/60 bg-gradient-to-r from-[#d4af37]/30 via-[#d4af37]/15 to-transparent font-bold text-[#f3e5ab] shadow-[0_0_20px_rgba(212,175,55,0.25)]"
-                            : "border-white/10 bg-[#040f21]/60 text-[#94A3B8] hover:border-white/20 hover:text-white"
+                            ? "border-[#C5A25F]/70 bg-[#F4EBD9]/92 font-bold text-[#0C2B3D] shadow-[0_8px_22px_rgba(197,162,95,0.16)]"
+                            : "border-[#7FB6C7]/30 bg-white/45 text-[#416678] hover:border-[#7FB6C7]/55 hover:bg-white/65 hover:text-[#0C2B3D]"
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <div
                             className={`rounded-lg p-1.5 ${
                               current
-                                ? "bg-[#d4af37] text-[#0C2B3D]"
-                                : "bg-white/5 text-[#94A3B8]"
+                                ? "bg-[#C5A25F] text-[#0C2B3D]"
+                                : "bg-[#D7EBEE] text-[#527486]"
                             }`}
                           >
                             <Icon
@@ -250,7 +250,7 @@ export default function Navbar() {
                         </div>
 
                         {current && (
-                          <span className="h-2 w-2 rounded-full bg-[#d4af37] shadow-[0_0_8px_#d4af37]" />
+                          <span className="h-2 w-2 rounded-full bg-[#C5A25F] shadow-[0_0_8px_rgba(197,162,95,0.8)]" />
                         )}
                       </Link>
                     </motion.div>
@@ -279,8 +279,8 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Footer */}
-            <div className="relative z-10 mx-auto w-full max-w-sm border-t border-white/10 pt-4 text-center">
-              <p className="font-mono text-[10px] uppercase tracking-widest text-[#94A3B8]">
+            <div className="relative z-10 mx-auto w-full max-w-sm border-t border-[#0C2B3D]/10 pt-4 text-center">
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[#527486]">
                 E-CELL MNNIT • ALL RIGHTS RESERVED
               </p>
             </div>

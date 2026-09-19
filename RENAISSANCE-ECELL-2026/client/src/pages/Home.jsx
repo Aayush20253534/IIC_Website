@@ -49,6 +49,33 @@ const EVENTS = [
     registrationUrl:
       "https://unstop.com/competitions/biz-wars-renaissance-100-motilal-nehru-national-institute-of-technology-1756444?lb=useYavQm&utm_medium=Share&utm_source=competitions&utm_campaign=Divyaver74529",
   },
+  {
+    id: "04",
+    name: "Biz-Tech Quiz",
+    category: "Business & Technology Quiz",
+    tagline: "Put your business acumen and tech knowledge to the test!",
+    desc: "Biz-Tech Quiz, conducted by the Gnosis Quiz Club, brings together intriguing questions at the intersection of business, technology, startups, and innovation.",
+    prize: "TBD",
+    registrationUrl: null,
+  },
+  {
+    id: "05",
+    name: "Treasure Hunt",
+    category: "Campus Adventure",
+    tagline: "Get ready for an exciting adventure across the MNNIT campus!",
+    desc: "Treasure Hunt challenges participants to crack clues, explore hidden corners, and race against time to uncover the treasure, with exciting prizes and goodies waiting at the finish line.",
+    prize: "Prizes & Goodies",
+    registrationUrl: null,
+  },
+  {
+    id: "06",
+    name: "Mock IPL Auction",
+    category: "Strategy & Auction",
+    tagline: "Step into the shoes of an IPL franchise owner!",
+    desc: "In this Mock IPL Auction, participants receive a limited pool of tokens and compete to build their dream teams by strategically bidding on players, balancing budgets, and making every bid count.",
+    prize: "TBD",
+    registrationUrl: null,
+  },
 ];
 
 const CURRENT_SPONSORS = [

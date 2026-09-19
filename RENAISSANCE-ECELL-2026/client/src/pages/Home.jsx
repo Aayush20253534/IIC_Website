@@ -724,11 +724,7 @@ export default function Home() {
         {/* Giant Rotating Nautical Wheel */}
         <div
           ref={wheelContainerRef}
-          className="featured-events-wheel pointer-events-none absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-45 md:left-0 md:opacity-100 aspect-square"
-          style={{
-            width: "calc(100svh - 8px)",
-            height: "calc(100svh - 8px)",
-          }}
+          className="featured-events-wheel pointer-events-none absolute left-1/2 top-1/2 z-10 flex h-[120vw] w-[120vw] max-h-[520px] max-w-[520px] sm:h-[110vw] sm:w-[110vw] sm:max-h-[560px] sm:max-w-[560px] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-45 md:left-0 md:h-[calc(100svh-8px)] md:w-[calc(100svh-8px)] md:max-h-[calc(100svh-8px)] md:max-w-[calc(100svh-8px)] md:opacity-100 aspect-square"
         >
           <div className="absolute w-[88%] h-[88%] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.22)_0%,rgba(56,189,248,0.18)_38%,rgba(4,16,33,0.55)_65%,transparent_80%)] blur-2xl pointer-events-none" />
           <img

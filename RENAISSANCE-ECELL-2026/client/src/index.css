@@ -1869,17 +1869,19 @@ body,
   }
 }
 
-/* Nautical Wheel: perfectly sized so outer spoke handles almost touch screen edges on every aspect ratio */
-.featured-events-wheel {
-  width: calc(100vh - 8px) !important;
-  width: calc(100svh - 8px) !important;
-  height: calc(100vh - 8px) !important;
-  height: calc(100svh - 8px) !important;
-  max-width: calc(100vh - 8px) !important;
-  max-width: calc(100svh - 8px) !important;
-  max-height: calc(100vh - 8px) !important;
-  max-height: calc(100svh - 8px) !important;
-  aspect-ratio: 1 / 1 !important;
+/* Nautical Wheel on Desktop: perfectly sized so outer spoke handles almost touch screen edges */
+@media (min-width: 768px) {
+  .featured-events-wheel {
+    width: calc(100vh - 8px) !important;
+    width: calc(100svh - 8px) !important;
+    height: calc(100vh - 8px) !important;
+    height: calc(100svh - 8px) !important;
+    max-width: calc(100vh - 8px) !important;
+    max-width: calc(100svh - 8px) !important;
+    max-height: calc(100vh - 8px) !important;
+    max-height: calc(100svh - 8px) !important;
+    aspect-ratio: 1 / 1 !important;
+  }
 }
 
 /* Short laptop screens: keep the full pinned Featured Events card visible. */

@@ -114,28 +114,25 @@ function FeaturedSpeakersGrid({ speakers }) {
   }, [speakers]);
 
   return (
-    <section className="relative min-h-screen w-full bg-transparent flex flex-col items-center justify-center px-6 sm:px-12 pt-24 sm:pt-36 pb-48 sm:pb-64 overflow-hidden select-none z-20">
-      {/* Heavy Marine Mist Overlay */}
-
+    <section className="relative w-full bg-transparent flex flex-col items-center justify-center px-4 sm:px-12 pt-20 sm:pt-32 pb-20 sm:pb-32 overflow-hidden select-none z-20">
       <div className="max-w-6xl w-full mx-auto flex flex-col items-center justify-center relative z-10 my-auto">
-        <div className="speakers-header text-center mb-16 sm:mb-24">
-          <span className="text-[13px] sm:text-[14px] text-[#E6DFD3] font-black uppercase tracking-[0.3em] block mb-4 opacity-100">
+        <div className="speakers-header text-center mb-12 sm:mb-20">
+          <span className="text-[11px] sm:text-[13px] text-[#E6DFD3] font-black uppercase tracking-[0.3em] block mb-3 opacity-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             Eminent Voyagers
           </span>
-          <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] animate-deepsea-shine pb-2">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-[0_4px_24px_rgba(2,6,16,0.95)] drop-shadow-[0_2px_8px_rgba(2,6,16,0.9)] animate-deepsea-shine pb-2">
             Featured Keynote Speakers
           </h2>
         </div>
 
         <div ref={gridRef} className="w-full flex items-center justify-center">
-          <div className="speaker-card relative flex w-full max-w-3xl translate-y-[30px] items-center justify-center px-4 py-8 opacity-0 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] sm:px-8 sm:py-12">
-            <p className="max-w-3xl text-center font-cinzel text-2xl font-semibold tracking-tight text-[#F4EBD9] drop-shadow-[0_4px_18px_rgba(0,0,0,0.55)] sm:text-4xl lg:text-5xl">
+          <div className="speaker-card relative flex w-full max-w-2xl translate-y-[20px] items-center justify-center px-6 py-10 sm:px-12 sm:py-14 bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl opacity-0 shadow-[0_15px_35px_rgba(0,0,0,0.5)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+            <span className="text-[#E6DFD3] font-mono text-lg sm:text-2xl lg:text-3xl font-extrabold tracking-[0.14em] text-center uppercase opacity-90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
               To be announced soon...
-            </p>
+            </span>
           </div>
         </div>
       </div>
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-[#020610] pointer-events-none z-10" />
     </section>
   );
 }
@@ -184,24 +181,31 @@ function PremiumSponsorsGrid({ title, subtitle, sponsors }) {
   }, [sponsors]);
 
   return (
-    <section className="relative w-full pt-32 pb-32 px-4 bg-gradient-to-b from-[#020610]/0 via-[#020610]/30 to-[#020610]/0 flex flex-col items-center justify-center z-20 select-none">
-      <div className="max-w-7xl mx-auto px-6 mb-12 text-center relative z-10">
-        <span className="text-[10px] sm:text-xs font-mono text-[#E6DFD3] uppercase tracking-[0.25em] font-bold block mb-2">
+    <section className="relative w-full pt-16 pb-20 sm:pt-24 sm:pb-28 px-4 bg-transparent flex flex-col items-center justify-center z-20 select-none">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 sm:mb-12 text-center relative z-10">
+        <span className="text-[10px] sm:text-xs font-mono text-[#E6DFD3] uppercase tracking-[0.25em] font-bold block mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
           {subtitle}
         </span>
 
-        <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight animate-whitegold-shine">
+        <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight animate-whitegold-shine drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
           {title}
         </h2>
       </div>
 
-      <div
+      <div 
         ref={gridRef}
-        className="mx-auto flex w-full max-w-3xl items-center justify-center px-4 py-4"
+        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 w-full max-w-[1200px] mx-auto"
       >
-        <p className="premium-sponsor-item translate-y-[20px] text-center font-cinzel text-2xl font-semibold tracking-tight text-[#F4EBD9] opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] sm:text-4xl lg:text-5xl">
-          To be announced soon...
-        </p>
+        {sponsors.map((sponsor, idx) => (
+          <div
+            key={idx}
+            className="premium-sponsor-item aspect-video flex items-center justify-center bg-white/5 border border-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-5 opacity-0 translate-y-[20px] scale-90 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-[0_8px_25px_rgba(0,0,0,0.3)]"
+          >
+            <span className="text-[#E6DFD3] font-mono text-[11px] sm:text-sm font-bold tracking-wider text-center uppercase opacity-85">
+              To be announced soon...
+            </span>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -464,9 +468,6 @@ export default function Home() {
           const visualEl = visualsRef.current[idx];
           const detailsEl = detailsRef.current[idx];
           if (visualEl) gsap.set(visualEl, { opacity: 1, y: 0, scale: 1, pointerEvents: "auto" });
-          if (detailsEl) gsap.set(detailsEl, { opacity: 1, y: 0, pointerEvents: "auto" });
-        });
-      });
         });
       });
 
@@ -488,7 +489,6 @@ export default function Home() {
         if (speakersHeaderEl) {
           speakersTl.fromTo(
             speakersHeaderEl,
-<<<<<<< HEAD
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
           );
@@ -682,9 +682,9 @@ export default function Home() {
         {/* Giant Rotating Nautical Wheel */}
         <div
           ref={wheelContainerRef}
-          className="featured-events-wheel pointer-events-none absolute left-0 top-1/2 z-10 hidden h-[110vh] w-[110vh] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-100 md:flex"
+          className="featured-events-wheel pointer-events-none absolute left-0 top-1/2 z-10 hidden h-[135vh] w-[135vh] lg:h-[145vh] lg:w-[145vh] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-visible opacity-100 md:flex"
         >
-          <div className="absolute w-[68%] h-[68%] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
+          <div className="absolute w-[75%] h-[75%] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18)_0%,rgba(217,119,6,0.08)_35%,rgba(56,189,248,0.08)_60%,transparent_75%)] blur-2xl pointer-events-none" />
           <img
             ref={wheelImgRef}
             src="/pirate-wheel-transparent.png"
@@ -725,7 +725,7 @@ export default function Home() {
                       visualsRef.current[idx] = el;
                       detailsRef.current[idx] = el;
                     }}
-                    className="w-full p-5 sm:p-7 rounded-3xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
+                    className="w-full p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-[#d4af37]/60 bg-[#F4EBD9]/95 text-[#0C2B3D] backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.5)] flex flex-col gap-3 overflow-hidden will-change-transform pointer-events-auto shrink-0"
                   >
                     <div className="flex items-center justify-between w-full pb-2 border-b border-[#0C2B3D]/10">
                       <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest uppercase opacity-70">
@@ -737,7 +737,7 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <h3 className="text-2xl sm:text-4xl font-extrabold font-sans tracking-tight mb-1">
+                      <h3 className="text-xl sm:text-3xl md:text-4xl font-extrabold font-sans tracking-tight mb-1">
                         {event.name}
                       </h3>
                       {event.tagline && (
@@ -750,7 +750,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <p className="featured-events-description text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-y-auto max-h-[140px] pr-1">
+                    <p className="featured-events-description text-xs sm:text-sm font-mono leading-relaxed opacity-90 text-[#0C2B3D] whitespace-pre-line overflow-y-auto max-h-[140px] sm:max-h-[160px] pr-1">
                       {event.desc}
                     </p>
 
@@ -759,7 +759,7 @@ export default function Home() {
                         href={event.registrationUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full sm:w-auto px-7 py-3 rounded-full bg-[#1C4ED8] hover:bg-[#1E40AF] text-white font-bold text-xs tracking-wider uppercase shadow-[0_4px_16px_rgba(28,78,216,0.35)] hover:shadow-[0_6px_22px_rgba(28,78,216,0.55)] hover:scale-[1.03] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                        className="w-full sm:w-auto px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#1C4ED8] hover:bg-[#1E40AF] text-white font-bold text-xs tracking-wider uppercase shadow-[0_4px_16px_rgba(28,78,216,0.35)] hover:shadow-[0_6px_22px_rgba(28,78,216,0.55)] hover:scale-[1.03] transition-all flex items-center justify-center gap-2 group cursor-pointer"
                       >
                         <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
                         <span>Register on Unstop</span>

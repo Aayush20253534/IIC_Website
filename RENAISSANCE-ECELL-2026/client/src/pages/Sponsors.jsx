@@ -446,23 +446,9 @@ export default function Sponsors({ embedded = false }) {
                 <div className="pointer-events-none absolute left-4 top-4 h-6 w-6 border-l border-t border-[#9E6D1F]/55" />
                 <div className="pointer-events-none absolute bottom-4 right-4 h-6 w-6 border-b border-r border-[#9E6D1F]/55" />
 
-                <img
-                  src={presentingSponsor.image}
-                  alt={presentingSponsor.name}
-                  className="
-                    relative
-                    z-10
-                    max-h-44
-                    max-w-[82%]
-                    scale-[1.35]
-                    object-contain
-                    mix-blend-multiply
-                    drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]
-                    transition-transform
-                    duration-500
-                    group-hover:scale-[1.45]
-                  "
-                />
+                <span className="relative z-10 font-mono text-sm sm:text-base font-bold text-[#0C2B3D]/80 uppercase tracking-widest text-center px-4">
+                  To be announced soon...
+                </span>
                 
                 {/* Vintage Globe Sticker Accent */}
                 <img src="/card-decor-globe.png" alt="" className="absolute -bottom-8 -right-6 w-28 sm:w-36 opacity-[0.75] mix-blend-multiply drop-shadow-xl z-20 pointer-events-none group-hover:rotate-6 transition-transform duration-500" />
@@ -490,24 +476,20 @@ export default function Sponsors({ embedded = false }) {
                 <h3
                   className="
                     font-cinzel
-                    text-3xl
+                    text-2xl
                     font-bold
                     uppercase
                     tracking-wide
                     text-[#0C2B3D]
-                    sm:text-4xl
+                    sm:text-3xl
                   "
                 >
-                  {presentingSponsor.name}
+                  To be announced soon...
                 </h3>
-
-                <span className="mt-2 inline-block rounded-full border border-[#C5A25F]/50 bg-[#E8D7C2] px-4 py-1 font-mono text-[10px] font-bold text-[#14556C]">
-                  {presentingSponsor.category}
-                </span>
 
                 <p
                   className="
-                    mt-5
+                    mt-4
                     max-w-xl
                     font-montserrat
                     text-sm
@@ -517,8 +499,7 @@ export default function Sponsors({ embedded = false }) {
                     mx-auto
                   "
                 >
-                  {presentingSponsor.description ||
-                    "Our flagship partner in this journey of ideas, collaboration, innovation and maritime discovery. Archiving uncharted archipelagos and powering Renaissance 2026."}
+                  Our official presenting partner for Renaissance 2026 will be announced soon.
                 </p>
 
                 <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
@@ -836,12 +817,9 @@ function SponsorCard({ sponsor, size = "medium" }) {
 
         {/* Central Content Area */}
         <div className="relative flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-[1.05] z-10">
-          <img
-            src={sponsor.image}
-            alt={sponsor.name}
-            loading="lazy"
-            className="max-h-full max-w-[85%] scale-[1.35] object-contain mix-blend-multiply drop-shadow-[0_4px_10px_rgba(20,55,70,0.15)]"
-          />
+          <span className="font-mono text-xs sm:text-sm font-bold text-[#0C2B3D]/80 uppercase tracking-wider text-center px-3">
+            To be announced soon...
+          </span>
 
           {/* Vintage Watch Accent for Sponsor Cards */}
           <img src="/card-decor-watch.png" alt="" className="absolute -bottom-5 -right-5 w-20 sm:w-28 opacity-[0.65] mix-blend-multiply drop-shadow-lg z-20 pointer-events-none group-hover:-rotate-12 transition-transform duration-500" />
@@ -849,8 +827,8 @@ function SponsorCard({ sponsor, size = "medium" }) {
       </article>
 
       {/* Sponsor Name Below Card */}
-      <h3 className="mt-6 font-cinzel text-xl sm:text-2xl font-bold text-[#0C2B3D] tracking-wider text-center transition-colors duration-300 group-hover:text-[#9E6D1F]">
-        {sponsor.name}
+      <h3 className="mt-4 font-cinzel text-sm sm:text-base font-bold text-[#0C2B3D] tracking-wider text-center opacity-75">
+        To be announced soon...
       </h3>
     </div>
   );

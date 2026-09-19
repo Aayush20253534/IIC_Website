@@ -323,14 +323,14 @@ export default function Home() {
 
     const ctx = gsap.context(() => {
       // -------------------------------------------------------------
-      // Section 2: About Renaissance (Shorter Pinned Parallax Timeline +=1500)
+      // Section 2: About Renaissance (compact pinned parallax timeline)
       // -------------------------------------------------------------
       if (aboutSectionRef.current && isDesktopViewport) {
         const aboutTl = gsap.timeline({
           scrollTrigger: {
             trigger: aboutSectionRef.current,
             start: "top top",
-            end: "+=1500",
+            end: "+=900",
             pin: true,
             scrub: 0.8,
           },
@@ -417,7 +417,7 @@ export default function Home() {
       }
 
       // -------------------------------------------------------------
-      // Section 4: Featured Events (Unified Pinned Parallax Timeline +=3000)
+      // Section 4: Featured Events (compact unified pinned parallax timeline)
       // -------------------------------------------------------------
       if (eventsSectionRef.current && isDesktopViewport) {
         if (wheelImgRef.current) {
@@ -428,7 +428,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: eventsSectionRef.current,
             start: "top top",
-            end: "+=1800",
+            end: "+=1200",
             pin: true,
             anticipatePin: 1,
             pinSpacing: true,
@@ -718,13 +718,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* 3. CURRENT SPONSORS SECTION */}
-      <PremiumSponsorsGrid
-        title="Current Sponsors"
-        subtitle="Industry & Innovation Partners"
-        sponsors={CURRENT_SPONSORS}
-      />
-      {/* 4. FEATURED EVENTS SECTION (SHORTENED PIN DISTANCE +=2200)   */}
+      {/* 3. FEATURED EVENTS SECTION                                  */}
       {/* ============================================================ */}
       <section
         id="events"
@@ -843,14 +837,6 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* 5. PAST SPONSORS SECTION */}
-      <StaggeredSponsorsGrid
-        title="Past Sponsors"
-        subtitle="Pioneers & Legacy Partners"
-        sponsors={PAST_SPONSORS}
-      />
-
-      {/* ============================================================ */}
       {/* 6. KEYNOTE SPEAKERS SECTION (FULL SCREEN UNPINNED SCRUB GRID)*/}
       {/* ============================================================ */}
       {/* ============================================================ */}
@@ -858,7 +844,20 @@ export default function Home() {
       <FeaturedSpeakersGrid speakers={SPEAKERS} />
 
       {/* ============================================================ */}
-      {/* 7. GLOBAL SUMMIT FOOTER                                      */}
+      {/* 7. SPONSORS SECTION                                          */}
+      <PremiumSponsorsGrid
+        title="Current Sponsors"
+        subtitle="Industry & Innovation Partners"
+        sponsors={CURRENT_SPONSORS}
+      />
+      <StaggeredSponsorsGrid
+        title="Past Sponsors"
+        subtitle="Pioneers & Legacy Partners"
+        sponsors={PAST_SPONSORS}
+      />
+
+      {/* ============================================================ */}
+      {/* 8. GLOBAL SUMMIT FOOTER                                      */}
       {/* ============================================================ */}
       <ContactFooter />
     </div>

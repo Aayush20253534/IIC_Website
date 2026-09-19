@@ -231,6 +231,7 @@ export default function Sponsors({ embedded = false }) {
         </section>
       )}
 
+
       {/* ============================================================
           PRESENTING PARTNER (Sandy-Oceanic Sovereign Vault)
       ============================================================ */}
@@ -423,6 +424,7 @@ export default function Sponsors({ embedded = false }) {
           </div>
         </section>
       )}
+
 
       {/* ============================================================
           FOOTER (Matching Warm Beach Sand Tone)

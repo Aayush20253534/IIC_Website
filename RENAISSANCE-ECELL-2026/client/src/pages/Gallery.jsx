@@ -172,7 +172,7 @@ export default function Gallery() {
                     <img 
                       src={speaker.img} 
                       alt={speaker.name} 
-                      className={`w-full h-full object-cover ${speaker.objectPosition || 'object-center'} filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]`} 
+                      className={`w-full h-full object-cover ${speaker.objectPosition || 'object-center'} filter lg:grayscale lg:contrast-125 lg:brightness-90 lg:group-hover:grayscale-0 lg:group-hover:contrast-100 lg:group-hover:brightness-100 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]`} 
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-[#C5A25F]/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

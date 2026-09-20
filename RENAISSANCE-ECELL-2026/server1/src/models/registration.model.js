@@ -259,6 +259,13 @@ registrationSchema.index(
   },
 );
 registrationSchema.index(
+  { ambassadorId: 1, status: 1, createdAt: -1 },
+  {
+    name: "idx_registration_ambassador_status_created_at",
+    partialFilterExpression: { ambassadorId: { $type: "objectId" } },
+  },
+);
+registrationSchema.index(
   { promoCodeId: 1, createdAt: -1 },
   {
     name: "idx_registration_promo_created_at",

@@ -125,3 +125,21 @@ AUTH_COOKIE_SECURE=true
 ```
 
 `AUTH_COOKIE_SECURE` is forced on whenever `NODE_ENV=production`. Keep the frontend origin explicitly listed in `CLIENT_ORIGIN`.
+
+## Part 4 ambassador portal APIs
+
+Authenticated ambassadors who have completed their required first password change can now use the real dashboard APIs:
+
+- `GET /api/v1/ambassador/dashboard` returns ambassador profile data, the primary promo code, task counts and referral counts.
+- `GET /api/v1/ambassador/promo-code` returns the ambassador's primary promo code and its effective availability state.
+- `GET /api/v1/ambassador/tasks?page=1&limit=20&status=ASSIGNED` lists only tasks owned by the authenticated ambassador.
+- `GET /api/v1/ambassador/tasks/:taskId` reads one owned task.
+- `PATCH /api/v1/ambassador/tasks/:taskId/status` updates task progress without allowing completed tasks to be reopened by an ambassador.
+- `PATCH /api/v1/ambassador/tasks/:taskId/remarks` updates remarks and/or completion details.
+- `GET /api/v1/ambassador/referrals?page=1&limit=20&status=VERIFIED` returns referral statistics and a privacy-limited registration list.
+
+Task statuses follow `ASSIGNED -> IN_PROGRESS -> COMPLETED`. An ambassador may also complete an assigned task directly. Completed tasks cannot be moved backwards through ambassador APIs; future Admin APIs can own exceptional corrections.
+
+Referral responses intentionally exclude participant email, phone number, transaction IDs, payment screenshots and payment verification information. Attribution is scoped by the authenticated ambassador's MongoDB ID instead of trusting a promo code or ambassador ID supplied by the client.
+
+All portal routes require a valid ambassador access token and reject access while `mustChangePassword` remains true. State-changing task routes additionally require an allowed frontend origin.

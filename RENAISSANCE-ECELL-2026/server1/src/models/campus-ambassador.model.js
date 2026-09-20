@@ -62,6 +62,17 @@ const campusAmbassadorSchema = new Schema(
       default: true,
       required: true,
     },
+    authVersion: {
+      type: Number,
+      min: 0,
+      default: 0,
+      required: true,
+      select: false,
+    },
+    passwordChangedAt: {
+      type: Date,
+      default: null,
+    },
     lastLoginAt: {
       type: Date,
       default: null,
@@ -102,6 +113,7 @@ campusAmbassadorSchema.index(
 campusAmbassadorSchema.set("toJSON", {
   transform(_doc, ret) {
     delete ret.passwordHash;
+    delete ret.authVersion;
     return ret;
   },
 });

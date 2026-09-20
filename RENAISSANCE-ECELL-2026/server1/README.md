@@ -92,3 +92,36 @@ The service now includes MongoDB models for the campus ambassador workflow:
 Critical identifiers use MongoDB unique indexes. Registration money values are stored in paise as integers rather than floating-point currency values. Promo attribution stores the promo code, promo document reference and ambassador reference together so historical referral ownership remains intact.
 
 Indexes are created explicitly after MongoDB connects; Mongoose automatic indexing is disabled for the connection to keep index management predictable.
+
+## Part 3 ambassador authentication
+
+Campus Ambassador authentication is now handled by the backend with Argon2id password hashing, short-lived access JWTs, rotating refresh JWTs and HTTP-only cookies.
+
+Endpoints:
+
+- `POST /api/v1/ambassador/auth/login`
+- `POST /api/v1/ambassador/auth/refresh`
+- `POST /api/v1/ambassador/auth/logout`
+- `GET /api/v1/ambassador/auth/me`
+- `POST /api/v1/ambassador/auth/change-password`
+
+Access and refresh cookies are HTTP-only. Refresh sessions are stored as SHA-256 token hashes in MongoDB, rotate on refresh, expire through a MongoDB TTL index and are revoked after a password change. Access tokens may also be supplied as `Authorization: Bearer <token>` for non-browser clients.
+
+New ambassadors default to `mustChangePassword: true`. Changing the password increments the account authentication version, revokes previous refresh sessions and issues a fresh authenticated session.
+
+Until the Admin API exists, a first ambassador can be created from the command line without storing a plaintext password:
+
+```bash
+npm run ambassador:create -- --id=CA-RNX-0001 --name="Campus Captain" --email=captain@example.com --college="MNNIT Allahabad"
+```
+
+The command generates a strong temporary password and prints it once. The ambassador must change it after logging in.
+
+For a frontend and API hosted on different sites (for example Vercel + Render), production cookies generally require:
+
+```env
+AUTH_COOKIE_SAME_SITE=none
+AUTH_COOKIE_SECURE=true
+```
+
+`AUTH_COOKIE_SECURE` is forced on whenever `NODE_ENV=production`. Keep the frontend origin explicitly listed in `CLIENT_ORIGIN`.

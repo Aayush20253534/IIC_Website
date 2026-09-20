@@ -10,7 +10,7 @@ process.env.JWT_REFRESH_SECRET = "test-refresh-secret-that-is-at-least-32-charac
 
 const [
   { AMBASSADOR_STATUS, DISCOUNT_TYPE, REGISTRATION_STATUS, TASK_STATUS },
-  { CampusAmbassador, PromoCode, Registration, Task },
+  { AuthSession, CampusAmbassador, PromoCode, Registration, Task },
 ] = await Promise.all([
   import("../src/constants/domain.js"),
   import("../src/models/index.js"),
@@ -115,6 +115,7 @@ test("Registration rejects inconsistent backend-calculated amounts", async () =>
 
 test("critical database identifiers have unique indexes", () => {
   const indexes = {
+    authSessions: AuthSession.schema.indexes(),
     ambassadors: CampusAmbassador.schema.indexes(),
     promos: PromoCode.schema.indexes(),
     tasks: Task.schema.indexes(),
@@ -124,6 +125,7 @@ test("critical database identifiers have unique indexes", () => {
   const hasUniqueIndex = (entries, field) =>
     entries.some(([definition, options]) => definition[field] === 1 && options.unique === true);
 
+  assert.equal(hasUniqueIndex(indexes.authSessions, "sessionId"), true);
   assert.equal(hasUniqueIndex(indexes.ambassadors, "ambassadorId"), true);
   assert.equal(hasUniqueIndex(indexes.ambassadors, "email"), true);
   assert.equal(hasUniqueIndex(indexes.promos, "code"), true);
@@ -131,4 +133,20 @@ test("critical database identifiers have unique indexes", () => {
   assert.equal(hasUniqueIndex(indexes.registrations, "registrationId"), true);
   assert.equal(hasUniqueIndex(indexes.registrations, "transactionId"), true);
   assert.equal(hasUniqueIndex(indexes.registrations, "ticketId"), true);
+});
+
+
+test("CampusAmbassador authVersion defaults to zero and remains private in JSON", async () => {
+  const ambassador = new CampusAmbassador({
+    ambassadorId: "CA-RNX-0002",
+    name: "Second Captain",
+    email: "second@example.com",
+    college: "MNNIT Allahabad",
+    passwordHash: "argon2id-hash-placeholder",
+  });
+
+  await ambassador.validate();
+  assert.equal(ambassador.authVersion, 0);
+  assert.equal(Object.hasOwn(ambassador.toJSON(), "authVersion"), false);
+  assert.equal(Object.hasOwn(ambassador.toJSON(), "passwordHash"), false);
 });

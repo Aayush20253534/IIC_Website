@@ -8,6 +8,7 @@ import { errorHandler } from "./middleware/error-handler.js";
 import { notFoundHandler } from "./middleware/not-found.js";
 import { requestLogger } from "./middleware/request-context.js";
 import { ambassadorAuthRouter } from "./routes/ambassador-auth.routes.js";
+import { ambassadorDashboardRouter } from "./routes/ambassador-dashboard.routes.js";
 import { healthRouter } from "./routes/health.routes.js";
 import { ApiError } from "./utils/api-error.js";
 
@@ -49,6 +50,7 @@ app.get("/", (req, res) => {
       health: "/api/v1/health",
       readiness: "/api/v1/ready",
       ambassadorAuth: "/api/v1/ambassador/auth",
+      ambassadorPortal: "/api/v1/ambassador",
     },
     requestId: req.id,
   });
@@ -56,6 +58,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1", healthRouter);
 app.use("/api/v1/ambassador/auth", ambassadorAuthRouter);
+app.use("/api/v1/ambassador", ambassadorDashboardRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

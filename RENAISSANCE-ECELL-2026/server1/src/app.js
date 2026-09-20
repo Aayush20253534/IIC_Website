@@ -1,11 +1,13 @@
 import compression from "compression";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import express from "express";
 import helmet from "helmet";
 import { env } from "./config/env.js";
 import { errorHandler } from "./middleware/error-handler.js";
 import { notFoundHandler } from "./middleware/not-found.js";
 import { requestLogger } from "./middleware/request-context.js";
+import { ambassadorAuthRouter } from "./routes/ambassador-auth.routes.js";
 import { healthRouter } from "./routes/health.routes.js";
 import { ApiError } from "./utils/api-error.js";
 
@@ -32,6 +34,7 @@ app.use(
     },
   }),
 );
+app.use(cookieParser());
 app.use(express.json({ limit: env.REQUEST_BODY_LIMIT }));
 app.use(express.urlencoded({ extended: false, limit: env.REQUEST_BODY_LIMIT }));
 
@@ -45,12 +48,14 @@ app.get("/", (req, res) => {
     endpoints: {
       health: "/api/v1/health",
       readiness: "/api/v1/ready",
+      ambassadorAuth: "/api/v1/ambassador/auth",
     },
     requestId: req.id,
   });
 });
 
 app.use("/api/v1", healthRouter);
+app.use("/api/v1/ambassador/auth", ambassadorAuthRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

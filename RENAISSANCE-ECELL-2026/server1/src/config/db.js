@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { env } from "./env.js";
 import { logger } from "../utils/logger.js";
+import { ensureDatabaseIndexes } from "./indexes.js";
 
 mongoose.set("strictQuery", true);
 
@@ -13,7 +14,10 @@ export async function connectDatabase() {
     serverSelectionTimeoutMS: env.MONGO_SERVER_SELECTION_TIMEOUT_MS,
     maxPoolSize: env.MONGO_MAX_POOL_SIZE,
     minPoolSize: env.MONGO_MIN_POOL_SIZE,
+    autoIndex: false,
   });
+
+  await ensureDatabaseIndexes();
 
   logger.info(
     {

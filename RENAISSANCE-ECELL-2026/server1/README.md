@@ -80,4 +80,15 @@ npm run dev
 npm start
 ```
 
-Part 1 deliberately contains no ambassador, promo-code, task, or admin models yet. Those belong to the next implementation parts so the backend can evolve in reviewable patches.
+## Part 2 data model
+
+The service now includes MongoDB models for the campus ambassador workflow:
+
+- `CampusAmbassador` for ambassador identity, college, credential hash and account status.
+- `PromoCode` for unique ambassador-linked promo codes, discount rules and usage counters.
+- `Task` for assigned ambassador missions, status and completion remarks.
+- `Registration` for participant registration records and durable promo/referral attribution.
+
+Critical identifiers use MongoDB unique indexes. Registration money values are stored in paise as integers rather than floating-point currency values. Promo attribution stores the promo code, promo document reference and ambassador reference together so historical referral ownership remains intact.
+
+Indexes are created explicitly after MongoDB connects; Mongoose automatic indexing is disabled for the connection to keep index management predictable.

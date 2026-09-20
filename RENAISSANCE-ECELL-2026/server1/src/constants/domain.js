@@ -1,0 +1,30 @@
+export const AMBASSADOR_STATUS = Object.freeze({
+  ACTIVE: "ACTIVE",
+  DISABLED: "DISABLED",
+  ARCHIVED: "ARCHIVED",
+});
+
+export const TASK_STATUS = Object.freeze({
+  ASSIGNED: "ASSIGNED",
+  IN_PROGRESS: "IN_PROGRESS",
+  COMPLETED: "COMPLETED",
+});
+
+export const DISCOUNT_TYPE = Object.freeze({
+  NONE: "NONE",
+  PERCENTAGE: "PERCENTAGE",
+  FIXED: "FIXED",
+});
+
+export const REGISTRATION_STATUS = Object.freeze({
+  PENDING_VERIFICATION: "PENDING_VERIFICATION",
+  VERIFIED: "VERIFIED",
+  REJECTED: "REJECTED",
+});
+
+export const PAYMENT_STATUS = Object.freeze({
+  NOT_SUBMITTED: "NOT_SUBMITTED",
+  SUBMITTED: "SUBMITTED",
+  VERIFIED: "VERIFIED",
+  REJECTED: "REJECTED",
+});

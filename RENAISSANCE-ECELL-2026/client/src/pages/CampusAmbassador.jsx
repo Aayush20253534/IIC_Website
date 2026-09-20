@@ -124,7 +124,8 @@ export default function CampusAmbassador() {
 
   if (!isAuthenticated) {
     return (
-      <main className="min-h-screen px-3 pb-8 pt-[88px] text-[#F4EBD9] sm:px-5 sm:pt-[94px] lg:px-6 lg:pt-[100px]">
+      <>
+        <main className="min-h-screen px-3 pb-8 pt-[88px] text-[#F4EBD9] sm:px-5 sm:pt-[94px] lg:px-6 lg:pt-[100px]">
         <section className="mx-auto grid w-full max-w-[1160px] items-stretch gap-3 md:grid-cols-[1.12fr_0.88fr] md:gap-3.5 lg:gap-4">
           {/* Voyage manifesto card */}
           <article className="relative isolate min-h-[360px] overflow-hidden rounded-[24px] border border-[#9E762E]/75 bg-[linear-gradient(145deg,rgba(7,29,45,0.985)_0%,rgba(4,21,34,0.975)_55%,rgba(3,15,27,0.995)_100%)] px-5 py-5 shadow-[0_24px_64px_rgba(0,0,0,0.5),inset_0_0_70px_rgba(15,82,102,0.11)] sm:min-h-[390px] sm:px-7 sm:py-6 md:min-h-[430px] lg:px-9 lg:py-7">
@@ -449,14 +450,15 @@ export default function CampusAmbassador() {
             </form>
           </div>
         </section>
-
+        </main>
         <ContactFooter />
-      </main>
+      </>
     );
   }
 
   return (
-    <main className="min-h-screen px-4 pb-16 pt-32 text-[#F4EBD9] sm:px-6">
+    <>
+      <main className="min-h-screen px-4 pb-16 pt-32 text-[#F4EBD9] sm:px-6">
       <section className="mx-auto w-full max-w-6xl">
         <div className="mb-6 flex flex-col justify-between gap-5 rounded-3xl border border-[#C5A25F]/30 bg-[#020610]/80 p-6 shadow-2xl backdrop-blur-xl sm:flex-row sm:items-center sm:p-8">
           <div>
@@ -522,7 +524,8 @@ export default function CampusAmbassador() {
           </div>
         </section>
       </section>
+      </main>
       <ContactFooter />
-    </main>
+    </>
   );
 }

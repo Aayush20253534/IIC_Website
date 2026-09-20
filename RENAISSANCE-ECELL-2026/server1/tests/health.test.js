@@ -12,6 +12,17 @@ const [{ default: request }, { app }] = await Promise.all([
   import("../src/app.js"),
 ]);
 
+test("GET / returns API service information", async () => {
+  const response = await request(app).get("/").expect(200);
+
+  assert.equal(response.body.success, true);
+  assert.equal(response.body.service, "renaissance-server1");
+  assert.equal(response.body.status, "ok");
+  assert.equal(response.body.apiVersion, "v1");
+  assert.equal(response.body.endpoints.health, "/api/v1/health");
+  assert.ok(response.body.requestId);
+});
+
 test("GET /api/v1/health returns service health", async () => {
   const response = await request(app).get("/api/v1/health").expect(200);
 

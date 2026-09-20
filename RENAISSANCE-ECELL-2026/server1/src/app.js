@@ -35,6 +35,21 @@ app.use(
 app.use(express.json({ limit: env.REQUEST_BODY_LIMIT }));
 app.use(express.urlencoded({ extended: false, limit: env.REQUEST_BODY_LIMIT }));
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    service: "renaissance-server1",
+    status: "ok",
+    message: "Renaissance 2026 API is running",
+    apiVersion: "v1",
+    endpoints: {
+      health: "/api/v1/health",
+      readiness: "/api/v1/ready",
+    },
+    requestId: req.id,
+  });
+});
+
 app.use("/api/v1", healthRouter);
 
 app.use(notFoundHandler);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Anchor,
+  Archive,
   ArrowRight,
   Building2,
   CheckCircle2,
@@ -119,6 +120,18 @@ function EmptyState({ icon: Icon, title, detail }) {
   );
 }
 
+function VoyageDecor() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <img src="/sticker-compass.png" alt="" className="absolute -left-14 top-[16%] w-56 -rotate-12 opacity-[0.10] grayscale mix-blend-multiply sm:w-72" />
+      <img src="/sticker-anchor.png" alt="" className="absolute -right-14 top-[32%] w-52 rotate-12 opacity-[0.08] grayscale mix-blend-multiply sm:w-64" />
+      <img src="/sticker-wheel.png" alt="" className="absolute left-[3%] top-[60%] w-44 -rotate-12 opacity-[0.07] grayscale mix-blend-multiply sm:w-56" />
+      <img src="/card-decor-stamp.png" alt="" className="absolute right-[5%] top-[72%] w-36 rotate-12 opacity-[0.09] grayscale mix-blend-multiply sm:w-48" />
+      <img src="/sticker-ship.png" alt="" className="absolute -left-10 top-[82%] w-56 opacity-[0.075] grayscale mix-blend-multiply sm:w-72" />
+    </div>
+  );
+}
+
 function AdminLogin({ onAuthenticated }) {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [show, setShow] = useState(false);
@@ -140,40 +153,182 @@ function AdminLogin({ onAuthenticated }) {
   }
 
   return (
-    <main className="min-h-screen px-4 pb-12 pt-[112px] text-[#173F52] sm:px-6">
-      <ShellCard className="mx-auto max-w-lg p-6 sm:p-8">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[#208AA0]/30 bg-white/60 text-[#B17E2E]">
-          <ShieldCheck className="h-6 w-6" />
-        </div>
-        <div className="mt-4 text-center">
-          <p className="font-mono text-[9px] font-black uppercase tracking-[0.2em] text-[#39788A]">Renaissance command authority</p>
-          <h1 className="mt-2 font-cinzel text-2xl font-black uppercase text-[#163E51]">Campus Ambassador Admin</h1>
-          <p className="mt-2 text-xs leading-5 text-[#587B87]">Manage ambassadors, promo codes, missions and referral performance.</p>
-        </div>
-        <form onSubmit={submit} className="mt-6 space-y-4">
-          <label className="block">
-            <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-wider text-[#315B6B]">Admin email</span>
-            <span className="relative block">
-              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0D7892]" />
-              <input type="email" value={credentials.email} onChange={(e) => setCredentials((v) => ({ ...v, email: e.target.value }))} autoComplete="email" className={`${fieldClass} pl-10`} required />
+    <main className="relative min-h-screen overflow-hidden px-3 pb-10 pt-[104px] text-[#173F52] sm:px-5 lg:px-7">
+      <section className="relative z-10 mx-auto grid w-full max-w-[1120px] gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+        <ShellCard className="relative hidden min-h-[560px] p-7 lg:flex lg:flex-col lg:justify-between lg:p-9">
+          <img
+            src="/sticker-compass.png"
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-16 -top-14 w-72 rotate-12 select-none opacity-[0.10] grayscale mix-blend-multiply"
+          />
+          <img
+            src="/pirate-wheel-half.png"
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-20 -left-20 w-64 -rotate-12 select-none opacity-[0.09] grayscale mix-blend-multiply"
+          />
+          <img
+            src="/sticker-ship.png"
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-8 right-5 w-52 select-none opacity-[0.10] grayscale mix-blend-multiply"
+          />
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-60 [background-image:radial-gradient(circle_at_18%_16%,rgba(255,255,255,0.68),transparent_32%),linear-gradient(rgba(23,116,139,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(23,116,139,0.035)_1px,transparent_1px)] [background-size:auto,28px_28px,28px_28px]"
+          />
+
+          <div className="relative z-10">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#1689A0]/25 bg-white/58 px-3 py-1.5 font-mono text-[9px] font-black uppercase tracking-[0.18em] text-[#176C82] shadow-sm">
+              <Compass className="h-3.5 w-3.5" />
+              Renaissance X · Command bridge
             </span>
-          </label>
-          <label className="block">
-            <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-wider text-[#315B6B]">Password</span>
-            <span className="relative block">
-              <LockKeyhole className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0D7892]" />
-              <input type={show ? "text" : "password"} value={credentials.password} onChange={(e) => setCredentials((v) => ({ ...v, password: e.target.value }))} autoComplete="current-password" className={`${fieldClass} pl-10 pr-10`} required />
-              <button type="button" onClick={() => setShow((v) => !v)} className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-lg text-[#587B87] hover:bg-[#0D7892]/10" aria-label={show ? "Hide password" : "Show password"}>
-                {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+
+            <p className="mt-8 font-mono text-[9px] font-black uppercase tracking-[0.28em] text-[#4B7B8A]">
+              Fleet administration
+            </p>
+            <h1 className="mt-2 max-w-[520px] font-cinzel text-[38px] font-black uppercase leading-[1.04] tracking-[-0.025em] text-[#153E51]">
+              Navigate the
+              <span className="block text-[#B17E2E]">ambassador fleet</span>
+            </h1>
+            <p className="mt-5 max-w-[500px] text-[12px] leading-6 text-[#466D7A]">
+              A secure command deck for managing campus captains, promo codes,
+              missions and referral activity across Renaissance.
+            </p>
+
+            <div className="my-7 flex items-center gap-3 text-[#1F8CA2]" aria-hidden="true">
+              <span className="h-px w-20 bg-gradient-to-r from-transparent to-[#1F8CA2]/55" />
+              <Anchor className="h-4 w-4 text-[#B17E2E]" />
+              <span className="h-px w-20 bg-gradient-to-l from-transparent to-[#1F8CA2]/55" />
+            </div>
+
+            <div className="grid grid-cols-3 gap-2.5">
+              {[
+                [Users, "Crew roster", "Ambassadors"],
+                [Tag, "Signal flags", "Promo codes"],
+                [ClipboardList, "Mission log", "Tasks"],
+              ].map(([Icon, title, detail]) => (
+                <div key={title} className="rounded-2xl border border-[#248EA4]/20 bg-white/48 p-3.5 backdrop-blur-sm">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2A98AC]/18 bg-[#D8F3F6]/80 text-[#0A819C]">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <p className="mt-3 text-[10px] font-black uppercase tracking-[0.08em] text-[#234F60]">{title}</p>
+                  <p className="mt-1 text-[9px] text-[#6A8791]">{detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative z-10 flex items-center justify-between gap-4 rounded-2xl border border-[#B98B3C]/20 bg-[#F8F2E5]/55 px-4 py-3">
+            <span className="flex items-center gap-2 text-[10px] font-semibold text-[#6A552C]">
+              <ShieldCheck className="h-4 w-4 text-[#A87527]" />
+              Restricted command access
+            </span>
+            <span className="font-mono text-[8px] font-black uppercase tracking-[0.16em] text-[#7C6A46]">
+              Authorized officers only
+            </span>
+          </div>
+        </ShellCard>
+
+        <ShellCard className="relative flex min-h-[560px] flex-col justify-center p-5 sm:p-7 lg:p-8">
+          <img
+            src="/sticker-compass.png"
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-16 -top-16 w-52 select-none opacity-[0.07] grayscale mix-blend-multiply lg:hidden"
+          />
+
+          <div className="relative z-10 mx-auto w-full max-w-[430px]">
+            <div className="text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[#208AA0]/30 bg-[radial-gradient(circle_at_42%_34%,rgba(255,255,255,0.96),rgba(207,241,245,0.92)_72%)] text-[#B17E2E] shadow-[0_10px_26px_rgba(8,96,119,0.14)]">
+                <KeyRound className="h-6 w-6" />
+              </div>
+              <p className="mt-4 font-mono text-[9px] font-black uppercase tracking-[0.22em] text-[#39788A]">
+                Renaissance command authority
+              </p>
+              <h2 className="mt-2 font-cinzel text-[28px] font-black uppercase leading-tight text-[#163E51]">
+                Admin command deck
+              </h2>
+              <p className="mx-auto mt-2 max-w-sm text-[11px] leading-5 text-[#587B87]">
+                Authenticate to manage the Campus Ambassador programme.
+              </p>
+            </div>
+
+            <div className="my-5 flex items-center gap-3 text-[#238FA5]/70" aria-hidden="true">
+              <span className="h-px flex-1 bg-gradient-to-r from-transparent to-current" />
+              <span className="h-1.5 w-1.5 rotate-45 border border-[#B17E2E]/70" />
+              <span className="h-px flex-1 bg-gradient-to-l from-transparent to-current" />
+            </div>
+
+            <form onSubmit={submit} className="space-y-4">
+              <label className="block">
+                <span className="mb-1.5 block text-[10px] font-black uppercase tracking-[0.12em] text-[#315B6B]">Admin email</span>
+                <span className="relative block">
+                  <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0D7892]" />
+                  <input
+                    type="email"
+                    value={credentials.email}
+                    onChange={(e) => setCredentials((v) => ({ ...v, email: e.target.value }))}
+                    autoComplete="email"
+                    placeholder="admin@renaissance.com"
+                    className={`${fieldClass} h-12 pl-10`}
+                    required
+                  />
+                </span>
+              </label>
+
+              <label className="block">
+                <span className="mb-1.5 block text-[10px] font-black uppercase tracking-[0.12em] text-[#315B6B]">Password</span>
+                <span className="relative block">
+                  <LockKeyhole className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0D7892]" />
+                  <input
+                    type={show ? "text" : "password"}
+                    value={credentials.password}
+                    onChange={(e) => setCredentials((v) => ({ ...v, password: e.target.value }))}
+                    autoComplete="current-password"
+                    placeholder="Enter secure password"
+                    className={`${fieldClass} h-12 pl-10 pr-11`}
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShow((v) => !v)}
+                    className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-[#587B87] transition hover:bg-[#0D7892]/10 hover:text-[#0D7892]"
+                    aria-label={show ? "Hide password" : "Show password"}
+                  >
+                    {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </span>
+              </label>
+
+              {error && (
+                <div className="rounded-xl border border-red-300/80 bg-red-50/90 px-3.5 py-3 text-[11px] leading-5 text-red-700 shadow-sm">
+                  <span className="font-black">Command link unavailable. </span>
+                  {error}
+                </div>
+              )}
+
+              <button type="submit" disabled={loading} className={`${primaryButton} h-12 w-full text-[11px]`}>
+                {loading ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <UserCog className="h-4 w-4" />}
+                {loading ? "Establishing secure link..." : "Enter admin portal"}
               </button>
-            </span>
-          </label>
-          {error && <p className="rounded-xl border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700">{error}</p>}
-          <button type="submit" disabled={loading} className={`${primaryButton} w-full`}>
-            {loading ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <UserCog className="h-4 w-4" />} Enter admin portal
-          </button>
-        </form>
-      </ShellCard>
+            </form>
+
+            <div className="mt-5 grid grid-cols-2 gap-2">
+              <div className="rounded-xl border border-[#258EA4]/18 bg-white/42 px-3 py-2.5 text-[9px] font-semibold text-[#557986]">
+                <ShieldCheck className="mb-1 h-3.5 w-3.5 text-[#0D7892]" />
+                Protected admin session
+              </div>
+              <div className="rounded-xl border border-[#B98B3C]/18 bg-[#FBF5E8]/45 px-3 py-2.5 text-[9px] font-semibold text-[#6F6247]">
+                <Anchor className="mb-1 h-3.5 w-3.5 text-[#A87527]" />
+                Server-backed authority
+              </div>
+            </div>
+          </div>
+        </ShellCard>
+      </section>
     </main>
   );
 }
@@ -357,6 +512,24 @@ export default function CampusAmbassadorAdmin() {
     finally { setBusy(false); }
   }
 
+  async function hardDeleteAmbassador(item) {
+    const confirmed = window.confirm(
+      `Permanently delete ${item.name}? This removes the account, sessions, tasks and unused promo codes. This cannot be undone.`,
+    );
+    if (!confirmed) return;
+
+    setBusy(true); setError(""); setNotice("");
+    try {
+      await adminApi.hardDeleteAmbassador(item.id);
+      setNotice(`${item.name} was permanently deleted.`);
+      await loadAdminData();
+    } catch (requestError) {
+      setError(message(requestError, "Could not permanently delete ambassador."));
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function createPromo(event) {
     event.preventDefault(); setBusy(true); setError("");
     try {
@@ -382,6 +555,38 @@ export default function CampusAmbassadorAdmin() {
     try { await adminApi.setPromoCodeStatus(promo.id, !promo.isActive); await loadAdminData(); }
     catch (requestError) { setError(message(requestError, "Could not update promo code.")); }
     finally { setBusy(false); }
+  }
+
+  async function archivePromo(promo) {
+    const confirmed = window.confirm(`Archive promo code ${promo.code}? It will be disabled and detached as the primary promo code.`);
+    if (!confirmed) return;
+
+    setBusy(true); setError(""); setNotice("");
+    try {
+      await adminApi.archivePromoCode(promo.id);
+      setNotice(`Promo code ${promo.code} was archived.`);
+      await loadAdminData();
+    } catch (requestError) {
+      setError(message(requestError, "Could not archive promo code."));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function hardDeletePromo(promo) {
+    const confirmed = window.confirm(`Permanently delete promo code ${promo.code}? This cannot be undone.`);
+    if (!confirmed) return;
+
+    setBusy(true); setError(""); setNotice("");
+    try {
+      await adminApi.hardDeletePromoCode(promo.id);
+      setNotice(`Promo code ${promo.code} was permanently deleted.`);
+      await loadAdminData();
+    } catch (requestError) {
+      setError(message(requestError, "Could not permanently delete promo code."));
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function createTask(event) {
@@ -441,8 +646,9 @@ export default function CampusAmbassadorAdmin() {
 
   return (
     <>
-      <main className="min-h-screen bg-transparent px-3 pb-16 pt-[106px] text-[#173F52] sm:px-5 lg:px-8">
-        <section className="mx-auto w-full max-w-[1500px] space-y-4">
+      <main className="relative min-h-screen bg-transparent px-3 pb-16 pt-[106px] text-[#173F52] sm:px-5 lg:px-8">
+        <VoyageDecor />
+        <section className="relative z-10 mx-auto w-full max-w-[1500px] space-y-4">
           <ShellCard className="min-h-[156px] border-[#B98B3C]/30 p-5 sm:p-7 lg:p-8">
             <div aria-hidden="true" className="pointer-events-none absolute right-[17%] top-1/2 hidden -translate-y-1/2 text-[#168AA2]/[0.08] xl:block">
               <Compass className="h-36 w-36" strokeWidth={0.8} />
@@ -582,7 +788,8 @@ export default function CampusAmbassadorAdmin() {
                                   <option value="ACTIVE">Active</option><option value="DISABLED">Disabled</option><option value="ARCHIVED">Archived</option>
                                 </select>
                                 <button type="button" onClick={() => setEditingAmbassador({ ...item })} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#258EA4]/20 bg-white/65 text-[#237083] transition hover:bg-white" disabled={item.status === "ARCHIVED"} aria-label={`Edit ${item.name}`}><Pencil className="h-3.5 w-3.5" /></button>
-                                <button type="button" onClick={() => archiveAmbassador(item.id)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-rose-200 bg-rose-50/70 text-rose-600 transition hover:bg-rose-100" disabled={item.status === "ARCHIVED"} aria-label={`Archive ${item.name}`}><Trash2 className="h-3.5 w-3.5" /></button>
+                                <button type="button" onClick={() => archiveAmbassador(item.id)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-amber-200 bg-amber-50/80 text-amber-700 transition hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-35" disabled={item.status === "ARCHIVED" || busy} title="Soft archive" aria-label={`Archive ${item.name}`}><Archive className="h-3.5 w-3.5" /></button>
+                                <button type="button" onClick={() => hardDeleteAmbassador(item)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-rose-300 bg-rose-50/85 text-rose-700 transition hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-35" disabled={item.status !== "ARCHIVED" || busy} title={item.status === "ARCHIVED" ? "Permanently delete" : "Archive before permanent delete"} aria-label={`Permanently delete ${item.name}`}><Trash2 className="h-3.5 w-3.5" /></button>
                               </div>
                             </td>
                           </tr>
@@ -629,7 +836,7 @@ export default function CampusAmbassadorAdmin() {
                   <table className="w-full min-w-[720px] text-left text-[11px]">
                     <thead className="border-b border-[#258EA4]/14 bg-[#D9F2F5]/55 text-[9px] font-black uppercase tracking-[0.1em] text-[#32697A]"><tr><th className="px-3 py-3">Code</th><th className="px-3 py-3">Ambassador</th><th className="px-3 py-3">Discount</th><th className="px-3 py-3">Usage</th><th className="px-3 py-3">Status</th><th className="px-3 py-3 text-right">Action</th></tr></thead>
                     <tbody>{promoCodes.length === 0 ? <tr><td colSpan="6" className="px-4 py-8 text-center text-[#6C8993]">No active promo codes yet.</td></tr> : promoCodes.map((promo) => (
-                      <tr key={promo.id} className="border-b border-[#258EA4]/10 last:border-0 hover:bg-white/35"><td className="px-3 py-3 font-mono font-black text-[#A9752B]">{promo.code}</td><td className="px-3 py-3 font-semibold text-[#315B6B]">{ambassadorName(promo.ambassadorId)}</td><td className="px-3 py-3 text-[#557783]">{nice(promo.discountType)} · {promo.discountValue}</td><td className="px-3 py-3 text-[#557783]">{promo.usageCount} / {promo.maxUses ?? "∞"}</td><td className="px-3 py-3"><StatusPill status={promo.isActive ? "ACTIVE" : "DISABLED"} /></td><td className="px-3 py-3 text-right"><button type="button" disabled={busy} onClick={() => togglePromo(promo)} className={secondaryButton}>{promo.isActive ? "Disable" : "Enable"}</button></td></tr>
+                      <tr key={promo.id} className="border-b border-[#258EA4]/10 last:border-0 hover:bg-white/35"><td className="px-3 py-3 font-mono font-black text-[#A9752B]">{promo.code}</td><td className="px-3 py-3 font-semibold text-[#315B6B]">{ambassadorName(promo.ambassadorId)}</td><td className="px-3 py-3 text-[#557783]">{nice(promo.discountType)} · {promo.discountValue}</td><td className="px-3 py-3 text-[#557783]">{promo.usageCount} / {promo.maxUses ?? "∞"}</td><td className="px-3 py-3"><StatusPill status={promo.isArchived ? "ARCHIVED" : promo.isActive ? "ACTIVE" : "DISABLED"} /></td><td className="px-3 py-3"><div className="flex items-center justify-end gap-1.5"><button type="button" disabled={busy || promo.isArchived} onClick={() => togglePromo(promo)} className="h-8 rounded-lg border border-[#258EA4]/20 bg-white/70 px-2.5 text-[10px] font-black text-[#315B6B] disabled:opacity-35">{promo.isActive ? "Disable" : "Enable"}</button><button type="button" disabled={busy || promo.isArchived} onClick={() => archivePromo(promo)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-amber-200 bg-amber-50/80 text-amber-700 disabled:opacity-35" title="Soft archive" aria-label={`Archive ${promo.code}`}><Archive className="h-3.5 w-3.5" /></button><button type="button" disabled={busy || !promo.isArchived} onClick={() => hardDeletePromo(promo)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-rose-300 bg-rose-50/85 text-rose-700 disabled:opacity-35" title={promo.isArchived ? "Permanently delete" : "Archive before permanent delete"} aria-label={`Permanently delete ${promo.code}`}><Trash2 className="h-3.5 w-3.5" /></button></div></td></tr>
                     ))}</tbody>
                   </table>
                 </div>

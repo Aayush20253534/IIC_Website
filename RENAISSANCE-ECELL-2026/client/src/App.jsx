@@ -29,7 +29,8 @@ const Sponsors = lazy(() => import("./pages/Sponsors"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const LoginSuccess = lazy(() => import("./pages/LoginSuccess"));
 const Login = lazy(() => import("./pages/Login"));
-const CampusAmbassador = lazy(() => import("./pages/CampusAmbassador"));
+const CampusAmbassador = lazy(() => import("./pages/CampusAmbassadorPortal"));
+const CampusAmbassadorAdmin = lazy(() => import("./pages/CampusAmbassadorAdmin"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -169,6 +170,11 @@ export default function App() {
               <Route
                 path="/campus-ambassador"
                 element={<CampusAmbassador />}
+              />
+
+              <Route
+                path="/campus-ambassador/admin"
+                element={<CampusAmbassadorAdmin />}
               />
 
               <Route

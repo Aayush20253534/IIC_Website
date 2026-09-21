@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import {
+  Anchor,
+  ArrowRight,
+  Building2,
   CheckCircle2,
+  ChevronRight,
   ClipboardList,
+  Compass,
   Eye,
   EyeOff,
+  Hash,
   KeyRound,
   LoaderCircle,
   LockKeyhole,
   LogOut,
   Mail,
+  Pencil,
+  Phone,
   Plus,
   RefreshCw,
   Save,
@@ -17,6 +25,7 @@ import {
   Tag,
   Trash2,
   UserCog,
+  UserPlus,
   Users,
 } from "lucide-react";
 import ContactFooter from "../components/ContactFooter";
@@ -39,16 +48,76 @@ function message(error, fallback) {
 
 function ShellCard({ children, className = "" }) {
   return (
-    <div className={`rounded-3xl border border-[#208AA0]/24 bg-[linear-gradient(145deg,rgba(239,252,252,0.96),rgba(194,233,238,0.93))] shadow-[0_20px_55px_rgba(7,61,80,0.18)] backdrop-blur-xl ${className}`}>
+    <div
+      className={`relative overflow-hidden rounded-[26px] border border-[#258EA4]/25 bg-[rgba(235,249,251,0.88)] shadow-[0_22px_58px_rgba(7,61,80,0.18),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-xl ${className}`}
+    >
       {children}
     </div>
   );
 }
 
-const fieldClass = "h-10 w-full rounded-xl border border-[#208AA0]/25 bg-white/70 px-3 text-xs text-[#173F52] outline-none transition focus:border-[#0D7892] focus:ring-4 focus:ring-[#0D7892]/10";
-const textareaClass = "w-full rounded-xl border border-[#208AA0]/25 bg-white/70 p-3 text-xs text-[#173F52] outline-none transition focus:border-[#0D7892] focus:ring-4 focus:ring-[#0D7892]/10";
-const primaryButton = "inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#0D7892,#3AB7C8)] px-4 text-xs font-black text-white shadow-md disabled:cursor-not-allowed disabled:opacity-50";
-const secondaryButton = "inline-flex h-9 items-center justify-center gap-2 rounded-xl border border-[#208AA0]/25 bg-white/55 px-3 text-xs font-bold text-[#276578] hover:bg-white/80 disabled:opacity-50";
+const fieldClass = "h-11 w-full rounded-xl border border-[#258EA4]/25 bg-white/72 px-3 text-xs font-medium text-[#173F52] outline-none transition placeholder:text-[#7294A0] hover:border-[#258EA4]/40 focus:border-[#0D7892] focus:bg-white/88 focus:ring-4 focus:ring-[#0D7892]/10";
+const textareaClass = "w-full rounded-xl border border-[#258EA4]/25 bg-white/72 p-3 text-xs font-medium text-[#173F52] outline-none transition placeholder:text-[#7294A0] hover:border-[#258EA4]/40 focus:border-[#0D7892] focus:bg-white/88 focus:ring-4 focus:ring-[#0D7892]/10";
+const primaryButton = "inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[#075F75]/20 bg-[#08758D] px-4 text-xs font-black text-white shadow-[0_10px_22px_rgba(8,117,141,0.22)] transition hover:-translate-y-0.5 hover:bg-[#066A80] disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-50";
+const secondaryButton = "inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-[#258EA4]/24 bg-white/62 px-3 text-xs font-bold text-[#276578] shadow-sm transition hover:border-[#258EA4]/40 hover:bg-white/82 disabled:cursor-not-allowed disabled:opacity-50";
+
+function statusTone(status) {
+  if (status === "ACTIVE" || status === "VERIFIED" || status === "COMPLETED") {
+    return "border-emerald-300/70 bg-emerald-100/80 text-emerald-700";
+  }
+  if (status === "DISABLED" || status === "REJECTED") {
+    return "border-rose-300/70 bg-rose-100/80 text-rose-700";
+  }
+  if (status === "ARCHIVED") {
+    return "border-slate-300/70 bg-slate-100/80 text-slate-600";
+  }
+  if (status === "IN_PROGRESS" || status === "PENDING_VERIFICATION") {
+    return "border-amber-300/70 bg-amber-100/80 text-amber-700";
+  }
+  return "border-sky-300/70 bg-sky-100/80 text-sky-700";
+}
+
+function StatusPill({ status }) {
+  return (
+    <span className={`inline-flex rounded-full border px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.08em] ${statusTone(status)}`}>
+      {nice(status)}
+    </span>
+  );
+}
+
+function StatCard({ icon: Icon, label, value, detail }) {
+  return (
+    <ShellCard className="group min-h-[128px] p-4 sm:p-5">
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-8 -right-8 h-24 w-24 rounded-full border border-[#2393A9]/12" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-4 -right-4 h-16 w-16 rounded-full border border-[#B98B3C]/12" />
+      <div className="relative z-10 flex h-full items-start gap-3.5">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#38A7BA]/20 bg-[#CFF2F6]/85 text-[#0782A0] shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]">
+          <Icon className="h-5 w-5" strokeWidth={1.9} />
+        </span>
+        <div className="min-w-0 flex-1 pt-0.5">
+          <p className="text-[9px] font-black uppercase tracking-[0.1em] text-[#245B6D] sm:text-[10px]">{label}</p>
+          <p className="mt-1 text-[30px] font-black leading-none text-[#153D50] sm:text-[34px]">{value}</p>
+          <p className="mt-2 text-[10px] leading-4 text-[#64838E]">{detail}</p>
+        </div>
+        <span className="mt-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#118FAA]/85 text-white opacity-70 transition group-hover:translate-x-0.5 group-hover:opacity-100">
+          <ArrowRight className="h-3.5 w-3.5" />
+        </span>
+      </div>
+    </ShellCard>
+  );
+}
+
+function EmptyState({ icon: Icon, title, detail }) {
+  return (
+    <div className="flex min-h-32 flex-col items-center justify-center rounded-2xl border border-dashed border-[#258EA4]/30 bg-white/36 px-5 py-7 text-center">
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D9F3F6] text-[#0D7892]">
+        <Icon className="h-5 w-5" />
+      </span>
+      <p className="mt-3 text-xs font-black text-[#214F60]">{title}</p>
+      <p className="mt-1 max-w-sm text-[10px] leading-4 text-[#6B8892]">{detail}</p>
+    </div>
+  );
+}
 
 function AdminLogin({ onAuthenticated }) {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -372,150 +441,229 @@ export default function CampusAmbassadorAdmin() {
 
   return (
     <>
-      <main className="min-h-screen px-4 pb-16 pt-[106px] text-[#173F52] sm:px-6">
-        <section className="mx-auto w-full max-w-7xl space-y-5">
-          <ShellCard className="p-5 sm:p-7">
-            <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
+      <main className="min-h-screen bg-transparent px-3 pb-16 pt-[106px] text-[#173F52] sm:px-5 lg:px-8">
+        <section className="mx-auto w-full max-w-[1500px] space-y-4">
+          <ShellCard className="min-h-[156px] border-[#B98B3C]/30 p-5 sm:p-7 lg:p-8">
+            <div aria-hidden="true" className="pointer-events-none absolute right-[17%] top-1/2 hidden -translate-y-1/2 text-[#168AA2]/[0.08] xl:block">
+              <Compass className="h-36 w-36" strokeWidth={0.8} />
+            </div>
+            <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#B98B3C]/45 to-transparent" />
+            <div className="relative z-10 flex min-h-[104px] flex-col justify-between gap-5 lg:flex-row lg:items-center">
               <div>
-                <p className="font-mono text-[9px] font-black uppercase tracking-[0.2em] text-[#39788A]">Renaissance X · Admin command</p>
-                <h1 className="mt-1 font-cinzel text-3xl font-black text-[#163E51]">Campus Ambassador Operations</h1>
-                <p className="mt-1 text-xs text-[#587B87]">Signed in as {admin.name} · {admin.role}</p>
+                <p className="font-mono text-[9px] font-black uppercase tracking-[0.28em] text-[#2D7185] sm:text-[10px]">Renaissance X · Admin command</p>
+                <h1 className="mt-2 font-cinzel text-[28px] font-black uppercase leading-[1.05] tracking-[-0.02em] text-[#143E52] sm:text-[34px] lg:text-[40px]">
+                  Campus Ambassador Operations
+                </h1>
+                <p className="mt-2 text-xs font-medium text-[#64818C] sm:text-sm">Signed in as {admin.name} · {admin.role}</p>
               </div>
-              <div className="flex flex-wrap gap-2">
-                <button type="button" onClick={refreshAll} disabled={busy} className={secondaryButton}><RefreshCw className={`h-4 w-4 ${busy ? "animate-spin" : ""}`} /> Refresh</button>
-                <button type="button" onClick={logout} className={`${secondaryButton} border-[#B17E2E]/25 text-[#80591F]`}><LogOut className="h-4 w-4" /> Sign out</button>
+              <div className="flex flex-wrap items-center gap-2.5">
+                <button type="button" onClick={refreshAll} disabled={busy} className={`${primaryButton} min-w-[116px]`}>
+                  <RefreshCw className={`h-4 w-4 ${busy ? "animate-spin" : ""}`} /> Refresh
+                </button>
+                <button type="button" onClick={logout} className={`${secondaryButton} min-w-[116px] border-[#B98B3C]/28 text-[#315B6B]`}>
+                  <LogOut className="h-4 w-4" /> Sign out
+                </button>
               </div>
             </div>
           </ShellCard>
 
           {createdCredential && (
-            <div className="rounded-2xl border border-amber-300 bg-amber-50/95 p-4 text-sm text-amber-900 shadow-sm">
+            <div className="rounded-2xl border border-amber-300/80 bg-amber-50/92 px-4 py-3 text-xs text-amber-900 shadow-[0_10px_28px_rgba(126,91,24,0.10)] backdrop-blur-xl sm:text-sm">
               <strong>New ambassador credentials, shown once:</strong> {createdCredential.ambassadorId} · {createdCredential.email} · <span className="font-mono font-black">{createdCredential.temporaryPassword}</span>
-              <button type="button" className="ml-3 text-xs font-bold underline" onClick={() => setCreatedCredential(null)}>Dismiss</button>
+              <button type="button" className="ml-3 text-xs font-black underline underline-offset-2" onClick={() => setCreatedCredential(null)}>Dismiss</button>
             </div>
           )}
-          {notice && <div className="rounded-2xl border border-emerald-300 bg-emerald-50/95 px-4 py-3 text-sm text-emerald-800">{notice}</div>}
-          {error && <div className="rounded-2xl border border-red-300 bg-red-50/95 px-4 py-3 text-sm text-red-700">{error}</div>}
+          {notice && <div className="rounded-2xl border border-emerald-300/80 bg-emerald-50/92 px-4 py-3 text-xs font-semibold text-emerald-800 shadow-sm backdrop-blur-xl sm:text-sm">{notice}</div>}
+          {error && <div className="rounded-2xl border border-red-300/80 bg-red-50/92 px-4 py-3 text-xs font-semibold text-red-700 shadow-sm backdrop-blur-xl sm:text-sm">{error}</div>}
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              [Users, "Active ambassadors", dashboard?.ambassadors?.ACTIVE ?? 0],
-              [ClipboardList, "Open tasks", (dashboard?.tasks?.ASSIGNED ?? 0) + (dashboard?.tasks?.IN_PROGRESS ?? 0)],
-              [CheckCircle2, "Verified referrals", dashboard?.referrals?.VERIFIED ?? 0],
-              [Tag, "Active promo codes", dashboard?.activePromoCodes ?? 0],
-            ].map(([Icon, label, value]) => (
-              <ShellCard key={label} className="p-5"><Icon className="h-5 w-5 text-[#0D7892]" /><p className="mt-3 text-3xl font-black text-[#163E51]">{value}</p><p className="mt-1 text-xs font-semibold text-[#587B87]">{label}</p></ShellCard>
-            ))}
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <StatCard icon={Users} label="Active ambassadors" value={dashboard?.ambassadors?.ACTIVE ?? 0} detail="Building tomorrow's leaders" />
+            <StatCard icon={ClipboardList} label="Open tasks" value={(dashboard?.tasks?.ASSIGNED ?? 0) + (dashboard?.tasks?.IN_PROGRESS ?? 0)} detail="Actions awaiting completion" />
+            <StatCard icon={ShieldCheck} label="Verified referrals" value={dashboard?.referrals?.VERIFIED ?? 0} detail="Trusted voices, bigger impact" />
+            <StatCard icon={Tag} label="Active promo codes" value={dashboard?.activePromoCodes ?? 0} detail="Spreading the Renaissance" />
           </div>
 
-          <div className="flex flex-wrap gap-2 rounded-2xl border border-[#208AA0]/20 bg-white/35 p-2 backdrop-blur-md">
-            {tabs.map(([value, label, Icon]) => (
-              <button key={value} type="button" onClick={() => setTab(value)} className={`inline-flex h-10 items-center gap-2 rounded-xl px-4 text-xs font-black transition ${tab === value ? "bg-[#0D7892] text-white shadow-md" : "text-[#315B6B] hover:bg-white/60"}`}>
-                <Icon className="h-4 w-4" /> {label}
-              </button>
-            ))}
-          </div>
-
-          {tab === "ambassadors" && (
-            <div className="grid gap-5 xl:grid-cols-[0.72fr_1.28fr]">
-              <ShellCard className="p-5 sm:p-6">
-                <h2 className="font-cinzel text-xl font-black text-[#163E51]">Add ambassador</h2>
-                <form onSubmit={createAmbassador} className="mt-4 space-y-3">
-                  <input className={fieldClass} placeholder="Full name" value={ambassadorForm.name} onChange={(e) => setAmbassadorForm((v) => ({ ...v, name: e.target.value }))} required />
-                  <input className={fieldClass} type="email" placeholder="Email" value={ambassadorForm.email} onChange={(e) => setAmbassadorForm((v) => ({ ...v, email: e.target.value }))} required />
-                  <input className={fieldClass} placeholder="Phone (optional)" value={ambassadorForm.phone} onChange={(e) => setAmbassadorForm((v) => ({ ...v, phone: e.target.value }))} />
-                  <input className={fieldClass} placeholder="College / institution" value={ambassadorForm.college} onChange={(e) => setAmbassadorForm((v) => ({ ...v, college: e.target.value }))} required />
-                  <button disabled={busy} className={`${primaryButton} w-full`}><Plus className="h-4 w-4" /> Create ambassador</button>
-                </form>
-              </ShellCard>
-
-              <ShellCard className="p-5 sm:p-6">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <h2 className="font-cinzel text-xl font-black text-[#163E51]">Ambassador directory</h2>
-                  <label className="relative block sm:w-72"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#587B87]" /><input className={`${fieldClass} pl-10`} placeholder="Search ambassadors" value={ambassadorSearch} onChange={(e) => setAmbassadorSearch(e.target.value)} /></label>
-                </div>
-                <div className="mt-4 space-y-3">
-                  {visibleAmbassadors.map((item) => (
-                    <article key={item.id} className="rounded-2xl border border-[#208AA0]/18 bg-white/48 p-4">
-                      {editingAmbassador?.id === item.id ? (
-                        <form onSubmit={saveAmbassador} className="grid gap-2 sm:grid-cols-2">
-                          <input className={fieldClass} value={editingAmbassador.name} onChange={(e) => setEditingAmbassador((v) => ({ ...v, name: e.target.value }))} />
-                          <input className={fieldClass} type="email" value={editingAmbassador.email} onChange={(e) => setEditingAmbassador((v) => ({ ...v, email: e.target.value }))} />
-                          <input className={fieldClass} value={editingAmbassador.phone || ""} onChange={(e) => setEditingAmbassador((v) => ({ ...v, phone: e.target.value }))} placeholder="Phone" />
-                          <input className={fieldClass} value={editingAmbassador.college} onChange={(e) => setEditingAmbassador((v) => ({ ...v, college: e.target.value }))} />
-                          <div className="flex gap-2 sm:col-span-2"><button className={primaryButton}><Save className="h-4 w-4" /> Save</button><button type="button" onClick={() => setEditingAmbassador(null)} className={secondaryButton}>Cancel</button></div>
-                        </form>
-                      ) : (
-                        <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-center">
-                          <div><p className="font-bold text-[#173F52]">{item.name}</p><p className="mt-1 text-xs text-[#587B87]">{item.ambassadorId} · {item.email} · {item.college}</p></div>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <select value={item.status} disabled={item.status === "ARCHIVED" || busy} onChange={(e) => setAmbassadorStatus(item.id, e.target.value)} className={fieldClass}>
-                              <option value="ACTIVE">Active</option><option value="DISABLED">Disabled</option><option value="ARCHIVED">Archived</option>
-                            </select>
-                            <button type="button" onClick={() => setEditingAmbassador({ ...item })} className={secondaryButton} disabled={item.status === "ARCHIVED"}>Edit</button>
-                            <button type="button" onClick={() => archiveAmbassador(item.id)} className={`${secondaryButton} text-red-700`} disabled={item.status === "ARCHIVED"}><Trash2 className="h-3.5 w-3.5" /> Archive</button>
-                          </div>
-                        </div>
-                      )}
-                    </article>
+          <ShellCard className="rounded-[22px] p-2 sm:p-2.5">
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="flex min-w-max items-center gap-1">
+                  {tabs.map(([value, label, Icon]) => (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => setTab(value)}
+                      className={`inline-flex h-11 items-center gap-2 rounded-xl px-4 text-xs font-black transition sm:px-5 ${tab === value ? "bg-[#08758D] text-white shadow-[0_8px_20px_rgba(8,117,141,0.22)]" : "text-[#2D6273] hover:bg-white/62"}`}
+                    >
+                      <Icon className="h-4 w-4" /> {label}
+                    </button>
                   ))}
                 </div>
-              </ShellCard>
+              </div>
+              <div className="hidden shrink-0 items-center gap-2 pr-3 xl:flex">
+                <Compass className="h-4 w-4 text-[#B98B3C]" />
+                <span className="font-mono text-[8px] font-black uppercase tracking-[0.24em] text-[#66838D]">Chart people · Build impact · Sail together</span>
+                <Anchor className="h-5 w-5 text-[#9C7131]" />
+              </div>
             </div>
+          </ShellCard>
+
+          {tab === "ambassadors" && (
+            <>
+              <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+                <ShellCard className="p-5 sm:p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D7F2F5] text-[#08758D]"><Anchor className="h-5 w-5" /></span>
+                    <div>
+                      <h2 className="font-cinzel text-xl font-black uppercase text-[#163E51]">Add ambassador</h2>
+                      <p className="mt-1 text-[10px] font-medium text-[#68858F]">Bring new changemakers on board</p>
+                    </div>
+                  </div>
+                  <form onSubmit={createAmbassador} className="mt-5 grid gap-3 sm:grid-cols-2">
+                    <label className="block">
+                      <span className="mb-1.5 block text-[9px] font-black uppercase tracking-[0.12em] text-[#456E7C]">Full name</span>
+                      <span className="relative block"><UserPlus className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4F8190]" /><input className={`${fieldClass} pl-10`} placeholder="Full name" value={ambassadorForm.name} onChange={(e) => setAmbassadorForm((v) => ({ ...v, name: e.target.value }))} required /></span>
+                    </label>
+                    <label className="block">
+                      <span className="mb-1.5 block text-[9px] font-black uppercase tracking-[0.12em] text-[#456E7C]">Phone</span>
+                      <span className="relative block"><Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4F8190]" /><input className={`${fieldClass} pl-10`} placeholder="Phone (optional)" value={ambassadorForm.phone} onChange={(e) => setAmbassadorForm((v) => ({ ...v, phone: e.target.value }))} /></span>
+                    </label>
+                    <label className="block">
+                      <span className="mb-1.5 block text-[9px] font-black uppercase tracking-[0.12em] text-[#456E7C]">Email address</span>
+                      <span className="relative block"><Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4F8190]" /><input className={`${fieldClass} pl-10`} type="email" placeholder="you@college.edu" value={ambassadorForm.email} onChange={(e) => setAmbassadorForm((v) => ({ ...v, email: e.target.value }))} required /></span>
+                    </label>
+                    <label className="block">
+                      <span className="mb-1.5 block text-[9px] font-black uppercase tracking-[0.12em] text-[#456E7C]">College / institution</span>
+                      <span className="relative block"><Building2 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4F8190]" /><input className={`${fieldClass} pl-10`} placeholder="College / institution" value={ambassadorForm.college} onChange={(e) => setAmbassadorForm((v) => ({ ...v, college: e.target.value }))} required /></span>
+                    </label>
+                    <button disabled={busy} className={`${primaryButton} mt-1 w-full sm:col-span-2`}><Anchor className="h-4 w-4" /> Add ambassador</button>
+                  </form>
+                </ShellCard>
+
+                <ShellCard className="p-5 sm:p-6">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D7F2F5] text-[#08758D]"><Users className="h-5 w-5" /></span>
+                      <div>
+                        <h2 className="font-cinzel text-xl font-black uppercase text-[#163E51]">Ambassador directory</h2>
+                        <p className="mt-1 text-[10px] font-medium text-[#68858F]">Manage and view all campus ambassadors</p>
+                      </div>
+                    </div>
+                    <label className="relative block sm:w-64"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#587B87]" /><input className={`${fieldClass} pl-10`} placeholder="Search ambassadors..." value={ambassadorSearch} onChange={(e) => setAmbassadorSearch(e.target.value)} /></label>
+                  </div>
+
+                  {editingAmbassador && (
+                    <form onSubmit={saveAmbassador} className="mt-4 grid gap-2 rounded-2xl border border-[#258EA4]/20 bg-white/48 p-3 sm:grid-cols-2">
+                      <input className={fieldClass} value={editingAmbassador.name} onChange={(e) => setEditingAmbassador((v) => ({ ...v, name: e.target.value }))} />
+                      <input className={fieldClass} type="email" value={editingAmbassador.email} onChange={(e) => setEditingAmbassador((v) => ({ ...v, email: e.target.value }))} />
+                      <input className={fieldClass} value={editingAmbassador.phone || ""} onChange={(e) => setEditingAmbassador((v) => ({ ...v, phone: e.target.value }))} placeholder="Phone" />
+                      <input className={fieldClass} value={editingAmbassador.college} onChange={(e) => setEditingAmbassador((v) => ({ ...v, college: e.target.value }))} />
+                      <div className="flex gap-2 sm:col-span-2"><button className={primaryButton}><Save className="h-4 w-4" /> Save changes</button><button type="button" onClick={() => setEditingAmbassador(null)} className={secondaryButton}>Cancel</button></div>
+                    </form>
+                  )}
+
+                  <div className="mt-4 overflow-x-auto rounded-2xl border border-[#258EA4]/16 bg-white/44">
+                    <table className="w-full min-w-[760px] text-left text-[11px]">
+                      <thead className="border-b border-[#258EA4]/14 bg-[#D9F2F5]/55 text-[9px] font-black uppercase tracking-[0.1em] text-[#32697A]">
+                        <tr><th className="px-3 py-3">Name</th><th className="px-3 py-3">Email</th><th className="px-3 py-3">College</th><th className="px-3 py-3">Ambassador ID</th><th className="px-3 py-3">Status</th><th className="px-3 py-3 text-right">Actions</th></tr>
+                      </thead>
+                      <tbody>
+                        {visibleAmbassadors.length === 0 ? (
+                          <tr><td colSpan="6" className="px-4 py-8 text-center text-[#6C8993]">No ambassadors onboard yet.</td></tr>
+                        ) : visibleAmbassadors.map((item) => (
+                          <tr key={item.id} className="border-b border-[#258EA4]/10 last:border-0 hover:bg-white/35">
+                            <td className="px-3 py-3 font-black text-[#214B5B]">{item.name}</td>
+                            <td className="px-3 py-3 text-[#557783]">{item.email}</td>
+                            <td className="px-3 py-3 text-[#557783]">{item.college}</td>
+                            <td className="px-3 py-3 font-mono text-[10px] font-bold text-[#3A7080]">{item.ambassadorId}</td>
+                            <td className="px-3 py-3"><StatusPill status={item.status} /></td>
+                            <td className="px-3 py-3">
+                              <div className="flex items-center justify-end gap-1.5">
+                                <select value={item.status} disabled={item.status === "ARCHIVED" || busy} onChange={(e) => setAmbassadorStatus(item.id, e.target.value)} className="h-8 rounded-lg border border-[#258EA4]/20 bg-white/70 px-2 text-[10px] font-bold text-[#315B6B] outline-none">
+                                  <option value="ACTIVE">Active</option><option value="DISABLED">Disabled</option><option value="ARCHIVED">Archived</option>
+                                </select>
+                                <button type="button" onClick={() => setEditingAmbassador({ ...item })} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#258EA4]/20 bg-white/65 text-[#237083] transition hover:bg-white" disabled={item.status === "ARCHIVED"} aria-label={`Edit ${item.name}`}><Pencil className="h-3.5 w-3.5" /></button>
+                                <button type="button" onClick={() => archiveAmbassador(item.id)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-rose-200 bg-rose-50/70 text-rose-600 transition hover:bg-rose-100" disabled={item.status === "ARCHIVED"} aria-label={`Archive ${item.name}`}><Trash2 className="h-3.5 w-3.5" /></button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </ShellCard>
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-3">
+                {[
+                  ["promos", Tag, "Promo code management", "Create and manage promotional codes"],
+                  ["tasks", ClipboardList, "Task management", "Assign and track ambassador tasks"],
+                  ["referrals", CheckCircle2, "Referral tracking", "Monitor referrals and conversions"],
+                ].map(([target, Icon, title, detail]) => (
+                  <button key={target} type="button" onClick={() => setTab(target)} className="group flex min-h-[92px] items-center gap-3 rounded-[22px] border border-[#258EA4]/22 bg-[rgba(235,249,251,0.86)] p-4 text-left shadow-[0_14px_34px_rgba(7,61,80,0.14)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-[rgba(242,252,253,0.94)]">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#D0F0F4] text-[#0782A0]"><Icon className="h-5 w-5" /></span>
+                    <span className="min-w-0 flex-1"><span className="block font-cinzel text-sm font-black uppercase text-[#173F52]">{title}</span><span className="mt-1 block text-[10px] text-[#68858F]">{detail}</span></span>
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#258EA4]/20 bg-white/60 text-[#18778C] transition group-hover:translate-x-0.5"><ChevronRight className="h-4 w-4" /></span>
+                  </button>
+                ))}
+              </div>
+            </>
           )}
 
           {tab === "promos" && (
-            <div className="grid gap-5 xl:grid-cols-[0.72fr_1.28fr]">
+            <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
               <ShellCard className="p-5 sm:p-6">
-                <h2 className="font-cinzel text-xl font-black text-[#163E51]">Assign promo code</h2>
-                <form onSubmit={createPromo} className="mt-4 space-y-3">
-                  <input className={fieldClass} placeholder="Promo code e.g. ADITYA26" value={promoForm.code} onChange={(e) => setPromoForm((v) => ({ ...v, code: e.target.value.toUpperCase() }))} required />
-                  <select className={fieldClass} value={promoForm.ambassadorId} onChange={(e) => setPromoForm((v) => ({ ...v, ambassadorId: e.target.value }))} required><option value="">Choose ambassador</option>{activeAmbassadors.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.ambassadorId}</option>)}</select>
+                <div className="flex items-start gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D7F2F5] text-[#08758D]"><Tag className="h-5 w-5" /></span><div><h2 className="font-cinzel text-xl font-black uppercase text-[#163E51]">Create promo code</h2><p className="mt-1 text-[10px] text-[#68858F]">Assign a tracked code to an active ambassador</p></div></div>
+                <form onSubmit={createPromo} className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <label className="sm:col-span-2"><span className="mb-1.5 block text-[9px] font-black uppercase tracking-[0.1em] text-[#456E7C]">Promo code</span><span className="relative block"><Hash className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4F8190]" /><input className={`${fieldClass} pl-10 font-mono uppercase`} placeholder="ADITYA26" value={promoForm.code} onChange={(e) => setPromoForm((v) => ({ ...v, code: e.target.value.toUpperCase() }))} required /></span></label>
+                  <select className={`${fieldClass} sm:col-span-2`} value={promoForm.ambassadorId} onChange={(e) => setPromoForm((v) => ({ ...v, ambassadorId: e.target.value }))} required><option value="">Choose ambassador</option>{activeAmbassadors.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.ambassadorId}</option>)}</select>
                   <select className={fieldClass} value={promoForm.discountType} onChange={(e) => setPromoForm((v) => ({ ...v, discountType: e.target.value }))}><option value="NONE">No discount</option><option value="PERCENTAGE">Percentage</option><option value="FIXED">Fixed amount</option></select>
                   <input className={fieldClass} type="number" min="0" placeholder="Discount value" value={promoForm.discountValue} onChange={(e) => setPromoForm((v) => ({ ...v, discountValue: e.target.value }))} />
-                  <input className={fieldClass} type="number" min="1" placeholder="Maximum uses (optional)" value={promoForm.maxUses} onChange={(e) => setPromoForm((v) => ({ ...v, maxUses: e.target.value }))} />
-                  <button disabled={busy} className={`${primaryButton} w-full`}><Tag className="h-4 w-4" /> Assign promo</button>
+                  <input className={`${fieldClass} sm:col-span-2`} type="number" min="1" placeholder="Maximum uses (optional)" value={promoForm.maxUses} onChange={(e) => setPromoForm((v) => ({ ...v, maxUses: e.target.value }))} />
+                  <button disabled={busy} className={`${primaryButton} w-full sm:col-span-2`}><Tag className="h-4 w-4" /> Assign promo</button>
                 </form>
               </ShellCard>
+
               <ShellCard className="p-5 sm:p-6">
-                <h2 className="font-cinzel text-xl font-black text-[#163E51]">Promo codes</h2>
-                <div className="mt-4 space-y-3">
-                  {promoCodes.map((promo) => (
-                    <article key={promo.id} className="flex flex-col justify-between gap-3 rounded-2xl border border-[#208AA0]/18 bg-white/48 p-4 sm:flex-row sm:items-center">
-                      <div><p className="font-mono text-lg font-black text-[#B17E2E]">{promo.code}</p><p className="text-xs text-[#587B87]">{ambassadorName(promo.ambassadorId)} · {promo.discountType} {promo.discountValue} · {promo.usageCount} uses</p></div>
-                      <button type="button" disabled={busy} onClick={() => togglePromo(promo)} className={`${secondaryButton} ${promo.isActive ? "text-emerald-700" : "text-red-700"}`}>{promo.isActive ? "Active · Disable" : "Disabled · Enable"}</button>
-                    </article>
-                  ))}
+                <div className="flex items-start gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D7F2F5] text-[#08758D]"><Tag className="h-5 w-5" /></span><div><h2 className="font-cinzel text-xl font-black uppercase text-[#163E51]">Promo code directory</h2><p className="mt-1 text-[10px] text-[#68858F]">Usage, discounts and activation controls</p></div></div>
+                <div className="mt-4 overflow-x-auto rounded-2xl border border-[#258EA4]/16 bg-white/44">
+                  <table className="w-full min-w-[720px] text-left text-[11px]">
+                    <thead className="border-b border-[#258EA4]/14 bg-[#D9F2F5]/55 text-[9px] font-black uppercase tracking-[0.1em] text-[#32697A]"><tr><th className="px-3 py-3">Code</th><th className="px-3 py-3">Ambassador</th><th className="px-3 py-3">Discount</th><th className="px-3 py-3">Usage</th><th className="px-3 py-3">Status</th><th className="px-3 py-3 text-right">Action</th></tr></thead>
+                    <tbody>{promoCodes.length === 0 ? <tr><td colSpan="6" className="px-4 py-8 text-center text-[#6C8993]">No active promo codes yet.</td></tr> : promoCodes.map((promo) => (
+                      <tr key={promo.id} className="border-b border-[#258EA4]/10 last:border-0 hover:bg-white/35"><td className="px-3 py-3 font-mono font-black text-[#A9752B]">{promo.code}</td><td className="px-3 py-3 font-semibold text-[#315B6B]">{ambassadorName(promo.ambassadorId)}</td><td className="px-3 py-3 text-[#557783]">{nice(promo.discountType)} · {promo.discountValue}</td><td className="px-3 py-3 text-[#557783]">{promo.usageCount} / {promo.maxUses ?? "∞"}</td><td className="px-3 py-3"><StatusPill status={promo.isActive ? "ACTIVE" : "DISABLED"} /></td><td className="px-3 py-3 text-right"><button type="button" disabled={busy} onClick={() => togglePromo(promo)} className={secondaryButton}>{promo.isActive ? "Disable" : "Enable"}</button></td></tr>
+                    ))}</tbody>
+                  </table>
                 </div>
               </ShellCard>
             </div>
           )}
 
           {tab === "tasks" && (
-            <div className="grid gap-5 xl:grid-cols-[0.72fr_1.28fr]">
+            <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
               <ShellCard className="p-5 sm:p-6">
-                <h2 className="font-cinzel text-xl font-black text-[#163E51]">Create mission</h2>
-                <form onSubmit={createTask} className="mt-4 space-y-3">
+                <div className="flex items-start gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D7F2F5] text-[#08758D]"><ClipboardList className="h-5 w-5" /></span><div><h2 className="font-cinzel text-xl font-black uppercase text-[#163E51]">Create / assign task</h2><p className="mt-1 text-[10px] text-[#68858F]">Launch a new ambassador mission</p></div></div>
+                <form onSubmit={createTask} className="mt-5 space-y-3">
                   <input className={fieldClass} placeholder="Task title" value={taskForm.title} onChange={(e) => setTaskForm((v) => ({ ...v, title: e.target.value }))} required />
                   <textarea rows="5" className={textareaClass} placeholder="Task description" value={taskForm.description} onChange={(e) => setTaskForm((v) => ({ ...v, description: e.target.value }))} required />
                   <select className={fieldClass} value={taskForm.ambassadorId} onChange={(e) => setTaskForm((v) => ({ ...v, ambassadorId: e.target.value }))} required><option value="">Assign ambassador</option>{activeAmbassadors.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.ambassadorId}</option>)}</select>
                   <button disabled={busy} className={`${primaryButton} w-full`}><Plus className="h-4 w-4" /> Create task</button>
                 </form>
               </ShellCard>
+
               <ShellCard className="p-5 sm:p-6">
-                <h2 className="font-cinzel text-xl font-black text-[#163E51]">Task progress</h2>
-                <div className="mt-4 space-y-3">
-                  {tasks.map((task) => (
-                    <article key={task.taskId} className="rounded-2xl border border-[#208AA0]/18 bg-white/48 p-4">
-                      <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><p className="font-mono text-[9px] font-bold text-[#39788A]">{task.taskId}</p><p className="mt-1 font-bold">{task.title}</p><p className="mt-1 text-xs text-[#587B87]">{task.description}</p></div><span className="text-xs font-black text-[#0D7892]">{nice(task.status)}</span></div>
-                      <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_1fr_auto]">
-                        <select className={fieldClass} value={task.status} disabled={busy} onChange={(e) => updateTaskStatus(task.taskId, e.target.value)}><option value="ASSIGNED">Assigned</option><option value="IN_PROGRESS">In Progress</option><option value="COMPLETED">Completed</option></select>
-                        <select className={fieldClass} value={task.ambassadorId} disabled={busy || task.status === "COMPLETED"} onChange={(e) => reassignTask(task.taskId, e.target.value)}>{activeAmbassadors.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select>
-                        <button type="button" onClick={() => deleteTask(task.taskId)} disabled={busy || task.status !== "ASSIGNED"} className={`${secondaryButton} text-red-700`}><Trash2 className="h-3.5 w-3.5" /> Delete</button>
-                      </div>
-                      {(task.remarks || task.completionDetails) && <div className="mt-3 rounded-xl bg-white/55 p-3 text-xs text-[#587B87]"><strong>Remarks:</strong> {task.remarks || "—"}<br /><strong>Completion:</strong> {task.completionDetails || "—"}</div>}
-                    </article>
-                  ))}
+                <div className="flex items-start gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D7F2F5] text-[#08758D]"><ClipboardList className="h-5 w-5" /></span><div><h2 className="font-cinzel text-xl font-black uppercase text-[#163E51]">Task management</h2><p className="mt-1 text-[10px] text-[#68858F]">Assign, track and review ambassador progress</p></div></div>
+                <div className="mt-4 overflow-x-auto rounded-2xl border border-[#258EA4]/16 bg-white/44">
+                  <table className="w-full min-w-[820px] text-left text-[11px]">
+                    <thead className="border-b border-[#258EA4]/14 bg-[#D9F2F5]/55 text-[9px] font-black uppercase tracking-[0.1em] text-[#32697A]"><tr><th className="px-3 py-3">Task</th><th className="px-3 py-3">Ambassador</th><th className="px-3 py-3">Status</th><th className="px-3 py-3">Assigned</th><th className="px-3 py-3 text-right">Actions</th></tr></thead>
+                    <tbody>{tasks.length === 0 ? <tr><td colSpan="5" className="px-4 py-8 text-center text-[#6C8993]">No missions assigned yet.</td></tr> : tasks.map((task) => (
+                      <tr key={task.taskId} className="border-b border-[#258EA4]/10 last:border-0 align-top hover:bg-white/35">
+                        <td className="px-3 py-3"><p className="font-black text-[#214B5B]">{task.title}</p><p className="mt-1 font-mono text-[9px] text-[#56808E]">{task.taskId}</p>{(task.remarks || task.completionDetails) && <p className="mt-1 max-w-xs text-[9px] leading-4 text-[#78919A]">{task.remarks || task.completionDetails}</p>}</td>
+                        <td className="px-3 py-3"><select className="h-8 max-w-[170px] rounded-lg border border-[#258EA4]/20 bg-white/70 px-2 text-[10px] font-semibold text-[#315B6B] outline-none" value={task.ambassadorId} disabled={busy || task.status === "COMPLETED"} onChange={(e) => reassignTask(task.taskId, e.target.value)}>{activeAmbassadors.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></td>
+                        <td className="px-3 py-3"><StatusPill status={task.status} /></td>
+                        <td className="px-3 py-3 text-[#557783]">{task.assignedAt ? new Date(task.assignedAt).toLocaleDateString() : "—"}</td>
+                        <td className="px-3 py-3"><div className="flex items-center justify-end gap-1.5"><select className="h-8 rounded-lg border border-[#258EA4]/20 bg-white/70 px-2 text-[10px] font-bold text-[#315B6B] outline-none" value={task.status} disabled={busy} onChange={(e) => updateTaskStatus(task.taskId, e.target.value)}><option value="ASSIGNED">Assigned</option><option value="IN_PROGRESS">In Progress</option><option value="COMPLETED">Completed</option></select><button type="button" onClick={() => deleteTask(task.taskId)} disabled={busy || task.status !== "ASSIGNED"} className="flex h-8 w-8 items-center justify-center rounded-lg border border-rose-200 bg-rose-50/70 text-rose-600 disabled:opacity-40" aria-label={`Delete ${task.title}`}><Trash2 className="h-3.5 w-3.5" /></button></div></td>
+                      </tr>
+                    ))}</tbody>
+                  </table>
                 </div>
               </ShellCard>
             </div>
@@ -523,14 +671,21 @@ export default function CampusAmbassadorAdmin() {
 
           {tab === "referrals" && (
             <ShellCard className="p-5 sm:p-6">
-              <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-end">
-                <div><h2 className="font-cinzel text-xl font-black text-[#163E51]">Promo registrations</h2><p className="mt-1 text-xs text-[#587B87]">Track registrations attributed to Campus Ambassador promo codes.</p></div>
-                <form onSubmit={searchReferrals} className="grid gap-2 sm:grid-cols-2 xl:grid-cols-[220px_190px_180px_auto]"><input className={fieldClass} placeholder="Name / email / registration" value={referralSearch} onChange={(e) => setReferralSearch(e.target.value)} /><select className={fieldClass} value={referralAmbassadorId} onChange={(e) => setReferralAmbassadorId(e.target.value)}><option value="">All ambassadors</option>{ambassadors.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select><select className={fieldClass} value={referralStatus} onChange={(e) => setReferralStatus(e.target.value)}><option value="">All statuses</option><option value="PENDING_VERIFICATION">Pending</option><option value="VERIFIED">Verified</option><option value="REJECTED">Rejected</option></select><button className={secondaryButton}><Search className="h-4 w-4" /> Search</button></form>
+              <div className="flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
+                <div className="flex items-start gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D7F2F5] text-[#08758D]"><CheckCircle2 className="h-5 w-5" /></span><div><h2 className="font-cinzel text-xl font-black uppercase text-[#163E51]">Referral tracking</h2><p className="mt-1 text-[10px] text-[#68858F]">Monitor registrations and conversions attributed to ambassador promo codes</p></div></div>
+                <form onSubmit={searchReferrals} className="grid gap-2 sm:grid-cols-2 xl:grid-cols-[220px_180px_170px_auto]">
+                  <input className={fieldClass} placeholder="Name / email / registration" value={referralSearch} onChange={(e) => setReferralSearch(e.target.value)} />
+                  <select className={fieldClass} value={referralAmbassadorId} onChange={(e) => setReferralAmbassadorId(e.target.value)}><option value="">All ambassadors</option>{ambassadors.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select>
+                  <select className={fieldClass} value={referralStatus} onChange={(e) => setReferralStatus(e.target.value)}><option value="">All statuses</option><option value="PENDING_VERIFICATION">Pending</option><option value="VERIFIED">Verified</option><option value="REJECTED">Rejected</option></select>
+                  <button className={secondaryButton}><Search className="h-4 w-4" /> Search</button>
+                </form>
               </div>
-              <div className="mt-4 overflow-x-auto rounded-2xl border border-[#208AA0]/18 bg-white/45">
-                <table className="min-w-[900px] w-full text-left text-xs">
-                  <thead className="border-b border-[#208AA0]/15 bg-white/45 text-[10px] uppercase tracking-wider text-[#39788A]"><tr><th className="px-4 py-3">Registration</th><th className="px-4 py-3">Participant</th><th className="px-4 py-3">Package</th><th className="px-4 py-3">Promo</th><th className="px-4 py-3">Ambassador</th><th className="px-4 py-3">Payment</th><th className="px-4 py-3">Status</th></tr></thead>
-                  <tbody>{referrals.length === 0 ? <tr><td colSpan="7" className="px-4 py-8 text-center text-[#587B87]">No matching registrations.</td></tr> : referrals.map((row) => <tr key={row._id || row.registrationId} className="border-b border-[#208AA0]/10 last:border-0"><td className="px-4 py-3 font-mono font-bold">{row.registrationId}</td><td className="px-4 py-3">{row.name}<span className="block text-[10px] text-[#718C95]">{row.email}</span></td><td className="px-4 py-3">{row.packageName || row.packageCode}</td><td className="px-4 py-3 font-mono font-bold text-[#B17E2E]">{row.promoCode || "—"}</td><td className="px-4 py-3">{ambassadorName(row.ambassadorId)}</td><td className="px-4 py-3">{nice(row.paymentStatus)}</td><td className="px-4 py-3 font-bold text-[#0D7892]">{nice(row.status)}</td></tr>)}</tbody>
+              <div className="mt-5 overflow-x-auto rounded-2xl border border-[#258EA4]/16 bg-white/44">
+                <table className="w-full min-w-[980px] text-left text-[11px]">
+                  <thead className="border-b border-[#258EA4]/14 bg-[#D9F2F5]/55 text-[9px] font-black uppercase tracking-[0.1em] text-[#32697A]"><tr><th className="px-3 py-3">Registration ID</th><th className="px-3 py-3">Participant</th><th className="px-3 py-3">Ambassador</th><th className="px-3 py-3">Promo code</th><th className="px-3 py-3">Package</th><th className="px-3 py-3">Payment</th><th className="px-3 py-3">Status</th><th className="px-3 py-3">Date</th></tr></thead>
+                  <tbody>{referrals.length === 0 ? <tr><td colSpan="8" className="px-4 py-10 text-center text-[#6C8993]">No referrals recorded yet.</td></tr> : referrals.map((row) => (
+                    <tr key={row._id || row.registrationId} className="border-b border-[#258EA4]/10 last:border-0 hover:bg-white/35"><td className="px-3 py-3 font-mono text-[10px] font-black text-[#315B6B]">{row.registrationId}</td><td className="px-3 py-3 font-semibold text-[#315B6B]">{row.name}<span className="block text-[9px] font-normal text-[#78919A]">{row.email}</span></td><td className="px-3 py-3 text-[#557783]">{ambassadorName(row.ambassadorId)}</td><td className="px-3 py-3 font-mono font-black text-[#A9752B]">{row.promoCode || "—"}</td><td className="px-3 py-3 text-[#557783]">{row.packageName || row.packageCode}</td><td className="px-3 py-3 text-[#557783]">{nice(row.paymentStatus)}</td><td className="px-3 py-3"><StatusPill status={row.status} /></td><td className="px-3 py-3 text-[#557783]">{row.createdAt ? new Date(row.createdAt).toLocaleDateString() : "—"}</td></tr>
+                  ))}</tbody>
                 </table>
               </div>
             </ShellCard>

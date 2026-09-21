@@ -1,6 +1,29 @@
 .git
+.gitignore
 **/node_modules
 **/dist
 **/.vite
+**/coverage
+**/logs
+**/*.log
+**/.env
+**/.env.*
+!**/.env.example
 *.patch
 *.zip
+.DS_Store
+**/.DS_Store
+
+# Root Docker build deploys only RENAISSANCE-ECELL-2026/server1.
+# Exclude legacy/unrelated applications and generated content from the build context.
+backend/
+frontend/
+nginx.conf
+docker-compose.yml
+RENAISSANCE-ECELL-2026/client/
+RENAISSANCE-ECELL-2026/server/
+RENAISSANCE-ECELL-2026/*.py
+RENAISSANCE-ECELL-2026/*.js
+RENAISSANCE-ECELL-2026/server1/tests/
+RENAISSANCE-ECELL-2026/server1/README.md
+RENAISSANCE-ECELL-2026/server1/.gitignore

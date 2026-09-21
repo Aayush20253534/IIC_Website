@@ -28,3 +28,14 @@ export const PAYMENT_STATUS = Object.freeze({
   VERIFIED: "VERIFIED",
   REJECTED: "REJECTED",
 });
+
+
+export const ADMIN_STATUS = Object.freeze({
+  ACTIVE: "ACTIVE",
+  DISABLED: "DISABLED",
+});
+
+export const ADMIN_ROLE = Object.freeze({
+  ADMIN: "ADMIN",
+  SUPER_ADMIN: "SUPER_ADMIN",
+});

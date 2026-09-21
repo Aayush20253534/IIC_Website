@@ -1,4 +1,6 @@
 import {
+  Admin,
+  AdminAuthSession,
   AuthSession,
   CampusAmbassador,
   PromoCode,
@@ -7,7 +9,15 @@ import {
 } from "../models/index.js";
 import { logger } from "../utils/logger.js";
 
-const indexedModels = [AuthSession, CampusAmbassador, PromoCode, Registration, Task];
+const indexedModels = [
+  Admin,
+  AdminAuthSession,
+  AuthSession,
+  CampusAmbassador,
+  PromoCode,
+  Registration,
+  Task,
+];
 
 export async function ensureDatabaseIndexes() {
   for (const Model of indexedModels) {

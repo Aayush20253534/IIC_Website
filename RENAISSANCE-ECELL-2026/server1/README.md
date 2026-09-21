@@ -143,3 +143,14 @@ Task statuses follow `ASSIGNED -> IN_PROGRESS -> COMPLETED`. An ambassador may a
 Referral responses intentionally exclude participant email, phone number, transaction IDs, payment screenshots and payment verification information. Attribution is scoped by the authenticated ambassador's MongoDB ID instead of trusting a promo code or ambassador ID supplied by the client.
 
 All portal routes require a valid ambassador access token and reject access while `mustChangePassword` remains true. State-changing task routes additionally require an allowed frontend origin.
+
+
+## Part 5: Admin management APIs
+
+Create the first admin with:
+
+```bash
+npm run admin:create -- --name="Main Admin" --email=admin@example.com --role=SUPER_ADMIN
+```
+
+Admin authentication lives under `/api/v1/admin/auth`. Protected management APIs live under `/api/v1/admin` and cover ambassadors, promo codes, task assignment/progress, and promo-attributed registrations. Deleting an ambassador archives the account instead of destroying historical referral/task links.

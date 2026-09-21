@@ -153,9 +153,9 @@ function AdminLogin({ onAuthenticated }) {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden px-3 pb-10 pt-[104px] text-[#173F52] sm:px-5 lg:px-7">
-      <section className="relative z-10 mx-auto grid w-full max-w-[1120px] gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-        <ShellCard className="relative hidden min-h-[560px] p-7 lg:flex lg:flex-col lg:justify-between lg:p-9">
+    <main className="relative min-h-screen overflow-hidden px-3 pb-7 pt-[94px] text-[#173F52] sm:px-5 lg:px-7">
+      <section className="relative z-10 mx-auto grid w-full max-w-[1040px] gap-3.5 lg:grid-cols-[1.03fr_0.97fr]">
+        <ShellCard className="relative hidden min-h-[476px] p-6 lg:flex lg:flex-col lg:justify-between lg:p-7">
           <img
             src="/sticker-compass.png"
             alt=""
@@ -186,19 +186,19 @@ function AdminLogin({ onAuthenticated }) {
               Renaissance X · Command bridge
             </span>
 
-            <p className="mt-8 font-mono text-[9px] font-black uppercase tracking-[0.28em] text-[#4B7B8A]">
+            <p className="mt-5 font-mono text-[8px] font-black uppercase tracking-[0.28em] text-[#4B7B8A]">
               Fleet administration
             </p>
-            <h1 className="mt-2 max-w-[520px] font-cinzel text-[38px] font-black uppercase leading-[1.04] tracking-[-0.025em] text-[#153E51]">
+            <h1 className="mt-2 max-w-[500px] font-cinzel text-[32px] font-black uppercase leading-[1.04] tracking-[-0.025em] text-[#153E51]">
               Navigate the
               <span className="block text-[#B17E2E]">ambassador fleet</span>
             </h1>
-            <p className="mt-5 max-w-[500px] text-[12px] leading-6 text-[#466D7A]">
+            <p className="mt-3.5 max-w-[480px] text-[11px] leading-5 text-[#466D7A]">
               A secure command deck for managing campus captains, promo codes,
               missions and referral activity across Renaissance.
             </p>
 
-            <div className="my-7 flex items-center gap-3 text-[#1F8CA2]" aria-hidden="true">
+            <div className="my-4 flex items-center gap-3 text-[#1F8CA2]" aria-hidden="true">
               <span className="h-px w-20 bg-gradient-to-r from-transparent to-[#1F8CA2]/55" />
               <Anchor className="h-4 w-4 text-[#B17E2E]" />
               <span className="h-px w-20 bg-gradient-to-l from-transparent to-[#1F8CA2]/55" />
@@ -210,18 +210,18 @@ function AdminLogin({ onAuthenticated }) {
                 [Tag, "Signal flags", "Promo codes"],
                 [ClipboardList, "Mission log", "Tasks"],
               ].map(([Icon, title, detail]) => (
-                <div key={title} className="rounded-2xl border border-[#248EA4]/20 bg-white/48 p-3.5 backdrop-blur-sm">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2A98AC]/18 bg-[#D8F3F6]/80 text-[#0A819C]">
+                <div key={title} className="rounded-2xl border border-[#248EA4]/20 bg-white/48 p-3 backdrop-blur-sm">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#2A98AC]/18 bg-[#D8F3F6]/80 text-[#0A819C]">
                     <Icon className="h-4 w-4" />
                   </span>
-                  <p className="mt-3 text-[10px] font-black uppercase tracking-[0.08em] text-[#234F60]">{title}</p>
+                  <p className="mt-2 text-[9px] font-black uppercase tracking-[0.08em] text-[#234F60]">{title}</p>
                   <p className="mt-1 text-[9px] text-[#6A8791]">{detail}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative z-10 flex items-center justify-between gap-4 rounded-2xl border border-[#B98B3C]/20 bg-[#F8F2E5]/55 px-4 py-3">
+          <div className="relative z-10 flex items-center justify-between gap-4 rounded-2xl border border-[#B98B3C]/20 bg-[#F8F2E5]/55 px-4 py-2.5">
             <span className="flex items-center gap-2 text-[10px] font-semibold text-[#6A552C]">
               <ShieldCheck className="h-4 w-4 text-[#A87527]" />
               Restricted command access
@@ -232,7 +232,7 @@ function AdminLogin({ onAuthenticated }) {
           </div>
         </ShellCard>
 
-        <ShellCard className="relative flex min-h-[560px] flex-col justify-center p-5 sm:p-7 lg:p-8">
+        <ShellCard className="relative flex min-h-[476px] flex-col justify-center p-5 sm:p-6 lg:p-7">
           <img
             src="/sticker-compass.png"
             alt=""
@@ -242,13 +242,13 @@ function AdminLogin({ onAuthenticated }) {
 
           <div className="relative z-10 mx-auto w-full max-w-[430px]">
             <div className="text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[#208AA0]/30 bg-[radial-gradient(circle_at_42%_34%,rgba(255,255,255,0.96),rgba(207,241,245,0.92)_72%)] text-[#B17E2E] shadow-[0_10px_26px_rgba(8,96,119,0.14)]">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#208AA0]/30 bg-[radial-gradient(circle_at_42%_34%,rgba(255,255,255,0.96),rgba(207,241,245,0.92)_72%)] text-[#B17E2E] shadow-[0_10px_26px_rgba(8,96,119,0.14)]">
                 <KeyRound className="h-6 w-6" />
               </div>
-              <p className="mt-4 font-mono text-[9px] font-black uppercase tracking-[0.22em] text-[#39788A]">
+              <p className="mt-3 font-mono text-[8px] font-black uppercase tracking-[0.22em] text-[#39788A]">
                 Renaissance command authority
               </p>
-              <h2 className="mt-2 font-cinzel text-[28px] font-black uppercase leading-tight text-[#163E51]">
+              <h2 className="mt-1.5 font-cinzel text-[25px] font-black uppercase leading-tight text-[#163E51]">
                 Admin command deck
               </h2>
               <p className="mx-auto mt-2 max-w-sm text-[11px] leading-5 text-[#587B87]">
@@ -256,7 +256,7 @@ function AdminLogin({ onAuthenticated }) {
               </p>
             </div>
 
-            <div className="my-5 flex items-center gap-3 text-[#238FA5]/70" aria-hidden="true">
+            <div className="my-4 flex items-center gap-3 text-[#238FA5]/70" aria-hidden="true">
               <span className="h-px flex-1 bg-gradient-to-r from-transparent to-current" />
               <span className="h-1.5 w-1.5 rotate-45 border border-[#B17E2E]/70" />
               <span className="h-px flex-1 bg-gradient-to-l from-transparent to-current" />
@@ -273,7 +273,7 @@ function AdminLogin({ onAuthenticated }) {
                     onChange={(e) => setCredentials((v) => ({ ...v, email: e.target.value }))}
                     autoComplete="email"
                     placeholder="admin@renaissance.com"
-                    className={`${fieldClass} h-12 pl-10`}
+                    className={`${fieldClass} h-11 pl-10`}
                     required
                   />
                 </span>
@@ -289,7 +289,7 @@ function AdminLogin({ onAuthenticated }) {
                     onChange={(e) => setCredentials((v) => ({ ...v, password: e.target.value }))}
                     autoComplete="current-password"
                     placeholder="Enter secure password"
-                    className={`${fieldClass} h-12 pl-10 pr-11`}
+                    className={`${fieldClass} h-11 pl-10 pr-11`}
                     required
                   />
                   <button
@@ -310,13 +310,13 @@ function AdminLogin({ onAuthenticated }) {
                 </div>
               )}
 
-              <button type="submit" disabled={loading} className={`${primaryButton} h-12 w-full text-[11px]`}>
+              <button type="submit" disabled={loading} className={`${primaryButton} h-11 w-full text-[11px]`}>
                 {loading ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <UserCog className="h-4 w-4" />}
                 {loading ? "Establishing secure link..." : "Enter admin portal"}
               </button>
             </form>
 
-            <div className="mt-5 grid grid-cols-2 gap-2">
+            <div className="mt-4 grid grid-cols-2 gap-2">
               <div className="rounded-xl border border-[#258EA4]/18 bg-white/42 px-3 py-2.5 text-[9px] font-semibold text-[#557986]">
                 <ShieldCheck className="mb-1 h-3.5 w-3.5 text-[#0D7892]" />
                 Protected admin session
